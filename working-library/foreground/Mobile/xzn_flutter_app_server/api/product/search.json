@@ -1,0 +1,22 @@
+{
+    "success": false,
+    "data": [
+        {
+            "name": "",
+            "id": "",
+            "price": {
+                "num": 0,
+                "unit": ""
+            },
+            "pictureId": "",
+            "discount": 0,
+            "tags": [
+                {
+                    "type": "",
+                    "content": ""
+                }
+            ]
+        }
+    ],
+    "message": ""
+}

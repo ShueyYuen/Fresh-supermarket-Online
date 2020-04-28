@@ -1,0 +1,10 @@
+{
+    "success": false,
+    "data": {
+        "userId": "",
+        "nickname": "",
+        "token": "",
+        "avatarId": ""
+    },
+    "message": ""
+}

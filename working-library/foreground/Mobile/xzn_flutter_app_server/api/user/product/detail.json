@@ -1,0 +1,40 @@
+{
+    "success": false,
+    "data": {
+        "productName": "",
+        "price": {
+            "num": 0,
+            "unit": ""
+        },
+        "pictureList": {
+            "shuffle": [
+                ""
+            ],
+            "detail": [
+                ""
+            ]
+        },
+        "details": {
+            "origin": "",
+            "specification": "",
+            "shelf": "",
+            "stockway": "",
+            "weight": ""
+        },
+        "stock": 0,
+        "discount": 0,
+        "description": {
+            "subtitle": "",
+            "distribution": "",
+            "promotipn": "",
+            "tags": [
+                {
+                    "type": "",
+                    "content": ""
+                }
+            ]
+        },
+        "cartnum": 0
+    },
+    "message": ""
+}

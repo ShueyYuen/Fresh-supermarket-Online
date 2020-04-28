@@ -1,0 +1,30 @@
+{
+    "success": false,
+    "data": {
+        "products": [
+            {
+                "num": 0,
+                "pictureId": "",
+                "totalprice": 0
+            }
+        ],
+        "distributionfee": "",
+        "discount": 0,
+        "user": {
+            "address": "",
+            "name": "",
+            "phone": ""
+        },
+        "arrivetime": "",
+        "orderId": "",
+        "state": {
+            "submittime": "",
+            "paytime": "",
+            "receivetime": "",
+            "finishtime": ""
+        },
+        "diliveryphone": ""
+
+    },
+    "message": ""
+}

@@ -1,0 +1,12 @@
+{
+    "success": false,
+    "data": [
+        {
+            "no": 0,
+            "sales": 0,
+            "turnover": 0,
+            "profits": 0
+        }
+    ],
+    "message": ""
+}

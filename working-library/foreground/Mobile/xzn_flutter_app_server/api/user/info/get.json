@@ -1,0 +1,9 @@
+{
+    "success": false,
+    "data": {
+        "nickname": "",
+        "telephone": "",
+        "sex": ""
+    },
+    "message": ""
+}

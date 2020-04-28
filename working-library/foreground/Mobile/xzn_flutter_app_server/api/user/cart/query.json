@@ -1,0 +1,26 @@
+{
+    "success": false,
+    "data": [
+        {
+            "product": {
+                "productName": "2",
+                "productId": "lowwerhash, 15",
+                "price": {
+                    "num": 0,
+                    "unit": "upperhash, 5"
+                },
+                "pictureId": "image",
+                "discount": 1,
+                "tags": [
+                    {
+                        "type": "alpha, 20",
+                        "cotent": "num"
+                    }
+                ]
+            },
+            "number": 2,
+            "state": "enum[1,2,5]"
+        }
+    ],
+    "message": ""
+}

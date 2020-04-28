@@ -1,0 +1,5 @@
+name: xzn_flutter_app_server
+description: Self init server for foreground development
+
+dependencies:
+  http_server: ^0.9.8
