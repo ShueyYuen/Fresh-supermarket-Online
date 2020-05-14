@@ -3,7 +3,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 import 'loading.dart';
 import 'app.dart';
-import 'page/login.dart';
+import 'page/login_choose.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: <String, WidgetBuilder>{
         "app": (context) => App(),
-        "login": (context) => Login(),
+        "login": (context) => LoginChoose(),
         "about": (context) => WebviewScaffold(
           url: "https://www.bing.com",
           appBar: AppBar(
