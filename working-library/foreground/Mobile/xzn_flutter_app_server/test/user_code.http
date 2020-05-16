@@ -4,9 +4,15 @@
 
 @host = {{protocol}}://{{hostname}}:{{port}}
 
-POST {{host}}/api/user/cart/query HTTP/1.1
+POST {{host}}/api/user/code HTTP/1.1
 content-type: application/json
 
 {
-    "token": "1sda245dsf245sdf2sd"
+}
+
+###
+GET {{host}}/api/user/notice HTTP/1.1
+content-type: application/json
+
+{
 }

@@ -23,3 +23,8 @@ flutter clean
 
 ## 第三方资源管理
 [iconfont](https://www.iconfont.cn/): 图标文件;
+
+## json_model使用
+```dart
+flutter packages pub run json_model
+```

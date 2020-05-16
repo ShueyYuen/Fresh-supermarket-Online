@@ -19,7 +19,8 @@ import 'dart:math';
 
 import 'utf.dart';
 
-final double _failure_rate = 0.1;
+// 失败率
+final double _failure_rate = 0.01;
 
 final Map<String, String> baseCode = {
   "utf": utf,
@@ -122,16 +123,15 @@ String fillJSON(String json_text) {
   map.updateAll((String key,dynamic value){
     if (key == "success") {
       return success;
-    }else if (key == "data") {
+    }else if (key == "message" && !success) {
+      return "Cofalconer don't want you to get there!!";
+    }else {
       if (success) {
         return _fillContent(value);
         // return value;
       }
       else return {};
-    }else if (key == "message" && !success) {
-      return "Cofalconer don't want you to get there!!";
     }
-    return value;
   });
   // print(map["data"][0]["number"].runtimeType);
   // if (map["data"] is List<dynamic>)
