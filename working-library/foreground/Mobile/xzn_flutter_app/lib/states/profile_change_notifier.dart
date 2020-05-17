@@ -5,6 +5,7 @@ import '../common/global.dart';
 // 导入需要全局使用的模型
 import '../models/profile.dart';
 import '../models/user.dart';
+import '../models/myOrder.dart';
 
 class ProfileChangeNotifier extends ChangeNotifier{
   Profile get _profile => Global.profile;
@@ -23,6 +24,17 @@ class UserModel extends ProfileChangeNotifier{
 
   set user(User user) {
     _profile.user = user;
+    notifyListeners();
+  }
+}
+
+class MyOrderModel extends ProfileChangeNotifier{
+  MyOrder get my_order => _profile.my_order;
+  // 是否加载过my_order
+  bool get isLoaded => my_order != null;
+
+  set my_order(MyOrder my_order) {
+    _profile.my_order = my_order;
     notifyListeners();
   }
 }

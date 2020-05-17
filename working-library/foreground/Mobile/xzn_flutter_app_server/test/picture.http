@@ -1,0 +1,17 @@
+@protocol = http
+@hostname = 192.168.42.224
+@port = 6080
+
+@host = {{protocol}}://{{hostname}}:{{port}}
+
+GET {{host}}/api/avatar/Samt HTTP/1.1
+content-type: application/json
+
+{
+}
+###
+GET {{host}}/api/avatar/Ora HTTP/1.1
+content-type: application/json
+
+{
+}

@@ -7,7 +7,7 @@ class User {
     User();
 
     String userId;
-    String nikename;
+    String nickname;
     String token;
     String avatarId;
     

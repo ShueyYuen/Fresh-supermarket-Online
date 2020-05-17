@@ -1,9 +1,5 @@
 {
-    "success": false,
-    "data": {
-        "nickname": "",
-        "telephone": "",
-        "sex": ""
-    },
-    "message": ""
+    "nickname": "username",
+    "telephone": "num, 11",
+    "sex": "enum[男, 女]"
 }

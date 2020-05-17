@@ -6,15 +6,17 @@ import 'package:xzn/models/index.dart';
 import 'package:provider/provider.dart';
 
 import '../conf/config.dart';
-import '../models/message_code.dart';
+import '../models/messageCode.dart';
 import '../states/profile_change_notifier.dart';
 
-getMessage_code() async {
+getMessage_code(String phone) async {
   String url = Config.baseUrl()+"user/code";
-  var res = await http.post(url);
+  print(phone);
+  var res = await http.post(url, body: {
+    "phone": phone
+  });
   var json = jsonDecode(res.body);
-  print(json);
-  return  Message_code.fromJson(json);
+  return  MessageCode.fromJson(json);
 }
 
 Login(BuildContext context, String phone, {String code = "", String password = ""}) async {

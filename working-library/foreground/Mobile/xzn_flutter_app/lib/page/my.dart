@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/conf/config.dart';
+import 'package:xzn/widget/my/my_order_border.dart';
+import 'package:xzn/widget/my/operator_list.dart';
 //import '../common/global.dart';
 import '../states/profile_change_notifier.dart';
+import '../models/user.dart';
 
 class My extends StatefulWidget {
   @override
@@ -11,6 +15,8 @@ class My extends StatefulWidget {
 class _MyState extends State<My> {
   @override
   Widget build(BuildContext context) {
+    bool isLogin = Provider.of<UserModel>(context, listen: true).isLogin;
+    User user = Provider.of<UserModel>(context, listen: true).user;
     return Column(
       children: <Widget>[
         Container(
@@ -34,9 +40,10 @@ class _MyState extends State<My> {
                           minWidth: 300
                         ),
                         child: Text(
-                          "JOANNNA",
+                          isLogin?user.nickname:"请登录",
                           style: TextStyle(
-                            fontSize: 28
+                            fontSize: 28,
+                            color: isLogin?Colors.black:Colors.grey[600]
                           ),
                         ),
                       ),
@@ -70,14 +77,19 @@ class _MyState extends State<My> {
                 bottom: 0.0,
                 child: GestureDetector(
                   child: ClipOval(
-                    child: Image.asset(
-                      "assets/image/avatar.jpg",
-                      width: 70,
-                      fit: BoxFit.fill,
+                    child: isLogin?
+                      Image(
+                        image:NetworkImage(Config.baseUrl()+"avatar/"+user.avatarId),
+                        width: 70,
+                        fit: BoxFit.fill,
+                      ) :Image.asset(
+                        "assets/image/avatar.jpg",
+                        width: 70,
+                        fit: BoxFit.fill,
                     ),
                   ),
                   onTap: () {
-                    print(Provider.of<UserModel>(context, listen: false).isLogin);
+                    print(isLogin);
                     Navigator.pushNamed(context, "login");
                   },
                 ),
@@ -85,46 +97,9 @@ class _MyState extends State<My> {
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child:DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colors.white,
-//            gradient: LinearGradient(colors:[Colors.red,Colors.orange[700]]), //背景渐变
-              borderRadius: BorderRadius.circular(10.0), //3像素圆角
-              boxShadow: [
-                BoxShadow(
-                  color:Colors.grey[400],
-                  offset: Offset(0,2.0),
-                  blurRadius: 6.0
-                )
-              ]
-            ),
-            child:Container(
-              width: 360,
-              child: Column(
-                children: <Widget>[
-                  Stack(
-                    children: <Widget>[
-                      Positioned(
-                        child: Text(
-                          "我的订单",
-                          style: TextStyle(
-                            fontSize: 18
-                          ),
-                        )
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-          )
-        ),
-        FlatButton(onPressed: () {
-          Provider.of<UserModel>(context, listen: false).user = null;
-        }, child: Text("退出登录"))
-      ],
+        MyOrderBorder(),
+        OperatorList()
+      ]
     );
   }
 }

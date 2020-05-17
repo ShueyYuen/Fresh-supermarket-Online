@@ -1,6 +1,7 @@
 @protocol = http
-@hostname = 192.168.42.224
-@port = 6080
+@hostname = 203.195.149.30
+
+@port = 8010
 
 @host = {{protocol}}://{{hostname}}:{{port}}
 
@@ -8,22 +9,13 @@ POST {{host}}/api/user/code HTTP/1.1
 content-type: application/json
 
 {
+    phone: 18297913123  
 }
-###
-POST {{host}}/api/user/my HTTP/1.1
-content-type: application/json
 
-{
-}
-###
-POST {{host}}/api/user/info/get HTTP/1.1
-content-type: application/json
-
-{
-}
 ###
 POST {{host}}/api/user/login HTTP/1.1
 content-type: application/json
 
 {
+    phone: 18297913123
 }

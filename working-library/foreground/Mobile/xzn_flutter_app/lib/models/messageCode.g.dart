@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'message_code.dart';
+part of 'messageCode.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Message_code _$Message_codeFromJson(Map<String, dynamic> json) {
-  return Message_code()..code = json['code'] as String;
+MessageCode _$MessageCodeFromJson(Map<String, dynamic> json) {
+  return MessageCode()..code = json['code'] as String;
 }
 
-Map<String, dynamic> _$Message_codeToJson(Message_code instance) =>
+Map<String, dynamic> _$MessageCodeToJson(MessageCode instance) =>
     <String, dynamic>{'code': instance.code};

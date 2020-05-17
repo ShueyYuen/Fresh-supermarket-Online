@@ -73,9 +73,9 @@ void responseJSON(HttpRequest request, String suffix)  async{
     } else {
       back_suffix = ".error.json";
       file_url = request.uri.toString().substring(1);
-      if (file_url == "api/avatar/load") {
-        request.uri.toString().substring(1)+"/";
-        String pictures = "assets/avatar/load.webp";
+      if (file_url.startsWith("api/avatar/")) {
+        file_url = file_url.substring(11);
+        String pictures = "assets/avatar/"+file_url+".webp";
         responseImage(request, pictures);
       } else if (file_url.startsWith("api/picture/")) {
         file_url = file_url.replaceAll("api/picture/", "assets/image/");

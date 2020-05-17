@@ -17,6 +17,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:faker/faker.dart';
+
 import 'utf.dart';
 
 // 失败率
@@ -71,6 +73,7 @@ String randomEnum(String type) {
 }
 
 dynamic _fillAtomElement(dynamic type) {
+  var faker = new Faker();
   if (type is String) {
     if (type == "image")
       return getAssetImage();
@@ -83,7 +86,11 @@ dynamic _fillAtomElement(dynamic type) {
     } else if (type.startsWith("enum")) {
       return randomEnum(type);
     } else {
-      return generateUTF(type);
+      switch (type) {
+        case "nickname": return faker.internet.userName();
+        case "email": return faker.internet.email();
+        default: return generateUTF(type);
+      }
     }
   } else if (type is int) {
     if (type == 0)
@@ -91,7 +98,7 @@ dynamic _fillAtomElement(dynamic type) {
     else if (type == 1)
       return (_random.nextDouble()*100).truncate()/100;
     else if (type == 2)
-      return _random.nextInt(1000);
+      return _random.nextInt(100);
   }
 }
 

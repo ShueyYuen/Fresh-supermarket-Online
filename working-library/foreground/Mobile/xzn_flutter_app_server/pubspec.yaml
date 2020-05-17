@@ -3,3 +3,5 @@ description: Self init server for foreground development
 
 dependencies:
   http_server: ^0.9.8
+  faker: ^1.2.1
+  chinese_faker: ^0.0.3

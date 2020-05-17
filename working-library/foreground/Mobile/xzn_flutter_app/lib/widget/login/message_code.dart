@@ -2,17 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../models/message_code.dart';
 import '../../services/login_service.dart';
 import 'login_button.dart';
 
 class CountDownButton extends StatefulWidget {
+  CountDownButton({Key key, this.text_controller,})
+    : super(key: key);
+
+  final TextEditingController text_controller;
   @override
   _CountDownState createState() => _CountDownState();
 }
 
 class _CountDownState extends State<CountDownButton> {
-  Message_code _Message_code = Message_code();
   Timer _timer;
   int _countdownTime = 0;
 
@@ -55,7 +57,7 @@ class _CountDownState extends State<CountDownButton> {
             ),
           ),
           onPressed: _countdownTime > 0 ? null : () async {
-            var result = await getMessage_code() as Message_code;
+            await getMessage_code(widget.text_controller.text);
             setState(() {
               _countdownTime = 60;
               startTimer();
@@ -123,7 +125,7 @@ class _MessageCodeState extends State<MessageCodeWidget> {
             alignment:Alignment.center , //指定未定位或部分定位widget的对齐方式
             children: <Widget>[
               TextFormField(
-                maxLength: 6,
+                maxLength: 4,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: "验证码",
@@ -132,13 +134,13 @@ class _MessageCodeState extends State<MessageCodeWidget> {
                 ),
                 controller: _codeController,
                 validator: (value) {
-                  if (value.length != 6) {
+                  if (value.length != 4) {
                     return "请输入验证码！";
                   }
                   return null;
                 },
               ),
-              CountDownButton(),
+              CountDownButton(text_controller: _phoneController,),
             ],
           ),
           LoginButtonWidget(validate: validate, onLogin: _handleLogin,),
