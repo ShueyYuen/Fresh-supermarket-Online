@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 
 import '../../models/message_code.dart';
 import '../../services/login_service.dart';
+import 'login_button.dart';
 
-class MessageCodeWidget extends StatefulWidget {
+class CountDownButton extends StatefulWidget {
   @override
-  _MessageCodeState createState() =>  _MessageCodeState();
+  _CountDownState createState() => _CountDownState();
 }
 
-class _MessageCodeState extends State<MessageCodeWidget> {
-  Message_code _message_code = Message_code();
+class _CountDownState extends State<CountDownButton> {
+  Message_code _Message_code = Message_code();
   Timer _timer;
   int _countdownTime = 0;
-  TextEditingController _phoneController = TextEditingController();
 
   void startTimer() {
     _timer = new Timer.periodic(
@@ -38,18 +38,71 @@ class _MessageCodeState extends State<MessageCodeWidget> {
   }
 
   @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 0,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: 110, //宽度尽可能大
+          maxHeight: 25.0 //最小高度为50像素
+        ),
+        child: OutlineButton(
+          child: Text(
+            _countdownTime > 0 ? '$_countdownTime后可重发' : '获取验证码',
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.grey[700]
+            ),
+          ),
+          onPressed: _countdownTime > 0 ? null : () async {
+            var result = await getMessage_code() as Message_code;
+            setState(() {
+              _countdownTime = 60;
+              startTimer();
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class MessageCodeWidget extends StatefulWidget {
+  @override
+  _MessageCodeState createState() =>  _MessageCodeState();
+}
+
+class _MessageCodeState extends State<MessageCodeWidget> {
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _codeController = TextEditingController();
+  bool validate = false;
+
+  @override
   void initState() {
     super.initState();
   }
 
+  void _handleLogin() {
+    Login(context, _phoneController.text, code: _codeController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(0, 10, 0, 50),
+    final _formKey = GlobalKey<FormState>();
+    return Form(
+      key: _formKey,
+      autovalidate: true,
+      onChanged: () {
+        if (_formKey.currentState.validate()) {
+          setState(() {
+            this.validate = true;
+          });
+        }
+      },
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(_phoneController.text),
-          TextField(
+          TextFormField(
             maxLength: 11,
             keyboardType: TextInputType.number,
             controller: _phoneController,
@@ -59,47 +112,36 @@ class _MessageCodeState extends State<MessageCodeWidget> {
               hintText: "请输入手机号",
               prefixIcon: Icon(Icons.person)
             ),
+            validator: (value) {
+              if (value.length != 11) {
+                return "请输入完整的手机号！";
+              }
+              return null;
+            },
           ),
           Stack(
             alignment:Alignment.center , //指定未定位或部分定位widget的对齐方式
             children: <Widget>[
-              TextField(
-                maxLength: 10,
+              TextFormField(
+                maxLength: 6,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: "验证码",
                   hintText: "请输入验证码",
                   prefixIcon: Icon(Icons.send),
                 ),
+                controller: _codeController,
+                validator: (value) {
+                  if (value.length != 6) {
+                    return "请输入验证码！";
+                  }
+                  return null;
+                },
               ),
-              Positioned(
-                right: 0,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: 110, //宽度尽可能大
-                    maxHeight: 25.0 //最小高度为50像素
-                  ),
-                  child: OutlineButton(
-                    child: Text(
-                      _countdownTime > 0 ? '$_countdownTime后可重发' : '获取验证码',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700]
-                      ),
-                    ),
-                    onPressed: _countdownTime > 0 ? null : () async {
-                      var result = await getMessageCode() as Message_code;
-                      setState(() {
-                        _message_code = result;
-                        _countdownTime = 60;
-                        startTimer();
-                      });
-                    },
-                  ),
-                ),
-              )
+              CountDownButton(),
             ],
           ),
+          LoginButtonWidget(validate: validate, onLogin: _handleLogin,),
         ],
       ),
     );

@@ -7,7 +7,6 @@ class Message_code {
     Message_code();
 
     String code;
-    String time;
     
     factory Message_code.fromJson(Map<String,dynamic> json) => _$Message_codeFromJson(json);
     Map<String, dynamic> toJson() => _$Message_codeToJson(this);

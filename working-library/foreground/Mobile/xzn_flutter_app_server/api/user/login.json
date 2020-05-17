@@ -1,10 +1,6 @@
 {
-    "success": false,
-    "data": {
-        "userId": "",
-        "nickname": "",
-        "token": "",
-        "avatarId": ""
-    },
-    "message": ""
+    "userId": "alpha, 12",
+    "nickname": "alpha, 10",
+    "token": "upperhash, 32",
+    "avatarId": "avatar"
 }

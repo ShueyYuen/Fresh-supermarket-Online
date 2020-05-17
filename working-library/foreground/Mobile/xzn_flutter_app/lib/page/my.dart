@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+//import '../common/global.dart';
+import '../states/profile_change_notifier.dart';
 
 class My extends StatefulWidget {
   @override
@@ -74,6 +77,7 @@ class _MyState extends State<My> {
                     ),
                   ),
                   onTap: () {
+                    print(Provider.of<UserModel>(context, listen: false).isLogin);
                     Navigator.pushNamed(context, "login");
                   },
                 ),
@@ -117,6 +121,9 @@ class _MyState extends State<My> {
             )
           )
         ),
+        FlatButton(onPressed: () {
+          Provider.of<UserModel>(context, listen: false).user = null;
+        }, child: Text("退出登录"))
       ],
     );
   }

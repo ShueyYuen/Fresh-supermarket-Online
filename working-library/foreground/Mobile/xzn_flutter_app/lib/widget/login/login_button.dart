@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
-class LoginButtonWidget extends StatefulWidget {
-  @override
-  _LoginButtonState createState() => _LoginButtonState();
-}
+class LoginButtonWidget extends StatelessWidget {
 
-class _LoginButtonState extends State<LoginButtonWidget> {
+  LoginButtonWidget({Key key, this.validate: false, @required this.onLogin}):super(key:key);
+
+  final validate;
+  final onLogin;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
+      padding: EdgeInsets.only(top: 30),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           FlatButton(
             padding: EdgeInsets.symmetric(
               horizontal: 115,
               vertical: 10
             ),
-            color: Colors.grey[300],
+            color: this.validate?Colors.blue:Colors.grey[300],
             highlightColor: Colors.grey[400],
             colorBrightness: Brightness.dark,
             splashColor: Colors.grey[100],
@@ -25,11 +28,12 @@ class _LoginButtonState extends State<LoginButtonWidget> {
               "同意协议并登录",
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.grey[800]
+                color: this.validate?Colors.white:Colors.grey[800]
               ),
             ),
-            onPressed: () {
-            },
+            onPressed: this.validate?() {
+              onLogin();
+            }:() {},
           ),
           Text.rich(TextSpan(
             style: TextStyle(

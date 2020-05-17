@@ -7,10 +7,8 @@ part of 'message_code.dart';
 // **************************************************************************
 
 Message_code _$Message_codeFromJson(Map<String, dynamic> json) {
-  return Message_code()
-    ..code = json['code'] as String
-    ..time = json['time'] as String;
+  return Message_code()..code = json['code'] as String;
 }
 
 Map<String, dynamic> _$Message_codeToJson(Message_code instance) =>
-    <String, dynamic>{'code': instance.code, 'time': instance.time};
+    <String, dynamic>{'code': instance.code};
