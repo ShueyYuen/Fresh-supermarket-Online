@@ -16,13 +16,19 @@ content-type: application/json
 {
 }
 ###
-POST {{host}}/api/user/info/get HTTP/1.1
+POST {{host}}/api/user/info/show HTTP/1.1
 content-type: application/json
 
 {
 }
 ###
 POST {{host}}/api/user/login HTTP/1.1
+content-type: application/json
+
+{
+}
+###
+POST {{host}}/api/user/product/detail HTTP/1.1
 content-type: application/json
 
 {

@@ -14,11 +14,13 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
     ..my_order = json['my_order'] == null
         ? null
         : MyOrder.fromJson(json['my_order'] as Map<String, dynamic>)
+    ..cart = json['cart'] as List
     ..token = json['token'] as String;
 }
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'user': instance.user,
       'my_order': instance.my_order,
+      'cart': instance.cart,
       'token': instance.token
     };

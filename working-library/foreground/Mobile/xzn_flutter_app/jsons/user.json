@@ -1,6 +1,8 @@
 {
-  "userId": "",
-  "nickname": "",
-  "token": "",
-  "avatarId": ""
+  "phone":"",
+  "sex":"",
+  "user_id":"",
+  "nickname":"",
+  "token":"",
+  "head_image_id":""
 }

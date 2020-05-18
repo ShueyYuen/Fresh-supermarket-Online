@@ -6,7 +6,7 @@ part 'messageCode.g.dart';
 class MessageCode {
     MessageCode();
 
-    String code;
+    String time;
     
     factory MessageCode.fromJson(Map<String,dynamic> json) => _$MessageCodeFromJson(json);
     Map<String, dynamic> toJson() => _$MessageCodeToJson(this);

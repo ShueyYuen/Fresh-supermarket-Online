@@ -1,0 +1,18 @@
+{
+  "order_id":"",
+  "customer": "$customer",
+  "address": "$address",
+  "product_list":[
+    {
+      "product": "$product",
+      "number":0
+    }
+  ],
+  "deliveryman": "$deliveryman",
+  "create_order_time":"",
+  "receive_order_time":"",
+  "finish_order_time":"",
+  "order_status":"",
+  "payment_id":"",
+  "total_price":0
+}

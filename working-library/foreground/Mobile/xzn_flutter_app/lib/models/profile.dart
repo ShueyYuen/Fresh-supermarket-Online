@@ -9,6 +9,7 @@ class Profile {
 
     User user;
     MyOrder my_order;
+    List cart;
     String token;
     
     factory Profile.fromJson(Map<String,dynamic> json) => _$ProfileFromJson(json);

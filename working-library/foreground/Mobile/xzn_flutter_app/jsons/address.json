@@ -1,0 +1,18 @@
+{
+  "address_id":"",
+  "person":{
+    "consignee":"",
+    "sex":""
+  },
+  "phone":"",
+  "detail":{
+    "province":"",
+    "city":"",
+    "district":"",
+    "street":"",
+    "house_no":""
+  },
+  "longitude":0,
+  "latitude":0,
+  "tag":""
+}

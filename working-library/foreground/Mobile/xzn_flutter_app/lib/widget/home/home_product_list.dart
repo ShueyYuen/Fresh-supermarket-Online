@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../page/product/product_show.dart';
 class HomeProduct extends StatelessWidget {
   double width;
   HomeProduct(this.width);
@@ -109,7 +109,15 @@ class HomeProduct extends StatelessWidget {
                             iconSize: 20,
                             color: Colors.white,
                             icon: Icon(Icons.shopping_cart),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ProductPage();
+                                  }
+                                )
+                              );
+                            },
                           )
                         ),
                       )

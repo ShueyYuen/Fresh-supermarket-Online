@@ -36,7 +36,6 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
       child:DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
-//            gradient: LinearGradient(colors:[Colors.red,Colors.orange[700]]), //背景渐变
           borderRadius: BorderRadius.circular(10.0), //3像素圆角
           boxShadow: [
             BoxShadow(
@@ -70,7 +69,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "产看所有订单",
+                          "查看所有订单",
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey[600]
@@ -82,8 +81,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                   )
                 ],
               ),
-              Divider(height: 2.0,indent: 0.0,color: Colors.blueGrey[300]),
-              Divider(height: 1.0,indent: 0.0,color: Colors.blueGrey[300]),
+              Divider(height: 4.0, thickness: 1.5, color: Colors.blueGrey[100],),
               Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[

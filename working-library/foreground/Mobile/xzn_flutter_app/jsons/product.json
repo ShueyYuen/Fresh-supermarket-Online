@@ -1,0 +1,30 @@
+{
+  "product_name":"",
+  "product_id":"",
+  "price":{
+    "num":0,
+    "unit":""
+  },
+  "picture_list":{
+    "shuffle":[""],
+    "detail":[""]
+  },
+  "details":{
+    "origin":"",
+    "stockway":"",
+    "weight":0
+  },
+  "stock":0,
+  "discount":0,
+  "description":{
+    "subtitle":"",
+    "distribution":"",
+    "promotion":"",
+    "tags":[
+      {
+        "type":"",
+        "content":""
+      }
+    ]
+  }
+}

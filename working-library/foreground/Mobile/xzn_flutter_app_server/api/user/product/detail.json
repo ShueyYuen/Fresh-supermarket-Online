@@ -1,40 +1,34 @@
 {
-    "success": false,
-    "data": {
-        "productName": "",
-        "price": {
-            "num": 0,
-            "unit": ""
-        },
-        "pictureList": {
-            "shuffle": [
-                ""
-            ],
-            "detail": [
-                ""
-            ]
-        },
-        "details": {
-            "origin": "",
-            "specification": "",
-            "shelf": "",
-            "stockway": "",
-            "weight": ""
-        },
-        "stock": 0,
-        "discount": 0,
-        "description": {
-            "subtitle": "",
-            "distribution": "",
-            "promotipn": "",
-            "tags": [
-                {
-                    "type": "",
-                    "content": ""
-                }
-            ]
-        },
-        "cartnum": 0
+    "product_name": "food",
+    "price": {
+        "num": 0,
+        "unit": "enum[千克, 包, 盒]"
     },
-    "message": ""
+    "picture_list": {
+        "shuffle": [
+            "image"
+        ],
+        "detail": [
+            "image"
+        ]
+    },
+    "details": {
+        "origin": "city",
+        "stockway": "enum[冷藏, 常温]",
+        "weight": 1
+    },
+    "stock": 2,
+    "discount": 1,
+    "description": {
+        "subtitle": "sentence",
+        "distribution": "sentence",
+        "promotipn": "sentence",
+        "tags": [
+            {
+                "type": "enum[hot, cheap, normal]",
+                "content": "4"
+            }
+        ]
+    },
+    "cartnum": 0
 }

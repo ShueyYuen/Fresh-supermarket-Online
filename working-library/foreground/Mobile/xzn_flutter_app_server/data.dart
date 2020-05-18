@@ -21,9 +21,6 @@ import 'package:faker/faker.dart';
 
 import 'utf.dart';
 
-// 失败率
-final double _failure_rate = 0.01;
-
 final Map<String, String> baseCode = {
   "utf": utf,
   "alpha": 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM',
@@ -89,6 +86,10 @@ dynamic _fillAtomElement(dynamic type) {
       switch (type) {
         case "nickname": return faker.internet.userName();
         case "email": return faker.internet.email();
+        case "city": return faker.address.city();
+        case "food": return faker.food.dish();
+        case "sentence": return faker.lorem.sentence();
+        case "sentences": return faker.lorem.sentences(10);
         default: return generateUTF(type);
       }
     }
@@ -105,12 +106,19 @@ dynamic _fillAtomElement(dynamic type) {
 dynamic _fillContent(dynamic obj) {
   if (obj is List<dynamic>) {
     int len = _random.nextInt(6)+1;
-    for (var i = 0; i < len; i++) {
-      Map re_obj = json.decode(json.encode(obj[0]));
-      obj.add(re_obj);
-    }
-    for (var i = 0; i < obj.length; i++) {
-      obj[i] = _fillContent(obj[i]);
+    if (obj[0] is String) {
+      for (var i = 0; i < len - 1; i++) {
+        obj.add(_fillAtomElement(obj[0]));
+      }
+      obj[0] = _fillAtomElement(obj[0]);
+    } else {
+      for (var i = 0; i < len; i++) {
+        Map re_obj = json.decode(json.encode(obj[0]));
+        obj.add(re_obj);
+      }
+      for (var i = 0; i < obj.length; i++) {
+        obj[i] = _fillContent(obj[i]);
+      }
     }
   } else if(obj is Map<String, dynamic>){
     obj.updateAll(
@@ -126,22 +134,11 @@ dynamic _fillContent(dynamic obj) {
 
 String fillJSON(String json_text) {
   Map<String, dynamic> map = json.decode(json_text);
-  bool success = _random.nextDouble() > _failure_rate;
-  map.updateAll((String key,dynamic value){
-    if (key == "success") {
-      return success;
-    }else if (key == "message" && !success) {
-      return "Cofalconer don't want you to get there!!";
-    }else {
-      if (success) {
-        return _fillContent(value);
-        // return value;
-      }
-      else return {};
+  map.updateAll(
+    (String key,dynamic value){
+      return _fillContent(value);
     }
-  });
-  // print(map["data"][0]["number"].runtimeType);
-  // if (map["data"] is List<dynamic>)
+  );
   print(map);
   return json.encode(map);
 }

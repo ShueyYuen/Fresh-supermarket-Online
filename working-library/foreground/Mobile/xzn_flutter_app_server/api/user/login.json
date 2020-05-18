@@ -1,6 +1,8 @@
 {
-    "userId": "alpha, 12",
+    "phone": "num, 11",
+    "sex": "enum[M, F, ]",
+    "user_id": "alpha, 12",
     "nickname": "nickname",
     "token": "upperhash, 32",
-    "avatarId": "avatar"
+    "head_image_id": "avatar"
 }

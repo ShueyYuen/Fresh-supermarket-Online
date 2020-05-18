@@ -1,6 +1,10 @@
 import 'dart:io';
-
+import 'dart:math';
 import 'data.dart';
+
+// 失败率
+final double _failure_rate = 0.01;
+final _random = new Random();
 
 main(List<String> args) async {
   final String address = args.length != 0?args[0]:"192.168.42.224";
@@ -14,8 +18,9 @@ main(List<String> args) async {
 }
 
 void handleMessage(HttpRequest request) {
+  bool success = _random.nextDouble() > _failure_rate;
   try {
-    if (request.uri.toString() != "/favicon.ico") {
+    if (request.uri.toString() != "/favicon.ico" && success) {
       switch(request.method) {
         case 'GET': {
           handleGet(request);
@@ -29,6 +34,9 @@ void handleMessage(HttpRequest request) {
           handleWrongMethod(request);
         }
       }
+    } else {
+      print('{"message": "Failed access!!"}');
+      request.response..write('{"message": "Failed access!!"}')..close();
     }
   } catch (e) {
   }
@@ -45,11 +53,13 @@ void handleGet(HttpRequest request) {
 }
 
 void handleWrongMethod(HttpRequest request) {
-  request.response..write('{\n\t"success": false,\n\t"message": "The Wrong Method!!"\n}')..close();
+  print('{"message": "The Wrong Method!!"}');
+  request.response..write('"message": "The Wrong Method!!"}')..close();
 }
 
 void handleWrongUrl(HttpRequest request) {
-  request.response..write('{\n\t"success": false,\n\t"message": "The Wrong Url!!"\n}')..close();
+  print('{"message": "The Wrong Url!!"}');
+  request.response..write('{"message": "The Wrong Url!!"}')..close();
 }
 
 void responseJSON(HttpRequest request, String suffix)  async{

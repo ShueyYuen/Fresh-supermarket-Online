@@ -6,6 +6,7 @@ import '../common/global.dart';
 import '../models/profile.dart';
 import '../models/user.dart';
 import '../models/myOrder.dart';
+import '../models/cartItem.dart';
 
 class ProfileChangeNotifier extends ChangeNotifier{
   Profile get _profile => Global.profile;
@@ -35,6 +36,17 @@ class MyOrderModel extends ProfileChangeNotifier{
 
   set my_order(MyOrder my_order) {
     _profile.my_order = my_order;
+    notifyListeners();
+  }
+}
+
+class CartModel extends ProfileChangeNotifier{
+  List<CartItem> get cart => _profile.cart;
+  // 是否加载过my_order
+  bool get is_cart_loaded => cart != null;
+
+  set cart(List<CartItem> cart) {
+    _profile.cart = cart;
     notifyListeners();
   }
 }

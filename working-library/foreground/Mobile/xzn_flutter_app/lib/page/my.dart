@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/widget/my/my_order_border.dart';
 import 'package:xzn/widget/my/operator_list.dart';
@@ -79,7 +80,7 @@ class _MyState extends State<My> {
                   child: ClipOval(
                     child: isLogin?
                       Image(
-                        image:NetworkImage(Config.baseUrl()+"avatar/"+user.avatarId),
+                        image:NetworkImage(Config.baseUrl()+"avatar/"+user.head_image_id),
                         width: 70,
                         fit: BoxFit.fill,
                       ) :Image.asset(

@@ -1,5 +1,6 @@
 {
   "user": "$user",
   "my_order": "$myOrder",
+  "cart": ["$cartItem"],
   "token": ""
 }
