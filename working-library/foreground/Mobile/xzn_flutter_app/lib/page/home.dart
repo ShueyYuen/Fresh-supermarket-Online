@@ -12,12 +12,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        child: AppBar(),
+        preferredSize: Size.fromHeight(0.0),
+      ),
       body: ListView(
-        children: <Widget>[
-          SwiperWidget(),
-          HomeClassList(),
-          HomeProductList()
-        ],
+        children: <Widget>[SwiperWidget(), HomeClassList(), HomeProductList()],
       ),
     );
   }

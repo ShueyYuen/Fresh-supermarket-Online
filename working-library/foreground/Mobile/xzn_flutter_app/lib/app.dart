@@ -41,50 +41,16 @@ class _AppState extends State<App> {
         return my;
     }
   }
-
-  currentAppBar() {
-    switch(_currentIndex) {
-      case 0:
-        return PreferredSize(
-          child: AppBar(),
-          preferredSize: Size.fromHeight(0.0),
-        );
-      case 1:
-        return AppBar(
-          title: Text("鲜着呢"),
-          leading: Icon(Icons.home),
-          actions: <Widget>[
-            GestureDetector(
-              child: Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: Icon(Icons.search),
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, "login");
-              },
-            ),
-          ],
-        );
-      case 2:
-        return AppBar(
-          title: Text("购物车"),
-          centerTitle: true,
-        );
-      case 3:
-        return AppBar(
-          title: Text("我的"),
-          centerTitle: true,
-        );
-    }
-  }
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: currentAppBar(),
       body: currentPage(),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
+//        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.black,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {

@@ -55,10 +55,6 @@ class OperatorList extends StatelessWidget {
 
   }
 
-  void share_app() {
-    Share.share('https://xzn.cofal.top');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,7 +76,23 @@ class OperatorList extends StatelessWidget {
             );
           }),
         OperatorItem(icon: Icons.headset_mic, text: "联系客服", color: Colors.blue[600],onTap: contact_customer),
-        OperatorItem(icon: Icons.share, text: "分享软件", color: Colors.brown[300],onTap: share_app),
+        OperatorItem(icon: Icons.share, text: "关于软件", color: Colors.brown[300],onTap: () {
+          showAboutDialog(
+            context: context,
+            applicationIcon: Image.asset(
+              'assets/image/login_logo.webp',
+              height: 100,
+              width: 100,
+            ),
+            applicationName: '鲜着呢',
+            applicationVersion: 'v1.0.0',
+            applicationLegalese: '© 鲜着呢开发团体',
+            children: <Widget>[
+              Text("闲着蛋疼开发这个玩意儿干嘛!!!"),
+            ],
+          );
+//          Share.share('https://xzn.cofal.top');
+        }),
       ],
     );
   }

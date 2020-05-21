@@ -32,6 +32,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.11
   flutter_swiper: ^1.1.5
   share: 0.6.2
+  path_provider: ^1.6.8
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
     - assets/image/login_logo.webp
     - assets/image/avatar.jpg
     - assets/image/product.jpg
+    - assets/image/beef.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

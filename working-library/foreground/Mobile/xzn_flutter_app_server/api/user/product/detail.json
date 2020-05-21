@@ -26,9 +26,8 @@
         "tags": [
             {
                 "type": "enum[hot, cheap, normal]",
-                "content": "4"
+                "content": "enum[热卖, 优惠]"
             }
         ]
-    },
-    "cartnum": 0
+    }
 }

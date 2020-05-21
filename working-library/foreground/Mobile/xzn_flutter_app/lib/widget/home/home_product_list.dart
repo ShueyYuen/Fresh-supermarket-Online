@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:xzn/conf/config.dart';
+import 'package:xzn/models/product.dart';
+import 'package:xzn/services/product_service.dart';
 import '../../page/product/product_show.dart';
 class HomeProduct extends StatelessWidget {
+  HomeProduct(this.width, this.product);
+
   double width;
-  HomeProduct(this.width);
+  Product product;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,9 +23,9 @@ class HomeProduct extends StatelessWidget {
               flex: 2,
               child: Container(
                 height: 70.0,
-                child: Image.asset(
-                  'assets/image/swiper/3.webp',
-                  fit: BoxFit.fitHeight,
+                child: Image.network(
+                  Config.baseUrl()+'picture/'+product.picture_list["shuffle"][0],
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),
@@ -46,7 +52,7 @@ class HomeProduct extends StatelessWidget {
                       alignment: WrapAlignment.center,
                       children: <Widget>[
                         Text(
-                          "婚纱雷姆",
+                          product.product_name,
                           style: TextStyle(
                             fontSize: 15
                           ),
@@ -75,14 +81,14 @@ class HomeProduct extends StatelessWidget {
                               )
                             ),
                             TextSpan(
-                              text: "0.01",
+                              text: product.price["num"].toString(),
                               style: TextStyle(
                                 color: Colors.redAccent,
                                 fontSize: 18
                               ),
                             ),
                             TextSpan(
-                              text: "/位",
+                              text: "/"+product.price["unit"],
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 13
@@ -110,10 +116,11 @@ class HomeProduct extends StatelessWidget {
                             color: Colors.white,
                             icon: Icon(Icons.shopping_cart),
                             onPressed: () {
+//                              Product product = await getProductDetails("", "");
                               Navigator.push(context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return ProductPage();
+                                    return ProductPage(product: product);
                                   }
                                 )
                               );
@@ -133,28 +140,62 @@ class HomeProduct extends StatelessWidget {
   }
 }
 
-class HomeProductList extends StatelessWidget {
+class HomeProductList extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _HomeProductListState();
+}
+
+class _HomeProductListState extends State<HomeProductList> {
+
+  var _future;
+
+  @override
+  void initState() {
+    _future = getProductRecommendList("");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Wrap(
-      spacing: 0.0, // 主轴(水平)方向间距
-      runSpacing: 4.0, // 纵轴（垂直）方向间距
-      alignment: WrapAlignment.center, //沿主轴方向居中
-      direction: Axis.vertical,
-      children: <Widget>[
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-        HomeProduct(width),
-      ],
+    return FutureBuilder(
+      future: _future,
+      builder: (context, snapshot) {
+        var widget;
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            widget = Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 48,
+            );
+          } else {
+            widget = Container(
+              child: Wrap(
+                spacing: 0.0,
+                runSpacing: 4.0,
+                direction: Axis.vertical,
+                alignment: WrapAlignment.center,
+                children: snapshot.data.map<Widget>(
+                  (product) {
+//                    print(product);
+                    return HomeProduct(width, product);
+                  }
+                ).toList(),
+              )
+            );
+          }
+        } else {
+          widget = Container(
+            alignment: Alignment.center,
+            child: Padding(
+            padding: EdgeInsets.all(20),
+            child: CircularProgressIndicator(),
+          ));
+        }
+
+        return widget;
+      },
     );
   }
 }

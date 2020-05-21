@@ -19,7 +19,7 @@ import 'dart:math';
 
 import 'package:faker/faker.dart';
 
-import 'utf.dart';
+import 'fakedata.dart';
 
 final Map<String, String> baseCode = {
   "utf": utf,
@@ -29,7 +29,16 @@ final Map<String, String> baseCode = {
   "num": '0123456789'
 };
 
+final Map<String, List<String>> baseData = {
+  "food": food,
+  "city": city
+};
+
 final _random = new Random();
+
+String fakeData(String type) {
+  return baseData[type][_random.nextInt(baseData[type].length)];
+}
 
 String getAssetImage() {
   var directory = new Directory(r"assets\image\");
@@ -86,8 +95,8 @@ dynamic _fillAtomElement(dynamic type) {
       switch (type) {
         case "nickname": return faker.internet.userName();
         case "email": return faker.internet.email();
-        case "city": return faker.address.city();
-        case "food": return faker.food.dish();
+        case "city": return fakeData(type);
+        case "food": return fakeData(type);
         case "sentence": return faker.lorem.sentence();
         case "sentences": return faker.lorem.sentences(10);
         default: return generateUTF(type);
@@ -133,12 +142,29 @@ dynamic _fillContent(dynamic obj) {
 }
 
 String fillJSON(String json_text) {
-  Map<String, dynamic> map = json.decode(json_text);
-  map.updateAll(
-    (String key,dynamic value){
-      return _fillContent(value);
+  var map;
+  try {
+    // Map<String, dynamic> map = json.decode(json_text);
+    map = json.decode(json_text);
+    map.updateAll(
+      (String key,dynamic value){
+        return _fillContent(value);
+      }
+    ); 
+  } catch (e) {
+    map = new List();
+    int len = _random.nextInt(10)+1;
+    json_text = json_text.trim().substring(1, json_text.length - 1);
+    for (var i = 0; i < len; i++) {
+      var list_item = json.decode(json_text);
+      list_item.updateAll(
+        (String key,dynamic value){
+          return _fillContent(value);
+        }
+      );
+      map.add(list_item);
     }
-  );
+  }
   print(map);
   return json.encode(map);
 }

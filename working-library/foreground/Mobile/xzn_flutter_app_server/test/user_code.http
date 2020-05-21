@@ -33,3 +33,17 @@ content-type: application/json
 
 {
 }
+
+###
+POST {{host}}/api/user/product/recommend HTTP/1.1
+content-type: application/json
+
+{
+}
+
+###
+POST {{host}}/api/user/cart/query HTTP/1.1
+content-type: application/json
+
+{
+}

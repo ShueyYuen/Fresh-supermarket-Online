@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:xzn/conf/config.dart';
+import 'package:xzn/models/product.dart';
+import 'package:xzn/page/confirm_order.dart';
+import 'package:xzn/services/product_service.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 
 class ProductLittleCard extends StatelessWidget {
   @override
@@ -14,20 +20,19 @@ class ProductLittleCard extends StatelessWidget {
 }
 
 class ProductPage extends StatelessWidget {
-  List<String> swiper = <String>[
-    'assets/image/swiper/1.webp',
-    'assets/image/swiper/2.webp',
-    'assets/image/swiper/3.webp',
-    'assets/image/swiper/4.webp',
-    'assets/image/swiper/5.webp'
-  ];
+  ProductPage({Key key, @required this.product}) : super(key: key);
+
+  Product product;
+  var _productFuture;
 
   @override
   Widget build(BuildContext context) {
+//    Product product = getProductDetails(context) as Product;
+    print("object");
     double width = MediaQuery.of(context).size.width;
-    double height = width*900.0 / 1080.0;
-    int badge = 5;
-    double fontsize = badge > 100?8.0:badge>10?12:15;
+    double height = width * 900.0 / 1080.0;
+    int badge = Provider.of<CartModel>(context, listen: false).cart.length;
+    double fontsize = badge > 100 ? 8.0 : badge > 10 ? 12 : 15;
     return Scaffold(
       appBar: PreferredSize(child: AppBar(), preferredSize: Size.fromHeight(0)),
       body: ListView(
@@ -40,12 +45,12 @@ class ProductPage extends StatelessWidget {
                 height: height,
                 child: Swiper(
                   duration: 500,
-                  itemCount: swiper.length,
+                  itemCount: product.picture_list["shuffle"].length,
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.only(top: 0),
-                      child: Image.asset(
-                        swiper[index],
+                      child: Image.network(
+                        Config.baseUrl() + "picture/" +product.picture_list["shuffle"][index],
                         width: width,
                         height: height,
                         fit: BoxFit.cover,
@@ -57,69 +62,65 @@ class ProductPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 10,
-                left: 10,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 35.0,
-                    maxWidth: 35.0,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[400],
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                  top: 10,
+                  left: 10,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: 35.0,
+                      maxWidth: 35.0,
                     ),
-                    child: IconButton(
-                      iconSize: 20,
-                      color: Colors.white,
-                      icon: Icon(Icons.navigate_before),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    )
-                  ),
-                )
-              ),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: IconButton(
+                          iconSize: 20,
+                          color: Colors.white,
+                          icon: Icon(Icons.navigate_before),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )),
+                  )),
               Positioned(
-                top: 10,
-                right: 10,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 35.0,
-                    maxWidth: 35.0,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[400],
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                  top: 10,
+                  right: 10,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: 35.0,
+                      maxWidth: 35.0,
                     ),
-                    child: IconButton(
-                      iconSize: 20,
-                      color: Colors.white,
-                      icon: Icon(Icons.share),
-                      onPressed: () {
-                        Share.share('张家界的真牛肉500g');
-                      },
-                    )
-                  ),
-                )
-              ),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: IconButton(
+                          iconSize: 20,
+                          color: Colors.white,
+                          icon: Icon(Icons.share),
+                          onPressed: () {
+                            Share.share(product.product_name);
+                          },
+                        )),
+                  )),
               Positioned(
-                bottom: 0,
-                child: Container(
-                  width: width,
-                  height: 40,
-                  color: Colors.blue[100],
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    "鲜着呢~正品保障~绝对新鲜~配送全市~售后无忧",
-                    style: TextStyle(
-                      color: Colors.redAccent
-                    ),
-                  )
-                )
-              )
+                  bottom: 0,
+                  child: Container(
+                      width: width,
+                      height: 40,
+                      color: Colors.blue[100],
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text(
+                        "鲜着呢~正品保障~绝对新鲜~配送全市~售后无忧",
+                        style: TextStyle(color: Colors.redAccent),
+                      ))),
+//              Banner(
+//                message: 'Cofalconer',
+//                location: BannerLocation.topStart,
+//              ),
             ],
           ),
           Container(
@@ -129,16 +130,12 @@ class ProductPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "张家界的真牛肉500g",
-                  style: TextStyle(
-                    fontSize: 18
-                  ),
+                  product.product_name,
+                  style: TextStyle(fontSize: 18),
                 ),
                 Text(
-                  "产于奉献某养牛场",
-                  style: TextStyle(
-                    color: Colors.grey
-                  ),
+                  product.description["subtitle"],
+                  style: TextStyle(color: Colors.grey),
                 ),
                 Stack(
                   children: <Widget>[
@@ -146,48 +143,48 @@ class ProductPage extends StatelessWidget {
                       width: 1000,
                       padding: EdgeInsets.only(top: 15),
                       child: Text.rich(TextSpan(
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.redAccent[200]
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "￥",
-                          ),
-                          TextSpan(
-                            text: "80.0",
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.redAccent[200]
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.redAccent[200]),
+                          children: [
+                            TextSpan(
+                              text: "￥",
                             ),
-                          ),
-                          TextSpan(
-                            text: "/斤"+"   ",
-                            style: TextStyle(
-                              color: Colors.grey[600]
-                            )
-                          ),
-                          TextSpan(
-                            text: "￥90.0  ",
-                            style: TextStyle(
-                              color: Colors.grey[500],
-                              decoration: TextDecoration.lineThrough
+                            TextSpan(
+                              text: product.price["num"].toString(),
+                              style: TextStyle(
+                                  fontSize: 22, color: Colors.redAccent[200]),
                             ),
-                          ),
-                        ]
-                      )),
+                            TextSpan(
+                                text: "/" + product.price["unit"] + "   ",
+                                style: TextStyle(color: Colors.grey[600])),
+                            TextSpan(
+                              text: "  ￥" +
+                                  (product.price["num"] / product.discount)
+                                      .toStringAsFixed(2) +
+                                  "  ",
+                              style: TextStyle(
+                                  color: Colors.grey[500],
+                                  decoration: TextDecoration.lineThrough),
+                            ),
+                          ])),
                     ),
                     Positioned(
                       right: 0,
                       bottom: 0,
-                      child: Text("月销售666件",style: TextStyle(color: Colors.grey),),
+                      child: Text(
+                        "月销售666件",
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     )
                   ],
                 ),
               ],
             ),
           ),
-          Divider(height: 20, thickness: 10,),
+          Divider(
+            height: 20,
+            thickness: 10,
+          ),
           Flex(
             direction: Axis.horizontal,
             children: <Widget>[
@@ -204,12 +201,15 @@ class ProductPage extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.topLeft,
                   height: 50.0,
-                  child: Text("包邮，全程冷链运输，1.5小时内送达，因交通情况派送或许有延迟"),
+                  child: Text(product.description["distribution"]),
                 ),
               ),
             ],
           ),
-          Divider(height: 20, thickness: 10,),
+          Divider(
+            height: 20,
+            thickness: 10,
+          ),
           Flex(
             direction: Axis.horizontal,
             children: <Widget>[
@@ -238,38 +238,45 @@ class ProductPage extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.topLeft,
                   height: 50.0,
-                  child: Text("国庆期间专项产品，没人每天购买不超过一件，享受此优惠"),
+                  child: Text(product.description["promotipn"]),
                 ),
               ),
             ],
           ),
-          Divider(height: 20, thickness: 10,),
+          Divider(
+            height: 20,
+            thickness: 10,
+          ),
           // 推荐商品
           Container(
             padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("推荐商品",style: TextStyle(fontSize: 16),),
-                Container(
-                  width: width,
-                  height: 210,
-                  child: GridView(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3, //横轴三个子widget
-                      childAspectRatio: 0.62 //宽高比为1时，子widget
-                    ),
-                    children:<Widget>[
-                      ProductLittleCard(),
-                      ProductLittleCard(),
-                      ProductLittleCard(),
-                    ]
-                  )
+                Text(
+                  "推荐商品",
+                  style: TextStyle(fontSize: 16),
                 ),
+                Container(
+                    width: width,
+                    height: 210,
+                    child: GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, //横轴三个子widget
+                            childAspectRatio: 0.62 //宽高比为1时，子widget
+                            ),
+                        children: <Widget>[
+                          ProductLittleCard(),
+                          ProductLittleCard(),
+                          ProductLittleCard(),
+                        ])),
               ],
             ),
           ),
-          Divider(height: 20, thickness: 10,),
+          Divider(
+            height: 20,
+            thickness: 10,
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(15, 10, 15, 60),
             child: Column(
@@ -277,63 +284,87 @@ class ProductPage extends StatelessWidget {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.only(bottom: 10),
-                  child: Text("商品详情",style: TextStyle(fontSize: 16),),
-                ),
-                Table(
-                  columnWidths: const {
-                    0: FixedColumnWidth(100.0),
-                  },
-                  border: TableBorder.all(
-                    color: Colors.grey[200],
-                    width: 2.0,
-                    style: BorderStyle.solid,
+                  child: Text(
+                    "商品详情",
+                    style: TextStyle(fontSize: 16),
                   ),
-                  children: [
-                    TableRow(
-                      children: [
-                        Padding(padding: EdgeInsets.all(5),child: Text('产地',textAlign: TextAlign.center,style: TextStyle(color: Colors.grey),),),
-                        Padding(padding: EdgeInsets.all(5),child: Text('中国',textAlign: TextAlign.left),),
-                      ]
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    border: new Border.all(width: 1, color: Colors.grey[400]),
+                  ),
+                  child: Table(
+                    columnWidths: const {
+                      0: FixedColumnWidth(100.0),
+                    },
+                    border: TableBorder(
+                      top: BorderSide(color: Colors.transparent),
+                      left: BorderSide(color: Colors.transparent),
+                      right: BorderSide(color: Colors.transparent),
+                      bottom: BorderSide(color: Colors.transparent),
+                      horizontalInside: BorderSide(color: Colors.grey[400]),
+                      verticalInside: BorderSide(color: Colors.white, width: 2),
                     ),
-                    TableRow(
-                      children: [
-                        Padding(padding: EdgeInsets.all(5),child: Text('重量',textAlign: TextAlign.center,style: TextStyle(color: Colors.grey),),),
-                        Padding(padding: EdgeInsets.all(5),child: Text('0.5Kg',textAlign: TextAlign.left),),
-                      ]
-                    ),
-                    TableRow(
-                      children: [
-                        Padding(padding: EdgeInsets.all(5),child: Text('保存方式',textAlign: TextAlign.center,style: TextStyle(color: Colors.grey),),),
-                        Padding(padding: EdgeInsets.all(5),child: Text('冷藏',textAlign: TextAlign.left),),
-                      ]
-                    ),
-                  ],
+                    children: [
+                      TableRow(children: [
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            '产地',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(product.details["origin"],
+                              textAlign: TextAlign.left),
+                        ),
+                      ]),
+                      TableRow(children: [
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            '重量',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                              product.details["weight"].toString() + 'Kg',
+                              textAlign: TextAlign.left),
+                        ),
+                      ]),
+                      TableRow(children: [
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            '保存方式',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(product.details["stockway"],
+                              textAlign: TextAlign.left),
+                        ),
+                      ]),
+                    ],
+                  ),
                 ),
-                Image.asset(
-                  'assets/image/swiper/1.webp',
-                  width: width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Image.asset(
-                  'assets/image/swiper/2.webp',
-                  width: width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Image.asset(
-                  'assets/image/swiper/3.webp',
-                  width: width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Image.asset(
-                  'assets/image/swiper/4.webp',
-                  width: width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Image.asset(
-                  'assets/image/swiper/5.webp',
-                  width: width,
-                  fit: BoxFit.fitWidth,
-                )
+                ...product.picture_list["detail"].map((image_link) {
+                  return Image.network(
+                    Config.baseUrl() + "picture/" + image_link,
+                    width: width,
+                    fit: BoxFit.fitWidth,
+                  );
+                }),
               ],
             ),
           ),
@@ -355,65 +386,82 @@ class ProductPage extends StatelessWidget {
                     print("跳转购物车");
                   },
                   child: Stack(
-                    alignment:Alignment.center , //指定未定位或部分定位widget的对齐方式
+                    alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.only(top: 10),
                         alignment: Alignment.topCenter,
-                        child: Icon(Icons.shopping_cart,size: 40,color: Colors.grey,),
+                        child: Icon(
+                          Icons.shopping_cart,
+                          size: 40,
+                          color: Colors.grey,
+                        ),
                       ),
                       Positioned(
-                        top: 10,
-                        right: 20,
-                        child: badge>0?Container(
-                          width: 16,
-                          height: 16,
-                          child: Center(
-                            child: Text(
-                              badge.toString(),
-                              style: TextStyle(
-                                fontSize: fontsize,
-                                color: Colors.white
-                              )
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: new BorderRadius.all(
-                              const Radius.circular(16.0),
-                            ),
-                          ),
-                        ):Text("")
-                      ),
+                          top: 10,
+                          right: 20,
+                          child: badge > 0
+                              ? Container(
+                                  width: 16,
+                                  height: 16,
+                                  child: Center(
+                                    child: Text(badge.toString(),
+                                        style: TextStyle(
+                                            fontSize: fontsize,
+                                            color: Colors.white)),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: new BorderRadius.all(
+                                      const Radius.circular(16.0),
+                                    ),
+                                  ),
+                                )
+                              : Text("")),
                     ],
                   ),
                 ),
               ),
             ),
+            Expanded(flex: 1,child: Text(""),),
             Expanded(
-              flex: 5,
+              flex: 8,
               child: Container(
+                height: 40,
+                padding: EdgeInsets.symmetric(horizontal: 5),
                 alignment: Alignment.centerRight,
-                child: FlatButton(
-                  padding: EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
+                      child:  FlatButton(
+                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
 //                  color: Color.fromARGB(1, 138, 226, 255),
-                  color: Color.fromARGB(255, 194, 224, 237),
-                  textColor: Color.fromARGB(255, 56, 184, 240),
-                  onPressed: () {},
-                  child: Text("加入购物车",style: TextStyle(fontSize: 16),)
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: FlatButton(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 28),
-                  color: Color.fromARGB(255, 44, 160, 253),
-                  textColor: Colors.white,
-                  onPressed: () {},
-                  child: Text("立即购买",style: TextStyle(fontSize: 16),)
+                        color: Color.fromARGB(255, 194, 224, 237),
+                        textColor: Color.fromARGB(255, 56, 184, 240),
+                        onPressed: () {},
+                        child: Text(
+                          "加入购物车",
+                          style: TextStyle(fontSize: 16),
+                        )),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
+                      child: FlatButton(
+                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 28),
+                        color: Color.fromARGB(255, 44, 160, 253),
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return OrderConfirm();
+                          }));
+                        },
+                        child: Text(
+                          "立即购买",
+                          style: TextStyle(fontSize: 16),
+                        )),
+                    ),
+                  ],
                 ),
               ),
             ),

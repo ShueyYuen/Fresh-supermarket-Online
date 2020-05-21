@@ -18,89 +18,88 @@ class _MyState extends State<My> {
   Widget build(BuildContext context) {
     bool isLogin = Provider.of<UserModel>(context, listen: true).isLogin;
     User user = Provider.of<UserModel>(context, listen: true).user;
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(15),
-          constraints: BoxConstraints(
-            minWidth: double.infinity,
-            minHeight: 100
-          ),
-          child: Stack(
-            children: <Widget>[
-              Wrap(
-                direction: Axis.vertical,
-                spacing: 1.0, // 主轴(水平)方向间距
-                runSpacing: 4.0, // 纵轴（垂直）方向间距
-                alignment: WrapAlignment.center,
-                children: <Widget>[
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        constraints: BoxConstraints(
-                          minWidth: 300
-                        ),
-                        child: Text(
-                          isLogin?user.nickname:"请登录",
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: isLogin?Colors.black:Colors.grey[600]
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 0.0,
-                        bottom: 0.0,
-                        child: GestureDetector(
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.blue,
-                            size: 20,
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(context, "login");
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    '忙了就不要来买菜做饭了，\n可以去某团看看哦~',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 13
-                    ),
-                  ),
-                ],
-              ),
-              Positioned(
-                right: 0.0,
-                bottom: 0.0,
-                child: GestureDetector(
-                  child: ClipOval(
-                    child: isLogin?
-                      Image(
-                        image:NetworkImage(Config.baseUrl()+"avatar/"+user.head_image_id),
-                        width: 70,
-                        fit: BoxFit.fill,
-                      ) :Image.asset(
-                        "assets/image/avatar.jpg",
-                        width: 70,
-                        fit: BoxFit.fill,
-                    ),
-                  ),
-                  onTap: () {
-                    print(isLogin);
-                    Navigator.pushNamed(context, "login");
-                  },
-                ),
-              ),
-            ],
-          ),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("我的"),
+          centerTitle: true,
         ),
-        MyOrderBorder(),
-        OperatorList()
-      ]
-    );
+        body: Column(children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(15),
+            constraints:
+                BoxConstraints(minWidth: double.infinity, minHeight: 100),
+            child: Stack(
+              children: <Widget>[
+                Wrap(
+                  direction: Axis.vertical,
+                  spacing: 1.0, // 主轴(水平)方向间距
+                  runSpacing: 4.0, // 纵轴（垂直）方向间距
+                  alignment: WrapAlignment.center,
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          constraints: BoxConstraints(minWidth: 300),
+                          child: Text(
+                            isLogin ? user.nickname : "请登录",
+                            style: TextStyle(
+                                fontSize: 28,
+                                color:
+                                    isLogin ? Colors.black : Colors.grey[600]),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0.0,
+                          bottom: 0.0,
+                          child: GestureDetector(
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(context, "login");
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '忙了就不要来买菜做饭了，\n可以去某团看看哦~',
+                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  right: 0.0,
+                  bottom: 0.0,
+                  child: GestureDetector(
+                    child: ClipOval(
+                      child: isLogin
+                          ? Image(
+                              image: NetworkImage(Config.baseUrl() +
+                                  "avatar/" +
+                                  user.head_image_id),
+                              width: 70,
+                              fit: BoxFit.fill,
+                            )
+                          : Image.asset(
+                              "assets/image/avatar.jpg",
+                              width: 70,
+                              fit: BoxFit.fill,
+                            ),
+                    ),
+                    onTap: () {
+                      print(isLogin);
+                      Navigator.pushNamed(context, "login");
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          MyOrderBorder(),
+          OperatorList()
+        ]));
   }
 }

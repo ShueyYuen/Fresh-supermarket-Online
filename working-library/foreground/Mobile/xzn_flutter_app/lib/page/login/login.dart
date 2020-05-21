@@ -11,47 +11,39 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.clear, color: Colors.grey[600]), //自定义图标
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        actions: <Widget>[
-          GestureDetector(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 15.0),
-              child: Text(
-                "密码登录",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18
-                ),
-              ),
-            ),
-            onTap: () {
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.clear, color: Colors.grey[600]), //自定义图标
+            onPressed: () {
+              Navigator.of(context).pop();
             },
           ),
-        ],
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              "手机号登录",
-              style: TextStyle(
-                fontSize: 40
+          actions: <Widget>[
+            GestureDetector(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                child: Text(
+                  "密码登录",
+                  style: TextStyle(color: Colors.blue, fontSize: 18),
+                ),
               ),
+              onTap: () {},
             ),
-            MessageCodeWidget(),
           ],
-        )
-      )
-    );
+        ),
+        body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "手机号登录",
+                  style: TextStyle(fontSize: 40),
+                ),
+                MessageCodeWidget(),
+              ],
+            )));
   }
 }

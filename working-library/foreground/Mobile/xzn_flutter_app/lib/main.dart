@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
@@ -20,6 +21,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: CartModel()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+//        debugShowMaterialGrid: true,
+//        showPerformanceOverlay: true,
+        supportedLocales: [
+          const Locale('zh', 'CH'),
+          const Locale('en', 'US'),
+        ],
+        locale: Locale('zh'),
         debugShowCheckedModeBanner: false,
         title: "鲜着呢",
         theme: ThemeData(

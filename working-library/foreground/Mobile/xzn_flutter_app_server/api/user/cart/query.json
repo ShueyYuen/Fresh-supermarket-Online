@@ -1,26 +1,39 @@
-{
-    "success": false,
-    "data": [
-        {
-            "product": {
-                "productName": "2",
-                "productId": "lowwerhash, 15",
-                "price": {
-                    "num": 0,
-                    "unit": "upperhash, 5"
-                },
-                "pictureId": "image",
-                "discount": 1,
-                "tags": [
-                    {
-                        "type": "alpha, 20",
-                        "cotent": "num"
-                    }
+[
+    {
+        "product": {
+            "product_name": "food",
+            "price": {
+                "num": 0,
+                "unit": "enum[千克, 包, 盒]"
+            },
+            "picture_list": {
+                "shuffle": [
+                    "image"
+                ],
+                "detail": [
+                    "image"
                 ]
             },
-            "number": 2,
-            "state": "enum[1,2,5]"
-        }
-    ],
-    "message": ""
-}
+            "details": {
+                "origin": "city",
+                "stockway": "enum[冷藏, 常温]",
+                "weight": 1
+            },
+            "stock": 2,
+            "discount": 1,
+            "description": {
+                "subtitle": "sentence",
+                "distribution": "sentence",
+                "promotipn": "sentence",
+                "tags": [
+                    {
+                        "type": "enum[hot, cheap, normal]",
+                        "content": "enum[热卖, 优惠]"
+                    }
+                ]
+            }
+        },
+        "number": 2,
+        "state": "enum[1,2,5]"
+    }
+]
