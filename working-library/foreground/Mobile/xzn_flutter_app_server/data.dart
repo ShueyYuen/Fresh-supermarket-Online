@@ -31,7 +31,9 @@ final Map<String, String> baseCode = {
 
 final Map<String, List<String>> baseData = {
   "food": food,
-  "city": city
+  "city": city,
+  "sentence": sentence,
+  "nickname": nickname,
 };
 
 final _random = new Random();
@@ -91,13 +93,11 @@ dynamic _fillAtomElement(dynamic type) {
       return generateString(type);
     } else if (type.startsWith("enum")) {
       return randomEnum(type);
-    } else {
+    } else if (baseData.containsKey(type)) {
+      return fakeData(type);
+    }else {
       switch (type) {
-        case "nickname": return faker.internet.userName();
         case "email": return faker.internet.email();
-        case "city": return fakeData(type);
-        case "food": return fakeData(type);
-        case "sentence": return faker.lorem.sentence();
         case "sentences": return faker.lorem.sentences(10);
         default: return generateUTF(type);
       }

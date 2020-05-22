@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xzn/index.dart';
-import 'package:xzn/page/address/AddressSelect.dart';
+import 'package:xzn/page/address/address_select.dart';
 
 class OrderConfirm extends StatefulWidget {
   @override
@@ -32,7 +32,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
           ),
           ListTile(
             title: Text("华东理工大学奉贤校区学生宿舍楼23号"),
-            trailing: Icon(Icons.navigate_next),
+            trailing: Icon(Icons.arrow_forward_ios),
             subtitle: Text("范 197******26"),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -164,6 +164,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
           ListTile(
             title: Text("订单备注", style: TextStyle(fontSize: 14),),
             trailing: Container(
+              padding: EdgeInsets.only(top: 5),
               width: 150,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

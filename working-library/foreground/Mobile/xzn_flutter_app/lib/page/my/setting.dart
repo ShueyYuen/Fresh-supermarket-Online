@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/page/my/account_safe.dart';
+import 'package:xzn/page/my/privacy.dart';
 
 import '../../models/user.dart';
 import '../../states/profile_change_notifier.dart';
@@ -17,62 +19,39 @@ class SettingPage extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Title(color: Colors.black, child: Text("账户与安全")),
-            trailing: Transform.scale(
-              scale: 1.5,
-              child: Icon(
-                Icons.navigate_next,
-                size: 35,
-                color: Colors.grey[400],
-              ),
-            ),
+            trailing: Icon(Icons.arrow_forward_ios),
             subtitle: Title(
                 color: Colors.grey,
                 child: Text(user == null ? "尚未登录" : user.nickname)),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AccountSafe();
+              }));
+            },
           ),
           ListTile(
             title: Title(color: Colors.black, child: Text("隐私")),
-            trailing: Transform.scale(
-              scale: 1.5,
-              child: Icon(
-                Icons.navigate_next,
-                size: 35,
-                color: Colors.grey[400],
-              ),
-            ),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Privacy();
+              }));
+            },
           ),
           ListTile(
             title: Title(color: Colors.black, child: Text("意见反馈")),
-            trailing: Transform.scale(
-              scale: 1.5,
-              child: Icon(
-                Icons.navigate_next,
-                size: 35,
-                color: Colors.grey[400],
-              ),
-            ),
+            trailing: Icon(Icons.arrow_forward_ios),
           ),
           ListTile(
-            title: Title(color: Colors.black, child: Text("账户与安全")),
-            trailing: Transform.scale(
-              scale: 1.5,
-              child: Icon(
-                Icons.navigate_next,
-                size: 35,
-                color: Colors.grey[400],
-              ),
-            ),
+            title: Title(color: Colors.black, child: Text("版本检测")),
+            trailing: Icon(Icons.arrow_forward_ios),
             subtitle: Title(color: Colors.grey, child: Text("已是最新版本")),
+            onTap: () {},
           ),
           ListTile(
             title: Title(color: Colors.black, child: Text("清除缓存")),
-            trailing: Transform.scale(
-              scale: 1.5,
-              child: Icon(
-                Icons.navigate_next,
-                size: 35,
-                color: Colors.grey[400],
-              ),
-            ),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {},
           ),
           Container(
             padding: EdgeInsets.only(top: 30),

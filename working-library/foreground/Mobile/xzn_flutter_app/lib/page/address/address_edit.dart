@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:xzn/index.dart';
+import 'package:xzn/page/address/address_manage.dart';
+import 'package:xzn/page/address/address_located.dart';
 
 class AddressEdit extends StatelessWidget {
+  AddressEdit({Key key, this.edit: true});
+  bool edit;
+  Address addres;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("修改地址"),
+        title: Text(this.edit?"修改地址":"新增收货地址"),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -106,16 +111,31 @@ class AddressEdit extends StatelessWidget {
                     ),
                   )
                 ),
-                Transform.translate(offset: Offset(-10, -10),child: ConstrainedBox(
+                ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxWidth: 40,
-                    maxHeight: 30
+                    maxHeight: 30,
+                    maxWidth: 30
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.navigate_next,size: 40,color: Colors.grey,),
-                    onPressed: () {}
-                  )
-                ),)
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(Icons.arrow_forward_ios, size: 25, color: Colors.grey,), onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return AddressLocated();
+                      }));
+                  }),
+                ),
+//                Transform.translate(offset: Offset(-10, -10),child: ConstrainedBox(
+//                  constraints: BoxConstraints(
+//                    maxWidth: 40,
+//                    maxHeight: 30
+//                  ),
+//                  child: IconButton(
+//                    icon: Icon(Icons.navigate_next,size: 40,color: Colors.grey,),
+//                    onPressed: () {
+//
+//                    }
+//                  )
+//                ),)
               ],
             )
           ),

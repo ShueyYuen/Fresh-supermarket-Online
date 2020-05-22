@@ -64,7 +64,7 @@ getCartProductList(BuildContext context, String token) async {
         .of<CartModel>(context, listen: true)
         .cart = cart_list;
     } else if (Provider.of<UserModel>(context, listen: false).isLogin) {
-      cart_list = Provider.of<CartModel>(context, listen: false).cart;
+      cart_list = Provider.of<CartModel>(context, listen: true).cart;
     }
   } catch (e) {
     print(e.toString());

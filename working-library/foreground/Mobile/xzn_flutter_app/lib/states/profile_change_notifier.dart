@@ -43,7 +43,7 @@ class MyOrderModel extends ProfileChangeNotifier{
 class CartModel extends ProfileChangeNotifier{
   List<CartItem> get cart => _profile.cart;
   // 是否加载过my_order
-  bool get is_cart_loaded => cart != null;
+  bool get is_cart_loaded => _profile.user != null && cart is List<CartItem> && cart != null;
 
   set cart(List<CartItem> cart) {
     _profile.cart = cart;

@@ -8,8 +8,12 @@ import 'page/login/login_choose.dart';
 import 'app.dart';
 import 'common/global.dart';
 import 'loading.dart';
+import 'package:amap_location/amap_location.dart';
 
-void main() => Global.init().then((e) => runApp(MyApp()));
+void main() => Global.init().then((e) {
+  AMapLocationClient.setApiKey("cb904fc25db7d0b715dabb813be2b6a0");
+  runApp(MyApp());
+});
 
 class MyApp extends StatelessWidget {
   @override

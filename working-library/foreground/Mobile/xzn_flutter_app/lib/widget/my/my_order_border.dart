@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/index.dart';
+import 'package:xzn/page/order/order_manage.dart';
 import 'package:xzn/services/my_order_service.dart';
 import 'package:xzn/widget/my/icon_text_under.dart';
 
@@ -63,21 +64,28 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                     ),
                   ),
                   Positioned(
-                    right: -10,
-                    top: 3,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "查看所有订单",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[600]
+                    right: 0,
+                    top: 12,
+                    child: GestureDetector(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "查看所有订单",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[600]
+                            ),
                           ),
-                        ),
-                        Icon(Icons.navigate_next,size: 40,)
-                      ],
-                    )
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return OrderManage();
+                        }));
+                      },
+                    ),
                   )
                 ],
               ),
@@ -93,17 +101,11 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                         icon: Icons.account_balance_wallet,
                         text:"待付款",
                         badge: my_order?.unpaid,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      height: height,
-                      child: IconTextUnder(
-                        icon: Icons.gavel,
-                        text:"已完成",
-                        badge: my_order?.unsend,
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return OrderManage(activeIndex: 1,);
+                          }));
+                        },
                       ),
                     ),
                   ),
@@ -115,6 +117,11 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                         icon: Icons.store,
                         text:"待收货",
                         badge: my_order?.unreceived,
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return OrderManage(activeIndex: 2,);
+                          }));
+                        },
                       ),
                     ),
                   ),
@@ -126,6 +133,27 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                         icon: Icons.local_activity,
                         text:"待评价",
                         badge: my_order?.unevaluated,
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return OrderManage(activeIndex: 3,);
+                          }));
+                        },
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      height: height,
+                      child: IconTextUnder(
+                        icon: Icons.gavel,
+                        text:"已完成",
+                        badge: my_order?.unsend,
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return OrderManage(activeIndex: 4,);
+                          }));
+                        },
                       ),
                     ),
                   ),

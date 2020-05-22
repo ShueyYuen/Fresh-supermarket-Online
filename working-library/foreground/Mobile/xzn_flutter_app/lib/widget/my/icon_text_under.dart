@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 class IconTextUnder extends StatelessWidget {
-  IconTextUnder({Key key, this.icon, this.text: "", this.badge: 0}):super(key:key);
+  IconTextUnder({Key key, this.icon, this.text: "", this.badge: 0, this.onTap: null}):super(key:key);
   IconData icon;
   String text;
   var badge;
+  Function onTap;
 
   @override
   Widget build(BuildContext context) {
     if (badge == null) badge = 0;
     double fontsize = badge > 100?8.0:badge>10?12:15;
     return FlatButton(
-      onPressed: () {
-        print(text);
-      },
+      onPressed: onTap,
       child: Stack(
         alignment:Alignment.center , //指定未定位或部分定位widget的对齐方式
         children: <Widget>[

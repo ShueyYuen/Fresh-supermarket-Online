@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/product.dart';
-import 'package:xzn/page/confirm_order.dart';
+import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
@@ -31,7 +31,7 @@ class ProductPage extends StatelessWidget {
     print("object");
     double width = MediaQuery.of(context).size.width;
     double height = width * 900.0 / 1080.0;
-    int badge = Provider.of<CartModel>(context, listen: false).cart.length;
+    int badge = Provider.of<CartModel>(context, listen: false).is_cart_loaded?Provider.of<CartModel>(context, listen: false).cart.length:0;
     double fontsize = badge > 100 ? 8.0 : badge > 10 ? 12 : 15;
     return Scaffold(
       appBar: PreferredSize(child: AppBar(), preferredSize: Size.fromHeight(0)),
@@ -45,7 +45,7 @@ class ProductPage extends StatelessWidget {
                 height: height,
                 child: Swiper(
                   duration: 500,
-                  itemCount: product.picture_list["shuffle"].length,
+                  itemCount: product.picture_list["shuffle"]?.length,
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.only(top: 0),
@@ -77,7 +77,7 @@ class ProductPage extends StatelessWidget {
                         child: IconButton(
                           iconSize: 20,
                           color: Colors.white,
-                          icon: Icon(Icons.navigate_before),
+                          icon: Icon(Icons.arrow_back_ios),
                           onPressed: () {
                             Navigator.pop(context);
                           },

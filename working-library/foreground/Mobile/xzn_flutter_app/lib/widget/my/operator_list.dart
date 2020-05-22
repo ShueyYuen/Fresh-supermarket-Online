@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:xzn/page/address/address_manage.dart';
 
 import '../../page/my/setting.dart';
 
@@ -30,14 +31,7 @@ class OperatorItem extends StatelessWidget {
             ),
           ),
         ),
-        trailing: Transform.scale(
-          scale: 1.5,
-          child:Icon(
-            Icons.navigate_next,
-            size: 35,
-            color: Colors.grey[400],
-          )
-        ),
+        trailing: Icon(Icons.arrow_forward_ios),
         onTap: () {
           this.onTap();
         },
@@ -47,10 +41,6 @@ class OperatorItem extends StatelessWidget {
 }
 
 class OperatorList extends StatelessWidget {
-  void address_manager() {
-
-  }
-
   void contact_customer() {
 
   }
@@ -64,7 +54,15 @@ class OperatorList extends StatelessWidget {
 
           },
         ),
-        OperatorItem(icon: Icons.location_on, text: "地址管理", color: Colors.green[200],onTap: address_manager),
+        OperatorItem(icon: Icons.location_on, text: "地址管理", color: Colors.green[200],onTap: () {
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context) {
+                return AddressManage();
+              }
+            )
+          );
+        }),
         OperatorItem(icon: Icons.settings, text: "更多设置", color: Colors.red[200],
           onTap: () {
             Navigator.push(context,
