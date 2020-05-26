@@ -4,6 +4,7 @@ from LoginAPI.models import User
 from LoginAPI.token_module import get_token,out_token
 import json
 from django_redis import get_redis_connection
+
 @csrf_exempt
 def Login(request):
     phone = request.POST.get("phone")
@@ -34,6 +35,7 @@ def Login(request):
         user= User.objects.filter(phone=phone)
         
     token = get_token(phone, 3600).decode()
+    user.update(token=token)
     user = user.values()[0]
     userId=user['user_id']
     nickname=user['nickname']

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'LoginAPI',
     'CodeAPI',
     'UserInfoAPI',
+    'GoodsAPI',
 ]
 
 MIDDLEWARE = [
@@ -82,8 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'xzn',
         'USER':'root',
-        #'PASSWORD':'199941',
-        'PASSWORD':'7yvkT<vk7:bp',
+        'PASSWORD':'199941',
+        #'PASSWORD':'7yvkT<vk7:bp',
         'HOST':'',
         'PORT':'',
     }
