@@ -4,25 +4,24 @@ from django.http import HttpResponse
 from UserInfoAPI.models import User
 import json
 from django_redis import get_redis_connection
-
+from LoginAPI.token_module import get_token,out_token
 @csrf_exempt
 def InfoGet(request):
     token = request.POST.get("token")
     user = User.objects.filter(token=token).values()[0]
-
     if user:
-        nickname = user['nickname']
         telephone = user['phone']
-        sex = user['sex']
-        data = {"nickname": str(nickname), "telephone": str(telephone), "sex": str(sex)}
-        response = json.dumps(data)
-        print(response)
-        return HttpResponse(response)
-    else:
-        data = {"message": "Failed"}
-        response = json.dumps(data)
-        print(response)
-        return HttpResponse(response)
+        if out_token(telephone, token):
+            nickname = user['nickname']
+            sex = user['sex']
+            data = {"nickname": str(nickname), "telephone": str(telephone), "sex": str(sex)}
+            response = json.dumps(data)
+            print(response)
+            return HttpResponse(response)
+    data = {"message": "Failed"}
+    response = json.dumps(data)
+    print(response)
+    return HttpResponse(response)
 
 
 @csrf_exempt
@@ -35,13 +34,13 @@ def InfoSet(request):
 
     user = User.objects.filter(phone=phone)
     if user:
-        user.update(nickname=nickname, password=password, sex=sex)
-        data = {"success": True}
-        response = json.dumps(data)
-        print(response)
-        return HttpResponse(response)
-    else:
-        data = {"message": "Failed"}
-        response = json.dumps(data)
-        print(response)
-        return HttpResponse(response)
+        if out_token(phone, token):
+            user.update(nickname=nickname, password=password, sex=sex)
+            data = {"success": True}
+            response = json.dumps(data)
+            print(response)
+            return HttpResponse(response)
+    data = {"message": "Failed"}
+    response = json.dumps(data)
+    print(response)
+    return HttpResponse(response)
