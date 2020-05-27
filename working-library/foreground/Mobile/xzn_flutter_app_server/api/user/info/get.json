@@ -1,5 +1,0 @@
-{
-    "nickname": "nickname",
-    "telephone": "num, 11",
-    "sex": "enum[M,F,]"
-}

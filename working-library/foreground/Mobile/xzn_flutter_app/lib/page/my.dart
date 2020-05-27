@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:xzn/conf/config.dart';
-import 'package:xzn/services/picture.dart';
 import 'package:xzn/widget/my/my_order_border.dart';
 import 'package:xzn/widget/my/operator_list.dart';
 //import '../common/global.dart';
@@ -75,8 +74,21 @@ class _MyState extends State<My> {
                   right: 0.0,
                   bottom: 0.0,
                   child: GestureDetector(
-                    // 70
-                    child: CustomAvatar(context),
+                    child: ClipOval(
+                      child: isLogin
+                          ? Image(
+                              image: NetworkImage(Config.baseUrl() +
+                                  "avatar/" +
+                                  user.head_image_id),
+                              width: 70,
+                              fit: BoxFit.fill,
+                            )
+                          : Image.asset(
+                              "assets/image/avatar.jpg",
+                              width: 70,
+                              fit: BoxFit.fill,
+                            ),
+                    ),
                     onTap: () {
                       print(isLogin);
                       Navigator.pushNamed(context, "login");

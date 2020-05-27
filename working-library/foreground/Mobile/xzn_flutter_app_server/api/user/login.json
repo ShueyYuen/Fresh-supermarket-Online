@@ -1,6 +1,6 @@
 {
     "phone": "num, 11",
-    "sex": "enum[M,F,]",
+    "sex": "enum[M, F, ]",
     "user_id": "alpha, 12",
     "nickname": "nickname",
     "token": "upperhash, 32",
