@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'CodeAPI',
     'UserInfoAPI',
     'GoodsAPI',
+    'AddressAPI',
 ]
 
 MIDDLEWARE = [

@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^', include('LoginAPI.urls')),
     url(r'^', include('UserInfoAPI.urls')),
     url(r'^', include('GoodsAPI.urls')),
+    url(r'^', include('AddressAPI.urls')),
 ]
