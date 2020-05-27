@@ -11,7 +11,6 @@ import '../states/profile_change_notifier.dart';
 
 getMessage_code(String phone) async {
   String url = Config.baseUrl()+"user/code";
-  print(phone);
   var res = await http.post(url, body: {
     "phone": phone
   });
@@ -41,8 +40,8 @@ Login(BuildContext context, String phone, {String code = "", String password = "
     Navigator.of(context).pop();
   }
   if (user != null) {
-    // 返回
     Navigator.of(context).pop();
+    Provider.of<CartModel>(context, listen: true).cart = null;
   }
   return User.fromJson(json);
 }

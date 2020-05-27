@@ -63,12 +63,19 @@ getCartProductList(BuildContext context, String token) async {
       Provider
         .of<CartModel>(context, listen: true)
         .cart = cart_list;
+      print(Provider
+        .of<CartModel>(context, listen: true)
+        .cart);
     } else if (Provider.of<UserModel>(context, listen: false).isLogin) {
+      print("get form hear");
+      print(cart_list);
+      print(Provider.of<CartModel>(context, listen: true).cart);
       cart_list = Provider.of<CartModel>(context, listen: true).cart;
     }
   } catch (e) {
     print(e.toString());
   }
+  print(cart_list);
   return cart_list;
 }
 

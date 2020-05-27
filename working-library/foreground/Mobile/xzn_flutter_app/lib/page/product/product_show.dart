@@ -28,11 +28,10 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    Product product = getProductDetails(context) as Product;
-    print("object");
     double width = MediaQuery.of(context).size.width;
     double height = width * 900.0 / 1080.0;
-    int badge = Provider.of<CartModel>(context, listen: false).is_cart_loaded?Provider.of<CartModel>(context, listen: false).cart.length:0;
-    double fontsize = badge > 100 ? 8.0 : badge > 10 ? 12 : 15;
+    int badge = Provider.of<CartModel>(context, listen: false).cart_count;
+    double fontsize = badge > 99 ? 8 : badge > 9 ? 10 : 12;
     return Scaffold(
       appBar: PreferredSize(child: AppBar(), preferredSize: Size.fromHeight(0)),
       body: ListView(
@@ -370,102 +369,117 @@ class ProductPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomSheet: Container(
-        width: double.infinity,
-        height: 55,
-        child: Flex(
-          direction: Axis.horizontal,
-          children: <Widget>[
-            Expanded(
-              flex: 4,
-              child: Container(
-                height: 55,
-                alignment: Alignment.topCenter,
-                child: FlatButton(
-                  onPressed: () {
-                    print("跳转购物车");
-                  },
-                  child: Stack(
-                    alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(top: 10),
-                        alignment: Alignment.topCenter,
-                        child: Icon(
-                          Icons.shopping_cart,
-                          size: 40,
-                          color: Colors.grey,
+      bottomSheet: Builder(
+        builder: (context) => Container(
+          width: double.infinity,
+          height: 55,
+          child: Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Expanded(
+                flex: 4,
+                child: Container(
+                  height: 55,
+                  alignment: Alignment.topCenter,
+                  child: FlatButton(
+                    onPressed: () {
+                      print("跳转购物车");
+                    },
+                    child: Stack(
+                      alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(top: 10),
+                          alignment: Alignment.topCenter,
+                          child: Icon(
+                            Icons.shopping_cart,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                      Positioned(
-                          top: 10,
-                          right: 20,
-                          child: badge > 0
-                              ? Container(
-                                  width: 16,
-                                  height: 16,
-                                  child: Center(
-                                    child: Text(badge.toString(),
-                                        style: TextStyle(
-                                            fontSize: fontsize,
-                                            color: Colors.white)),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: new BorderRadius.all(
-                                      const Radius.circular(16.0),
+                        Positioned(
+                            top: 10,
+                            right: 20,
+                            child: badge > 0
+                                ? Container(
+                                    width: 16,
+                                    height: 16,
+                                    child: Center(
+                                      child: Text(badge.toString(),
+                                          style: TextStyle(
+                                              fontSize: fontsize,
+                                              color: Colors.white)),
                                     ),
-                                  ),
-                                )
-                              : Text("")),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: new BorderRadius.all(
+                                        const Radius.circular(16.0),
+                                      ),
+                                    ),
+                                  )
+                                : Text("")),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(flex: 1,child: Text(""),),
+              Expanded(
+                flex: 8,
+                child: Container(
+                  height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  alignment: Alignment.centerRight,
+                  child: Row(
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
+                        child:  FlatButton(
+                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+  //                  color: Color.fromARGB(1, 138, 226, 255),
+                          color: Color.fromARGB(255, 194, 224, 237),
+                          textColor: Color.fromARGB(255, 56, 184, 240),
+                          onPressed: () {
+                            print("object");
+                            var snackBar = SnackBar(
+                              duration: Duration(seconds: 1),
+                              content: Row(
+                                children: <Widget>[
+                                  Icon(Icons.check,color: Colors.green,),
+                                  Text(product.product_name+'已经在购物车躺好等您咯！')],
+                              ),
+                              behavior: SnackBarBehavior.floating,
+                            );
+                            Scaffold.of(context).showSnackBar(snackBar);
+                            print("124");
+                          },
+                          child: Text(
+                            "加入购物车",
+                            style: TextStyle(fontSize: 16),
+                          )),
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
+                        child: FlatButton(
+                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 28),
+                          color: Color.fromARGB(255, 44, 160, 253),
+                          textColor: Colors.white,
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return OrderConfirm();
+                            }));
+                          },
+                          child: Text(
+                            "立即购买",
+                            style: TextStyle(fontSize: 16),
+                          )),
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
-            Expanded(flex: 1,child: Text(""),),
-            Expanded(
-              flex: 8,
-              child: Container(
-                height: 40,
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                alignment: Alignment.centerRight,
-                child: Row(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
-                      child:  FlatButton(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-//                  color: Color.fromARGB(1, 138, 226, 255),
-                        color: Color.fromARGB(255, 194, 224, 237),
-                        textColor: Color.fromARGB(255, 56, 184, 240),
-                        onPressed: () {},
-                        child: Text(
-                          "加入购物车",
-                          style: TextStyle(fontSize: 16),
-                        )),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
-                      child: FlatButton(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 28),
-                        color: Color.fromARGB(255, 44, 160, 253),
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return OrderConfirm();
-                          }));
-                        },
-                        child: Text(
-                          "立即购买",
-                          style: TextStyle(fontSize: 16),
-                        )),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

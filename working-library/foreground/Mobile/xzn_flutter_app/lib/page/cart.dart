@@ -5,6 +5,7 @@ import 'package:xzn/conf/config.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 import '../widget/common/num_contoller.dart';
 import 'product/product_show.dart';
 
@@ -143,7 +144,11 @@ class _CartState extends State<Cart> {
 
   @override
   void initState() {
-    _future = getCartProductList(context, "");
+    if (Provider.of<CartModel>(context, listen: false).is_cart_loaded)
+      _future = Future.delayed(Duration(seconds: 0), () {
+        return Provider.of<CartModel>(context, listen: false).cart;
+      });
+    else _future = getCartProductList(context, "");
     super.initState();
   }
 
@@ -172,6 +177,8 @@ class _CartState extends State<Cart> {
                 size: 48,
               );
             } else {
+              print("cofalconer");
+              print(snapshot.data);
               widget = ListView(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 shrinkWrap: true,
@@ -226,49 +233,6 @@ class _CartState extends State<Cart> {
           return widget;
         },
       ),
-//      body: ListView(
-//        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-//        shrinkWrap: true,
-//        children: <Widget>[
-//          ProductCartCard(
-//            onLongTap: () {},
-//          ),
-//          ProductCartCard(
-//            onLongTap: () {},
-//          ),
-//          ProductCartCard(
-//            onLongTap: () {},
-//          ),
-//          ProductCartCard(
-//            onLongTap: () {},
-//          ),
-//          Flex(
-//            direction: Axis.horizontal,
-//            children: <Widget>[
-//              Expanded(flex: 3, child: Text("")),
-//              Expanded(
-//                  flex: 2,
-//                  child: Divider(
-//                    thickness: 5,
-//                    color: Colors.green[100],
-//                  )),
-//              Expanded(
-//                  flex: 2,
-//                  child: Container(
-//                    alignment: Alignment.center,
-//                    child: Text("为您推荐"),
-//                  )),
-//              Expanded(
-//                  flex: 2,
-//                  child: Divider(
-//                    thickness: 5,
-//                    color: Colors.green[100],
-//                  )),
-//              Expanded(flex: 3, child: Text("")),
-//            ],
-//          ),
-//        ],
-//      ),
       bottomSheet: Container(
         width: double.infinity,
         height: 40,

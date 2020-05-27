@@ -69,7 +69,12 @@ flutter:
     - assets/image/class/5.png
 
     - assets/image/login_logo.webp
-    - assets/image/avatar.jpg
+    - assets/image/avatar_default_1.png
+    - assets/image/avatar_default_2.png
+    - assets/image/avatar_default_3.png
+    - assets/image/avatar_default_4.png
+    - assets/image/avatar_default_5.png
+    - assets/image/avatar_default_6.png
     - assets/image/product.jpg
     - assets/image/beef.webp
 

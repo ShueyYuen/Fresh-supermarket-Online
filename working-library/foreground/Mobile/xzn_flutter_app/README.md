@@ -28,6 +28,7 @@ flutter clean
 ```dart
 flutter packages pub run json_model
 ```
+> 注意事项，Provide提供的持久层模型，其中包括的其他模型的列表，在持久层中为List<Dynamic>类型，需要自己修改模型代码！！！！！
 
 # 指纹信息
 $> keytool -list -v -keystore "\.and

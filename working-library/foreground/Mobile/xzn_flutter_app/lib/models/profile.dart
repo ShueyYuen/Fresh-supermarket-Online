@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:xzn/index.dart';
 import "user.dart";
 import "myOrder.dart";
 part 'profile.g.dart';
@@ -9,7 +10,7 @@ class Profile {
 
     User user;
     MyOrder my_order;
-    List cart;
+    List<CartItem> cart;
     String token;
     
     factory Profile.fromJson(Map<String,dynamic> json) => _$ProfileFromJson(json);

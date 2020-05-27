@@ -1,30 +1,74 @@
 {
-    "success": false,
-    "data": {
-        "products": [
-            {
-                "num": 0,
-                "pictureId": "",
-                "totalprice": 0
-            }
-        ],
-        "distributionfee": "",
-        "discount": 0,
-        "user": {
-            "address": "",
-            "name": "",
-            "phone": ""
-        },
-        "arrivetime": "",
-        "orderId": "",
-        "state": {
-            "submittime": "",
-            "paytime": "",
-            "receivetime": "",
-            "finishtime": ""
-        },
-        "diliveryphone": ""
-
+    "order_id": "upperhash, 16",
+    "customer": {
+        "phone": "num, 11",
+        "sex": "enum[M,F,]",
+        "nickname": "nickname"
     },
-    "message": ""
+    "address": {
+        "address_id": "upperhash, 26",
+        "person": {
+            "consignee": "name",
+            "sex": "enum[M,F,]"
+        },
+        "phone": "num, 11",
+        "detail": {
+            "province": "2",
+            "city": "city",
+            "district": "3",
+            "street": "2",
+            "no": "2"
+        },
+        "tag": "enum[学校,公司,家]"
+    },
+    "product_list": [
+        {
+            "product_name": "food",
+            "price": {
+                "num": 0,
+                "unit": "enum[千克, 包, 盒]"
+            },
+            "picture_list": {
+                "shuffle": [
+                    "image"
+                ],
+                "detail": [
+                    "image"
+                ]
+            },
+            "details": {
+                "origin": "city",
+                "stockway": "enum[冷藏, 常温]",
+                "weight": 1
+            },
+            "stock": 2,
+            "discount": 1,
+            "description": {
+                "subtitle": "sentence",
+                "distribution": "sentence",
+                "promotipn": "sentence",
+                "tags": [
+                    {
+                        "type": "enum[hot, cheap, normal]",
+                        "content": "enum[热卖, 优惠]"
+                    }
+                ]
+            }
+        }
+    ],
+    "deliveryman": {
+        "deliveryman_id": "num, 10",
+        "name": "name",
+        "phone": "num, 11",
+        "sex": "enum[M,F,]",
+        "longitude": 0,
+        "latitude": 0,
+        "status": 2
+    },
+    "create_order_time": "time",
+    "receive_order_time": "time",
+    "finish_order_time": "time",
+    "order_status": "2",
+    "payment_id": "upperhash, 64",
+    "total_price": 0
 }

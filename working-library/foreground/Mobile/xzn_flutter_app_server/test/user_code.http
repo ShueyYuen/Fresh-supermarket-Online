@@ -4,46 +4,39 @@
 
 @host = {{protocol}}://{{hostname}}:{{port}}
 
-POST {{host}}/api/user/code HTTP/1.1
-content-type: application/json
-
-{
-}
-###
-POST {{host}}/api/user/my HTTP/1.1
-content-type: application/json
-
-{
-}
-###
-POST {{host}}/api/user/info/show HTTP/1.1
-content-type: application/json
-
-{
-}
 ###
 POST {{host}}/api/user/login HTTP/1.1
 content-type: application/json
-
-{
-}
+###
+POST {{host}}/api/user/code HTTP/1.1
+content-type: application/json
+###
+POST {{host}}/api/user/my HTTP/1.1
+content-type: application/json
+###
+POST {{host}}/api/user/info/get HTTP/1.1
+content-type: application/json
+###
+POST {{host}}/api/user/info/set HTTP/1.1
+content-type: application/json
+###
+POST {{host}}/api/user/my HTTP/1.1
+content-type: application/json
+###
+POST {{host}}/api/user/address/list HTTP/1.1
+content-type: application/json
+###
+POST {{host}}/api/user/address/update HTTP/1.1
+content-type: application/json
+###
+POST {{host}}/api/user/order/detail HTTP/1.1
+content-type: application/json
 ###
 POST {{host}}/api/user/product/detail HTTP/1.1
 content-type: application/json
-
-{
-}
-
 ###
 POST {{host}}/api/user/product/recommend HTTP/1.1
 content-type: application/json
-
-{
-}
-
 ###
 POST {{host}}/api/user/cart/query HTTP/1.1
 content-type: application/json
-
-{
-}
