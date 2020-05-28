@@ -10,8 +10,9 @@ from LoginAPI.token_module import get_token,out_token
 def Goodsdetail(request):
     token = request.POST.get("token")
     gid = request.POST.get("product_id")
-    user = User.objects.filter(token=token).values()[0]
+    user = User.objects.filter(token=token)
     if user:
+        user=user.values()[0]
         telephone = user['phone']
         if out_token(telephone, token):
             goods = Goods.objects.filter(goods_id=gid).values()[0]
@@ -52,12 +53,13 @@ def getpicture(id):
 def Goodsrecommend(request):
     token = request.POST.get("token")
     gnum = request.POST.get("gnum")
-    user = User.objects.filter(token=token).values()[0]
+    user = User.objects.filter(token=token)
     data = []
     gidlist = []
     for i in range(int(gnum)):
         gidlist.append('1')
     if user:
+        user=user.values()[0]
         telephone = user['phone']
         if out_token(telephone, token):
             for gid in gidlist:
