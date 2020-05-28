@@ -310,7 +310,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +319,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2020-05-15 08:18:31.504376'),(2,'auth','0001_initial','2020-05-15 08:18:32.388127'),(3,'admin','0001_initial','2020-05-15 08:18:35.730317'),(4,'admin','0002_logentry_remove_auto_add','2020-05-15 08:18:36.293381'),(5,'admin','0003_logentry_add_action_flag_choices','2020-05-15 08:18:36.312900'),(6,'contenttypes','0002_remove_content_type_name','2020-05-15 08:18:37.053844'),(7,'auth','0002_alter_permission_name_max_length','2020-05-15 08:18:37.413014'),(8,'auth','0003_alter_user_email_max_length','2020-05-15 08:18:37.781939'),(9,'auth','0004_alter_user_username_opts','2020-05-15 08:18:37.829765'),(10,'auth','0005_alter_user_last_login_null','2020-05-15 08:18:38.113881'),(11,'auth','0006_require_contenttypes_0002','2020-05-15 08:18:38.131453'),(12,'auth','0007_alter_validators_add_error_messages','2020-05-15 08:18:38.161703'),(13,'auth','0008_alter_user_username_max_length','2020-05-15 08:18:38.517947'),(14,'auth','0009_alter_user_last_name_max_length','2020-05-15 08:18:39.238722'),(15,'auth','0010_alter_group_name_max_length','2020-05-15 08:18:39.740383'),(16,'auth','0011_update_proxy_permissions','2020-05-15 08:18:39.830175'),(17,'sessions','0001_initial','2020-05-15 08:18:39.959982'),(18,'LoginAPI','0001_initial','2020-05-15 08:21:57.014082'),(19,'AddressAPI','0001_initial','2020-05-28 02:58:13.229111'),(20,'CartAPI','0001_initial','2020-05-28 02:58:13.287054'),(21,'GoodsAPI','0001_initial','2020-05-28 02:58:13.298913'),(22,'UserInfoAPI','0001_initial','2020-05-28 02:58:13.304951');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2020-05-15 08:18:31.504376'),(2,'auth','0001_initial','2020-05-15 08:18:32.388127'),(3,'admin','0001_initial','2020-05-15 08:18:35.730317'),(4,'admin','0002_logentry_remove_auto_add','2020-05-15 08:18:36.293381'),(5,'admin','0003_logentry_add_action_flag_choices','2020-05-15 08:18:36.312900'),(6,'contenttypes','0002_remove_content_type_name','2020-05-15 08:18:37.053844'),(7,'auth','0002_alter_permission_name_max_length','2020-05-15 08:18:37.413014'),(8,'auth','0003_alter_user_email_max_length','2020-05-15 08:18:37.781939'),(9,'auth','0004_alter_user_username_opts','2020-05-15 08:18:37.829765'),(10,'auth','0005_alter_user_last_login_null','2020-05-15 08:18:38.113881'),(11,'auth','0006_require_contenttypes_0002','2020-05-15 08:18:38.131453'),(12,'auth','0007_alter_validators_add_error_messages','2020-05-15 08:18:38.161703'),(13,'auth','0008_alter_user_username_max_length','2020-05-15 08:18:38.517947'),(14,'auth','0009_alter_user_last_name_max_length','2020-05-15 08:18:39.238722'),(15,'auth','0010_alter_group_name_max_length','2020-05-15 08:18:39.740383'),(16,'auth','0011_update_proxy_permissions','2020-05-15 08:18:39.830175'),(17,'sessions','0001_initial','2020-05-15 08:18:39.959982'),(18,'LoginAPI','0001_initial','2020-05-15 08:21:57.014082'),(19,'AddressAPI','0001_initial','2020-05-28 02:58:13.229111'),(20,'CartAPI','0001_initial','2020-05-28 02:58:13.287054'),(21,'GoodsAPI','0001_initial','2020-05-28 02:58:13.298913'),(22,'UserInfoAPI','0001_initial','2020-05-28 02:58:13.304951'),(23,'AddressAPI','0002_delete_address','2020-05-28 08:01:19.088105'),(24,'CartAPI','0002_delete_shoppingcart','2020-05-28 08:01:19.127132'),(25,'GoodsAPI','0002_delete_goods','2020-05-28 08:01:19.149274'),(26,'LoginAPI','0002_delete_user','2020-05-28 08:01:19.176953'),(27,'UserInfoAPI','0002_delete_user','2020-05-28 08:01:19.190066');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -385,7 +385,7 @@ CREATE TABLE `goods` (
 
 LOCK TABLES `goods` WRITE;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
-INSERT INTO `goods` VALUES ('1','牛肉','肉类','g',60.00,'01',80,'上海市奉贤','一包','包','冷藏',500,1,'产于奉贤某养牛场','包邮，全程冷链运输，1.5小时内送达， 因交通情况派送或许有延迟。','端午节期间专享产品，每人每天购买不超过一件，享\r\n受此优惠','cheap','8.8折');
+INSERT INTO `goods` VALUES ('1','牛肉','肉类','g',60.00,'01',80,'上海市奉贤','一包','包','冷藏',500,1,'产于奉贤某养牛场','包邮，全程冷链运输，1.5小时内送达， 因交通情况派送或许有延迟。','端午节期间专享产品，每人每天购买不超过一件，享\r\n受此优惠','cheap','8.8折'),('2','羊肉','肉类','g',56.00,'02',95,'上海市奉贤','一包','包','冷藏',300,1,'产于奉贤某养羊场','包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。','端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠','hot','');
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,7 +437,7 @@ CREATE TABLE `order_detail` (
   `id` int(11) NOT NULL,
   `order_id` varchar(32) NOT NULL,
   `goods_id` varchar(10) DEFAULT NULL,
-  `quantity` varchar(255) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`,`order_id`) USING BTREE,
   KEY `order_details_index` (`order_id`) USING BTREE,
   KEY `goods_id` (`goods_id`) USING BTREE
@@ -450,7 +450,7 @@ CREATE TABLE `order_detail` (
 
 LOCK TABLES `order_detail` WRITE;
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
-INSERT INTO `order_detail` VALUES (1,'1','1','1');
+INSERT INTO `order_detail` VALUES (1,'1','1',1);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -485,6 +485,50 @@ LOCK TABLES `purchase` WRITE;
 /*!40000 ALTER TABLE `purchase` DISABLE KEYS */;
 INSERT INTO `purchase` VALUES (1,'2020-03-19 14:35:04',1.00,1.00,'1','1','1',1);
 /*!40000 ALTER TABLE `purchase` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `recycle`
+--
+
+DROP TABLE IF EXISTS `recycle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `recycle` (
+  `user_id` int(8) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address_id` int(5) DEFAULT NULL,
+  `province` varchar(45) DEFAULT NULL,
+  `consignee` varchar(45) DEFAULT NULL,
+  `consignee_phone` varchar(45) DEFAULT NULL,
+  `consignee_sex` varchar(45) DEFAULT NULL,
+  `house_no` varchar(45) DEFAULT NULL,
+  `latitude` varchar(45) DEFAULT NULL,
+  `customer_id` varchar(45) DEFAULT NULL,
+  `longitude` varchar(45) DEFAULT NULL,
+  `tag` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `district` varchar(45) DEFAULT NULL,
+  `street` varchar(45) DEFAULT NULL,
+  `order_id` varchar(32) NOT NULL,
+  `deliveryman_id` int(8) DEFAULT NULL,
+  `warehouse_id` varchar(45) DEFAULT NULL,
+  `finish_order_time` varchar(45) DEFAULT NULL,
+  `remarks` varchar(45) DEFAULT NULL,
+  `goods_id` varchar(45) DEFAULT NULL,
+  `quantity` int(8) DEFAULT NULL,
+  `order_status` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `recycle`
+--
+
+LOCK TABLES `recycle` WRITE;
+/*!40000 ALTER TABLE `recycle` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recycle` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -565,7 +609,7 @@ CREATE TABLE `shopping_cart` (
 
 LOCK TABLES `shopping_cart` WRITE;
 /*!40000 ALTER TABLE `shopping_cart` DISABLE KEYS */;
-INSERT INTO `shopping_cart` VALUES (00000001,'1',3);
+INSERT INTO `shopping_cart` VALUES (00000001,'1',3),(00000001,'2',1),(00000002,'1',1);
 /*!40000 ALTER TABLE `shopping_cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -597,7 +641,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (00000001,'1','199941','M','18721517889','1','Johnny','MTU5MDY0MTA0NC4wODQxNjI3OjNhNDhjOTVlNGQxN2QzYmM1NDA1M2Q0NjE3ODg1ZTZlMDM0YjAzOTA='),(00000002,'1','18721522908','M','18721522908','1','lzh','MTU5MDY0MDU4Ny44MjIzMzkzOmY4ZTI5MDFhODI0YWQ1NjFmMGQxZDZmM2Y2YTRmNmE4OWExYjFmMGM=');
+INSERT INTO `user` VALUES (00000001,'1','199941','M','18721517889','1','Johnny','MTU5MDY1NzcxNS45NzcxMDI6YmZmNTkxM2JiMTliOTk2ZDRmYTFkYjgxN2I0YjJiYWIyZjMyZGIyZA==');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -638,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-28 11:50:53
+-- Dump completed on 2020-05-28 17:59:47

@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from UserInfoAPI.models import User
-from Fresh_market_online.model import ShoppingCart
+from Fresh_market_online.model import ShoppingCart,User,Goods
 import json
 from django_redis import get_redis_connection
 from LoginAPI.token_module import get_token,out_token
+from GoodsAPI.views import getpicture
 @csrf_exempt
 def CartAdd(request):
     token = request.POST.get("token")
@@ -61,13 +61,32 @@ def CartUpdate(request):
 @csrf_exempt
 def CartQuery(request):
     token = request.POST.get("token")
-    user = User.objects.filter(token=token).values()[0]
+    user = User.objects.filter(token=token)
     if user:
+        user=user.values()[0]
+        data=[]
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            
-            data={'success':True}
+            cart=ShoppingCart.objects.filter(customer_id=uid).values()
+            for item in cart:
+                goods = Goods.objects.filter(goods_id=item['goods_id']).values()[0]
+
+                product_name = goods['goods_name']
+                product_id = item['goods_id']
+                price = {"num": goods['price'], "unit": str(goods['unit'])}
+                shuffle,detail = getpicture(item['goods_id'])
+                picture_list = {"shuffle": shuffle, "detail": detail}
+                details = {"origin": goods['origin'], "specification": goods['specification'],
+                           "packaging": goods['packaging'], "stockway": goods['stockway'], "weight": goods['weight']}
+                stock = goods['stock']
+                discount = goods['discount']
+                description = {"subtitle": goods['subtitle'], "distribution": goods['distribution'], "promotion": goods['promotion']}
+                tags = {"type": goods['tags_type'], "content": goods['tags_content']}
+
+                data.append({"product_name": str(product_name), "product_id": str(product_id), "price": price,
+                        "picture_list": picture_list, "details": details, "stock": stock, "discount": discount,
+                        "description": description, "tags": tags,"number":item['quantity']})
             response = json.dumps(data)
             print(response)
             return HttpResponse(response)

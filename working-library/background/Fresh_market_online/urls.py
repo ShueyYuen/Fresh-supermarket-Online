@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^', include('GoodsAPI.urls')),
     url(r'^', include('AddressAPI.urls')),
     url(r'^', include('CartAPI.urls')),
+    url(r'^', include('LogoffAPI.urls')),
 ]

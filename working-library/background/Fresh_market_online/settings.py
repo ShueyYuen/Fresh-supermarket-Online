@@ -37,12 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Fresh_market_online',
     'LoginAPI',
     'CodeAPI',
     'UserInfoAPI',
     'GoodsAPI',
     'AddressAPI',
     'CartAPI',
+    'LogoffAPI',
 ]
 
 MIDDLEWARE = [
@@ -85,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'xzn',
         'USER':'root',
-        'PASSWORD':'199941',
-        #'PASSWORD':'XZN_123456',
+        #'PASSWORD':'199941',
+        'PASSWORD':'XZN_123456',
         'HOST':'',
         'PORT':'',
     }
