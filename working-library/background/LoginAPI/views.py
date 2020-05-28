@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from LoginAPI.models import User
+from Fresh_market_online.model import User
 from LoginAPI.token_module import get_token,out_token
 import json
 from django_redis import get_redis_connection

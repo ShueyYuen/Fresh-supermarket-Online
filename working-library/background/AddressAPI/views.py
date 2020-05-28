@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from AddressAPI.models import Address
-from UserInfoAPI.models import User
+from Fresh_market_online.model import User, Address
 import json
 from django_redis import get_redis_connection
 from LoginAPI.token_module import get_token,out_token
