@@ -1,14 +1,17 @@
 /*
  Navicat Premium Data Transfer
+
  Source Server         : Johnny
  Source Server Type    : MySQL
  Source Server Version : 80018
  Source Host           : localhost:3306
  Source Schema         : xzn
+
  Target Server Type    : MySQL
  Target Server Version : 80018
  File Encoding         : 65001
- Date: 28/05/2020 10:19:22
+
+ Date: 29/05/2020 00:18:47
 */
 
 SET NAMES utf8mb4;
@@ -19,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE `address`  (
-  `customer_id` int(8) NOT NULL,
+  `customer_id` int(8) UNSIGNED ZEROFILL NOT NULL,
   `address_id` int(5) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `consignee` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -35,14 +38,15 @@ CREATE TABLE `address`  (
   PRIMARY KEY (`address_id`, `customer_id`, `house_no`) USING BTREE,
   INDEX `customer_id`(`customer_id`, `address_id`) USING BTREE,
   INDEX `address_id`(`address_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
-INSERT INTO `address` VALUES (1, 00001, '上海市', 'lzh', '18721522908', 'M', '999', NULL, NULL, '学校', '上海市', '奉贤区', '海思路');
-INSERT INTO `address` VALUES (1, 00002, '上海市', 'Johnny', '18721517889', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤去', '海思路');
-INSERT INTO `address` VALUES (1, 00003, '上海市', 'shl', '18817669250', 'M', '130号', '31.141382', '121.421251', '学校', '上海市', '徐汇区区', '梅陇路');
+INSERT INTO `address` VALUES (00000001, 00001, '上海市', 'lzh', '18721522908', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤区', '海思路');
+INSERT INTO `address` VALUES (00000001, 00002, '上海市', 'Johnny', '18721517889', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤去', '海思路');
+INSERT INTO `address` VALUES (00000001, 00003, '上海市', 'shl', '18817669250', 'M', '130号', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
+INSERT INTO `address` VALUES (00000004, 00004, '上海市', '测试', '18888888888', 'M', '111号', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
 
 -- ----------------------------
 -- Table structure for auth_group
@@ -79,7 +83,7 @@ CREATE TABLE `auth_permission`  (
   `codename` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id`, `codename`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -112,6 +116,22 @@ INSERT INTO `auth_permission` VALUES (25, 'Can add user', 7, 'add_user');
 INSERT INTO `auth_permission` VALUES (26, 'Can change user', 7, 'change_user');
 INSERT INTO `auth_permission` VALUES (27, 'Can delete user', 7, 'delete_user');
 INSERT INTO `auth_permission` VALUES (28, 'Can view user', 7, 'view_user');
+INSERT INTO `auth_permission` VALUES (29, 'Can add user', 8, 'add_user');
+INSERT INTO `auth_permission` VALUES (30, 'Can change user', 8, 'change_user');
+INSERT INTO `auth_permission` VALUES (31, 'Can delete user', 8, 'delete_user');
+INSERT INTO `auth_permission` VALUES (32, 'Can view user', 8, 'view_user');
+INSERT INTO `auth_permission` VALUES (33, 'Can add goods', 9, 'add_goods');
+INSERT INTO `auth_permission` VALUES (34, 'Can change goods', 9, 'change_goods');
+INSERT INTO `auth_permission` VALUES (35, 'Can delete goods', 9, 'delete_goods');
+INSERT INTO `auth_permission` VALUES (36, 'Can view goods', 9, 'view_goods');
+INSERT INTO `auth_permission` VALUES (37, 'Can add address', 10, 'add_address');
+INSERT INTO `auth_permission` VALUES (38, 'Can change address', 10, 'change_address');
+INSERT INTO `auth_permission` VALUES (39, 'Can delete address', 10, 'delete_address');
+INSERT INTO `auth_permission` VALUES (40, 'Can view address', 10, 'view_address');
+INSERT INTO `auth_permission` VALUES (41, 'Can add shopping cart', 11, 'add_shoppingcart');
+INSERT INTO `auth_permission` VALUES (42, 'Can change shopping cart', 11, 'change_shoppingcart');
+INSERT INTO `auth_permission` VALUES (43, 'Can delete shopping cart', 11, 'delete_shoppingcart');
+INSERT INTO `auth_permission` VALUES (44, 'Can view shopping cart', 11, 'view_shoppingcart');
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -204,18 +224,22 @@ CREATE TABLE `django_content_type`  (
   `model` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label`, `model`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_content_type
 -- ----------------------------
+INSERT INTO `django_content_type` VALUES (10, 'AddressAPI', 'address');
 INSERT INTO `django_content_type` VALUES (1, 'admin', 'logentry');
 INSERT INTO `django_content_type` VALUES (3, 'auth', 'group');
 INSERT INTO `django_content_type` VALUES (2, 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES (4, 'auth', 'user');
+INSERT INTO `django_content_type` VALUES (11, 'CartAPI', 'shoppingcart');
 INSERT INTO `django_content_type` VALUES (5, 'contenttypes', 'contenttype');
+INSERT INTO `django_content_type` VALUES (9, 'GoodsAPI', 'goods');
 INSERT INTO `django_content_type` VALUES (7, 'LoginAPI', 'user');
 INSERT INTO `django_content_type` VALUES (6, 'sessions', 'session');
+INSERT INTO `django_content_type` VALUES (8, 'UserInfoAPI', 'user');
 
 -- ----------------------------
 -- Table structure for django_migrations
@@ -227,7 +251,7 @@ CREATE TABLE `django_migrations`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -250,6 +274,15 @@ INSERT INTO `django_migrations` VALUES (15, 'auth', '0010_alter_group_name_max_l
 INSERT INTO `django_migrations` VALUES (16, 'auth', '0011_update_proxy_permissions', '2020-05-15 08:18:39.830175');
 INSERT INTO `django_migrations` VALUES (17, 'sessions', '0001_initial', '2020-05-15 08:18:39.959982');
 INSERT INTO `django_migrations` VALUES (18, 'LoginAPI', '0001_initial', '2020-05-15 08:21:57.014082');
+INSERT INTO `django_migrations` VALUES (19, 'AddressAPI', '0001_initial', '2020-05-28 02:58:13.229111');
+INSERT INTO `django_migrations` VALUES (20, 'CartAPI', '0001_initial', '2020-05-28 02:58:13.287054');
+INSERT INTO `django_migrations` VALUES (21, 'GoodsAPI', '0001_initial', '2020-05-28 02:58:13.298913');
+INSERT INTO `django_migrations` VALUES (22, 'UserInfoAPI', '0001_initial', '2020-05-28 02:58:13.304951');
+INSERT INTO `django_migrations` VALUES (23, 'AddressAPI', '0002_delete_address', '2020-05-28 08:01:19.088105');
+INSERT INTO `django_migrations` VALUES (24, 'CartAPI', '0002_delete_shoppingcart', '2020-05-28 08:01:19.127132');
+INSERT INTO `django_migrations` VALUES (25, 'GoodsAPI', '0002_delete_goods', '2020-05-28 08:01:19.149274');
+INSERT INTO `django_migrations` VALUES (26, 'LoginAPI', '0002_delete_user', '2020-05-28 08:01:19.176953');
+INSERT INTO `django_migrations` VALUES (27, 'UserInfoAPI', '0002_delete_user', '2020-05-28 08:01:19.190066');
 
 -- ----------------------------
 -- Table structure for django_session
@@ -293,7 +326,8 @@ CREATE TABLE `goods`  (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('1', '牛肉', '肉类', 'g', 60.00, '01', 80, '上海市奉贤', '一包', '包', '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，1.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\r\n受此优惠', 'cheap', '8.8折');
+INSERT INTO `goods` VALUES ('1', '牛肉', '肉类', NULL, 60.00, '02', 90, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('2', '羊肉', '肉类', 'g', 56.00, '02', 95, '上海市奉贤', '一包', '包', '冷藏', 500, 1, '产于奉贤某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
 
 -- ----------------------------
 -- Table structure for order
@@ -331,7 +365,7 @@ CREATE TABLE `order_detail`  (
   `id` int(11) NOT NULL,
   `order_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `goods_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `quantity` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `quantity` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `order_id`) USING BTREE,
   INDEX `order_details_index`(`order_id`) USING BTREE,
   INDEX `goods_id`(`goods_id`) USING BTREE
@@ -340,7 +374,7 @@ CREATE TABLE `order_detail`  (
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------
-INSERT INTO `order_detail` VALUES (1, '1', '1', '1');
+INSERT INTO `order_detail` VALUES (1, '1', '1', 1);
 
 -- ----------------------------
 -- Table structure for purchase
@@ -365,6 +399,41 @@ CREATE TABLE `purchase`  (
 -- Records of purchase
 -- ----------------------------
 INSERT INTO `purchase` VALUES (1, '2020-03-19 14:35:04', 1.00, 1.00, '1', '1', '1', 1);
+
+-- ----------------------------
+-- Table structure for recycle
+-- ----------------------------
+DROP TABLE IF EXISTS `recycle`;
+CREATE TABLE `recycle`  (
+  `user_id` int(8) NULL DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `address_id` int(5) NULL DEFAULT NULL,
+  `province` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `consignee` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `consignee_phone` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `consignee_sex` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `house_no` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `latitude` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `longitude` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `tag` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `city` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `district` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `street` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `order_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `deliveryman_id` int(8) NULL DEFAULT NULL,
+  `warehouse_id` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `finish_order_time` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `remarks` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `goods_id` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `quantity` int(8) NULL DEFAULT NULL,
+  `order_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`order_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of recycle
+-- ----------------------------
+INSERT INTO `recycle` VALUES (4, '18888888888', 4, '上海市', '测试', '18888888888', 'M', '111号', '121.421251', '31.141382', '学校', '上海市', '徐汇区', '梅陇路', '2', 1, '10', '2020-05-28 22:53:57+00:00', '1', '1', 4, '1');
 
 -- ----------------------------
 -- Table structure for schedule
@@ -411,7 +480,7 @@ DROP TABLE IF EXISTS `shopping_cart`;
 CREATE TABLE `shopping_cart`  (
   `customer_id` int(8) UNSIGNED ZEROFILL NOT NULL,
   `goods_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `quantity` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `quantity` int(8) NULL DEFAULT NULL,
   PRIMARY KEY (`customer_id`, `goods_id`) USING BTREE,
   INDEX `cart_goods_fk`(`goods_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -419,7 +488,9 @@ CREATE TABLE `shopping_cart`  (
 -- ----------------------------
 -- Records of shopping_cart
 -- ----------------------------
-INSERT INTO `shopping_cart` VALUES (00000001, '1', '1');
+INSERT INTO `shopping_cart` VALUES (00000001, '1', 3);
+INSERT INTO `shopping_cart` VALUES (00000001, '2', 1);
+INSERT INTO `shopping_cart` VALUES (00000002, '1', 1);
 
 -- ----------------------------
 -- Table structure for user
@@ -428,9 +499,8 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `user_id` int(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   `user_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `sex` tinyint(1) NULL DEFAULT NULL,
+  `sex` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `head_image_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -438,12 +508,14 @@ CREATE TABLE `user`  (
   PRIMARY KEY (`user_id`, `phone`) USING BTREE,
   UNIQUE INDEX `login_phone`(`phone`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (00000001, '1', '1', '199941', 0, '18721517889', '1', 'Johnny', 'MTU5MDU5NTIzMC4xNTQyOTU6MGQ3MmVjOWYyNDI5YTdiMDFkYzkyYjc0MWI5NTYxNjJmN2JhM2UzYQ==');
+INSERT INTO `user` VALUES (00000001, '1', '199941', 'M', '18721517889', '1', 'Johnny', 'MTU5MDY1NzcxNS45NzcxMDI6YmZmNTkxM2JiMTliOTk2ZDRmYTFkYjgxN2I0YjJiYWIyZjMyZGIyZA==');
+INSERT INTO `user` VALUES (00000002, '1', '18721522908', 'M', '18721522908', '1', 'lzh', NULL);
+INSERT INTO `user` VALUES (00000003, '1', '18817669250', 'M', '18817669250', '1', 'shl', NULL);
 
 -- ----------------------------
 -- Table structure for warehouse

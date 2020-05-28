@@ -1,4 +1,6 @@
 from django.db import models
+
+
 class Address(models.Model):
     customer_id = models.IntegerField()
     address_id = models.AutoField(primary_key=True)
@@ -188,7 +190,7 @@ class OrderDetail(models.Model):
     id = models.IntegerField(primary_key=True)
     order_id = models.CharField(max_length=32)
     goods_id = models.CharField(max_length=10, blank=True, null=True)
-    quantity = models.CharField(max_length=255, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -209,6 +211,35 @@ class Purchase(models.Model):
     class Meta:
         managed = False
         db_table = 'purchase'
+
+
+class Recycle(models.Model):
+    user_id = models.IntegerField(blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    address_id = models.IntegerField(blank=True, null=True)
+    province = models.CharField(max_length=45, blank=True, null=True)
+    consignee = models.CharField(max_length=45, blank=True, null=True)
+    consignee_phone = models.CharField(max_length=45, blank=True, null=True)
+    consignee_sex = models.CharField(max_length=45, blank=True, null=True)
+    house_no = models.CharField(max_length=45, blank=True, null=True)
+    latitude = models.CharField(max_length=45, blank=True, null=True)
+    longitude = models.CharField(max_length=45, blank=True, null=True)
+    tag = models.CharField(max_length=45, blank=True, null=True)
+    city = models.CharField(max_length=45, blank=True, null=True)
+    district = models.CharField(max_length=45, blank=True, null=True)
+    street = models.CharField(max_length=45, blank=True, null=True)
+    order_id = models.CharField(primary_key=True, max_length=32)
+    deliveryman_id = models.IntegerField(blank=True, null=True)
+    warehouse_id = models.CharField(max_length=45, blank=True, null=True)
+    finish_order_time = models.CharField(max_length=45, blank=True, null=True)
+    remarks = models.CharField(max_length=45)
+    goods_id = models.CharField(max_length=45, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    order_status = models.CharField(max_length=10, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'recycle'
 
 
 class Schedule(models.Model):
