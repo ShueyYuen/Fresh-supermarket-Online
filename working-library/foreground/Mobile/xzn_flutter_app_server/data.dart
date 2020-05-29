@@ -34,6 +34,7 @@ final Map<String, List<String>> baseData = {
   "city": city,
   "sentence": sentence,
   "nickname": nickname,
+  "name": name,
 };
 
 final _random = new Random();
@@ -109,6 +110,8 @@ dynamic _fillAtomElement(dynamic type) {
       return (_random.nextDouble()*100).truncate()/100;
     else if (type == 2)
       return _random.nextInt(100);
+  } else if (type is bool) {
+    return true;
   }
 }
 

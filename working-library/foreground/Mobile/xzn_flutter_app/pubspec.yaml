@@ -69,7 +69,6 @@ flutter:
     - assets/image/class/5.png
 
     - assets/image/login_logo.webp
-    - assets/image/avatar.jpg
     - assets/image/product.jpg
     - assets/image/beef.webp
 
@@ -78,6 +77,15 @@ flutter:
     - assets/image/ads/3.webp
     - assets/image/ads/4.webp
     - assets/image/ads/5.webp
+
+    - assets/image/avatar_default_1.webp
+    - assets/image/avatar_default_2.webp
+    - assets/image/avatar_default_3.webp
+    - assets/image/avatar_default_4.webp
+    - assets/image/avatar_default_5.webp
+    - assets/image/avatar_default_6.webp
+    - assets/image/avatar_default_7.webp
+    - assets/image/avatar_default_8.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

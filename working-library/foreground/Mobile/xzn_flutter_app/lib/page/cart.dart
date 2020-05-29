@@ -143,8 +143,8 @@ class _CartState extends State<Cart> {
 
   @override
   void initState() {
-    _future = getCartProductList(context, "");
     super.initState();
+    _future = getCartProductList(context, "");
   }
 
   @override

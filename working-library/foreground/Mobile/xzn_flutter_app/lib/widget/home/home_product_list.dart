@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/widget/common/flat_icon_button.dart';
 import '../../page/product/product_show.dart';
 class HomeProduct extends StatelessWidget {
   HomeProduct(this.width, this.product);
@@ -101,33 +102,19 @@ class HomeProduct extends StatelessWidget {
                     Positioned(
                       right: 10.0,
                       bottom: 0.0,
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: 35.0,
-                          maxWidth: 35.0,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: IconButton(
-                            iconSize: 20,
-                            color: Colors.white,
-                            icon: Icon(Icons.shopping_cart),
-                            onPressed: () {
-//                              Product product = await getProductDetails("", "");
-                              Navigator.push(context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return ProductPage(product: product);
-                                  }
-                                )
-                              );
-                            },
-                          )
-                        ),
-                      )
+                      child: FlatIconButton(
+                        icon: Icons.shopping_cart,
+                        onTap: () async {
+                          Product product = await getProductDetails("", "");
+                          Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ProductPage(product: product);
+                              }
+                            )
+                          );
+                        },
+                      ),
                     ),
                   ],
                 )

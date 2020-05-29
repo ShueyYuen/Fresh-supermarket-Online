@@ -7,6 +7,7 @@ import 'package:xzn/models/product.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
+import 'package:xzn/widget/common/flat_icon_button.dart';
 
 class ProductLittleCard extends StatelessWidget {
   @override
@@ -31,8 +32,10 @@ class ProductPage extends StatelessWidget {
     print("object");
     double width = MediaQuery.of(context).size.width;
     double height = width * 900.0 / 1080.0;
-    int badge = Provider.of<CartModel>(context, listen: false).is_cart_loaded?Provider.of<CartModel>(context, listen: false).cart.length:0;
-    double fontsize = badge > 100 ? 8.0 : badge > 10 ? 12 : 15;
+    int badge = Provider.of<CartModel>(context, listen: false).is_cart_loaded
+        ? Provider.of<CartModel>(context, listen: false).cart.length
+        : 0;
+    double fontsize = badge > 99 ? 8 : badge > 9 ? 10 : 12;
     return Scaffold(
       appBar: PreferredSize(child: AppBar(), preferredSize: Size.fromHeight(0)),
       body: ListView(
@@ -50,7 +53,9 @@ class ProductPage extends StatelessWidget {
                     return Container(
                       margin: EdgeInsets.only(top: 0),
                       child: Image.network(
-                        Config.baseUrl() + "picture/" +product.picture_list["shuffle"][index],
+                        Config.baseUrl() +
+                            "picture/" +
+                            product.picture_list["shuffle"][index],
                         width: width,
                         height: height,
                         fit: BoxFit.cover,
@@ -62,49 +67,27 @@ class ProductPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  top: 10,
-                  left: 10,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: 35.0,
-                      maxWidth: 35.0,
-                    ),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[400],
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: IconButton(
-                          iconSize: 20,
-                          color: Colors.white,
-                          icon: Icon(Icons.arrow_back_ios),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        )),
-                  )),
+                top: 10,
+                left: 10,
+                child: FlatIconButton(
+                  icon: Icons.arrow_back_ios,
+                  backColor: Colors.grey[400],
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
               Positioned(
-                  top: 10,
-                  right: 10,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: 35.0,
-                      maxWidth: 35.0,
-                    ),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[400],
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: IconButton(
-                          iconSize: 20,
-                          color: Colors.white,
-                          icon: Icon(Icons.share),
-                          onPressed: () {
-                            Share.share(product.product_name);
-                          },
-                        )),
-                  )),
+                top: 10,
+                right: 10,
+                child: FlatIconButton(
+                  icon: Icons.share,
+                  backColor: Colors.grey[400],
+                  onTap: () {
+                    Share.share(product.product_name);
+                  },
+                ),
+              ),
               Positioned(
                   bottom: 0,
                   child: Container(
@@ -117,10 +100,6 @@ class ProductPage extends StatelessWidget {
                         "鲜着呢~正品保障~绝对新鲜~配送全市~售后无忧",
                         style: TextStyle(color: Colors.redAccent),
                       ))),
-//              Banner(
-//                message: 'Cofalconer',
-//                location: BannerLocation.topStart,
-//              ),
             ],
           ),
           Container(
@@ -370,32 +349,33 @@ class ProductPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomSheet: Container(
-        width: double.infinity,
-        height: 55,
-        child: Flex(
-          direction: Axis.horizontal,
-          children: <Widget>[
-            Expanded(
-              flex: 4,
-              child: Container(
-                height: 55,
-                alignment: Alignment.topCenter,
-                child: FlatButton(
-                  onPressed: () {
-                    print("跳转购物车");
-                  },
-                  child: Stack(
-                    alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(top: 10),
-                        alignment: Alignment.topCenter,
-                        child: Icon(
-                          Icons.shopping_cart,
-                          size: 40,
-                          color: Colors.grey,
-                        ),
+      bottomSheet: Builder(
+      builder: (context) => Container(
+      width: double.infinity,
+      height: 55,
+      child: Flex(
+      direction: Axis.horizontal,
+      children: <Widget>[
+      Expanded(
+      flex: 4,
+      child: Container(
+      height: 55,
+      alignment: Alignment.topCenter,
+      child: FlatButton(
+      onPressed: () {
+      print("跳转购物车");
+      },
+      child: Stack(
+      alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
+      children: <Widget>[
+      Container(
+      padding: EdgeInsets.only(top: 10),
+    alignment: Alignment.topCenter,
+    child: Icon(
+    Icons.shopping_cart,
+    size: 40,
+    color: Colors.grey,
+    ),
                       ),
                       Positioned(
                           top: 10,
@@ -423,7 +403,10 @@ class ProductPage extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(flex: 1,child: Text(""),),
+            Expanded(
+              flex: 1,
+              child: Text(""),
+            ),
             Expanded(
               flex: 8,
               child: Container(
@@ -433,33 +416,49 @@ class ProductPage extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     ClipRRect(
-                      borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
-                      child:  FlatButton(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                      borderRadius:
+                          BorderRadius.horizontal(left: Radius.circular(10)),
+                      child: FlatButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
 //                  color: Color.fromARGB(1, 138, 226, 255),
-                        color: Color.fromARGB(255, 194, 224, 237),
-                        textColor: Color.fromARGB(255, 56, 184, 240),
-                        onPressed: () {},
-                        child: Text(
-                          "加入购物车",
-                          style: TextStyle(fontSize: 16),
-                        )),
+                          color: Color.fromARGB(255, 194, 224, 237),
+                          textColor: Color.fromARGB(255, 56, 184, 240),
+                          onPressed: () {
+    var snackBar = SnackBar(
+    duration: Duration(seconds: 1),
+    content: Row(
+    children: <Widget>[
+    Icon(Icons.check,color: Colors.green,),
+    Text(product.product_name+'已经在购物车躺好等您咯！')],
+    ),
+    behavior: SnackBarBehavior.floating,
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+    },
+                          child: Text(
+                            "加入购物车",
+                            style: TextStyle(fontSize: 16),
+                          )),
                     ),
                     ClipRRect(
-                      borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
+                      borderRadius:
+                          BorderRadius.horizontal(right: Radius.circular(10)),
                       child: FlatButton(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 28),
-                        color: Color.fromARGB(255, 44, 160, 253),
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return OrderConfirm();
-                          }));
-                        },
-                        child: Text(
-                          "立即购买",
-                          style: TextStyle(fontSize: 16),
-                        )),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 28),
+                          color: Color.fromARGB(255, 44, 160, 253),
+                          textColor: Colors.white,
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return OrderConfirm();
+                            }));
+                          },
+                          child: Text(
+                            "立即购买",
+                            style: TextStyle(fontSize: 16),
+                          )),
                     ),
                   ],
                 ),
@@ -468,6 +467,7 @@ class ProductPage extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
 }

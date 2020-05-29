@@ -14,7 +14,10 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
     ..my_order = json['my_order'] == null
         ? null
         : MyOrder.fromJson(json['my_order'] as Map<String, dynamic>)
-    ..cart = json['cart'] as List
+    ..cart = (json['cart'] as List)
+        ?.map((e) =>
+            e == null ? null : CartItem.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..token = json['token'] as String;
 }
 

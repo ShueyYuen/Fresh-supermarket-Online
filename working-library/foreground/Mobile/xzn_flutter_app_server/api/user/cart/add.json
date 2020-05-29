@@ -1,7 +1,4 @@
 {
-    "success": false,
-    "data": {
-        "productId": ""
-    },
+    "success": true,
     "message": ""
 }

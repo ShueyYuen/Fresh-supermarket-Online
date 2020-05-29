@@ -46,6 +46,8 @@ getProductRecommendList(String token) async {
 getCartProductList(BuildContext context, String token) async {
   List<CartItem> cart_list = List<CartItem>();
   try {
+    print("是否登录："+Provider.of<UserModel>(context, listen: false).isLogin.toString());
+    print("是否加载购物车："+Provider.of<CartModel>(context, listen: false).is_cart_loaded.toString());
     if (!Provider.of<CartModel>(context, listen: false).is_cart_loaded && Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/cart/query";
       var body = {
@@ -61,10 +63,11 @@ getCartProductList(BuildContext context, String token) async {
         } finally {}
       }
       Provider
-        .of<CartModel>(context, listen: true)
+        .of<CartModel>(context, listen: false)
         .cart = cart_list;
+      return cart_list;
     } else if (Provider.of<UserModel>(context, listen: false).isLogin) {
-      cart_list = Provider.of<CartModel>(context, listen: true).cart;
+      cart_list = Provider.of<CartModel>(context, listen: false).cart;
     }
   } catch (e) {
     print(e.toString());
