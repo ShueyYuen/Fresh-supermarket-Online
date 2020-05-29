@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from UserInfoAPI.models import User
+from Fresh_market_online.model import User
 import json
 from django_redis import get_redis_connection
 from LoginAPI.token_module import get_token,out_token
 @csrf_exempt
 def InfoGet(request):
     token = request.POST.get("token")
-    user = User.objects.filter(token=token).values()[0]
+    user = User.objects.filter(token=token)
     if user:
+        user=user.values()[0]
         telephone = user['phone']
         if out_token(telephone, token):
             nickname = user['nickname']

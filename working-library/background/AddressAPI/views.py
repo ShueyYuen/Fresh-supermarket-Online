@@ -1,17 +1,17 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from AddressAPI.models import Address
-from UserInfoAPI.models import User
+from Fresh_market_online.model import User, Address
 import json
 from django_redis import get_redis_connection
 from LoginAPI.token_module import get_token,out_token
 @csrf_exempt
 def AddressGet(request):
     token = request.POST.get("token")
-    user = User.objects.filter(token=token).values()[0]
+    user = User.objects.filter(token=token)
     data = []
     if user:
+        user=user.values()[0];
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
@@ -52,8 +52,9 @@ def AddressGet(request):
 @csrf_exempt
 def AddressUpdate(request):
     token = request.POST.get("token")
-    user = User.objects.filter(token=token).values()[0]
+    user = User.objects.filter(token=token)
     if user:
+        user=user.values()[0]
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):

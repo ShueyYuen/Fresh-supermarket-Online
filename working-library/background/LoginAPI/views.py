@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from LoginAPI.models import User
+from Fresh_market_online.model import User
 from LoginAPI.token_module import get_token,out_token
 import json
 from django_redis import get_redis_connection
@@ -23,6 +23,10 @@ def Login(request):
             return HttpResponse(response)
     
     user= User.objects.filter(phone=phone)
+    if user.exists()==False:
+        response=json.dumps({"message":"当前帐号未注册"})
+        return HttpResponse(response)
+    
     if code==None:
         if user.values()[0]['password'] != passwd:
             response=json.dumps({"message":"密码错误"})
