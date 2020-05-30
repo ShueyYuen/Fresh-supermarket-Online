@@ -64,7 +64,7 @@ class _AppState extends State<App> {
           ),
           BottomNavigationBarItem(
             title: Text("分类"),
-            icon: Icon(Icons.search)
+            icon: Icon(Icons.list)
           ),
           BottomNavigationBarItem(
             title: Text("购物车"),

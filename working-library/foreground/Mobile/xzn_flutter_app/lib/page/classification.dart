@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/cart.dart';
+import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
 
 class Classification extends StatefulWidget {
@@ -10,15 +12,26 @@ class Classification extends StatefulWidget {
 
 class _ClassificationState extends State<Classification> {
   final List<String> _tabValues = [
-    '鸡蛋',
-    '鸭蛋',
-    '坏蛋',
-    '先知',
-    '完蛋',
+    '水果蔬菜',
+    '肉禽蛋品',
+    '水产海鲜',
+    '米面粮油',
+    '鲜奶乳品',
+  ];
+  final List<String> _tabValuesSecond = [
+    '猪肉',
+    '牛肉',
+    '羊肉',
+    '鸡肉',
+    '嘿嘿嘿',
+    '范先生',
   ];
   TabController _controller;
+  TabController _controllerSecond;
   int _activeIndex = 0;
+  int _activeIndexSecond = 0;
   bool click = false;
+  bool clickSecond = false;
 
   @override
   void initState() {
@@ -32,6 +45,15 @@ class _ClassificationState extends State<Classification> {
         _activeIndex = _controller.index;
       });
     });
+    _controllerSecond = TabController(
+      length: _tabValuesSecond.length,
+      vsync: ScrollableState(),
+    );
+    _controllerSecond.addListener(() {
+      setState(() {
+        _activeIndexSecond = _controllerSecond.index;
+      });
+    });
   }
 
   @override
@@ -40,52 +62,86 @@ class _ClassificationState extends State<Classification> {
       appBar: PreferredSize(
         child: AppBar(
           centerTitle: true,
-          title: Text('分类'),
+          //title: Text('分类'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(Icons.location_on),
+              Text("上海市奉贤区", style: TextStyle(fontSize: 18)),
+              Icon(Icons.expand_more),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  width: 200,
+                  child: FlatButton(
+                    color: Colors.white,
+                    highlightColor: Colors.blue[700],
+                    colorBrightness: Brightness.light,
+                    splashColor: Colors.grey,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.search),
+                        Text("麻辣香锅", style: TextStyle(fontSize: 16))
+                      ],
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ProductSearchPage();
+                      }));
+                    },
+                  )),
+            ],
+          ),
           bottom: TabBar(
             tabs: _tabValues.map((f) {
               return Container(
-                height: 80,
-                width: 55,
+                //height: 20,
+                width: 80,
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.0)
-                      ),
-                      child: Image.asset("assets/image/class/1.png"),
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
+//                    Container(
+//                        padding: EdgeInsets.all(3),
+//                        decoration: BoxDecoration(
+//                            color: Colors.white,
+//                            borderRadius: BorderRadius.circular(10.0)),
+//                        child: Image.asset("assets/image/class/1.png")),
+//                    SizedBox(
+//                      height: 7,
+//                    ),
+
                     Stack(
                       children: <Widget>[
-                        Transform.scale(
-                          scale: 1.58,
-                          child: Container(
-                            color: Color.fromARGB(100, 255, 255, 255),
-                            height: 18,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 4,
-                          child: _tabValues[_controller.index] == f?Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: Colors.orangeAccent,
-                              borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            child: Text(f),
-                          ):Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            child: Text(f),
-                          )
-                        )
+//                        Transform.scale(
+////                          scale: 1.58,
+////                          child: Container(
+////                            color: Color.fromARGB(100, 255, 255, 255),
+////                            height: 18,
+////                          ),
+////                        ),
+                        //Positioned(
+                        Container(
+                            //bottom: 0,
+                            //left: 4,
+                            height: 25,
+                            //width: 100,
+                            child: _tabValues[_controller.index] == f
+                                ? Container(
+                                    //padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.orangeAccent,
+                                        borderRadius:
+                                            BorderRadius.circular(20.0)),
+                                    child: Text(f),
+                                  )
+                                : Container(
+                                    //padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                                    alignment: Alignment.center,
+                                    child: Text(f),
+                                  ))
                       ],
                     ),
                   ],
@@ -101,40 +157,61 @@ class _ClassificationState extends State<Classification> {
             labelColor: Colors.white,
             unselectedLabelColor: Colors.black,
             indicatorWeight: 5.0,
-            labelStyle: TextStyle(height: 1,),
+            labelStyle: TextStyle(
+              height: 1,
+            ),
           ),
         ),
-        preferredSize: Size.fromHeight(150.0),
+        preferredSize: Size.fromHeight(90.0),
       ),
       body: TabBarView(
         controller: _controller,
         children: _tabValues.map((f) {
-          return Center(
-            child: GestureDetector(
-              onTap: () {
-                getProductRecommendList("");
-                setState(() {
-                  click = !click;
-                });
-              },
-              child: AnimatedContainer(
-                curve: Curves.bounceIn,
-                height: click ? 200 : 100,
-                width: click ? 200 : 100,
-//                color: click?Colors.blue:Colors.red,
-                duration: Duration(seconds: 1),
-//                child: Text(f),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/image/swiper/3.webp'),
-                    fit: BoxFit.cover,
+          return Column(
+            children: _tabValuesSecond.map((ff) {
+              return Row(
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.orangeAccent,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    alignment: Alignment.center,
+                    child:
+                        Text(ff, style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(click ? 200 : 0,)
-                  )),
-              ),
-            ),
+                ],
+              );
+            }).toList(),
           );
+//          return Center(
+//            child: GestureDetector(
+//              onTap: () {
+//                getProductRecommendList("");
+//                setState(() {
+//                  click = !click;
+//                });
+//              },
+//              child: AnimatedContainer(
+//                curve: Curves.bounceIn,
+//                height: click ? 200 : 100,
+//                width: click ? 200 : 100,
+////                color: click?Colors.blue:Colors.red,
+//                duration: Duration(seconds: 1),
+////                child: Text(f),
+//                decoration: BoxDecoration(
+//                    image: DecorationImage(
+//                      image: AssetImage('assets/image/swiper/3.webp'),
+//                      fit: BoxFit.cover,
+//                    ),
+//                    borderRadius: BorderRadius.all(Radius.circular(
+//                      click ? 200 : 0,
+//                    ))),
+//              ),
+//            ),
+//          );
         }).toList(),
       ),
     );
