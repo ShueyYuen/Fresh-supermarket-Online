@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../widget/login/message_code.dart';
 
-import 'password_login.dart';
+import 'login.dart';
 
-class Login extends StatefulWidget {
+class PasswordLogin extends StatefulWidget {
   @override
-  _LoginState createState() => new _LoginState();
+  _PasswordLoginState createState() => new _PasswordLoginState();
 }
 
-class _LoginState extends State<Login> {
+class _PasswordLoginState extends State<PasswordLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,17 +27,15 @@ class _LoginState extends State<Login> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                 child: Text(
-                  "密码登录",
+                  "手机号登陆",
                   style: TextStyle(color: Colors.blue, fontSize: 18),
                 ),
               ),
-              //onTap: () {},
               onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return PasswordLogin();
-              }));
-            },
-
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Login();
+                }));
+              },
             ),
           ],
         ),
@@ -47,10 +45,10 @@ class _LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "手机号登录",
+                  "密码登录",
                   style: TextStyle(fontSize: 40),
                 ),
-                MessageCodeWidget(),
+                PasswordWidget(),
               ],
             )));
   }
