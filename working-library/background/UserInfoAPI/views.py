@@ -36,19 +36,7 @@ def InfoSet(request):
     user = User.objects.filter(phone=phone)
     if user:
         if out_token(phone, token):
-            '''
-            if password == '':
-                user.update(nickname=nickname, sex=sex)
-            else:
-                user.update(password=password)
-            '''
-            if password != '':
-                user.update(password=password)
-            if nickname != '':
-                user.update(nickname=nickname)
-            if sex != '':
-                user.update(sex=sex)
-
+            user.update(nickname=nickname, password=password, sex=sex)
             data = {"success": True}
             response = json.dumps(data)
             print(response)
