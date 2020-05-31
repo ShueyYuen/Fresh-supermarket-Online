@@ -10,3 +10,10 @@ content-type: application/json
 {
     "token": "1sda245dsf245sdf2sd"
 }
+###
+POST {{host}}/api/user/order/list HTTP/1.1
+content-type: application/json
+
+{
+    "token": "1sda245dsf245sdf2sd"
+}

@@ -74,6 +74,7 @@ class SettingPage extends StatelessWidget {
                 Provider.of<MyOrderModel>(context, listen: false).my_order =
                     null;
                 Provider.of<CartModel>(context, listen: false).cart = null;
+                Provider.of<OrderModel>(context, listen: false).order = null;
               },
             ),
           )

@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: UserModel()),
         ChangeNotifierProvider.value(value: MyOrderModel()),
         ChangeNotifierProvider.value(value: CartModel()),
+        ChangeNotifierProvider.value(value: OrderModel()),
+        ChangeNotifierProvider.value(value: AddressModel()),
       ],
       child: MaterialApp(
         localizationsDelegates: [

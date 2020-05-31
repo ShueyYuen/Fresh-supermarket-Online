@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../app.dart';
+
 class SearchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -111,12 +113,13 @@ class ProductSearchPage extends StatelessWidget {
           ),
           actions: <Widget>[
             IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {
-              Navigator.push(context,
+              Navigator.pushAndRemoveUntil(context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ProductSearchPage();
+                    return App(index:2);
                   }
-                )
+                ),
+                (Route<dynamic> route) => false,
               );
             })
           ],

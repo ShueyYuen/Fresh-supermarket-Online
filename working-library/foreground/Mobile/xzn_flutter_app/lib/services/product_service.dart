@@ -74,4 +74,3 @@ getCartProductList(BuildContext context, String token) async {
   }
   return cart_list;
 }
-
