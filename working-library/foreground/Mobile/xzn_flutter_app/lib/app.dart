@@ -5,6 +5,10 @@ import 'page/home.dart';
 import 'page/my.dart';
 
 class App extends StatefulWidget {
+  App({Key key, this.index:0}):super(key:key);
+
+  int index;
+
   @override
   State<StatefulWidget> createState() => new _AppState();
 }
@@ -17,8 +21,28 @@ class _AppState extends State<App> {
   Cart cart;
   My my;
 
+  Future<bool> _onWillPop() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('多玩一会儿嘛！'),
+        content: new Text('我让雷姆出卖**，您就不能多留一会嘛！'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('躺好'),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: new Text('节操离去'),
+          ),
+        ],
+      ),
+    ) ?? false;
+  }
+
   currentPage() {
-    switch(_currentIndex) {
+    switch (_currentIndex) {
       case 0:
         if (home == null) {
           home = Home();
@@ -41,10 +65,18 @@ class _AppState extends State<App> {
         return my;
     }
   }
-  
+
+  @override
+  void initState() {
+    _currentIndex = widget.index;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+      onWillPop: _onWillPop,
+      child:Scaffold(
       body: currentPage(),
       bottomNavigationBar: BottomNavigationBar(
 //        type: BottomNavigationBarType.fixed,

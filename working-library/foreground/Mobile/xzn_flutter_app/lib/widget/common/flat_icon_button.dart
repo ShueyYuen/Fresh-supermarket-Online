@@ -27,9 +27,10 @@ class FlatIconButton extends StatelessWidget {
       child: Container(
           decoration: BoxDecoration(
               color: backColor,
-              borderRadius: BorderRadius.all(Radius.circular(10000))),
+              borderRadius: BorderRadius.all(Radius.circular(this.size))),
           child: IconButton(
-            iconSize: this.size * 4 / 7,
+            padding: EdgeInsets.all(0),
+            iconSize: this.size *2 /3,
             color: iconColor,
             icon: Icon(icon,color: iconColor,),
             onPressed: onTap

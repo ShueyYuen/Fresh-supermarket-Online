@@ -14,7 +14,7 @@ description: A new Flutter application serving monkeys
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -86,6 +86,7 @@ flutter:
     - assets/image/avatar_default_6.webp
     - assets/image/avatar_default_7.webp
     - assets/image/avatar_default_8.webp
+    - assets/image/default_picture.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

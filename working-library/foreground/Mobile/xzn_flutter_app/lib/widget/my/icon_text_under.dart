@@ -10,7 +10,7 @@ class IconTextUnder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (badge == null) badge = 0;
-    double fontsize = badge > 100?8.0:badge>10?12:15;
+    double fontsize = badge > 99?8.0:badge>9?12:15;
     return FlatButton(
       onPressed: onTap,
       child: Stack(

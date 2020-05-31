@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:xzn/models/address.dart';
+import 'package:xzn/models/order.dart';
 
 import '../common/global.dart';
 
@@ -50,5 +52,39 @@ class CartModel extends ProfileChangeNotifier{
   set cart(List<CartItem> cart) {
     _profile.cart = cart;
     notifyListeners();
+  }
+}
+
+class AddressModel extends ProfileChangeNotifier{
+  List<Address> get address => _profile.address;
+  // 是否加载过my_order
+  bool get is_loaded => _profile.user != null && address != null;
+
+  set address(List<Address> address) {
+    _profile.address = address;
+    notifyListeners();
+  }
+}
+
+class OrderModel extends ProfileChangeNotifier{
+  List<Order> get order => _profile.order;
+  // 是否加载过my_order
+  bool get is_loaded => _profile.user != null && order != null;
+  int get unpaid => countStatus("unpaid");
+  int get unreceived => countStatus("unreceived");
+  int get uncomment => countStatus("uncomment");
+  int get finished => countStatus("finished");
+
+  set order(List<Order> order) {
+    _profile.order = order;
+    notifyListeners();
+  }
+
+  int countStatus(String type) {
+    int count = 0;
+    for (Order order_item in order) {
+      if (order_item.order_status == type) count++;
+    }
+    return count;
   }
 }

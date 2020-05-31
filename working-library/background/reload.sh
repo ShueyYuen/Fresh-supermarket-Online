@@ -1,5 +1,4 @@
 echo ""> uWSGI.log
-conda activate py36
 pkill -f uwsgi -9
 nginx -s stop
 redis-cli -h 127.0.0.1 -p 6379 shutdown

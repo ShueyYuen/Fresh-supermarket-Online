@@ -2,5 +2,7 @@
   "user": "$user",
   "my_order": "$myOrder",
   "cart": "$[]cartItem",
+  "address": "$[]address",
+  "order": "$[]order",
   "token": ""
 }
