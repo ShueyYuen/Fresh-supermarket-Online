@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^', include('AddressAPI.urls')),
     url(r'^', include('CartAPI.urls')),
     url(r'^', include('LogoffAPI.urls')),
+    url(r'^', include('AvatarAPI.urls')),
+    url(r'^', include('PictureAPI.urls')),
 ]
