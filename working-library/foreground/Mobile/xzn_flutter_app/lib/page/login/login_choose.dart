@@ -61,19 +61,6 @@ class _LoginChooseState extends State<LoginChoose> {
                 }));
               },
             ),
-            OutlineButton(
-              padding: EdgeInsets.symmetric(horizontal: 140, vertical: 10),
-              splashColor: Colors.lightGreen[100],
-              child: Text(
-                "密码登录",
-                style: TextStyle(fontSize: 20, color: Colors.grey[800]),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return PasswordLogin();
-                }));
-              },
-            )
           ]),
     );
   }

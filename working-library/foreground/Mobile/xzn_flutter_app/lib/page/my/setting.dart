@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/page/my/account_safe.dart';
 import 'package:xzn/page/my/privacy.dart';
@@ -6,7 +9,83 @@ import 'package:xzn/page/my/privacy.dart';
 import '../../models/user.dart';
 import '../../states/profile_change_notifier.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  String _cacheSizeStr;
+
+  _renderSize(double value) {
+    if (null == value) {
+      return 0;
+    }
+    List<String> unitArr = List()..add('B')..add('K')..add('M')..add('G');
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value = value / 1024;
+    }
+    String size = value.toStringAsFixed(2);
+    return size + unitArr[index];
+  }
+
+  Future<Null> delDir(FileSystemEntity file) async {
+    try {
+      if (file is Directory) {
+        final List<FileSystemEntity> children = file.listSync();
+        for (final FileSystemEntity child in children) {
+          await delDir(child);
+        }
+      }
+      await file.delete();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<Null> loadCache() async {
+    try {
+      Directory tempDir = await getTemporaryDirectory();
+      double value = await _getTotalSizeOfFilesInDir(tempDir);
+      print('临时目录大小: ' + value.toString());
+      setState(() {
+        _cacheSizeStr = _renderSize(value);
+      });
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  /// 递归方式 计算文件的大小
+  Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
+    try {
+      if (file is File) {
+        int length = await file.length();
+        return double.parse(length.toString());
+      }
+      if (file is Directory) {
+        final List<FileSystemEntity> children = file.listSync();
+        double total = 0;
+        if (children != null)
+          for (final FileSystemEntity child in children)
+            total += await _getTotalSizeOfFilesInDir(child);
+        return total;
+      }
+      return 0;
+    } catch (e) {
+      print(e);
+      return 0;
+    }
+  }
+
+  @override
+  void initState() {
+    loadCache();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<UserModel>(context, listen: true).user;
@@ -15,7 +94,8 @@ class SettingPage extends StatelessWidget {
         title: Text("设置"),
         centerTitle: true,
       ),
-      body: Column(
+      body: Builder(
+        builder: (context) => Column(
         children: <Widget>[
           ListTile(
             title: Title(color: Colors.black, child: Text("账户与安全")),
@@ -50,8 +130,36 @@ class SettingPage extends StatelessWidget {
           ),
           ListTile(
             title: Title(color: Colors.black, child: Text("清除缓存")),
+            subtitle: _cacheSizeStr != null ? Text(_cacheSizeStr) : null,
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () async {
+              try {
+                Directory tempDir = await getTemporaryDirectory();
+                //删除缓存目录
+                await delDir(tempDir);
+                await loadCache();
+//                ToastUtils.show(msg: '清除缓存成功');
+                var snackBar = SnackBar(
+                  duration: Duration(seconds: 1),
+                  content: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
+                      Text('清除缓存成功')
+                    ],
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                );
+                Scaffold.of(context).showSnackBar(snackBar);
+              } catch (e) {
+                print(e);
+//                ToastUtils.show(msg: '清除缓存失败');
+              } finally {
+                //此处隐藏加载loading
+              }
+            },
           ),
           Container(
             padding: EdgeInsets.only(top: 30),
@@ -75,11 +183,13 @@ class SettingPage extends StatelessWidget {
                     null;
                 Provider.of<CartModel>(context, listen: false).cart = null;
                 Provider.of<OrderModel>(context, listen: false).order = null;
+                Provider.of<AddressModel>(context, listen: false).address = null;
               },
             ),
           )
         ],
       ),
+      )
     );
   }
 }

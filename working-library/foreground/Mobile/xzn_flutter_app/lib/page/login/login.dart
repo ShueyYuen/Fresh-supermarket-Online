@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
               ),
               //onTap: () {},
               onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return PasswordLogin();
               }));
             },

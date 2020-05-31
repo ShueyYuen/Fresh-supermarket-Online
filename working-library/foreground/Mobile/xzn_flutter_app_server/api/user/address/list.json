@@ -11,7 +11,7 @@
             "city": "city",
             "district": "3",
             "street": "2",
-            "no": "2"
+            "no": 2
         },
         "tag": "enum[学校,公司,家]"
     }

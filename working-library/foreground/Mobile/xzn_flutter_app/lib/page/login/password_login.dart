@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:xzn/widget/login/password.dart';
 import '../../widget/login/message_code.dart';
 
 import 'login.dart';
@@ -32,7 +33,7 @@ class _PasswordLoginState extends State<PasswordLogin> {
                 ),
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                   return Login();
                 }));
               },
