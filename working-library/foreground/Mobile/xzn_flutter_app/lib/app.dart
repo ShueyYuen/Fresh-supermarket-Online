@@ -80,25 +80,34 @@ class _AppState extends State<App> {
       body: currentPage(),
       bottomNavigationBar: BottomNavigationBar(
 //        type: BottomNavigationBarType.fixed,
-          type: BottomNavigationBarType.shifting,
-          selectedItemColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Colors.black,
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(title: Text("首页"), icon: Icon(Icons.home)),
-            BottomNavigationBarItem(
-                title: Text("分类"), icon: Icon(Icons.search)),
-            BottomNavigationBarItem(
-                title: Text("购物车"), icon: Icon(Icons.shopping_cart)),
-            BottomNavigationBarItem(
-                title: Text("我的"), icon: Icon(Icons.person)),
-          ]),
-      )
+        type: BottomNavigationBarType.shifting,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.black,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            title: Text("首页"),
+            icon: Icon(Icons.home)
+          ),
+          BottomNavigationBarItem(
+            title: Text("分类"),
+            icon: Icon(Icons.list)
+          ),
+          BottomNavigationBarItem(
+            title: Text("购物车"),
+            icon: Icon(Icons.shopping_cart)
+          ),
+          BottomNavigationBarItem(
+            title: Text("我的"),
+            icon: Icon(Icons.person)
+          ),
+        ]
+      ),
     );
   }
 }

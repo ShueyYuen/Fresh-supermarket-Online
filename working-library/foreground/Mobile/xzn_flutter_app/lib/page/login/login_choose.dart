@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
+import 'password_login.dart';
 
 class LoginChoose extends StatefulWidget {
   @override
@@ -57,6 +58,19 @@ class _LoginChooseState extends State<LoginChoose> {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Login();
+                }));
+              },
+            ),
+            OutlineButton(
+              padding: EdgeInsets.symmetric(horizontal: 140, vertical: 10),
+              splashColor: Colors.lightGreen[100],
+              child: Text(
+                "密码登录",
+                style: TextStyle(fontSize: 20, color: Colors.grey[800]),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return PasswordLogin();
                 }));
               },
             )
