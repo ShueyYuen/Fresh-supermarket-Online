@@ -3,6 +3,7 @@ import 'package:xzn/index.dart';
 import 'package:xzn/page/cart.dart';
 import 'package:xzn/services/order_service.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/widget/order/OrderCard.dart';
 
 class OrderManage extends StatefulWidget {
@@ -97,14 +98,12 @@ class _OrderManageState extends State<OrderManage> {
                       size: 48,
                     );
                   } else {
+                    print(Provider.of<OrderModel>(context, listen: false).finished);
                     List data = snapshot.data.sublist(0, snapshot.data.length);
                     data.removeWhere((element) =>
                         !element.order_status.contains(_status[_activeIndex]));
                     widget = ListView(
                       children: data.map<Widget>((order) {
-//                      print(order.order_status.contains(_status[_activeIndex]));
-//                      print(order.order_status);
-//                      if (order.order_status.contains(_status[_activeIndex]))
                         return OrderCard(
                           order: order,
                         );
