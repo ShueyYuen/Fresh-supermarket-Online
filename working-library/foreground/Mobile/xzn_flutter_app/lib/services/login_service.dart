@@ -13,9 +13,11 @@ getMessage_code(String phone) async {
   print("我要发要验证码的请求啦");
   String url = Config.baseUrl()+"user/code";
   print(phone);
+  print(url);
   var res = await http.post(url, body: {
     "phone": phone
   });
+
   var json = jsonDecode(res.body);
   print("诶嘿嘿我收到验证码啦");
   print(json);
@@ -39,6 +41,7 @@ Login(BuildContext context, String phone, {String code = "", String password = "
   }
   var res = await http.post(url, body: body);
   var json = jsonDecode(res.body);
+  print(json);
   try {
     user = User.fromJson(json);
     // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
