@@ -110,9 +110,9 @@ class _MessageCodeState extends State<MessageCodeWidget> {
             controller: _phoneController,
             autofocus: true,
             decoration: InputDecoration(
-              labelText: "手机号",
-              hintText: "请输入手机号",
-              prefixIcon: Icon(Icons.person)
+                labelText: "手机号",
+                hintText: "请输入手机号",
+                prefixIcon: Icon(Icons.person)
             ),
             validator: (value) {
               if (value.length != 11) {

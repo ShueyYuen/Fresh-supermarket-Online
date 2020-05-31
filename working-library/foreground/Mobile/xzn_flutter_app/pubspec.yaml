@@ -32,7 +32,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.11
   flutter_swiper: ^1.1.5
   share: 0.6.2
-  path_provider: ^1.6.8
+  path_provider: ^1.6.9
   amap_location: ^0.2.0
 
 dev_dependencies:

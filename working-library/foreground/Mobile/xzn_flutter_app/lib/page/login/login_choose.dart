@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
+import 'password_login.dart';
 
 class LoginChoose extends StatefulWidget {
   @override
@@ -59,7 +60,7 @@ class _LoginChooseState extends State<LoginChoose> {
                   return Login();
                 }));
               },
-            )
+            ),
           ]),
     );
   }

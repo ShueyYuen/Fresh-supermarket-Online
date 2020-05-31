@@ -70,10 +70,10 @@ class OrderModel extends ProfileChangeNotifier{
   List<Order> get order => _profile.order;
   // 是否加载过my_order
   bool get is_loaded => _profile.user != null && order != null;
-  int get unpaid => countStatus("");
-  int get unreceived => countStatus("");
-  int get uncomment => countStatus("");
-  int get unfinished => countStatus("");
+  int get unpaid => countStatus("unpaid");
+  int get unreceived => countStatus("unreceived");
+  int get uncomment => countStatus("uncomment");
+  int get finished => countStatus("finished");
 
   set order(List<Order> order) {
     _profile.order = order;
