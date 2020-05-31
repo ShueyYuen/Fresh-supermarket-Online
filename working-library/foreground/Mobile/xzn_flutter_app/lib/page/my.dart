@@ -42,7 +42,7 @@ class _MyState extends State<My> {
                         Container(
                           constraints: BoxConstraints(minWidth: 300),
                           child: Text(
-                            isLogin ? user.nickname : "请登录",
+                            isLogin ? user.nickname==null? user.phone: user.nickname : "请登录",
                             style: TextStyle(
                                 fontSize: 28,
                                 color:

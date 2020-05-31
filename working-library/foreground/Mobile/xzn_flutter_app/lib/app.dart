@@ -5,7 +5,7 @@ import 'page/home.dart';
 import 'page/my.dart';
 
 class App extends StatefulWidget {
-  App({Key key, this.index:0}):super(key:key);
+  App({Key key, this.index: 0}) : super(key: key);
 
   int index;
 
@@ -23,22 +23,23 @@ class _AppState extends State<App> {
 
   Future<bool> _onWillPop() {
     return showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: new Text('多玩一会儿嘛！'),
-        content: new Text('我让雷姆出卖**，您就不能多留一会嘛！'),
-        actions: <Widget>[
-          new FlatButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: new Text('躺好'),
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('多玩一会儿嘛！'),
+            content: new Text('我让雷姆出卖**，您就不能多留一会嘛！'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text('躺好'),
+              ),
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('节操离去'),
+              ),
+            ],
           ),
-          new FlatButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: new Text('节操离去'),
-          ),
-        ],
-      ),
-    ) ?? false;
+        ) ??
+        false;
   }
 
   currentPage() {
@@ -75,39 +76,30 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-      onWillPop: _onWillPop,
-      child:Scaffold(
-      body: currentPage(),
-      bottomNavigationBar: BottomNavigationBar(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+          body: currentPage(),
+          bottomNavigationBar: BottomNavigationBar(
 //        type: BottomNavigationBarType.fixed,
-        type: BottomNavigationBarType.shifting,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.black,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            title: Text("首页"),
-            icon: Icon(Icons.home)
-          ),
-          BottomNavigationBarItem(
-            title: Text("分类"),
-            icon: Icon(Icons.list)
-          ),
-          BottomNavigationBarItem(
-            title: Text("购物车"),
-            icon: Icon(Icons.shopping_cart)
-          ),
-          BottomNavigationBarItem(
-            title: Text("我的"),
-            icon: Icon(Icons.person)
-          ),
-        ]
-      ),
-    );
+              type: BottomNavigationBarType.shifting,
+              selectedItemColor: Theme.of(context).primaryColor,
+              unselectedItemColor: Colors.black,
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                    title: Text("首页"), icon: Icon(Icons.home)),
+                BottomNavigationBarItem(
+                    title: Text("分类"), icon: Icon(Icons.list)),
+                BottomNavigationBarItem(
+                    title: Text("购物车"), icon: Icon(Icons.shopping_cart)),
+                BottomNavigationBarItem(
+                    title: Text("我的"), icon: Icon(Icons.person)),
+              ]),
+        ));
   }
 }
