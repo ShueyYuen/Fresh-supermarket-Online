@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^', include('LogoffAPI.urls')),
     url(r'^', include('AvatarAPI.urls')),
     url(r'^', include('PictureAPI.urls')),
+    url(r'^', include('GoodsES.urls')),
 ]

@@ -167,6 +167,16 @@ class Goods(models.Model):
         db_table = 'goods'
 
 
+class History(models.Model):
+    user_id = models.IntegerField()
+    key = models.CharField(max_length=255, blank=True, null=True)
+    time = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'history'
+
+
 class Order(models.Model):
     order_id = models.CharField(primary_key=True, max_length=32)
     customer_id = models.IntegerField()

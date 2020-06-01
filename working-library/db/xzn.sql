@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 29/05/2020 00:18:47
+ Date: 02/06/2020 00:00:14
 */
 
 SET NAMES utf8mb4;
@@ -328,6 +328,24 @@ CREATE TABLE `goods`  (
 -- ----------------------------
 INSERT INTO `goods` VALUES ('1', '牛肉', '肉类', NULL, 60.00, '02', 90, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
 INSERT INTO `goods` VALUES ('2', '羊肉', '肉类', 'g', 56.00, '02', 95, '上海市奉贤', '一包', '包', '冷藏', 500, 1, '产于奉贤某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
+INSERT INTO `goods` VALUES ('3', '大葱', '蔬菜', 'g', 3.00, '02', 55, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+
+-- ----------------------------
+-- Table structure for history
+-- ----------------------------
+DROP TABLE IF EXISTS `history`;
+CREATE TABLE `history`  (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+  `user_id` int(8) NOT NULL,
+  `key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of history
+-- ----------------------------
+INSERT INTO `history` VALUES (0000000001, 1, '牛肉', '2020-06-01 15:45:45');
 
 -- ----------------------------
 -- Table structure for order
@@ -502,7 +520,7 @@ CREATE TABLE `user`  (
   `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `sex` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `head_image_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `head_image_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '11111111111',
   `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`, `phone`) USING BTREE,
@@ -513,9 +531,9 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (00000001, '1', '199941', 'M', '18721517889', '1', 'Johnny', 'MTU5MDY1NzcxNS45NzcxMDI6YmZmNTkxM2JiMTliOTk2ZDRmYTFkYjgxN2I0YjJiYWIyZjMyZGIyZA==');
-INSERT INTO `user` VALUES (00000002, '1', '18721522908', 'M', '18721522908', '1', 'lzh', NULL);
-INSERT INTO `user` VALUES (00000003, '1', '18817669250', 'M', '18817669250', '1', 'shl', NULL);
+INSERT INTO `user` VALUES (00000001, '1', '199941', 'M', '18721517889', '11111111111', 'Johnny', 'MTU5MTAyODYwNC45MTg5NDM0Ojk4YjNiYjczYjZmNTliMTRhMTE2OWExMThlZDJhM2EzMWVhMTFhMTQ=');
+INSERT INTO `user` VALUES (00000002, '1', '18721522908', 'M', '18721522908', '11111111111', 'lzh', NULL);
+INSERT INTO `user` VALUES (00000003, '1', '18817669250', 'M', '18817669250', '11111111111', 'shl', NULL);
 
 -- ----------------------------
 -- Table structure for warehouse
