@@ -38,6 +38,8 @@ def AvatarUpload(request):
                     f.write(chunk)
             data = {"success": True}
             response = json.dumps(data)
+            user = User.objects.filter(phone=telephone)
+            user.update(head_image_id=telephone)
             print(response)
             return HttpResponse(response)
     data = {"message": "Failed"}
