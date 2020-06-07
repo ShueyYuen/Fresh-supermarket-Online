@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^', include('AvatarAPI.urls')),
     url(r'^', include('PictureAPI.urls')),
     url(r'^', include('GoodsES.urls')),
+    url(r'^', include('OrderAPI.urls')),
 ]
