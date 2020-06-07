@@ -352,7 +352,7 @@ INSERT INTO `history` VALUES (0000000001, 1, '牛肉', '2020-06-01 15:45:45');
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`  (
-  `order_id` int(12) UNSIGNED ZEROFILL NOT NULL DEFAULT 15 AUTO_INCREMENT,
+  `order_id` int(12) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   `customer_id` int(8) UNSIGNED ZEROFILL NOT NULL,
   `deliveryman_id` int(8) UNSIGNED ZEROFILL NULL DEFAULT NULL,
   `create_order_time` datetime(0) NULL DEFAULT NULL,

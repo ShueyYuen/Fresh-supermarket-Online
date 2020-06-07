@@ -68,7 +68,6 @@ def OrderDetails(request):
 def OrderSubmit(request):
     token = request.POST.get("token")
     user = User.objects.filter(token=token)
-    remarks = request.POST.get("remarks")
     if user:
         user = user.values()[0]
         telephone = user['phone']
@@ -81,7 +80,7 @@ def OrderSubmit(request):
             warehouse_id = '01'
             Order.objects.create(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
                                          order_status=order_status, warehouse_id=warehouse_id,
-                                         address_id=int(adderss_id),remarks=remarks)
+                                         address_id=int(adderss_id))
             order=Order.objects.filter(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
                                          order_status=order_status, warehouse_id=warehouse_id,
                                          address_id=int(adderss_id)).values()[0]
@@ -144,3 +143,37 @@ def OrderList(request):
             return HttpResponse(response)
 
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
+
+@csrf_exempt
+def OrderCancel(request):
+    token = request.POST.get("token")
+    oid = request.POST.get('order_id')
+    user = User.objects.filter(token=token)
+    if user:
+        user = user.values()[0]
+        telephone = user['phone']
+        uid = user['user_id']
+        if out_token(telephone, token):
+            order=Order.objects.filter(order_id=oid).update(order_status=0)
+            return HttpResponse(json.dumps({'success': True}))
+            
+    return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
+
+@csrf_exempt
+def OrderPayState(request):
+    token = request.POST.get("token")
+    oid = request.POST.get('order_id')
+    secret = request.POST.get('secret')
+    remark = request.POST.get('remark')
+    user = User.objects.filter(token=token)
+    if user:
+        user = user.values()[0]
+        telephone = user['phone']
+        uid = user['user_id']
+        if out_token(telephone, token):
+            order=Order.objects.filter(order_id=oid).update(order_status=2,remarks=remark)
+            return HttpResponse(json.dumps({'success': True}))
+            
+    return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
+
+
