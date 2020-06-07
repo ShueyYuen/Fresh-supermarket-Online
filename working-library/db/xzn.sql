@@ -3,15 +3,15 @@
 
  Source Server         : Johnny
  Source Server Type    : MySQL
- Source Server Version : 80018
+ Source Server Version : 100121
  Source Host           : localhost:3306
  Source Schema         : xzn
 
  Target Server Type    : MySQL
- Target Server Version : 80018
+ Target Server Version : 100121
  File Encoding         : 65001
 
- Date: 02/06/2020 00:00:14
+ Date: 07/06/2020 19:06:19
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `address`  (
   PRIMARY KEY (`address_id`, `customer_id`, `house_no`) USING BTREE,
   INDEX `customer_id`(`customer_id`, `address_id`) USING BTREE,
   INDEX `address_id`(`address_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of address
@@ -57,7 +57,7 @@ CREATE TABLE `auth_group`  (
   `name` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for auth_group_permissions
@@ -70,7 +70,7 @@ CREATE TABLE `auth_group_permissions`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_group_permissions_group_id_permission_id_0cd325b0_uniq`(`group_id`, `permission_id`) USING BTREE,
   INDEX `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm`(`permission_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -83,7 +83,7 @@ CREATE TABLE `auth_permission`  (
   `codename` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id`, `codename`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -151,7 +151,7 @@ CREATE TABLE `auth_user`  (
   `date_joined` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for auth_user_groups
@@ -164,7 +164,7 @@ CREATE TABLE `auth_user_groups`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_user_groups_user_id_group_id_94350c0c_uniq`(`user_id`, `group_id`) USING BTREE,
   INDEX `auth_user_groups_group_id_97559544_fk_auth_group_id`(`group_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for auth_user_user_permissions
@@ -177,7 +177,7 @@ CREATE TABLE `auth_user_user_permissions`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq`(`user_id`, `permission_id`) USING BTREE,
   INDEX `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm`(`permission_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for deliveryman
@@ -189,7 +189,7 @@ CREATE TABLE `deliveryman`  (
   `taking_status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`deliveryman_id`) USING BTREE,
   INDEX `d_warehouse_fk`(`warehouse_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of deliveryman
@@ -212,7 +212,7 @@ CREATE TABLE `django_admin_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `django_admin_log_content_type_id_c4bce8eb_fk_django_co`(`content_type_id`) USING BTREE,
   INDEX `django_admin_log_user_id_c564eba6_fk_auth_user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for django_content_type
@@ -224,7 +224,7 @@ CREATE TABLE `django_content_type`  (
   `model` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label`, `model`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -251,7 +251,7 @@ CREATE TABLE `django_migrations`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -294,7 +294,7 @@ CREATE TABLE `django_session`  (
   `expire_date` datetime(6) NOT NULL,
   PRIMARY KEY (`session_key`) USING BTREE,
   INDEX `django_session_expire_date_a5c62663`(`expire_date`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for goods
@@ -321,12 +321,12 @@ CREATE TABLE `goods`  (
   `tags_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`goods_id`) USING BTREE,
   UNIQUE INDEX `goods_index`(`goods_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('1', '牛肉', '肉类', NULL, 60.00, '02', 90, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('1', '牛肉', '肉类', NULL, 60.00, '02', 90, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', 'hot', NULL);
 INSERT INTO `goods` VALUES ('2', '羊肉', '肉类', 'g', 56.00, '02', 95, '上海市奉贤', '一包', '包', '冷藏', 500, 1, '产于奉贤某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
 INSERT INTO `goods` VALUES ('3', '大葱', '蔬菜', 'g', 3.00, '02', 55, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
 
@@ -340,7 +340,7 @@ CREATE TABLE `history`  (
   `key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of history
@@ -352,7 +352,7 @@ INSERT INTO `history` VALUES (0000000001, 1, '牛肉', '2020-06-01 15:45:45');
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`  (
-  `order_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `order_id` int(12) UNSIGNED ZEROFILL NOT NULL DEFAULT 15 AUTO_INCREMENT,
   `customer_id` int(8) UNSIGNED ZEROFILL NOT NULL,
   `deliveryman_id` int(8) UNSIGNED ZEROFILL NULL DEFAULT NULL,
   `create_order_time` datetime(0) NULL DEFAULT NULL,
@@ -368,31 +368,33 @@ CREATE TABLE `order`  (
   UNIQUE INDEX `order_index`(`order_id`) USING BTREE,
   INDEX `deliveryman_fk`(`deliveryman_id`) USING BTREE,
   INDEX `address_fk`(`customer_id`, `address_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', 00000001, 00000001, '2020-03-12 14:33:44', '2020-03-05 14:33:48', '2020-03-14 14:33:51', '1', '1', 00001, '10', b'1', '1');
+INSERT INTO `order` VALUES (000000000013, 00000001, 00000001, '2020-06-07 10:29:05', NULL, NULL, '1', '', 00001, '01', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for order_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE `order_detail`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `goods_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `quantity` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `order_id`) USING BTREE,
   INDEX `order_details_index`(`order_id`) USING BTREE,
   INDEX `goods_id`(`goods_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------
 INSERT INTO `order_detail` VALUES (1, '1', '1', 1);
+INSERT INTO `order_detail` VALUES (2, '13', '1', 3);
+INSERT INTO `order_detail` VALUES (3, '13', '2', 1);
 
 -- ----------------------------
 -- Table structure for purchase
@@ -411,7 +413,7 @@ CREATE TABLE `purchase`  (
   UNIQUE INDEX `purchase_index`(`purchase_id`) USING BTREE,
   INDEX `goods_fk`(`goods_id`) USING BTREE,
   INDEX `warehouse_fk`(`warehouse_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of purchase
@@ -446,7 +448,7 @@ CREATE TABLE `recycle`  (
   `quantity` int(8) NULL DEFAULT NULL,
   `order_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`order_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of recycle
@@ -467,7 +469,7 @@ CREATE TABLE `schedule`  (
   PRIMARY KEY (`schedule_id`) USING BTREE,
   INDEX `from_fk`(`from`) USING BTREE,
   INDEX `to_fk`(`to`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of schedule
@@ -484,7 +486,7 @@ CREATE TABLE `schedule_detail`  (
   `number` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`schedule_id`, `goods_id`) USING BTREE,
   INDEX `s_goods_fk`(`goods_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of schedule_detail
@@ -501,7 +503,7 @@ CREATE TABLE `shopping_cart`  (
   `quantity` int(8) NULL DEFAULT NULL,
   PRIMARY KEY (`customer_id`, `goods_id`) USING BTREE,
   INDEX `cart_goods_fk`(`goods_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of shopping_cart
@@ -526,12 +528,12 @@ CREATE TABLE `user`  (
   PRIMARY KEY (`user_id`, `phone`) USING BTREE,
   UNIQUE INDEX `login_phone`(`phone`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (00000001, '1', '199941', 'M', '18721517889', '11111111111', 'Johnny', 'MTU5MTAyODYwNC45MTg5NDM0Ojk4YjNiYjczYjZmNTliMTRhMTE2OWExMThlZDJhM2EzMWVhMTFhMTQ=');
+INSERT INTO `user` VALUES (00000001, '1', '199941', 'M', '18721517889', '11111111111', 'Johnny', 'MTU5MTUzMTQ5Ny4zMTgyNjgzOjM2MzZlMWQ5M2I0MDg5NTY1OGNhYWM2N2YyMTg0YWVjZjQyZmIxMzI=');
 INSERT INTO `user` VALUES (00000002, '1', '18721522908', 'M', '18721522908', '11111111111', 'lzh', NULL);
 INSERT INTO `user` VALUES (00000003, '1', '18817669250', 'M', '18817669250', '11111111111', 'shl', NULL);
 
@@ -547,7 +549,7 @@ CREATE TABLE `warehouse`  (
   PRIMARY KEY (`warehose_id`) USING BTREE,
   UNIQUE INDEX `warehouse_index`(`warehose_id`) USING BTREE,
   INDEX `admin_fk`(`admin_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of warehouse

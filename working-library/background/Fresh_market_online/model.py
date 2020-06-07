@@ -178,7 +178,7 @@ class History(models.Model):
 
 
 class Order(models.Model):
-    order_id = models.CharField(primary_key=True, max_length=32)
+    order_id = models.AutoField(primary_key=True)
     customer_id = models.IntegerField()
     deliveryman_id = models.IntegerField(blank=True, null=True)
     create_order_time = models.DateTimeField(blank=True, null=True)
