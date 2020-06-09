@@ -39,7 +39,7 @@ def sendcode(request):
     
     time=datetime.datetime.now()
     redis_code.set(phone,code,60*5)
-    data={"time":time}
+    data={"time":str(time)}
     response = json.dumps(data)
     return HttpResponse(response)
 
