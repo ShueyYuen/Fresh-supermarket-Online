@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Johnny
+ Source Server         : 202068
  Source Server Type    : MySQL
- Source Server Version : 100121
+ Source Server Version : 80018
  Source Host           : localhost:3306
- Source Schema         : xzn
+ Source Schema         : xznfin
 
  Target Server Type    : MySQL
- Target Server Version : 100121
+ Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 07/06/2020 19:06:19
+ Date: 09/06/2020 13:36:34
 */
 
 SET NAMES utf8mb4;
@@ -44,9 +44,15 @@ CREATE TABLE `address`  (
 -- Records of address
 -- ----------------------------
 INSERT INTO `address` VALUES (00000001, 00001, '上海市', 'lzh', '18721522908', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤区', '海思路');
-INSERT INTO `address` VALUES (00000001, 00002, '上海市', 'Johnny', '18721517889', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤去', '海思路');
+INSERT INTO `address` VALUES (00000002, 00001, '上海市', 'lzh', '18721525908', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤区', '海思路');
+INSERT INTO `address` VALUES (00000003, 00001, '上海市', 'shl', '18817669250', 'M', '130号', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
+INSERT INTO `address` VALUES (00000004, 00001, '上海市', 'yx', '18297913123', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤区', '海思路');
+INSERT INTO `address` VALUES (00000005, 00001, '上海市', 'pyl', '13122387285', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤区', '海思路');
+INSERT INTO `address` VALUES (00000001, 00002, '上海市', 'Johnny', '18721517889', 'M', '999', '30.827640', '121.506480', '学校', '上海市', '奉贤区', '海思路');
+INSERT INTO `address` VALUES (00000004, 00002, '上海市', 'yx', '18297913123', 'M', '130', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
+INSERT INTO `address` VALUES (00000005, 00002, '上海市', 'pyl', '13122387285', 'M', '130', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
 INSERT INTO `address` VALUES (00000001, 00003, '上海市', 'shl', '18817669250', 'M', '130号', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
-INSERT INTO `address` VALUES (00000004, 00004, '上海市', '测试', '18888888888', 'M', '111号', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
+INSERT INTO `address` VALUES (10000004, 10004, '上海市', '测试', '18888888888', 'M', '111号', '31.141382', '121.421251', '学校', '上海市', '徐汇区', '梅陇路');
 
 -- ----------------------------
 -- Table structure for auth_group
@@ -148,7 +154,7 @@ CREATE TABLE `auth_user`  (
   `email` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
-  `date_joined` datetime(6) NOT NULL,
+  `date_joined` datetime(6) NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
@@ -195,6 +201,25 @@ CREATE TABLE `deliveryman`  (
 -- Records of deliveryman
 -- ----------------------------
 INSERT INTO `deliveryman` VALUES (00000001, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000002, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000003, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000004, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000005, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000006, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000007, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000008, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000009, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000010, '1', '1');
+INSERT INTO `deliveryman` VALUES (00000011, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000012, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000013, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000014, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000015, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000016, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000017, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000018, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000019, '2', '1');
+INSERT INTO `deliveryman` VALUES (00000020, '2', '1');
 
 -- ----------------------------
 -- Table structure for django_admin_log
@@ -202,7 +227,7 @@ INSERT INTO `deliveryman` VALUES (00000001, '1', '1');
 DROP TABLE IF EXISTS `django_admin_log`;
 CREATE TABLE `django_admin_log`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `action_time` datetime(6) NOT NULL,
+  `action_time` datetime(6) NULL,
   `object_id` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `object_repr` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `action_flag` smallint(5) UNSIGNED NOT NULL,
@@ -249,7 +274,7 @@ CREATE TABLE `django_migrations`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `app` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `applied` datetime(6) NOT NULL,
+  `applied` datetime(6) NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -291,7 +316,7 @@ DROP TABLE IF EXISTS `django_session`;
 CREATE TABLE `django_session`  (
   `session_key` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `session_data` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `expire_date` datetime(6) NOT NULL,
+  `expire_date` datetime(6) NULL,
   PRIMARY KEY (`session_key`) USING BTREE,
   INDEX `django_session_expire_date_a5c62663`(`expire_date`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
@@ -326,9 +351,61 @@ CREATE TABLE `goods`  (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('1', '牛肉', '肉类', NULL, 60.00, '02', 90, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('1', '牛肉', '肉类', 'g', 60.00, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('10', '鸭胗', '禽类', 'g', 34.00, '02', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸭场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('11', '鸭血', '禽类', 'g', 8.50, '02', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸭场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('12', '鸭肉', '禽类', 'g', 26.00, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸭场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('13', '鹌鹑蛋', '蛋类', 'g', 8.50, '02', 90, '上海市奉贤区', '一箱', '箱', '冷藏', 500, 1, '产于奉贤某鹌鹑养殖场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('14', '土鸡蛋', '蛋类', 'g', 19.00, '02', 95, '上海市奉贤区', '一箱', '箱', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('15', '生菜', '蔬菜', 'g', 7.20, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('16', '四季豆', '蔬菜', 'g', 12.00, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('17', '荷兰豆', '蔬菜', 'g', 15.00, '02', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('18', '芸豆', '蔬菜', 'g', 12.80, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('19', '鸡毛菜', '蔬菜', 'g', 6.40, '02', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
 INSERT INTO `goods` VALUES ('2', '羊肉', '肉类', 'g', 56.00, '02', 95, '上海市奉贤', '一包', '包', '冷藏', 500, 1, '产于奉贤某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
-INSERT INTO `goods` VALUES ('3', '大葱', '蔬菜', 'g', 3.00, '02', 55, '上海市奉贤区', '一包', NULL, '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('20', '菠菜', '蔬菜', 'g', 10.50, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('21', '空心菜', '蔬菜', 'g', 12.80, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('22', '油麦菜', '蔬菜', 'g', 7.50, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('23', '杭白菜', '蔬菜', 'g', 5.80, '02', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('24', '上海青', '蔬菜', 'g', 3.20, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('25', '彩椒', '蔬菜', 'g', 10.00, '02', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('26', '小米椒', '蔬菜', 'g', 19.50, '02', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('27', '虎皮椒', '蔬菜', 'g', 7.50, '02', 85, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('28', '大米', '五谷杂粮', 'g', 6.80, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('29', '红豆', '五谷杂粮', 'g', 12.80, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('3', '大葱', '蔬菜', 'g', 3.00, '02', 55, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('30', '黄豆', '五谷杂粮', 'g', 18.00, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('31', '绿豆', '五谷杂粮', 'g', 12.50, '01', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('32', '上海青', '蔬菜', 'g', 3.20, '01', 100, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('33', '彩椒', '蔬菜', 'g', 10.00, '01', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('34', '牛肉', '肉类', 'g', 60.00, '01', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('35', '羊肉', '肉类', 'g', 56.00, '01', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
+INSERT INTO `goods` VALUES ('36', '猪肉', '肉类', 'g', 48.00, '01', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养猪场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('37', '鸡翅根', '禽类', 'g', 18.00, '01', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('38', '鸡翅中', '禽类', 'g', 22.00, '01', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('39', '鸡腿', '禽类', 'g', 20.00, '01', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('4', '猪肉', '肉类', 'g', 48.00, '02', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养猪场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('40', '鸡肉', '禽类', 'g', 28.00, '01', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('41', '大米', '五谷杂粮', 'g', 6.80, '03', 90, '上海市松江区', '一包', '包', '冷藏', 500, 1, '产于松江某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('42', '上海青', '蔬菜', 'g', 3.20, '03', 100, '上海市松江区', '一包', '包', '冷藏', 500, 1, '产于松江某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('43', '鸡腿', '禽类', 'g', 20.00, '03', 95, '上海市松江区', '一包', '包', '冷藏', 500, 1, '产于松江某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('44', '鹌鹑蛋', '蛋类', 'g', 8.50, '03', 90, '上海市松江区', '一箱', '箱', '冷藏', 500, 1, '产于松江某鹌鹑养殖场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('45', '羊肉', '肉类', 'g', 56.00, '03', 95, '上海市松江区', '一包', '包', '冷藏', 500, 1, '产于松江某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
+INSERT INTO `goods` VALUES ('46', '大米', '五谷杂粮', 'g', 6.80, '04', 90, '上海市浦东新区', '一包', '包', '冷藏', 500, 1, '产于浦东某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('47', '上海青', '蔬菜', 'g', 3.20, '04', 100, '上海市浦东新区', '一包', '包', '冷藏', 500, 1, '产于浦东某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('48', '鸡腿', '禽类', 'g', 20.00, '04', 95, '上海市浦东新区', '一包', '包', '冷藏', 500, 1, '产于浦东某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('49', '鹌鹑蛋', '蛋类', 'g', 8.50, '04', 90, '上海市浦东新区', '一箱', '箱', '冷藏', 500, 1, '产于浦东某鹌鹑养殖场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('5', '鸡翅根', '禽类', 'g', 18.00, '02', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('50', '羊肉', '肉类', 'g', 56.00, '04', 95, '上海市浦东新区', '一包', '包', '冷藏', 500, 1, '产于浦东某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
+INSERT INTO `goods` VALUES ('51', '大米', '五谷杂粮', 'g', 6.80, '05', 90, '上海市青浦区', '一包', '包', '冷藏', 500, 1, '产于青浦某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('52', '上海青', '蔬菜', 'g', 3.20, '05', 100, '上海市青浦区', '一包', '包', '冷藏', 500, 1, '产于青浦某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('53', '鸡腿', '禽类', 'g', 20.00, '05', 95, '上海市青浦区', '一包', '包', '冷藏', 500, 1, '产于青浦某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('54', '鹌鹑蛋', '蛋类', 'g', 8.50, '05', 90, '上海市青浦区', '一箱', '箱', '冷藏', 500, 1, '产于青浦某鹌鹑养殖场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('55', '羊肉', '肉类', 'g', 56.00, '05', 95, '上海市青浦区', '一包', '包', '冷藏', 500, 1, '产于青浦某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', '');
+INSERT INTO `goods` VALUES ('6', '鸡翅中', '禽类', 'g', 22.00, '02', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('7', '鸡腿', '禽类', 'g', 20.00, '02', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('8', '鸡肉', '禽类', 'g', 28.00, '02', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸡场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
+INSERT INTO `goods` VALUES ('9', '鸭腿', '禽类', 'g', 15.00, '02', 80, '上海市奉贤区', '一包', '包', '冷藏', 500, 1, '产于奉贤某养鸭场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享\n受此优惠', 'hot', NULL);
 
 -- ----------------------------
 -- Table structure for history
@@ -373,7 +450,13 @@ CREATE TABLE `order`  (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (000000000013, 00000001, 00000001, '2020-06-07 10:29:05', NULL, NULL, '1', '', 00001, '01', NULL, NULL);
+INSERT INTO `order` VALUES (000000000001, 00000001, 00000011, '2020-06-06 18:12:32', NULL, NULL, '1', '00000001', 00002, '02', b'0', NULL);
+INSERT INTO `order` VALUES (000000000002, 00000005, 00000012, '2020-06-06 20:52:10', NULL, NULL, '1', '00000002', 00001, '02', b'0', NULL);
+INSERT INTO `order` VALUES (000000000003, 00000005, 00000002, '2020-06-08 21:52:10', NULL, NULL, '1', '00000003', 00002, '01', b'0', NULL);
+INSERT INTO `order` VALUES (000000000004, 00000002, 00000013, '2020-05-06 20:52:10', NULL, NULL, '1', '00000004', 00001, '02', b'0', NULL);
+INSERT INTO `order` VALUES (000000000005, 00000003, 00000015, '2020-05-28 10:22:13', NULL, NULL, '1', '00000005', 00001, '02', b'0', NULL);
+INSERT INTO `order` VALUES (000000000006, 00000004, 00000013, '2020-06-06 22:12:04', NULL, NULL, '1', '00000006', 00001, '02', b'0', NULL);
+INSERT INTO `order` VALUES (000000000013, 00000001, 00000001, '2020-06-07 10:29:05', NULL, NULL, '1', '00000013', 00001, '01', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -392,9 +475,14 @@ CREATE TABLE `order_detail`  (
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------
-INSERT INTO `order_detail` VALUES (1, '1', '1', 1);
-INSERT INTO `order_detail` VALUES (2, '13', '1', 3);
-INSERT INTO `order_detail` VALUES (3, '13', '2', 1);
+INSERT INTO `order_detail` VALUES (1, '000000000001', '1', 1);
+INSERT INTO `order_detail` VALUES (2, '000000000002', '1', 1);
+INSERT INTO `order_detail` VALUES (3, '000000000002', '2', 1);
+INSERT INTO `order_detail` VALUES (4, '000000000003', '3', 1);
+INSERT INTO `order_detail` VALUES (5, '000000000004', '1', 1);
+INSERT INTO `order_detail` VALUES (6, '000000000005', '1', 1);
+INSERT INTO `order_detail` VALUES (7, '000000000006', '2', 1);
+INSERT INTO `order_detail` VALUES (8, '000000000006', '3', 1);
 
 -- ----------------------------
 -- Table structure for purchase
@@ -418,7 +506,14 @@ CREATE TABLE `purchase`  (
 -- ----------------------------
 -- Records of purchase
 -- ----------------------------
-INSERT INTO `purchase` VALUES (1, '2020-03-19 14:35:04', 1.00, 1.00, '1', '1', '1', 1);
+INSERT INTO `purchase` VALUES (1, '2020-06-06 18:12:32', 60.00, 1.00, '1', '1', '2', 1);
+INSERT INTO `purchase` VALUES (2, '2020-06-06 20:52:10', 60.00, 1.00, '1', '1', '2', 1);
+INSERT INTO `purchase` VALUES (3, '2020-06-06 20:52:10', 56.00, 1.00, '1', '2', '1', 1);
+INSERT INTO `purchase` VALUES (4, '2020-06-08 21:52:10', 3.00, 1.00, '1', '3', '2', 1);
+INSERT INTO `purchase` VALUES (5, '2020-05-06 20:52:10', 60.00, 1.00, '1', '1', '2', 1);
+INSERT INTO `purchase` VALUES (6, '2020-05-06 20:52:10', 60.00, 1.00, '1', '1', '2', 1);
+INSERT INTO `purchase` VALUES (7, '2020-05-28 10:22:13', 58.00, 1.00, '1', '2', '2', 1);
+INSERT INTO `purchase` VALUES (8, '2020-06-06 22:12:04', 3.00, 1.00, '1', '3', '1', 1);
 
 -- ----------------------------
 -- Table structure for recycle
@@ -474,7 +569,7 @@ CREATE TABLE `schedule`  (
 -- ----------------------------
 -- Records of schedule
 -- ----------------------------
-INSERT INTO `schedule` VALUES (00000000000000000001, '2020-03-20 14:35:53', '2020-03-11 14:35:57', '10', '10', '1');
+INSERT INTO `schedule` VALUES (00000000000000000001, '2020-03-20 14:35:53', '2020-03-22 14:35:57', '10', '10', '1');
 
 -- ----------------------------
 -- Table structure for schedule_detail
@@ -511,6 +606,12 @@ CREATE TABLE `shopping_cart`  (
 INSERT INTO `shopping_cart` VALUES (00000001, '1', 3);
 INSERT INTO `shopping_cart` VALUES (00000001, '2', 1);
 INSERT INTO `shopping_cart` VALUES (00000002, '1', 1);
+INSERT INTO `shopping_cart` VALUES (00000003, '15', 2);
+INSERT INTO `shopping_cart` VALUES (00000004, '20', 3);
+INSERT INTO `shopping_cart` VALUES (00000004, '31', 5);
+INSERT INTO `shopping_cart` VALUES (00000005, '18', 6);
+INSERT INTO `shopping_cart` VALUES (00000005, '3', 3);
+INSERT INTO `shopping_cart` VALUES (00000005, '6', 6);
 
 -- ----------------------------
 -- Table structure for user
@@ -536,6 +637,8 @@ CREATE TABLE `user`  (
 INSERT INTO `user` VALUES (00000001, '1', '199941', 'M', '18721517889', '11111111111', 'Johnny', 'MTU5MTUzMTQ5Ny4zMTgyNjgzOjM2MzZlMWQ5M2I0MDg5NTY1OGNhYWM2N2YyMTg0YWVjZjQyZmIxMzI=');
 INSERT INTO `user` VALUES (00000002, '1', '18721522908', 'M', '18721522908', '11111111111', 'lzh', NULL);
 INSERT INTO `user` VALUES (00000003, '1', '18817669250', 'M', '18817669250', '11111111111', 'shl', NULL);
+INSERT INTO `user` VALUES (00000004, '1', '18297913123', 'M', '18297913123', '11111111111', 'yx', NULL);
+INSERT INTO `user` VALUES (00000005, '1', '13122387285', 'M', '13122387285', '11111111111', 'pyl', NULL);
 
 -- ----------------------------
 -- Table structure for warehouse
@@ -555,6 +658,9 @@ CREATE TABLE `warehouse`  (
 -- Records of warehouse
 -- ----------------------------
 INSERT INTO `warehouse` VALUES ('01', '上海市奉贤区海思路', 00000001, '鲜着呢-奉贤');
-INSERT INTO `warehouse` VALUES ('02', '上海市徐汇区', 00000001, '鲜着呢-徐汇');
+INSERT INTO `warehouse` VALUES ('02', '上海市徐汇区', 00000002, '鲜着呢-徐汇');
+INSERT INTO `warehouse` VALUES ('03', '上海市松江区', 00000003, '鲜着呢-松江');
+INSERT INTO `warehouse` VALUES ('04', '上海市浦东新区', 00000004, '鲜着呢-浦东');
+INSERT INTO `warehouse` VALUES ('05', '上海市青浦区', 00000005, '鲜着呢-青浦');
 
 SET FOREIGN_KEY_CHECKS = 1;
