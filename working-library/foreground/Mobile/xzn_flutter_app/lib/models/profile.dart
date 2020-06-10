@@ -10,6 +10,7 @@ part 'profile.g.dart';
 class Profile {
     Profile();
 
+    bool first_load;
     User user;
     MyOrder my_order;
     List<CartItem> cart;

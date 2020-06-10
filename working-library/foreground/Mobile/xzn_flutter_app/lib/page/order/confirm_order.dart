@@ -1,18 +1,101 @@
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:xzn/conf/config.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/address/address_select.dart';
 import 'package:xzn/page/order/order_manage.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
+
+class OrderProductCard extends StatelessWidget {
+  OrderProductCard({Key key, @required this.cartItem});
+
+  CartItem cartItem;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget placeholder = Image.asset(
+      "assets/image/default_picture.webp", //头像占位图，加载过程中显示
+    );
+    return ListTile(
+      leading: CachedNetworkImage(
+        imageUrl: Config.baseUrl() +
+            "picture/" +
+            cartItem.product.picture_list["shuffle"][0],
+        fit: BoxFit.fitWidth,
+        width: 100,
+        placeholder: (context, url) => placeholder,
+        errorWidget: (context, url, error) => placeholder,
+      ),
+      title: Stack(
+        children: <Widget>[
+          Container(
+            child: Text(
+              cartItem.product.product_name,
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+          Positioned(
+              top: 5,
+              right: 20,
+//                        alignment: Alignment.centerRight,
+              child: Text(
+                "x" + cartItem.number.toString(),
+                style: TextStyle(fontSize: 16),
+              ))
+        ],
+      ),
+      trailing: Text(
+        "￥" + cartItem.product.price["num"].toString(),
+        style: TextStyle(fontSize: 14),
+      ),
+    );
+  }
+}
 
 class OrderConfirm extends StatefulWidget {
+  OrderConfirm({Key key, @required this.order}) : super(key: key);
+
+  List<CartItem> order;
+
   @override
   _OrderConfirmState createState() => _OrderConfirmState();
 }
 
 class _OrderConfirmState extends State<OrderConfirm> {
   bool protect = false;
+  Address address = null;
+
+  totalPrice() {
+    double price = 10.0;
+    for (CartItem cartItem in widget.order) {
+      price += cartItem.number * cartItem.product.price["num"];
+    }
+    return price.toStringAsFixed(2);
+  }
+
+  String getSex(String sex) {
+    switch (sex) {
+      case "M":
+        return "(先生)";
+      case "F":
+        return "(女士)";
+      default:
+        return "";
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    address = Provider.of<AddressModel>(context, listen: false).address[0];
+//    print(address.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
+    var now = new DateTime.now().add(Duration(minutes: 30));
     return Scaffold(
         appBar: AppBar(
           title: Text("确认订单"),
@@ -30,13 +113,22 @@ class _OrderConfirmState extends State<OrderConfirm> {
                   ],
                 )),
             ListTile(
-              title: Text("华东理工大学奉贤校区学生宿舍楼23号"),
+              title: Text(address.detail["city"] +
+                  address.detail["district"] +
+                  "区" +
+                  address.detail["street"] +
+                  "路" +
+                  address.detail["no"].toString() +
+                  "号"),
               trailing: Icon(Icons.arrow_forward_ios),
-              subtitle: Text("范 197******26"),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+              subtitle: Text(address.person["consignee"]+getSex(address.person["sex"])+" "+address.phone.replaceRange(3, 9, "******")),
+              onTap: () async {
+                var result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return AddressSelect();
                 }));
+                setState(() {
+                  address = result??address;
+                });
               },
             ),
             Divider(
@@ -51,7 +143,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                 style: TextStyle(fontSize: 14),
               ),
               trailing: Text(
-                "约16：30送达",
+                "约" + now.hour.toString() + ":" + now.minute.toString() + "送达",
                 style: TextStyle(fontSize: 14, color: Colors.blue[400]),
               ),
             ),
@@ -80,81 +172,9 @@ class _OrderConfirmState extends State<OrderConfirm> {
               child: Wrap(
                 runSpacing: 20,
                 children: <Widget>[
-                  ListTile(
-                    leading: Image.asset("assets/image/swiper/1.webp"),
-                    title: Stack(
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "一只雷姆",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        Positioned(
-                            top: 5,
-                            right: 20,
-//                        alignment: Alignment.centerRight,
-                            child: Text(
-                              "x10",
-                              style: TextStyle(fontSize: 16),
-                            ))
-                      ],
-                    ),
-                    trailing: Text(
-                      "￥19.63",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Image.asset("assets/image/swiper/1.webp"),
-                    title: Stack(
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "罗兹瓦尔·L·梅札斯",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        Positioned(
-                            top: 5,
-                            right: 20,
-//                        alignment: Alignment.centerRight,
-                            child: Text(
-                              "x100",
-                              style: TextStyle(fontSize: 16),
-                            ))
-                      ],
-                    ),
-                    trailing: Text(
-                      "￥19.63",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Image.asset("assets/image/swiper/1.webp"),
-                    title: Stack(
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "一只拉姆",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        Positioned(
-                            top: 5,
-                            right: 20,
-//                        alignment: Alignment.centerRight,
-                            child: Text(
-                              "x10",
-                              style: TextStyle(fontSize: 16),
-                            ))
-                      ],
-                    ),
-                    trailing: Text(
-                      "￥19.63",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
+                  ...widget.order.map((order_item) {
+                    return OrderProductCard(cartItem: order_item);
+                  }).toList(),
                   ListTile(
                     leading: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 9),
@@ -170,7 +190,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     ),
                     title: Text("外卖员配送"),
                     trailing: Text(
-                      "￥1000.0",
+                      "￥10.0",
                       style: TextStyle(fontSize: 14),
                     ),
                   ),
@@ -200,7 +220,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       Positioned(
                           right: 20,
                           child: Text(
-                            "小计  ￥33.33",
+                            "小计  ￥" + totalPrice(),
                             style: TextStyle(fontSize: 18),
                           ))
                     ],
@@ -274,7 +294,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
                         style: TextStyle(fontSize: 12, color: Colors.white),
                         children: [
                           TextSpan(
-                              text: "￥33.33 ", style: TextStyle(fontSize: 18)),
+                              text: "￥" + totalPrice() + " ",
+                              style: TextStyle(fontSize: 18)),
                           TextSpan(
                             text: "| 已优惠" + "￥0.00",
                           ),
@@ -321,11 +342,12 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       padding:
                                           EdgeInsets.symmetric(vertical: 15),
                                       onPressed: () {
-                                        Navigator.pushReplacement(context, MaterialPageRoute(
-                                            builder: (context) {
-                                              return OrderManage();
-                                            }
-                                          ),);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(builder: (context) {
+                                            return OrderManage();
+                                          }),
+                                        );
 //                                        Navigator.pushAndRemoveUntil(
 //                                          context,
 //                                          MaterialPageRoute(

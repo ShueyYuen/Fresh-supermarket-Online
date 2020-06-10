@@ -32,7 +32,6 @@ class _ProductRecommendGridState extends State<ProductRecommendGrid> {
               size: 48,
             );
           } else {
-            print(snapshot.data);
             widget = Container(
               width: width,
               height: 210,

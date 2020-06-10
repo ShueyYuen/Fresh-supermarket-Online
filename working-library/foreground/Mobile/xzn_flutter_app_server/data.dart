@@ -168,6 +168,5 @@ String fillJSON(String json_text) {
       map.add(list_item);
     }
   }
-  print(map);
   return json.encode(map);
 }

@@ -21,7 +21,6 @@ getMyOrder(BuildContext context) async {
     };
     var res = await http.post(url, body: body);
     var json = jsonDecode(res.body);
-    print(res.body);
     try {
       my_order = MyOrder.fromJson(json);
       // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新

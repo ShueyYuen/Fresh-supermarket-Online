@@ -47,3 +47,10 @@ content-type: application/json
 
 {
 }
+
+###
+POST {{host}}/api/user/address/list HTTP/1.1
+content-type: application/json
+
+{
+}
