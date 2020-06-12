@@ -14,5 +14,6 @@
   "finish_order_time":"",
   "order_status":"",
   "payment_id":"",
+  "note": "",
   "total_price":0
 }

@@ -18,6 +18,7 @@ class Order {
     String finish_order_time;
     String order_status;
     String payment_id;
+    String note;
     num total_price;
     
     factory Order.fromJson(Map<String,dynamic> json) => _$OrderFromJson(json);

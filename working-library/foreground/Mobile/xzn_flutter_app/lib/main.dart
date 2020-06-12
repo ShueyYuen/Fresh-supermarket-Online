@@ -1,3 +1,4 @@
+import 'package:amap_map_fluttify/amap_map_fluttify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -10,9 +11,14 @@ import 'app.dart';
 import 'common/global.dart';
 import 'loading.dart';
 
-void main() => Global.init().then((e) {
+void main() => Global.init().then((e) async {
 //      AMapLocationClient.setApiKey("cb904fc25db7d0b715dabb813be2b6a0");
       runApp(MyApp());
+      await enableFluttifyLog(false);
+      await AmapService.init(
+        iosKey: '7a04506d15fdb7585707f7091d715ef4',
+        androidKey: 'cb904fc25db7d0b715dabb813be2b6a0',
+      );
     });
 
 class MyApp extends StatelessWidget {
@@ -31,7 +37,6 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
-
 //          DemoLocalizationsDelegate(),
         ],
 //        debugShowMaterialGrid: true,

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/index.dart';
+import 'package:xzn/page/my/customer_service.dart';
 import 'package:xzn/page/product/product_show.dart';
 
 class OrderDetail extends StatelessWidget {
@@ -25,6 +26,7 @@ class OrderDetail extends StatelessWidget {
     Widget placeholder = Image.asset(
       "assets/image/default_picture.webp", //头像占位图，加载过程中显示
     );
+    print(order.note);
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
@@ -32,7 +34,11 @@ class OrderDetail extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.headset_mic),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return CustomerService();
+                }));
+              },
             )
           ],
         ),
@@ -268,10 +274,13 @@ class OrderDetail extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text("订单备注"),
-                      trailing: Text(
-                        "cofalconer is idiot!",
-                        style: TextStyle(fontSize: 14),
-                      ),
+                      trailing: Container(
+                        width: 200,
+                        child: Text(
+                          order.note??"",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      )
                     ),
                   ],
                 ),

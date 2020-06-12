@@ -30,7 +30,7 @@ class OrderCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width - 30;
     Widget placeholder = Image.asset(
       "assets/image/default_picture.webp", //头像占位图，加载过程中显示
-      width: 110,
+      width: width-245,
       height: 90,
     );
     Widget subbutton = this.order.order_status == "unpaid"
@@ -105,18 +105,18 @@ class OrderCard extends StatelessWidget {
               direction: Axis.horizontal,
               children: <Widget>[
                 Expanded(
-                    flex: 0,
-                    child:
-                    CachedNetworkImage(
-                      imageUrl: Config.baseUrl() +
+                  flex: 0,
+                  child: CachedNetworkImage(
+                    imageUrl: Config.baseUrl() +
                         "picture/" +
-                        order.product_list[0]["product"]["picture_list"]["shuffle"][0],
-                      fit: BoxFit.cover,
-                      width: 110,
-                      height: 90,
-                      placeholder: (context, url) => placeholder,
-                      errorWidget: (context, url, error) => placeholder,
-                    ),
+                        order.product_list[0]["product"]["picture_list"]
+                            ["shuffle"][0],
+                    fit: BoxFit.cover,
+                    width: width-245,
+                    height: 90,
+                    placeholder: (context, url) => placeholder,
+                    errorWidget: (context, url, error) => placeholder,
+                  ),
                 ),
                 SizedBox(
                   width: 10,

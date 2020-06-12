@@ -235,27 +235,48 @@ class _OrderConfirmState extends State<OrderConfirm> {
               color: Colors.grey[200],
               thickness: 15,
             ),
-            ListTile(
-                title: Text(
-                  "订单备注",
-                  style: TextStyle(fontSize: 14),
-                ),
-                trailing: Container(
-                    padding: EdgeInsets.only(top: 5),
-                    width: 150,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Row(
+                children: <Widget>[
+                  Title(
+                    child: Text(
+                      "订单备注",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    color: Colors.black,
+                  ),
+                  Expanded(child: Text("")),
+                  GestureDetector(
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Text.rich(TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "可选择无接触配送",
+                              style: TextStyle(fontSize: 14, color: Colors.grey),
+                            ),
+                          ]
+                        )),
                         Text(
-                          "可选择无接触配送",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                          "\uE5E1",
+                          style: TextStyle(
+                            fontFamily: "MaterialIcons",
+                            fontSize: 14,
+                            color: Colors.grey[600]),
                         ),
-                        Icon(
-                          Icons.navigate_next,
-                          color: Colors.grey,
-                        )
                       ],
-                    ))),
+                    ),
+                    onTap: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                          return OrderManage();
+                        }));
+                    },
+                  ),
+                ],
+              ),
+            ),
             Divider(
               height: 1,
               thickness: 2,

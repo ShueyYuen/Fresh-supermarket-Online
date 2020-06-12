@@ -5,7 +5,7 @@ class CustomerService extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("不要扫码，谢谢合作"),
+        title: Text("客服"),
       ),
       body: Center(
         child: Container(

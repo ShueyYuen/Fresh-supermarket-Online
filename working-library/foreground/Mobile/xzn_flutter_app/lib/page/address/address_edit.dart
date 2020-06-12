@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/address/address_manage.dart';
 import 'package:xzn/page/address/address_located.dart';
@@ -17,45 +18,43 @@ class _AddressEditState extends State<AddressEdit> {
   TextEditingController _telController = TextEditingController();
   TextEditingController _noController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
+  SelfNearItem selfNearItem;
 
-  int sex_index = 2;
-
-  final Map<String, String> sex = {"M":"先生", "F":"女士", "NULL":"未知"};
+  final Map<String, String> sex = {"M": "先生", "F": "女士", "NULL": "未知"};
   final List<String> tags = ["家", "学校", "公司"];
 
   @override
   void initState() {
     if (widget.edit) {
+      selfNearItem = SelfNearItem();
       _consigneeController.text = widget.address.person["consignee"];
       _telController.text = widget.address.phone;
       _addressController.text = widget.address.detail["city"] +
-        widget.address.detail["district"] +
-        "区" +
-        widget.address.detail["street"] +
-        "路";
+          widget.address.detail["district"] +
+          "区" +
+          widget.address.detail["street"] +
+          "路";
+      selfNearItem.city = widget.address.detail["city"];
+      selfNearItem.district = widget.address.detail["district"];
+      selfNearItem.township = widget.address.detail["street"];
       if (_addressController.text.length > 15)
         _addressController.text = _addressController.text
-          .replaceRange(15, _addressController.text.length, '....');
+            .replaceRange(15, _addressController.text.length, '....');
       _noController.text = widget.address.detail["no"].toString();
     } else {
-      widget.address = Address.fromJson(
-        {
-          "address_id": "",
-          "person": {
-            "consignee": "",
-            "sex": ""
-          },
-          "phone": "",
-          "detail": {
-            "province": "",
-            "city": "",
-            "district": "",
-            "street": "",
-            "no": 0
-          },
-          "tag": ""
-        }
-      );
+      widget.address = Address.fromJson({
+        "address_id": "",
+        "person": {"consignee": "", "sex": ""},
+        "phone": "",
+        "detail": {
+          "province": "",
+          "city": "",
+          "district": "",
+          "street": "",
+          "no": 0
+        },
+        "tag": ""
+      });
     }
     super.initState();
   }
@@ -67,15 +66,19 @@ class _AddressEditState extends State<AddressEdit> {
           title: Text(widget.edit ? "修改地址" : "新增收货地址"),
           centerTitle: true,
           actions: <Widget>[
-            IconButton(
-              icon: IconButton(
-                icon: Icon(Icons.delete,color: Colors.white,),
-                onPressed: () {
-                  Provider.of<AddressModel>(context).delete(widget.address.address_id);
-                  Navigator.of(context).pop();
-                },
-              ),
-            )
+            widget.edit
+                ? IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Provider.of<AddressModel>(context)
+                          .delete(widget.address.address_id);
+                      Navigator.of(context).pop();
+                    },
+                  )
+                : Text(""),
           ],
         ),
         body: Column(
@@ -109,22 +112,24 @@ class _AddressEditState extends State<AddressEdit> {
                               alignment: WrapAlignment.start,
                               spacing: 10,
                               children: sex.keys.map((_key) {
-                                bool _selected = _key == widget.address.person["sex"];
-                                  return RawChip(
+                                bool _selected =
+                                    _key == widget.address.person["sex"];
+                                return RawChip(
 //                                    label: Text(sex[widget.address.person["sex"]]),
-                                    label: Text(sex[_key]),
-                                    selected: _selected,
-                                    labelStyle: TextStyle(
-                                      color: _selected?Colors.white:Colors.grey[700]
-                                    ),
-                                    onSelected: (v){
-                                      setState(() {
-                                        widget.address.person["sex"] = _key;
-                                      });
-                                    },
-                                    selectedColor: Theme.of(context).primaryColor,
-                                  );
-                                }).toList(),
+                                  label: Text(sex[_key]),
+                                  selected: _selected,
+                                  labelStyle: TextStyle(
+                                      color: _selected
+                                          ? Colors.white
+                                          : Colors.grey[700]),
+                                  onSelected: (v) {
+                                    setState(() {
+                                      widget.address.person["sex"] = _key;
+                                    });
+                                  },
+                                  selectedColor: Theme.of(context).primaryColor,
+                                );
+                              }).toList(),
                             )
                           ],
                         )),
@@ -202,11 +207,18 @@ class _AddressEditState extends State<AddressEdit> {
                             size: 25,
                             color: Colors.grey,
                           ),
-                          onPressed: () {
-                            Navigator.push(context,
+                          onPressed: () async {
+                            var result = await Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return AddressLocated();
-                            }));
+                            })) as SelfNearItem;
+                            setState(() {
+                              selfNearItem = result ?? selfNearItem;
+                            });
+                            _addressController.text = selfNearItem.city +
+                                selfNearItem.district +
+                                selfNearItem.township +
+                                selfNearItem.build;
                           }),
                     ),
                   ],
@@ -270,12 +282,15 @@ class _AddressEditState extends State<AddressEdit> {
                             bool _selected = _tag == widget.address.tag;
                             return RawChip(
 //                                    label: Text(sex[widget.address.person["sex"]]),
-                              label: Text(_tag.length<2?"   "+_tag+"   ":_tag),
+                              label: Text(_tag.length < 2
+                                  ? "   " + _tag + "   "
+                                  : _tag),
                               labelStyle: TextStyle(
-                                color: _selected?Colors.white:Colors.grey[700]
-                              ),
+                                  color: _selected
+                                      ? Colors.white
+                                      : Colors.grey[700]),
                               selected: _selected,
-                              onSelected: (v){
+                              onSelected: (v) {
                                 setState(() {
                                   widget.address.tag = _tag;
                                 });

@@ -43,7 +43,7 @@ class HomeProduct extends StatelessWidget {
                     imageUrl: Config.baseUrl() +
                       'picture/' +
                       product.picture_list["shuffle"][0],
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                     placeholder: (context, url) => placeholder,
                     errorWidget: (context, url, error) => placeholder,
                   ),

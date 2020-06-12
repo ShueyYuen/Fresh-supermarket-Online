@@ -39,7 +39,9 @@ dependencies:
   image_crop: ^0.3.2
   permission_handler: ^5.0.1
 #  flutter_amap: ^0.0.1
-  flutter_alipay: ^0.1.0
+  amap_map_fluttify: ^0.23.2
+#  flutter_alipay: ^0.1.0
+  url_launcher: ^5.4.10
 
 dev_dependencies:
   flutter_test:

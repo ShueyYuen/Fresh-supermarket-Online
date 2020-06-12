@@ -29,8 +29,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
     <uses-permission android:name="android.permission.CAMERA"/>
     <application>
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="key" >cb904fc25db7d0b715dabb813be2b6a0</meta-data>
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="key">cb904fc25db7d0b715dabb813be2b6a0</meta-data>
     </application>
+
 <!--    <service android:name="com.amap.api.location.APSService"></service>-->
 
 </manifest>

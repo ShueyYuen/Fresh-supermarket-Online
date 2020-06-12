@@ -56,3 +56,6 @@ roid\debug.keystore" -alias androiddebugkey -storepass android -keypass android
 主体公共密钥算法: 2048 位 RSA 密钥
 版本: 1
 ```
+
+# 地图接口
+[Amap说明](https://lbs.amap.com/api/webservice/guide/api/georegeo/)

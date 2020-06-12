@@ -1,4 +1,5 @@
 export 'address.dart' ; 
+export 'amapNearItem.dart' ; 
 export 'cartItem.dart' ; 
 export 'customer.dart' ; 
 export 'deliveryman.dart' ; 
@@ -8,4 +9,5 @@ export 'myOrder.dart' ;
 export 'order.dart' ; 
 export 'product.dart' ; 
 export 'profile.dart' ; 
+export 'selfNearItem.dart' ; 
 export 'user.dart' ; 

@@ -4,7 +4,7 @@ import 'package:xzn/page/cart.dart';
 import 'package:xzn/services/order_service.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
-import 'package:xzn/widget/order/OrderCard.dart';
+import 'package:xzn/widget/order/order_card.dart';
 
 class OrderManage extends StatefulWidget {
   OrderManage({Key key, this.activeIndex: 0}) : super(key: key);
