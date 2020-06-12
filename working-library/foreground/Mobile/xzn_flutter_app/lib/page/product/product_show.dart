@@ -82,7 +82,7 @@ class ProductPage extends StatelessWidget {
                   left: 10,
                   child: FlatIconButton(
                     icon: Icons.arrow_back_ios,
-                    backColor: Colors.grey[400],
+                    backColor: Color.fromARGB(100, 50, 50, 50),
                     size: 30,
                     onTap: () {
                       Navigator.pop(context);
@@ -94,7 +94,7 @@ class ProductPage extends StatelessWidget {
                   right: 10,
                   child: FlatIconButton(
                     icon: Icons.share,
-                    backColor: Colors.grey[400],
+                    backColor: Color.fromARGB(100, 50, 50, 50),
                     size: 30,
                     onTap: () {
                       Share.share(product.product_name);

@@ -22,32 +22,43 @@ class _CropImageRouteState extends State<CropImageRoute> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.image == null) Navigator.of(context).pop();
     var Screen = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        height: Screen.height,
-        width: Screen.width,
-        color: Colors.grey[200],
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: Screen.height * 0.8,
-              child: Crop.file(
-                widget.image,
-                key: cropKey,
-                aspectRatio: 1.0,
-                alwaysShowGrid: true,
+        body: Container(
+          height: Screen.height,
+          width: Screen.width,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: Screen.height * 1,
+                child: Crop.file(
+                  widget.image,
+                  key: cropKey,
+                  aspectRatio: 1.0,
+                  alwaysShowGrid: true,
+                ),
               ),
-            ),
-            RaisedButton(
-              onPressed: () {
-                _crop(widget.image);
-              },
-              child: Text('ok'),
-            ),
-          ],
-        ),
-      ));
+              Container(
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.only(bottom: 40),
+                child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    color: Colors.lightGreen,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 100),
+                    onPressed: () {
+                      _crop(widget.image);
+                    },
+                    child: Text(
+                      "拍照上传",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    )),
+              )
+            ],
+          ),
+        ));
   }
 
   Future<void> _crop(File originalFile) async {
@@ -84,9 +95,9 @@ class _CropImageRouteState extends State<CropImageRoute> {
 //      if (!mounted) {
 //        return;
 //      }
-      //处理上传结果
+    //处理上传结果
 //      UploadIconResult bean = UploadIconResult(response.data);
-      print('上传头像成功');
+    print('上传头像成功');
 //      if (bean.code == '1') {
 //        Navigator.pop(context, bean.data.url);//这里的url在上一页调用的result可以拿到
 //      } else {

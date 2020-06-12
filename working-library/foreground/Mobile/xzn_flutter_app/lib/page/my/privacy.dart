@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:xzn/app.dart';
+import 'package:xzn/page/my/privacy_list.dart';
 import 'package:xzn/page/my/privacy_policy.dart';
 
 import '../order/confirm_order.dart';
@@ -28,7 +30,7 @@ class Privacy extends StatelessWidget {
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return OrderConfirm();
+                return PrivacyList();
               }));
             },
           ),

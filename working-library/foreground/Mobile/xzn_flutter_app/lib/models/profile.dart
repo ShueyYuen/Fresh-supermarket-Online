@@ -17,6 +17,7 @@ class Profile {
     List<Address> address;
     List<Order> order;
     String token;
+    Address default_address;
     
     factory Profile.fromJson(Map<String,dynamic> json) => _$ProfileFromJson(json);
     Map<String, dynamic> toJson() => _$ProfileToJson(this);

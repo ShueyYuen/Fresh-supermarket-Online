@@ -34,9 +34,13 @@ dependencies:
   share: 0.6.2
   path_provider: ^1.6.9
   amap_location: ^0.2.0
+#  amap_all_fluttify: ^0.16.2
   intl: ^0.16.0
   image_picker: ^0.6.7+1
   image_crop: ^0.3.2
+  permission_handler: ^5.0.1
+#  flutter_amap: ^0.0.1
+  flutter_alipay: ^0.1.0
 
 dev_dependencies:
   flutter_test:
