@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:amap_location/amap_location.dart';
 
 class AddressLocated extends StatefulWidget {
   @override
@@ -7,32 +6,15 @@ class AddressLocated extends StatefulWidget {
 }
 
 class _AddressLocatedState extends State<AddressLocated> {
+
   @override
   void initState() {
     print("开始定位");
-    _checkPersmission();
-    _startUP();
     super.initState();
-  }
-
-  _startUP() async {
-    await AMapLocationClient.startup(
-      AMapLocationOption( desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters)
-    );
-  }
-
-  void _checkPersmission() async{
-    AMapLocationClient.startLocation();
-  }
-
-  void getLocation() async {
-    var locate = await AMapLocationClient.getLocation(true);
-    print(locate);
   }
 
   @override
   Widget build(BuildContext context) {
-    getLocation();
     return Scaffold(
       appBar: AppBar(
         title: Text("选择地址"),
@@ -117,8 +99,6 @@ class _AddressLocatedState extends State<AddressLocated> {
 
   @override
   void dispose() {
-    //注意这里关闭
-    AMapLocationClient.shutdown();
     super.dispose();
   }
 }

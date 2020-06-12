@@ -91,7 +91,14 @@ class _AddressSelectState extends State<AddressSelect> {
         centerTitle: true,
         actions: <Widget>[
           FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) {
+                    return AddressEdit(
+                      edit: false,
+                    );
+                  }));
+              },
               child: Text("新增地址", style: TextStyle(color: Colors.white)))
         ],
       ),

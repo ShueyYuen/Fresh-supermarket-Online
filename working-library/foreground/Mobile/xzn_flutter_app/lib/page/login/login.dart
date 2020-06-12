@@ -14,7 +14,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.white70,
           elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.clear, color: Colors.grey[600]), //自定义图标

@@ -31,6 +31,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
   Widget build(BuildContext context) {
     bool isLogin = Provider.of<UserModel>(context, listen: true).isLogin;
     MyOrder my_order = Provider.of<MyOrderModel>(context, listen: true).my_order;
+    double width = MediaQuery.of(context).size.width;
     double height = 80;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),
@@ -47,7 +48,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
           ]
         ),
         child:Container(
-          width: 360,
+          width: width-30,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

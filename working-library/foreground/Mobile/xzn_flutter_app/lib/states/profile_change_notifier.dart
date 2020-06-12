@@ -11,7 +11,7 @@ import '../models/user.dart';
 import '../models/myOrder.dart';
 import '../models/cartItem.dart';
 
-class ProfileChangeNotifier extends ChangeNotifier{
+class ProfileChangeNotifier extends ChangeNotifier {
   Profile get _profile => Global.profile;
 
   @override
@@ -21,7 +21,7 @@ class ProfileChangeNotifier extends ChangeNotifier{
   }
 }
 
-class UserModel extends ProfileChangeNotifier{
+class UserModel extends ProfileChangeNotifier {
   bool get first => _profile.first_load ?? true;
   User get user => _profile.user;
   // 是否登录
@@ -30,13 +30,14 @@ class UserModel extends ProfileChangeNotifier{
   set first(bool first) {
     _profile.first_load = false;
   }
+
   set user(User user) {
     _profile.user = user;
     notifyListeners();
   }
 }
 
-class MyOrderModel extends ProfileChangeNotifier{
+class MyOrderModel extends ProfileChangeNotifier {
   MyOrder get my_order => _profile.my_order;
   // 是否加载过my_order
   bool get isLoaded => my_order != null;
@@ -47,12 +48,12 @@ class MyOrderModel extends ProfileChangeNotifier{
   }
 }
 
-class CartModel extends ProfileChangeNotifier{
+class CartModel extends ProfileChangeNotifier {
   List<CartItem> get cart => _profile.cart;
   // 是否加载过my_order
   bool get is_cart_loaded => _profile.user != null && cart != null;
 
-  int get cart_count => is_cart_loaded?cart.length:0;
+  int get cart_count => is_cart_loaded ? cart.length : 0;
 
   set cart(List<CartItem> cart) {
     _profile.cart = cart;
@@ -68,12 +69,10 @@ class CartModel extends ProfileChangeNotifier{
     }
   }
 
-  void shut(List<CartItem> s_cart) {
-
-  }
+  void shut(List<CartItem> s_cart) {}
 
   void update(String product_id, int num) {
-    for (int i = 0; i<= cart_count; i++) {
+    for (int i = 0; i <= cart_count; i++) {
       if (cart[i].product.product_id == product_id) {
         cart[i].number = num;
         break;
@@ -82,10 +81,9 @@ class CartModel extends ProfileChangeNotifier{
   }
 
   void add(Product product, int num) {
-    _profile.cart.add(CartItem.fromJson({
-      "product": product.toJson(),
-      "number": num
-    }));
+    if (!isExist(product))
+      _profile.cart
+          .add(CartItem.fromJson({"product": product.toJson(), "number": num}));
   }
 
   bool isExist(Product product) {
@@ -98,7 +96,7 @@ class CartModel extends ProfileChangeNotifier{
   }
 }
 
-class AddressModel extends ProfileChangeNotifier{
+class AddressModel extends ProfileChangeNotifier {
   List<Address> get address => _profile.address;
   // 是否加载过my_order
   bool get is_loaded => _profile.user != null && address != null;
@@ -118,7 +116,7 @@ class AddressModel extends ProfileChangeNotifier{
   }
 }
 
-class OrderModel extends ProfileChangeNotifier{
+class OrderModel extends ProfileChangeNotifier {
   List<Order> get order => _profile.order;
   // 是否加载过my_order
   bool get is_loaded => _profile.user != null && order != null;

@@ -6,6 +6,7 @@ import 'package:share/share.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/models/product.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
@@ -63,8 +64,8 @@ class ProductPage extends StatelessWidget {
                         margin: EdgeInsets.only(top: 0),
                         child: CachedNetworkImage(
                           imageUrl: Config.baseUrl() +
-                            "picture/" +
-                            product.picture_list["shuffle"][index],
+                              "picture/" +
+                              product.picture_list["shuffle"][index],
                           fit: BoxFit.cover,
                           width: width,
                           height: height,
@@ -367,13 +368,12 @@ class ProductPage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return App(index:2);
-                            }
-                          ),
-                            (Route<dynamic> route) => false,
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return App(index: 2);
+                          }),
+                          (Route<dynamic> route) => false,
                         );
                       },
                       child: Stack(
@@ -419,7 +419,7 @@ class ProductPage extends StatelessWidget {
                   child: Text(""),
                 ),
                 Expanded(
-                  flex: 8,
+                  flex: 9,
                   child: Container(
                     height: 40,
                     padding: EdgeInsets.symmetric(horizontal: 5),
@@ -435,9 +435,16 @@ class ProductPage extends StatelessWidget {
 //                  color: Color.fromARGB(1, 138, 226, 255),
                               color: Theme.of(context).accentColor,
                               textColor: Color.fromARGB(255, 56, 184, 240),
-                              onPressed: () {
-                                if (!Provider.of<CartModel>(context).isExist(product))
-                                  Provider.of<CartModel>(context).add(product, 1);
+                              onPressed: () async {
+                                if (!Provider.of<UserModel>(context).isLogin)
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return LoginChoose();
+                                  }));
+                                if (!Provider.of<CartModel>(context)
+                                    .is_cart_loaded)
+                                  await getCartProductList(context, "");
+                                Provider.of<CartModel>(context).add(product, 1);
                                 var snackBar = SnackBar(
                                   duration: Duration(seconds: 1),
                                   content: Row(
@@ -467,18 +474,27 @@ class ProductPage extends StatelessWidget {
                                   vertical: 8, horizontal: 28),
                               color: Theme.of(context).primaryColor,
                               textColor: Colors.white,
-                              onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return OrderConfirm(
-                                    order: [
-                                      CartItem.fromJson({
-                                        "product": product.toJson(),
-                                        "number": 1
-                                      })
-                                    ],
-                                  );
-                                }));
+                              onPressed: () async {
+                                if (!Provider.of<UserModel>(context).isLogin)
+                                  await Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return LoginChoose();
+                                  }));
+                                if (!Provider.of<CartModel>(context)
+                                    .is_cart_loaded)
+                                  await getCartProductList(context, "");
+                                if (Provider.of<UserModel>(context).isLogin)
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return OrderConfirm(
+                                      order: [
+                                        CartItem.fromJson({
+                                          "product": product.toJson(),
+                                          "number": 1
+                                        })
+                                      ],
+                                    );
+                                  }));
                               },
                               child: Text(
                                 "立即购买",

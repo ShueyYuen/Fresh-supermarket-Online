@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/product.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/widget/common/flat_icon_button.dart';
@@ -108,9 +109,14 @@ class HomeProduct extends StatelessWidget {
                         child: FlatIconButton(
                           icon: Icons.shopping_cart,
                           size: 30,
-                          onTap: () {
-                            if (!Provider.of<CartModel>(context).isExist(product))
-                              Provider.of<CartModel>(context).add(product, 1);
+                          onTap: () async {
+                            if(!Provider.of<UserModel>(context).isLogin)
+                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                return LoginChoose();
+                              }));
+                            if(!Provider.of<CartModel>(context).is_cart_loaded)
+                              await getCartProductList(context, "");
+                            Provider.of<CartModel>(context).add(product, 1);
                             var snackBar = SnackBar(
                               duration: Duration(seconds: 1),
                               content: Row(

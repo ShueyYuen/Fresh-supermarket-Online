@@ -6,6 +6,7 @@ import 'package:xzn/conf/config.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/address/address_select.dart';
 import 'package:xzn/page/order/order_manage.dart';
+import 'package:xzn/services/address_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
 class OrderProductCard extends StatelessWidget {
@@ -89,6 +90,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
   @override
   void initState() {
     super.initState();
+    if (!Provider.of<AddressModel>(context, listen: false).is_loaded)
+      getAddressList(context, "");
     address = Provider.of<AddressModel>(context, listen: false).address[0];
 //    print(address.toString());
   }
