@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/address.dart';
 import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/services/address_service.dart';
 

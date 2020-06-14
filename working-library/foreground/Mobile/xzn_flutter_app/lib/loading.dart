@@ -22,12 +22,11 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   void initState() {
-    super.initState();
-    bool first = Provider.of<UserModel>(context, listen: false).first;
     Provider.of<UserModel>(context, listen: false).first = false;
-    Future.delayed(Duration(seconds: first?5:0), () {
+    Future.delayed(Duration(seconds: 5), () {
       Navigator.of(context).pushReplacementNamed("app");
     });
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {

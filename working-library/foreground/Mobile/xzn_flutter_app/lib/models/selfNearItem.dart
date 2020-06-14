@@ -11,6 +11,8 @@ class SelfNearItem {
     String district;
     String township;
     String build;
+    num longitude;
+    num latitude;
     
     factory SelfNearItem.fromJson(Map<String,dynamic> json) => _$SelfNearItemFromJson(json);
     Map<String, dynamic> toJson() => _$SelfNearItemToJson(this);

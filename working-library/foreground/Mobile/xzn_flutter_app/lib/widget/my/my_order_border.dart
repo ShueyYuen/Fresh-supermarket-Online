@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:xzn/index.dart';
 import 'package:xzn/page/order/order_manage.dart';
-import 'package:xzn/services/my_order_service.dart';
+import 'package:xzn/services/order_service.dart';
 import 'package:xzn/widget/my/icon_text_under.dart';
 
 import '../../states/profile_change_notifier.dart';
-import '../../models/myOrder.dart';
 
 class MyOrderBorder extends StatefulWidget {
   @override
@@ -16,22 +14,20 @@ class MyOrderBorder extends StatefulWidget {
 class _MyOrderBorderState extends State<MyOrderBorder> {
   @override
   void initState() {
-    getMyOrder(context);
+    getOrderList(context, "");
     super.initState();
   }
 
   @override
   void didUpdateWidget(MyOrderBorder oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
-    getMyOrder(context);
+    getOrderList(context, "");
   }
 
   @override
   Widget build(BuildContext context) {
     bool isLogin = Provider.of<UserModel>(context, listen: true).isLogin;
-    MyOrder my_order =
-        Provider.of<MyOrderModel>(context, listen: true).my_order;
+    var order = Provider.of<OrderModel>(context, listen: true);
     double width = MediaQuery.of(context).size.width;
     double height = 80;
     return Padding(
@@ -111,7 +107,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                           child: IconTextUnder(
                             icon: Icons.account_balance_wallet,
                             text: "待付款",
-                            badge: my_order?.unpaid,
+                            badge: order?.unpaid,
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
@@ -130,7 +126,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                           child: IconTextUnder(
                             icon: Icons.store,
                             text: "待收货",
-                            badge: my_order?.unreceived,
+                            badge: order?.unreceived,
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
@@ -149,7 +145,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                           child: IconTextUnder(
                             icon: Icons.local_activity,
                             text: "待评价",
-                            badge: my_order?.unevaluated,
+                            badge: order?.uncomment,
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
@@ -168,7 +164,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                           child: IconTextUnder(
                             icon: Icons.gavel,
                             text: "已完成",
-                            badge: my_order?.unsend,
+                            badge: order?.finished,
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {

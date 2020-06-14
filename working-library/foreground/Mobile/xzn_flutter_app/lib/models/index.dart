@@ -5,7 +5,6 @@ export 'customer.dart' ;
 export 'deliveryman.dart' ; 
 export 'filter.dart' ; 
 export 'messageCode.dart' ; 
-export 'myOrder.dart' ; 
 export 'order.dart' ; 
 export 'product.dart' ; 
 export 'profile.dart' ; 

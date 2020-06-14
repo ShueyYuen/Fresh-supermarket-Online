@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/order.dart';
+import 'package:xzn/models/product.dart';
 import 'package:xzn/page/my/customer_service.dart';
 import 'package:xzn/page/product/product_show.dart';
 

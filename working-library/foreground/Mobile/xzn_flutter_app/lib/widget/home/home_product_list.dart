@@ -10,7 +10,7 @@ import 'package:xzn/widget/common/flat_icon_button.dart';
 import '../../page/product/product_show.dart';
 
 class HomeProduct extends StatelessWidget {
-  HomeProduct(this.width, this.product);
+  HomeProduct({this.width, this.product});
 
   double width;
   Product product;
@@ -182,7 +182,7 @@ class _HomeProductListState extends State<HomeProductList> {
               direction: Axis.vertical,
               alignment: WrapAlignment.center,
               children: snapshot.data.map<Widget>((product) {
-                return HomeProduct(width, product);
+                return HomeProduct(width: width, product: product);
               }).toList(),
             ));
           }
@@ -194,7 +194,6 @@ class _HomeProductListState extends State<HomeProductList> {
                 child: CircularProgressIndicator(),
               ));
         }
-
         return widget;
       },
     );

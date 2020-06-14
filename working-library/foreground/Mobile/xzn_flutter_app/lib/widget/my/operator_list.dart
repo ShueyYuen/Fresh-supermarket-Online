@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 import 'package:xzn/page/address/address_manage.dart';
 import 'package:xzn/page/my/customer_service.dart';
 import 'package:xzn/page/my/information.dart';
+import 'package:xzn/utils/platform_utils.dart';
 
 import '../../page/my/setting.dart';
 
@@ -73,7 +73,7 @@ class OperatorList extends StatelessWidget {
                 return SettingPage();
               }));
             }),
-        OperatorItem(
+        PlatformUtils.isWeb?SizedBox(height: 0,):OperatorItem(
             icon: Icons.headset_mic,
             text: "联系客服",
             color: Colors.blue[600],

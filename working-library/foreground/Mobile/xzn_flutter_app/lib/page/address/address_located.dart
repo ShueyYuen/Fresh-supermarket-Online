@@ -1,6 +1,7 @@
 import 'package:amap_map_fluttify/amap_map_fluttify.dart';
 import 'package:flutter/material.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/amapNearItem.dart';
+import 'package:xzn/models/selfNearItem.dart';
 import 'package:xzn/widget/common/amap.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

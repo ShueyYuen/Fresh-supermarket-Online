@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:xzn/index.dart';
-import 'package:xzn/page/address/address_manage.dart';
+import 'package:provider/provider.dart';
+import 'package:xzn/models/address.dart';
+import 'package:xzn/models/selfNearItem.dart';
 import 'package:xzn/page/address/address_located.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
@@ -172,14 +172,14 @@ class _AddressEditState extends State<AddressEdit> {
               thickness: 1,
             ),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                 child: Flex(
                   direction: Axis.horizontal,
                   children: <Widget>[
                     Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Container(
-                          height: 30,
+                          height: 32,
                           alignment: Alignment.topLeft,
                           child: Text(
                             "地址",
@@ -187,20 +187,22 @@ class _AddressEditState extends State<AddressEdit> {
                           ),
                         )),
                     Expanded(
-                        flex: 4,
+                        flex: 7,
                         child: Container(
-                          height: 30,
+                          height: 50,
                           child: TextField(
                             controller: _addressController,
-                            maxLines: 1,
+                            expands: false,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                             ),
                           ),
                         )),
-                    ConstrainedBox(
-                      constraints: BoxConstraints(maxHeight: 30, maxWidth: 30),
-                      child: IconButton(
+                    Expanded(
+                      flex: 1,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxHeight: 30, maxWidth: 30),
+                        child: IconButton(
                           padding: EdgeInsets.all(0),
                           icon: Icon(
                             Icons.arrow_forward_ios,
@@ -209,18 +211,19 @@ class _AddressEditState extends State<AddressEdit> {
                           ),
                           onPressed: () async {
                             var result = await Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return AddressLocated();
-                            })) as SelfNearItem;
+                              MaterialPageRoute(builder: (context) {
+                                return AddressLocated();
+                              })) as SelfNearItem;
                             setState(() {
                               selfNearItem = result ?? selfNearItem;
                             });
                             _addressController.text = selfNearItem.city +
-                                selfNearItem.district +
-                                selfNearItem.township +
-                                selfNearItem.build;
+                              selfNearItem.district +
+                              selfNearItem.township +
+                              selfNearItem.build;
                           }),
-                    ),
+                      ),
+                    )
                   ],
                 )),
             Divider(
@@ -321,6 +324,9 @@ class _AddressEditState extends State<AddressEdit> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 onPressed: () {
+                  widget.address.person["consignee"] = _consigneeController.text;
+                  widget.address.phone = _telController.text;
+
                   Navigator.of(context).pop();
                 },
               ),

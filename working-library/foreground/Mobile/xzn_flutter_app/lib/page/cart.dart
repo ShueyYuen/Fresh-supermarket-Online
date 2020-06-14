@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
@@ -295,12 +296,10 @@ class _CartState extends State<Cart> {
                               thickness: 5,
                               color: Colors.green[100],
                             )),
-                        Expanded(
-                            flex: 2,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text("为您推荐"),
-                            )),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text("为您推荐"),
+                        ),
                         Expanded(
                             flex: 2,
                             child: Divider(
@@ -326,23 +325,23 @@ class _CartState extends State<Cart> {
                       children: <Widget>[
                         Expanded(flex: 3, child: Text("")),
                         Expanded(
-                          flex: 2,
-                          child: Divider(
-                            thickness: 5,
-                            color: Colors.green[100],
-                          )),
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
                         Expanded(
-                          flex: 2,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text("为您推荐"),
-                          )),
+                            flex: 2,
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text("为您推荐"),
+                            )),
                         Expanded(
-                          flex: 2,
-                          child: Divider(
-                            thickness: 5,
-                            color: Colors.green[100],
-                          )),
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
                         Expanded(flex: 3, child: Text("")),
                       ],
                     ),

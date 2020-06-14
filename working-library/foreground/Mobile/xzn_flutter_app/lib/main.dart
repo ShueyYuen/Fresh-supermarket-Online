@@ -4,7 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:xzn/style/base_theme.dart';
 import 'page/login/login_choose.dart';
 import 'app.dart';
@@ -13,7 +12,9 @@ import 'loading.dart';
 
 void main() => Global.init().then((e) async {
 //      AMapLocationClient.setApiKey("cb904fc25db7d0b715dabb813be2b6a0");
-      runApp(MyApp());
+      runApp(MultiProvider(providers: <SingleChildCloneableWidget>[
+        ChangeNotifierProvider.value(value: UserModel()),
+      ], child: MyApp()));
       await enableFluttifyLog(false);
       await AmapService.init(
         iosKey: '7a04506d15fdb7585707f7091d715ef4',
@@ -21,14 +22,26 @@ void main() => Global.init().then((e) async {
       );
     });
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool first;
+
+  @override
+  void initState() {
+    first = Provider.of<UserModel>(context, listen: false).first;
+    print(first);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 //    Locale myLocale = Localizations.localeOf(context);
     return MultiProvider(
       providers: <SingleChildCloneableWidget>[
-        ChangeNotifierProvider.value(value: UserModel()),
-        ChangeNotifierProvider.value(value: MyOrderModel()),
         ChangeNotifierProvider.value(value: CartModel()),
         ChangeNotifierProvider.value(value: OrderModel()),
         ChangeNotifierProvider.value(value: AddressModel()),
@@ -64,7 +77,7 @@ class MyApp extends StatelessWidget {
               )
         },
         home: Center(
-          child: LoadingPage(),
+          child: first ? LoadingPage() : App(),
         ),
       ),
     );

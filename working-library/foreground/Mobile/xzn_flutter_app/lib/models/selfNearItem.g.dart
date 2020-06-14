@@ -12,7 +12,9 @@ SelfNearItem _$SelfNearItemFromJson(Map<String, dynamic> json) {
     ..city = json['city'] as String
     ..district = json['district'] as String
     ..township = json['township'] as String
-    ..build = json['build'] as String;
+    ..build = json['build'] as String
+    ..longitude = json['longitude'] as num
+    ..latitude = json['latitude'] as num;
 }
 
 Map<String, dynamic> _$SelfNearItemToJson(SelfNearItem instance) =>
@@ -21,5 +23,7 @@ Map<String, dynamic> _$SelfNearItemToJson(SelfNearItem instance) =>
       'city': instance.city,
       'district': instance.district,
       'township': instance.township,
-      'build': instance.build
+      'build': instance.build,
+      'longitude': instance.longitude,
+      'latitude': instance.latitude
     };

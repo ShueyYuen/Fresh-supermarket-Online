@@ -1,6 +1,7 @@
 import 'dart:convert';
-import '../index.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xzn/models/profile.dart';
 
 class Global {
   static SharedPreferences _prefs;

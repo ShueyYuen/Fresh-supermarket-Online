@@ -8,7 +8,6 @@ import '../common/global.dart';
 // 导入需要全局使用的模型
 import '../models/profile.dart';
 import '../models/user.dart';
-import '../models/myOrder.dart';
 import '../models/cartItem.dart';
 
 class ProfileChangeNotifier extends ChangeNotifier {
@@ -28,22 +27,12 @@ class UserModel extends ProfileChangeNotifier {
   bool get isLogin => user != null;
 
   set first(bool first) {
-    _profile.first_load = false;
+    _profile.first_load = first;
+    notifyListeners();
   }
 
   set user(User user) {
     _profile.user = user;
-    notifyListeners();
-  }
-}
-
-class MyOrderModel extends ProfileChangeNotifier {
-  MyOrder get my_order => _profile.my_order;
-  // 是否加载过my_order
-  bool get isLoaded => my_order != null;
-
-  set my_order(MyOrder my_order) {
-    _profile.my_order = my_order;
     notifyListeners();
   }
 }
@@ -67,6 +56,7 @@ class CartModel extends ProfileChangeNotifier {
         break;
       }
     }
+    notifyListeners();
   }
 
   void shut(List<CartItem> s_cart) {}
@@ -78,12 +68,14 @@ class CartModel extends ProfileChangeNotifier {
         break;
       }
     }
+    notifyListeners();
   }
 
   void add(Product product, int num) {
     if (!isExist(product))
       _profile.cart
           .add(CartItem.fromJson({"product": product.toJson(), "number": num}));
+    notifyListeners();
   }
 
   bool isExist(Product product) {
@@ -113,6 +105,7 @@ class AddressModel extends ProfileChangeNotifier {
         break;
       }
     }
+    notifyListeners();
   }
 }
 
@@ -132,8 +125,9 @@ class OrderModel extends ProfileChangeNotifier {
 
   int countStatus(String type) {
     int count = 0;
+    if (order == null) return count;
     for (Order order_item in order) {
-      if (order_item.order_status == type) count++;
+      if (order_item.order_status.contains(type)) count++;
     }
     return count;
   }

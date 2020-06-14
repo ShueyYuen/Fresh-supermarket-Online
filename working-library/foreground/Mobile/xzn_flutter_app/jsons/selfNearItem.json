@@ -3,5 +3,7 @@
   "city": "",
   "district": "",
   "township": "",
-  "build": ""
+  "build": "",
+  "longitude": 0,
+  "latitude": 0
 }
