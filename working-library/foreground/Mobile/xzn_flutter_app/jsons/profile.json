@@ -1,8 +1,10 @@
 {
+  "first_load":false,
   "user": "$user",
   "my_order": "$myOrder",
   "cart": "$[]cartItem",
   "address": "$[]address",
   "order": "$[]order",
-  "token": ""
+  "token": "",
+  "default_address": "$address"
 }

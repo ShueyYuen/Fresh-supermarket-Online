@@ -1,6 +1,7 @@
 [
     {
         "product_name": "food",
+        "product_id": "upperhash, 16",
         "price": {
             "num": 0,
             "unit": "enum[千克, 包, 盒]"

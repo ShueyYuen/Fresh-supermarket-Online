@@ -1,8 +1,4 @@
 {
-    "success": false,
-    "data": {
-        "token": "",
-        "userId": ""
-    },
-    "message": ""
+    "token": "",
+    "userId": ""
 }

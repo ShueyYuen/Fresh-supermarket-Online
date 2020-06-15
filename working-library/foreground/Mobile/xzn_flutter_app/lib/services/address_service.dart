@@ -11,8 +11,6 @@ import '../states/profile_change_notifier.dart';
 getAddressList(BuildContext context, String token) async {
   List<Address> address_list = List<Address>();
   try {
-    print("是否登录："+Provider.of<UserModel>(context, listen: false).isLogin.toString());
-    print("是否加载购物车："+Provider.of<AddressModel>(context, listen: false).is_loaded.toString());
     if (!Provider.of<AddressModel>(context, listen: false).is_loaded) {
       String url = Config.baseUrl() + "user/address/list";
       var body = {

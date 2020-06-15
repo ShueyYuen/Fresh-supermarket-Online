@@ -3,7 +3,7 @@
         "address_id": "upperhash, 16",
         "person": {
             "consignee": "name",
-            "sex": "enum[M,F,]"
+            "sex": "enum[M,F,NULL]"
         },
         "phone": "num, 11",
         "detail": {

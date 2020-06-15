@@ -25,11 +25,18 @@ flutter clean
 [iconfont](https://www.iconfont.cn/): 图标文件;
 
 ## json_model使用
-```dart
+```bash
 flutter packages pub run json_model
 ```
+## intl_translation
+```bash
+flutter pub pub run intl_translation:extract_to_arb --output-dir=lib/l10n/arb app_string.dart
+flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/app_string.dart lib/l10n/arb/intl_*.arb
+```
+最后一条命令建议使用bash运行
 
 # 指纹信息
+```bash
 $> keytool -list -v -keystore "\.and
 roid\debug.keystore" -alias androiddebugkey -storepass android -keypass android
 别名: androiddebugkey
@@ -48,3 +55,4 @@ roid\debug.keystore" -alias androiddebugkey -storepass android -keypass android
 签名算法名称: SHA1withRSA
 主体公共密钥算法: 2048 位 RSA 密钥
 版本: 1
+```

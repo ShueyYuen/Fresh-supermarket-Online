@@ -1,5 +1,5 @@
 {
     "nickname": "nickname",
     "telephone": "num, 11",
-    "sex": "enum[M,F,]"
+    "sex": "enum[M,F,NULL]"
 } 

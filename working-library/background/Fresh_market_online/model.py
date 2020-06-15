@@ -61,7 +61,7 @@ class AuthUser(models.Model):
     email = models.CharField(max_length=254)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
+    date_joined = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -99,7 +99,7 @@ class Deliveryman(models.Model):
 
 
 class DjangoAdminLog(models.Model):
-    action_time = models.DateTimeField()
+    action_time = models.DateTimeField(blank=True, null=True)
     object_id = models.TextField(blank=True, null=True)
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
@@ -125,7 +125,7 @@ class DjangoContentType(models.Model):
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-    applied = models.DateTimeField()
+    applied = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -135,7 +135,7 @@ class DjangoMigrations(models.Model):
 class DjangoSession(models.Model):
     session_key = models.CharField(primary_key=True, max_length=40)
     session_data = models.TextField()
-    expire_date = models.DateTimeField()
+    expire_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -143,7 +143,7 @@ class DjangoSession(models.Model):
 
 
 class Goods(models.Model):
-    goods_id = models.CharField(primary_key=True, max_length=10)
+    goods_id = models.AutoField(primary_key=True)
     goods_name = models.CharField(max_length=20, blank=True, null=True)
     goods_type = models.CharField(max_length=10, blank=True, null=True)
     unit = models.CharField(max_length=10, blank=True, null=True)
@@ -197,7 +197,6 @@ class Order(models.Model):
 
 
 class OrderDetail(models.Model):
-    id = models.IntegerField(primary_key=True)
     order_id = models.CharField(max_length=32)
     goods_id = models.CharField(max_length=10, blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)

@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 from Fresh_market_online.model import Goods, User, History
+from GoodsAPI.views import getpicture
 from LoginAPI.token_module import out_token
 
 hosts = '127.0.0.1'
@@ -24,7 +25,7 @@ def ESdata(hosts):
     print(result)
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     for d in goods_data:
-        data = {'goods_name':d['goods_name'],'goods_id':d['goods_id'],}
+        data = {'goods_name':d['goods_name'],'goods_id':d['goods_id'] }
         print(d['goods_name'])
         res = es.index(index='goods', doc_type="doc", body=data)
         print(res)
@@ -48,6 +49,11 @@ def ESmatch(goods_name):
 @csrf_exempt
 def GoodsSearch(request):
     token = request.POST.get("token")
+    type = request.POST.get("type")
+    lprice = 0
+    hprice = 99999999
+    hprice = request.POST.get("highprice")
+    lprice = request.POST.get("lowprice")
     user = User.objects.filter(token=token)
     ESdata(hosts)
     if user:
@@ -63,11 +69,27 @@ def GoodsSearch(request):
 
             result=(ESmatch(key))
             for item in result['hits']['hits']:
-                score = item['_score']
-                item = item['_source']
-                goods_name = item['goods_name']
                 goods_id = item['goods_id']
-                result={'goods_name':goods_name, 'goods_id':goods_id, 'score':score}
+                if type == '':
+                    goods = Goods.objects.filter(goods_id=goods_id,price__range=(lprice,hprice)).values()[0]
+                else:
+                    goods = Goods.objects.filter(goods_id=goods_id, good_type=type,price__range=(lprice,hprice)).values()[0]
+                product_name = goods['goods_name']
+                goods_type = goods['goods_type']
+                price = {"num": goods['price'], "unit": str(goods['unit'])}
+                shuffle, detail = getpicture(goods_id)
+                picture_list = {"shuffle": shuffle, "detail": detail}
+                details = {"origin": goods['origin'], "specification": goods['specification'],
+                           "packaging": goods['packaging'], "stockway": goods['stockway'], "weight": goods['weight']}
+                stock = goods['stock']
+                discount = goods['discount']
+                description = {"subtitle": goods['subtitle'], "distribution": goods['distribution'],
+                               "promotion": goods['promotion']}
+                tags = {"type": goods['tags_type'], "content": goods['tags_content']}
+
+                result = {"product_name": str(product_name), "product_id": str(goods_id), 'goods_type':goods_type,"price": price,
+                        "picture_list": picture_list, "details": details, "stock": stock, "discount": discount,
+                        "description": description, "tags": tags}
                 data.append(result)
             response = json.dumps(data)
             return HttpResponse(response)

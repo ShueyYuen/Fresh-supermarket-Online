@@ -19,7 +19,7 @@ class IconTextUnder extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 12),
             alignment: Alignment.topCenter,
-            child: Icon(icon,size: 40,color: Colors.blue[400],),
+            child: Icon(icon,size: 40,color: Theme.of(context).primaryColor,),
           ),
           Positioned(
             bottom: 12,

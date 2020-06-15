@@ -34,6 +34,13 @@ dependencies:
   share: 0.6.2
   path_provider: ^1.6.9
   amap_location: ^0.2.0
+#  amap_all_fluttify: ^0.16.2
+  intl: ^0.16.0
+  image_picker: ^0.6.7+1
+  image_crop: ^0.3.2
+  permission_handler: ^5.0.1
+#  flutter_amap: ^0.0.1
+  flutter_alipay: ^0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +48,7 @@ dev_dependencies:
   json_model: ^0.0.2
   build_runner: ^1.0.0
   json_serializable: ^2.0.0
+  intl_translation: ^0.17.2
 
 
 # For information on the generic Dart part of this file, see the
@@ -62,6 +70,12 @@ flutter:
     - assets/image/swiper/4.webp
     - assets/image/swiper/5.webp
 
+    - assets/image/load/1.webp
+    - assets/image/load/2.webp
+    - assets/image/load/3.webp
+    - assets/image/load/4.webp
+    - assets/image/load/5.webp
+
     - assets/image/class/1.png
     - assets/image/class/2.png
     - assets/image/class/3.png
@@ -69,8 +83,7 @@ flutter:
     - assets/image/class/5.png
 
     - assets/image/login_logo.webp
-    - assets/image/product.jpg
-    - assets/image/beef.webp
+    - assets/image/qrcode.webp
 
     - assets/image/ads/1.webp
     - assets/image/ads/2.webp

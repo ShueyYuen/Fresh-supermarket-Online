@@ -3,14 +3,14 @@
         "order_id": "upperhash, 16",
         "customer": {
             "phone": "num, 11",
-            "sex": "enum[M,F,]",
+            "sex": "enum[M,F,NULL]",
             "nickname": "nickname"
         },
         "address": {
             "address_id": "upperhash, 26",
             "person": {
                 "consignee": "name",
-                "sex": "enum[M,F,]"
+                "sex": "enum[M,F,NULL]"
             },
             "phone": "num, 11",
             "detail": {
@@ -64,7 +64,7 @@
             "deliveryman_id": "num, 10",
             "name": "name",
             "phone": "num, 11",
-            "sex": "enum[M,F,]",
+            "sex": "enum[M,F,NULL]",
             "longitude": 0,
             "latitude": 0,
             "status": 2

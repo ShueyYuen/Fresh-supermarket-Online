@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:xzn/conf/config.dart';
+import 'package:xzn/index.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
@@ -39,6 +41,9 @@ class ProductPage extends StatelessWidget {
         ? Provider.of<CartModel>(context, listen: false).cart.length
         : 0;
     double fontsize = badge > 99 ? 8 : badge > 9 ? 10 : 12;
+    Widget placeholder = Image.asset(
+      "assets/image/default_picture.webp", //头像占位图，加载过程中显示
+    );
     return Scaffold(
         appBar:
             PreferredSize(child: AppBar(), preferredSize: Size.fromHeight(0)),
@@ -56,13 +61,15 @@ class ProductPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(top: 0),
-                        child: Image.network(
-                          Config.baseUrl() +
-                              "picture/" +
-                              product.picture_list["shuffle"][index],
+                        child: CachedNetworkImage(
+                          imageUrl: Config.baseUrl() +
+                            "picture/" +
+                            product.picture_list["shuffle"][index],
+                          fit: BoxFit.cover,
                           width: width,
                           height: height,
-                          fit: BoxFit.cover,
+                          placeholder: (context, url) => placeholder,
+                          errorWidget: (context, url, error) => placeholder,
                         ),
                       );
                     },
@@ -75,7 +82,7 @@ class ProductPage extends StatelessWidget {
                   left: 10,
                   child: FlatIconButton(
                     icon: Icons.arrow_back_ios,
-                    backColor: Colors.grey[400],
+                    backColor: Color.fromARGB(100, 50, 50, 50),
                     size: 30,
                     onTap: () {
                       Navigator.pop(context);
@@ -87,7 +94,7 @@ class ProductPage extends StatelessWidget {
                   right: 10,
                   child: FlatIconButton(
                     icon: Icons.share,
-                    backColor: Colors.grey[400],
+                    backColor: Color.fromARGB(100, 50, 50, 50),
                     size: 30,
                     onTap: () {
                       Share.share(product.product_name);
@@ -333,10 +340,12 @@ class ProductPage extends StatelessWidget {
                     ),
                   ),
                   ...product.picture_list["detail"].map((image_link) {
-                    return Image.network(
-                      Config.baseUrl() + "picture/" + image_link,
-                      width: width,
+                    return CachedNetworkImage(
+                      imageUrl: Config.baseUrl() + "picture/" + image_link,
                       fit: BoxFit.fitWidth,
+                      width: width,
+                      placeholder: (context, url) => placeholder,
+                      errorWidget: (context, url, error) => placeholder,
                     );
                   }),
                 ],
@@ -424,9 +433,11 @@ class ProductPage extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 20),
 //                  color: Color.fromARGB(1, 138, 226, 255),
-                              color: Color.fromARGB(255, 194, 224, 237),
+                              color: Theme.of(context).accentColor,
                               textColor: Color.fromARGB(255, 56, 184, 240),
                               onPressed: () {
+                                if (!Provider.of<CartModel>(context).isExist(product))
+                                  Provider.of<CartModel>(context).add(product, 1);
                                 var snackBar = SnackBar(
                                   duration: Duration(seconds: 1),
                                   content: Row(
@@ -454,12 +465,19 @@ class ProductPage extends StatelessWidget {
                           child: FlatButton(
                               padding: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 28),
-                              color: Color.fromARGB(255, 44, 160, 253),
+                              color: Theme.of(context).primaryColor,
                               textColor: Colors.white,
                               onPressed: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return OrderConfirm();
+                                  return OrderConfirm(
+                                    order: [
+                                      CartItem.fromJson({
+                                        "product": product.toJson(),
+                                        "number": 1
+                                      })
+                                    ],
+                                  );
                                 }));
                               },
                               child: Text(

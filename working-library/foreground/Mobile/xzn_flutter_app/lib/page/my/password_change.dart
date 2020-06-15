@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../order/confirm_order.dart';
-
 class PasswordChange extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
@@ -19,7 +17,6 @@ class PasswordChange extends StatelessWidget {
             runSpacing: 15,
             children: <Widget>[
               TextFormField(
-//                    maxLength: 11,
                 keyboardType: TextInputType.number,
 //                    controller: _phoneController,
                 autofocus: true,
@@ -34,7 +31,6 @@ class PasswordChange extends StatelessWidget {
                 },
               ),
               TextFormField(
-//                    maxLength: 11,
                 keyboardType: TextInputType.number,
 //                    controller: _phoneController,
                 autofocus: true,
@@ -69,6 +65,7 @@ class PasswordChange extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 90),
                 child: FlatButton(
                   padding: EdgeInsets.symmetric(vertical: 15),
+                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
                   onPressed: () {},
                   child: Text("确定",style: TextStyle(color: Colors.white,fontSize: 18),),
                   color: Colors.blue,

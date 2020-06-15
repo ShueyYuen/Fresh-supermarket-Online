@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/address/address_manage.dart';
 import 'package:xzn/page/address/address_located.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 
 class AddressEdit extends StatefulWidget {
   AddressEdit({Key key, this.address: null, this.edit: true}) : super(key: key);
@@ -17,6 +18,11 @@ class _AddressEditState extends State<AddressEdit> {
   TextEditingController _noController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
 
+  int sex_index = 2;
+
+  final Map<String, String> sex = {"M":"先生", "F":"女士", "NULL":"未知"};
+  final List<String> tags = ["家", "学校", "公司"];
+
   @override
   void initState() {
     if (widget.edit) {
@@ -31,6 +37,25 @@ class _AddressEditState extends State<AddressEdit> {
         _addressController.text = _addressController.text
           .replaceRange(15, _addressController.text.length, '....');
       _noController.text = widget.address.detail["no"].toString();
+    } else {
+      widget.address = Address.fromJson(
+        {
+          "address_id": "",
+          "person": {
+            "consignee": "",
+            "sex": ""
+          },
+          "phone": "",
+          "detail": {
+            "province": "",
+            "city": "",
+            "district": "",
+            "street": "",
+            "no": 0
+          },
+          "tag": ""
+        }
+      );
     }
     super.initState();
   }
@@ -43,9 +68,12 @@ class _AddressEditState extends State<AddressEdit> {
           centerTitle: true,
           actions: <Widget>[
             IconButton(
-              icon: Icon(
-                Icons.delete_forever,
-                color: Colors.white,
+              icon: IconButton(
+                icon: Icon(Icons.delete,color: Colors.white,),
+                onPressed: () {
+                  Provider.of<AddressModel>(context).delete(widget.address.address_id);
+                  Navigator.of(context).pop();
+                },
               ),
             )
           ],
@@ -80,11 +108,23 @@ class _AddressEditState extends State<AddressEdit> {
                             Wrap(
                               alignment: WrapAlignment.start,
                               spacing: 10,
-                              children: <Widget>[
-                                Chip(label: Text("先生")),
-                                Chip(label: Text("女士")),
-                                Chip(label: Text("null")),
-                              ],
+                              children: sex.keys.map((_key) {
+                                bool _selected = _key == widget.address.person["sex"];
+                                  return RawChip(
+//                                    label: Text(sex[widget.address.person["sex"]]),
+                                    label: Text(sex[_key]),
+                                    selected: _selected,
+                                    labelStyle: TextStyle(
+                                      color: _selected?Colors.white:Colors.grey[700]
+                                    ),
+                                    onSelected: (v){
+                                      setState(() {
+                                        widget.address.person["sex"] = _key;
+                                      });
+                                    },
+                                    selectedColor: Theme.of(context).primaryColor,
+                                  );
+                                }).toList(),
                             )
                           ],
                         )),
@@ -226,11 +266,23 @@ class _AddressEditState extends State<AddressEdit> {
                         flex: 4,
                         child: Wrap(
                           spacing: 10,
-                          children: <Widget>[
-                            Chip(label: Text("   家   ")),
-                            Chip(label: Text("学校")),
-                            Chip(label: Text("公司"))
-                          ],
+                          children: tags.map((_tag) {
+                            bool _selected = _tag == widget.address.tag;
+                            return RawChip(
+//                                    label: Text(sex[widget.address.person["sex"]]),
+                              label: Text(_tag.length<2?"   "+_tag+"   ":_tag),
+                              labelStyle: TextStyle(
+                                color: _selected?Colors.white:Colors.grey[700]
+                              ),
+                              selected: _selected,
+                              onSelected: (v){
+                                setState(() {
+                                  widget.address.tag = _tag;
+                                });
+                              },
+                              selectedColor: Theme.of(context).primaryColor,
+                            );
+                          }).toList(),
                         )),
                   ],
                 )),
@@ -242,7 +294,7 @@ class _AddressEditState extends State<AddressEdit> {
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: FlatButton(
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
                 highlightColor: Colors.blue[700],
                 colorBrightness: Brightness.dark,
                 splashColor: Colors.grey,

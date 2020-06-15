@@ -8,6 +8,7 @@ part of 'profile.dart';
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return Profile()
+    ..first_load = json['first_load'] as bool
     ..user = json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>)
@@ -26,14 +27,19 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Order.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..token = json['token'] as String;
+    ..token = json['token'] as String
+    ..default_address = json['default_address'] == null
+        ? null
+        : Address.fromJson(json['default_address'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
+      'first_load': instance.first_load,
       'user': instance.user,
       'my_order': instance.my_order,
       'cart': instance.cart,
       'address': instance.address,
       'order': instance.order,
-      'token': instance.token
+      'token': instance.token,
+      'default_address': instance.default_address
     };

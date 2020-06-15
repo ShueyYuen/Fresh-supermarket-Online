@@ -5,7 +5,7 @@ class FlatIconButton extends StatelessWidget {
       {Key key,
       this.size: 35,
       this.iconColor: Colors.white,
-      this.backColor: Colors.blue,
+      this.backColor: null,
       this.icon: Icons.shopping_cart,
         this.onTap: null
       })
@@ -26,7 +26,7 @@ class FlatIconButton extends StatelessWidget {
       ),
       child: Container(
           decoration: BoxDecoration(
-              color: backColor,
+              color: backColor?? Theme.of(context).primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(this.size))),
           child: IconButton(
             padding: EdgeInsets.all(0),

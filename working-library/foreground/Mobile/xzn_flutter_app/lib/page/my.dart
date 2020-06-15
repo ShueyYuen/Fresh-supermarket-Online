@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:xzn/conf/config.dart';
+import 'package:xzn/page/my/setting.dart';
 import 'package:xzn/services/picture.dart';
 import 'package:xzn/widget/my/my_order_border.dart';
 import 'package:xzn/widget/my/operator_list.dart';
-//import '../common/global.dart';
 import '../states/profile_change_notifier.dart';
 import '../models/user.dart';
 
@@ -77,8 +75,13 @@ class _MyState extends State<My> {
                   child: GestureDetector(
                     child: CustomAvatar(context),
                     onTap: () {
-                      print(isLogin);
-                      Navigator.pushNamed(context, "login");
+                      if (Provider.of<UserModel>(context).isLogin) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return SettingPage();
+                        }));
+                      } else {
+                        Navigator.pushNamed(context, "login");
+                      }
                     },
                   ),
                 ),

@@ -7,13 +7,11 @@ class AddressLocated extends StatefulWidget {
 }
 
 class _AddressLocatedState extends State<AddressLocated> {
-
   @override
   void initState() {
     print("开始定位");
     _checkPersmission();
     _startUP();
-    print("well");
     super.initState();
   }
 
@@ -28,17 +26,13 @@ class _AddressLocatedState extends State<AddressLocated> {
   }
 
   void getLocation() async {
-    print('获取定位');
     var locate = await AMapLocationClient.getLocation(true);
     print(locate);
-    print("Cofalconer");
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     getLocation();
-    print("well");
     return Scaffold(
       appBar: AppBar(
         title: Text("选择地址"),

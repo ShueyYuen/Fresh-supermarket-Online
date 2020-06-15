@@ -120,7 +120,6 @@ class _AddressManageState extends State<AddressManage> {
                 size: 48,
               );
             } else {
-              print(snapshot.data);
               widget = ListView(
                 children: snapshot.data.map<Widget>((address) {
                   return AddressCard(

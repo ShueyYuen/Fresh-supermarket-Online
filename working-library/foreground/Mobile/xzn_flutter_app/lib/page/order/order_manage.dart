@@ -72,10 +72,10 @@ class _OrderManageState extends State<OrderManage> {
                     );
                   }).toList(),
                   controller: _controller,
-                  indicatorColor: Colors.blue,
+                  indicatorColor: Theme.of(context).primaryColor,
                   indicatorSize: TabBarIndicatorSize.tab,
                   isScrollable: true,
-                  labelColor: Colors.blue,
+                  labelColor: Theme.of(context).primaryColor,
                   unselectedLabelColor: Colors.black,
                   indicatorWeight: 5.0,
                 ),
@@ -98,7 +98,6 @@ class _OrderManageState extends State<OrderManage> {
                       size: 48,
                     );
                   } else {
-                    print(Provider.of<OrderModel>(context, listen: false).finished);
                     List data = snapshot.data.sublist(0, snapshot.data.length);
                     data.removeWhere((element) =>
                         !element.order_status.contains(_status[_activeIndex]));
@@ -120,11 +119,6 @@ class _OrderManageState extends State<OrderManage> {
                 }
                 return widget;
               });
-//          return Wrap(
-//            children: <Widget>[
-//              OrderCard()
-//            ],
-//          );
         }).toList(),
       ),
     );

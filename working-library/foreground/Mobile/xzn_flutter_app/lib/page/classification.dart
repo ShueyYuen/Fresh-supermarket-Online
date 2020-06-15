@@ -11,6 +11,8 @@ class Classification extends StatefulWidget {
 }
 
 class _ClassificationState extends State<Classification> {
+  String section = "上海市奉贤区";
+
   final List<String> _tabValues = [
     '水果蔬菜',
     '肉禽蛋品',
@@ -26,6 +28,17 @@ class _ClassificationState extends State<Classification> {
     '嘿嘿嘿',
     '范先生',
   ];
+
+  final List<String> secs = [
+    '上海市奉贤区',
+    '上海市黄浦区',
+    '上海市徐汇区',
+    '上海市长宁区',
+    '上海市浦东新区',
+    '上海市嘉定区',
+    '上海市崇明区'
+  ];
+
   TabController _controller;
   TabController _controllerSecond;
   int _activeIndex = 0;
@@ -67,11 +80,34 @@ class _ClassificationState extends State<Classification> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(Icons.location_on),
-              Text("上海市奉贤区", style: TextStyle(fontSize: 18)),
-              Icon(Icons.expand_more),
+              DropdownButton(
+                underline: Text(""),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20
+                ),
+                icon: Icon(Icons.expand_more),
+                iconSize: 24,
+                iconDisabledColor: Colors.white,
+                iconEnabledColor: Colors.white,
+                value: section,
+                items: secs.map((value) {
+                  return DropdownMenuItem(child: Text(value,), value: value);
+                }).toList(),
+                selectedItemBuilder: (context) {
+                  return secs.map((value) {
+                    return Container(alignment: Alignment.center,child: Text(value, style: TextStyle(color: Colors.white),),);
+                  }).toList();
+                },
+                onChanged: (value) {
+                  setState(() {
+                    section = value;
+                  });
+                },
+              ),
               Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  width: 200,
+                  padding: EdgeInsets.symmetric(horizontal:5),
+                  width: 190,
                   child: FlatButton(
                     color: Colors.white,
                     highlightColor: Colors.blue[700],

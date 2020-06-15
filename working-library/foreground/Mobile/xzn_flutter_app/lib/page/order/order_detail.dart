@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/index.dart';
+import 'package:xzn/page/product/product_show.dart';
 
 class OrderDetail extends StatelessWidget {
   OrderDetail({Key key, @required this.order}) : super(key: key);
@@ -101,6 +102,11 @@ class OrderDetail extends StatelessWidget {
                                 .toStringAsFixed(2),
                         style: TextStyle(fontSize: 14),
                       ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                          return ProductPage(product: Product.fromJson(order_item["product"]));
+                        }));
+                      },
                     );
                   }),
                   Divider(
