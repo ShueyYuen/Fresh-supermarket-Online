@@ -24,7 +24,7 @@ def ESdata(hosts):
     print(result)
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     for d in goods_data:
-        data = {'goods_name':d['goods_name'],'goods_id':d['goods_id'],}
+        data = {'goods_name':d['goods_name'],'goods_id':d['goods_id'],'goods_type':d['goods_type'],'price':d['price']}
         print(d['goods_name'])
         res = es.index(index='goods', doc_type="doc", body=data)
         print(res)
@@ -67,7 +67,9 @@ def GoodsSearch(request):
                 item = item['_source']
                 goods_name = item['goods_name']
                 goods_id = item['goods_id']
-                result={'goods_name':goods_name, 'goods_id':goods_id, 'score':score}
+                goods_type = item['goods_type']
+                price = item['price']
+                result={'goods_name':goods_name, 'goods_id':goods_id, 'score':score, 'goods_type':goods_type,'price':price}
                 data.append(result)
             response = json.dumps(data)
             return HttpResponse(response)
