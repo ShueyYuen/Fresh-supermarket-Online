@@ -64,38 +64,7 @@ def OrderDetails(request):
 
             return HttpResponse(json.dumps(data))
     return HttpResponse(json.dumps({'message':'登录过期或用户名不存在'}))
-@csrf_exempt
-def OrderSubmit(request):
-    token = request.POST.get("token")
-    user = User.objects.filter(token=token)
-    if user:
-        user = user.values()[0]
-        telephone = user['phone']
-        uid = user['user_id']
-        if out_token(telephone, token):
-            goods_list =eval(request.POST.get("orders"))
-            adderss_id = request.POST.get("address_id")
-            create_order_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            order_status = '1'
-            warehouse_id = '01'
-            Order.objects.create(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
-                                         order_status=order_status, warehouse_id=warehouse_id,
-                                         address_id=int(adderss_id))
-            order=Order.objects.filter(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
-                                         order_status=order_status, warehouse_id=warehouse_id,
-                                         address_id=int(adderss_id)).values()[0]
-            id = order['order_id']
-            for item in goods_list:
-                goods = ShoppingCart.objects.filter(customer_id=uid, goods_id=item).values()[0]
 
-                quantity = goods['quantity']
-                OrderDetail.objects.create(order_id=id,goods_id=item,quantity=quantity)
-
-            data = {"order_id": id}
-            response = json.dumps(data)
-            return HttpResponse(response)
-
-    return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
 
 @csrf_exempt
 def OrderList(request):
@@ -111,7 +80,7 @@ def OrderList(request):
             if type == 'all':
                 order = Order.objects.filter(customer_id=uid).values()
             else:
-                order = Order.objects.filter(customer_id=uid,type=type).values()
+                order = Order.objects.filter(customer_id=uid,order_status=type).values()
             for item in order:
                 order_id = item['order_id']
                 create_order_time = str(item['create_order_time'])
@@ -162,18 +131,65 @@ def OrderCancel(request):
 @csrf_exempt
 def OrderPayState(request):
     token = request.POST.get("token")
-    oid = request.POST.get('order_id')
-    secret = request.POST.get('secret')
-    remark = request.POST.get('remark')
+    user = User.objects.filter(token=token)
+    if user:
+        user = user.values()[0]
+        telephone = user['phone']
+        uid = user['user_id']
+        remark=request.POST.get("remark")
+        if out_token(telephone, token):
+            print(request.POST.get("orders"))
+            goods_list =eval(request.POST.get("orders"))
+            print(goods_list)
+            adderss_id = request.POST.get("address_id")
+            create_order_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            order_status = 1
+            warehouse_id = '01'
+            Order.objects.create(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
+                                         order_status=order_status, warehouse_id=warehouse_id,
+                                         address_id=int(adderss_id),remarks=remark)
+            order=Order.objects.filter(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
+                                         order_status=order_status, warehouse_id=warehouse_id,
+                                         address_id=int(adderss_id)).values()[0]
+            id = order['order_id']
+            for item in goods_list:
+                goods = ShoppingCart.objects.filter(customer_id=uid, goods_id=item).values()[0]
+
+                quantity = goods['quantity']
+                OrderDetail.objects.create(order_id=id,goods_id=item,quantity=quantity)
+
+            data = {"order_id": id}
+            response = json.dumps(data)
+            return HttpResponse(response)
+
+    return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
+
+@csrf_exempt
+def xznpay(request):
+    token = request.POST.get("token")
+    oid=request.POST.get("order_id")
     user = User.objects.filter(token=token)
     if user:
         user = user.values()[0]
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            order=Order.objects.filter(order_id=oid).update(order_status=2,remarks=remark)
+            order=Order.objects.filter(order_id=oid).values()[0]
+            #print(order)
+            if order['order_status']!=1:
+                return HttpResponse(json.dumps({'message': '订单状态不是待支付'}))
+            orderdetail=OrderDetail.objects.filter(order_id=order['order_id']).values()
+            total_price=0
+            print("od length:",len(orderdetail))
+            for ODitem in orderdetail:
+                gid=ODitem['goods_id']
+                goods = Goods.objects.filter(goods_id=gid).values()[0]
+                total_price += (goods['price']*ODitem['quantity'])
+            print("total_price:",total_price)
+            if user['money']<total_price:
+                return HttpResponse(json.dumps({'message': '余额不足'}))
+            user=User.objects.filter(user_id=uid).update(money=user['money']-total_price)
+            order=Order.objects.filter(order_id=oid).update(order_status=2)
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
-
-
