@@ -12,7 +12,7 @@ import json
 def PictureGet(request):
     token = request.POST.get("token")
     size = request.POST.get("size")
-    referer = str(request.META.get("HTTP_REFERER",''))
+    referer = str(request.GET.get())
     user = User.objects.filter(token=token)
     if user:
         user = user.values()[0]
