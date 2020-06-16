@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/product.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/widget/common/flat_icon_button.dart';
 import '../../page/product/product_show.dart';
 
 class HomeProduct extends StatelessWidget {
-  HomeProduct(this.width, this.product);
+  HomeProduct({this.width, this.product});
 
   double width;
   Product product;
@@ -42,7 +43,7 @@ class HomeProduct extends StatelessWidget {
                     imageUrl: Config.baseUrl() +
                       'picture/' +
                       product.picture_list["shuffle"][0],
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                     placeholder: (context, url) => placeholder,
                     errorWidget: (context, url, error) => placeholder,
                   ),
@@ -108,9 +109,12 @@ class HomeProduct extends StatelessWidget {
                         child: FlatIconButton(
                           icon: Icons.shopping_cart,
                           size: 30,
-                          onTap: () {
-                            if (!Provider.of<CartModel>(context).isExist(product))
-                              Provider.of<CartModel>(context).add(product, 1);
+                          onTap: () async {
+                            if(!Provider.of<UserModel>(context).isLogin)
+                              Navigator.pushNamed(context, "login");
+                            if(!Provider.of<CartModel>(context).is_cart_loaded)
+                              await getCartProductList(context, "");
+                            Provider.of<CartModel>(context).add(product, 1);
                             var snackBar = SnackBar(
                               duration: Duration(seconds: 1),
                               content: Row(
@@ -136,61 +140,6 @@ class HomeProduct extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class HomeProductList extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _HomeProductListState();
-}
-
-class _HomeProductListState extends State<HomeProductList> {
-  var _future;
-
-  @override
-  void initState() {
-    _future = getProductRecommendList("");
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    return FutureBuilder(
-      future: _future,
-      builder: (context, snapshot) {
-        var widget;
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            widget = Icon(
-              Icons.error,
-              color: Colors.red,
-              size: 48,
-            );
-          } else {
-            widget = Container(
-                child: Wrap(
-              spacing: 0.0,
-              runSpacing: 4.0,
-              direction: Axis.vertical,
-              alignment: WrapAlignment.center,
-              children: snapshot.data.map<Widget>((product) {
-                return HomeProduct(width, product);
-              }).toList(),
-            ));
-          }
-        } else {
-          widget = Container(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: CircularProgressIndicator(),
-              ));
-        }
-
-        return widget;
-      },
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/address.dart';
 import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/services/address_service.dart';
 
@@ -91,7 +91,14 @@ class _AddressSelectState extends State<AddressSelect> {
         centerTitle: true,
         actions: <Widget>[
           FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) {
+                    return AddressEdit(
+                      edit: false,
+                    );
+                  }));
+              },
               child: Text("新增地址", style: TextStyle(color: Colors.white)))
         ],
       ),

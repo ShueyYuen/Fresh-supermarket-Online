@@ -1,0 +1,80 @@
+{
+    "formatted_address": "北京市朝阳区望京街道方恒国际中心B座方恒国际中心",
+    "addressComponent": {
+        "country": "中国",
+        "province": "北京市",
+        "city": [],
+        "citycode": "010",
+        "district": "朝阳区",
+        "adcode": "110105",
+        "township": "望京街道",
+        "towncode": "110105026000",
+        "neighborhood": {
+            "name": "方恒国际中心",
+            "type": "商务住宅;楼宇;商住两用楼宇"
+        },
+        "building": {
+            "name": "方恒国际中心B座",
+            "type": "商务住宅;楼宇;商务写字楼"
+        },
+        "streetNumber": {
+            "street": "阜通东大街",
+            "number": "6号",
+            "location": "116.482005,39.9900561",
+            "direction": "东南",
+            "distance": "63.2126"
+        },
+        "businessAreas": [
+            {
+                "location": "116.470293,39.996171",
+                "name": "望京",
+                "id": "110105"
+            }
+        ]
+    },
+    "pois": [
+        {
+            "id": "B000A838XY",
+            "name": "方恒购物中心",
+            "type": "购物服务;商场;购物中心",
+            "tel": "010-84713033;010-84719988;010-84719163",
+            "direction": "东",
+            "distance": "91.2778",
+            "location": "116.482503,39.990201",
+            "address": "阜通东大街6号院4号楼",
+            "poiweight": "0.620527",
+            "businessarea": "望京"
+        }
+    ],
+    "roads": [
+        {
+            "id": "010J50F0010203327",
+            "name": "阜通东大街",
+            "direction": "东南",
+            "distance": "61.2781",
+            "location": "116.481,39.9908"
+        }
+    ],
+    "roadinters": [
+        {
+            "direction": "东",
+            "distance": "173.493",
+            "location": "116.4796256,39.98983306",
+            "first_id": "010J50F0010203327",
+            "first_name": "阜通东大街",
+            "second_id": "010J50F0010204253",
+            "second_name": "阜荣街"
+        }
+    ],
+    "aois": [
+        {
+            "id": "B000A837FH",
+            "name": "方恒国际中心",
+            "adcode": "110105",
+            "location": "116.482086,39.990496",
+            "area": "50578.472594",
+            "distance": "0",
+            "type": "120203"
+        }
+    ]
+}

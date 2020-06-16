@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/address.dart';
 import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/services/address_service.dart';
+import 'package:xzn/utils/platform_utils.dart';
 
 class AddressCard extends StatelessWidget {
   AddressCard({Key key, @required this.address}) : super(key: key);
@@ -96,7 +97,7 @@ class _AddressManageState extends State<AddressManage> {
       appBar: AppBar(
         title: Text("收货地址"),
         centerTitle: true,
-        actions: <Widget>[
+        actions: PlatformUtils.isWeb?null:<Widget>[
           FlatButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -136,7 +137,6 @@ class _AddressManageState extends State<AddressManage> {
                   child: CircularProgressIndicator(),
                 ));
           }
-
           return widget;
         },
       ),

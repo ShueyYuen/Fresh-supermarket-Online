@@ -3,10 +3,12 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/address.dart';
+import 'package:xzn/models/cartItem.dart';
+import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/page/address/address_select.dart';
 import 'package:xzn/page/order/order_manage.dart';
-import 'package:xzn/states/profile_change_notifier.dart';
+import 'package:xzn/services/address_service.dart';
 
 class OrderProductCard extends StatelessWidget {
   OrderProductCard({Key key, @required this.cartItem});
@@ -66,6 +68,7 @@ class OrderConfirm extends StatefulWidget {
 class _OrderConfirmState extends State<OrderConfirm> {
   bool protect = false;
   Address address = null;
+  var _future;
 
   totalPrice() {
     double price = 10.0;
@@ -89,7 +92,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
   @override
   void initState() {
     super.initState();
-    address = Provider.of<AddressModel>(context, listen: false).address[0];
+    _future = getAddressList(context, "");
+//    address = Provider.of<AddressModel>(context, listen: false).address[0];
 //    print(address.toString());
   }
 
@@ -112,23 +116,59 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     Text("为减少接触，降低奉献。请修改下方备注"),
                   ],
                 )),
-            ListTile(
-              title: Text(address.detail["city"] +
-                  address.detail["district"] +
-                  "区" +
-                  address.detail["street"] +
-                  "路" +
-                  address.detail["no"].toString() +
-                  "号"),
-              trailing: Icon(Icons.arrow_forward_ios),
-              subtitle: Text(address.person["consignee"]+getSex(address.person["sex"])+" "+address.phone.replaceRange(3, 9, "******")),
-              onTap: () async {
-                var result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return AddressSelect();
-                }));
-                setState(() {
-                  address = result??address;
-                });
+            FutureBuilder(
+              future: _future,
+              builder: (context, snapshot) {
+                var widget;
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    widget = Icon(
+                      Icons.error,
+                      color: Colors.red,
+                      size: 48,
+                    );
+                  } else {
+                    Address address_sub = address??(snapshot.data.length == 0?null:snapshot.data[0]);
+                    widget = address_sub == null?ListTile(
+                      title: Text("还没有任何地址，点击添加"),
+                      trailing: Icon(Icons.arrow_forward_ios),
+                      onTap: () async {
+                        var result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return AddressEdit(edit: false,);
+                        })) as Address;
+                        setState(() {
+                          address = result??address;
+                        });
+                      },
+                    ):ListTile(
+                      title: Text(address_sub.detail["city"] +
+                        address_sub.detail["district"] +
+                        "区" +
+                        address_sub.detail["street"] +
+                        "路" +
+                        address_sub.detail["no"].toString() +
+                        "号"),
+                      trailing: Icon(Icons.arrow_forward_ios),
+                      subtitle: Text(address_sub.person["consignee"]+getSex(address_sub.person["sex"])+" "+address_sub.phone.replaceRange(3, 9, "******")),
+                      onTap: () async {
+                        var result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return AddressSelect();
+                        })) as Address;
+                        setState(() {
+                          address = result??address;
+                        });
+                      },
+                    );
+                  }
+                } else {
+                  widget = Container(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ));
+                }
+                return widget;
               },
             ),
             Divider(
@@ -232,27 +272,48 @@ class _OrderConfirmState extends State<OrderConfirm> {
               color: Colors.grey[200],
               thickness: 15,
             ),
-            ListTile(
-                title: Text(
-                  "订单备注",
-                  style: TextStyle(fontSize: 14),
-                ),
-                trailing: Container(
-                    padding: EdgeInsets.only(top: 5),
-                    width: 150,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Row(
+                children: <Widget>[
+                  Title(
+                    child: Text(
+                      "订单备注",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    color: Colors.black,
+                  ),
+                  Expanded(child: Text("")),
+                  GestureDetector(
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Text.rich(TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "可选择无接触配送",
+                              style: TextStyle(fontSize: 14, color: Colors.grey),
+                            ),
+                          ]
+                        )),
                         Text(
-                          "可选择无接触配送",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                          "\uE5E1",
+                          style: TextStyle(
+                            fontFamily: "MaterialIcons",
+                            fontSize: 14,
+                            color: Colors.grey[600]),
                         ),
-                        Icon(
-                          Icons.navigate_next,
-                          color: Colors.grey,
-                        )
                       ],
-                    ))),
+                    ),
+                    onTap: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                          return OrderManage();
+                        }));
+                    },
+                  ),
+                ],
+              ),
+            ),
             Divider(
               height: 1,
               thickness: 2,

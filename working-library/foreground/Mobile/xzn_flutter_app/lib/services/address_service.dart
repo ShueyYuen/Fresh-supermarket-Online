@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:xzn/models/index.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/models/address.dart';
 
 import '../conf/config.dart';
 import '../states/profile_change_notifier.dart';
@@ -11,7 +11,7 @@ import '../states/profile_change_notifier.dart';
 getAddressList(BuildContext context, String token) async {
   List<Address> address_list = List<Address>();
   try {
-    if (!Provider.of<AddressModel>(context, listen: false).is_loaded) {
+    if (!Provider.of<AddressModel>(context, listen: false).is_loaded && Provider.of<UserModel>(context).isLogin) {
       String url = Config.baseUrl() + "user/address/list";
       var body = {
         "token": token

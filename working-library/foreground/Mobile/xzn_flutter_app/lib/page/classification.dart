@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:xzn/index.dart';
-import 'package:xzn/page/cart.dart';
 import 'package:xzn/page/search_page.dart';
-import 'package:xzn/services/product_service.dart';
 
 class Classification extends StatefulWidget {
   @override
@@ -76,36 +72,46 @@ class _ClassificationState extends State<Classification> {
         child: AppBar(
           centerTitle: true,
           //title: Text('分类'),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          title: Flex(
+            direction: Axis.horizontal,
             children: <Widget>[
-              Icon(Icons.location_on),
-              DropdownButton(
-                underline: Text(""),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20
+              Expanded(
+                flex: 7,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.location_on),
+                    DropdownButton(
+                      underline: Text(""),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20
+                      ),
+                      icon: Icon(Icons.expand_more),
+                      iconSize: 24,
+                      iconDisabledColor: Colors.white,
+                      iconEnabledColor: Colors.white,
+                      value: section,
+                      items: secs.map((value) {
+                        return DropdownMenuItem(child: Text(value,), value: value);
+                      }).toList(),
+                      selectedItemBuilder: (context) {
+                        return secs.map((value) {
+                          return Container(alignment: Alignment.center,child: Text(value, style: TextStyle(color: Colors.white),),);
+                        }).toList();
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          section = value;
+                        });
+                      },
+                    )
+                  ]
                 ),
-                icon: Icon(Icons.expand_more),
-                iconSize: 24,
-                iconDisabledColor: Colors.white,
-                iconEnabledColor: Colors.white,
-                value: section,
-                items: secs.map((value) {
-                  return DropdownMenuItem(child: Text(value,), value: value);
-                }).toList(),
-                selectedItemBuilder: (context) {
-                  return secs.map((value) {
-                    return Container(alignment: Alignment.center,child: Text(value, style: TextStyle(color: Colors.white),),);
-                  }).toList();
-                },
-                onChanged: (value) {
-                  setState(() {
-                    section = value;
-                  });
-                },
               ),
-              Container(
+              Expanded(
+                flex: 6,
+                child: Container(
                   padding: EdgeInsets.symmetric(horizontal:5),
                   width: 190,
                   child: FlatButton(
@@ -129,8 +135,64 @@ class _ClassificationState extends State<Classification> {
                       }));
                     },
                   )),
+              )
             ],
           ),
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: <Widget>[
+//              Icon(Icons.location_on),
+//              DropdownButton(
+//                underline: Text(""),
+//                style: TextStyle(
+//                  color: Colors.black,
+//                  fontSize: 20
+//                ),
+//                icon: Icon(Icons.expand_more),
+//                iconSize: 24,
+//                iconDisabledColor: Colors.white,
+//                iconEnabledColor: Colors.white,
+//                value: section,
+//                items: secs.map((value) {
+//                  return DropdownMenuItem(child: Text(value,), value: value);
+//                }).toList(),
+//                selectedItemBuilder: (context) {
+//                  return secs.map((value) {
+//                    return Container(alignment: Alignment.center,child: Text(value, style: TextStyle(color: Colors.white),),);
+//                  }).toList();
+//                },
+//                onChanged: (value) {
+//                  setState(() {
+//                    section = value;
+//                  });
+//                },
+//              ),
+//              Container(
+//                  padding: EdgeInsets.symmetric(horizontal:5),
+//                  width: 190,
+//                  child: FlatButton(
+//                    color: Colors.white,
+//                    highlightColor: Colors.blue[700],
+//                    colorBrightness: Brightness.light,
+//                    splashColor: Colors.grey,
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: <Widget>[
+//                        Icon(Icons.search),
+//                        Text("麻辣香锅", style: TextStyle(fontSize: 16))
+//                      ],
+//                    ),
+//                    shape: RoundedRectangleBorder(
+//                        borderRadius: BorderRadius.circular(20.0)),
+//                    onPressed: () {
+//                      Navigator.push(context,
+//                          MaterialPageRoute(builder: (context) {
+//                        return ProductSearchPage();
+//                      }));
+//                    },
+//                  )),
+//            ],
+//          ),
           bottom: TabBar(
             tabs: _tabValues.map((f) {
               return Container(

@@ -112,10 +112,7 @@ class _SettingPageState extends State<SettingPage> {
                       return AccountSafe();
                     }));
                   } else {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return LoginChoose();
-                    }));
+                    Navigator.pushNamed(context, "login");
                   }
                 },
               ),
@@ -194,8 +191,6 @@ class _SettingPageState extends State<SettingPage> {
                       borderRadius: BorderRadius.circular(30.0)),
                   onPressed: () {
                     Provider.of<UserModel>(context, listen: false).user = null;
-                    Provider.of<MyOrderModel>(context, listen: false).my_order =
-                        null;
                     Provider.of<CartModel>(context, listen: false).cart = null;
                     Provider.of<OrderModel>(context, listen: false).order =
                         null;

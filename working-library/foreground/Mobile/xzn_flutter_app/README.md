@@ -37,8 +37,7 @@ flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --n
 
 # 指纹信息
 ```bash
-$> keytool -list -v -keystore "\.and
-roid\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+$> keytool -list -v -keystore "\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
 别名: androiddebugkey
 创建日期: 2020-2-3
 条目类型: PrivateKeyEntry
@@ -56,3 +55,11 @@ roid\debug.keystore" -alias androiddebugkey -storepass android -keypass android
 主体公共密钥算法: 2048 位 RSA 密钥
 版本: 1
 ```
+
+# 地图接口
+[Amap说明](https://lbs.amap.com/api/webservice/guide/api/georegeo/)
+
+# 问题
+#### Flutter应用黑屏一帧
+[解决方法](https://www.jianshu.com/p/50df18098547)
+#### 模型更改后需要重启

@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:xzn/models/index.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/models/cartItem.dart';
+import 'package:xzn/models/product.dart';
 
 import '../conf/config.dart';
 import '../states/profile_change_notifier.dart';
@@ -11,10 +12,7 @@ import '../states/profile_change_notifier.dart';
 getProductDetails(String token, String product_id) async {
   String url = Config.baseUrl() + "user/product/detail";
   Product product = Product();
-  var body = {
-    "token": token,
-    "product_id": product_id
-  };
+  var body = {"token": token, "product_id": product_id};
   var res = await http.post(url, body: body);
   var json = jsonDecode(res.body);
   try {
@@ -25,12 +23,10 @@ getProductDetails(String token, String product_id) async {
   return product;
 }
 
-getProductRecommendList(String token) async {
+getProductRecommendList(String token, {int quantity: 10}) async {
   String url = Config.baseUrl() + "user/product/recommend";
   List<Product> product_list = List<Product>();
-  var body = {
-    "token": token
-  };
+  var body = {"token": token, "quantity": quantity.toString()};
   var res = await http.post(url, body: body);
   var json = jsonDecode(res.body);
   for (var item in json) {
@@ -46,11 +42,10 @@ getProductRecommendList(String token) async {
 getCartProductList(BuildContext context, String token) async {
   List<CartItem> cart_list = List<CartItem>();
   try {
-    if (!Provider.of<CartModel>(context, listen: false).is_cart_loaded && Provider.of<UserModel>(context, listen: false).isLogin) {
+    if (!Provider.of<CartModel>(context, listen: false).is_cart_loaded &&
+        Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/cart/query";
-      var body = {
-        "token": token
-      };
+      var body = {"token": token};
       var res = await http.post(url, body: body);
       var json = jsonDecode(res.body);
       for (var item in json) {
@@ -60,9 +55,7 @@ getCartProductList(BuildContext context, String token) async {
           print(e.toString());
         } finally {}
       }
-      Provider
-        .of<CartModel>(context, listen: false)
-        .cart = cart_list;
+      Provider.of<CartModel>(context, listen: false).cart = cart_list;
       return cart_list;
     } else if (Provider.of<UserModel>(context, listen: false).isLogin) {
       cart_list = Provider.of<CartModel>(context, listen: false).cart;

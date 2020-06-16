@@ -14,7 +14,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  var _currentIndex = 0;
+  var _currentIndex;
 
   Home home;
   Classification classification;
@@ -45,36 +45,20 @@ class _AppState extends State<App> {
   currentPage() {
     switch (_currentIndex) {
       case 0:
-        if (home == null) {
-          home = Home();
-        }
-        return home;
+        return home = home ?? Home();
       case 1:
-        if (classification == null) {
-          classification = Classification();
-        }
-        return classification;
+        return classification = classification ?? Classification();
       case 2:
-        if (cart == null) {
-          cart = Cart();
-        }
-        return cart;
+        return cart = cart ?? Cart();
       case 3:
-        if (my == null) {
-          my = My();
-        }
-        return my;
+        return my = my ?? My();
     }
   }
 
   @override
-  void initState() {
-    _currentIndex = widget.index;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _currentIndex =
+        _currentIndex ?? ModalRoute.of(context).settings.arguments ?? 0;
     return new WillPopScope(
         onWillPop: _onWillPop,
         child: Scaffold(
