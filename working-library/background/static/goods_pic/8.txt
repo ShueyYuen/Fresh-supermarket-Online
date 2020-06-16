@@ -1,2 +1,2 @@
-chicken1.png
-鸡肉1
+chicken1.png chicken2.png chicken3.png
+鸡肉1 鸡肉2 鸡肉3
