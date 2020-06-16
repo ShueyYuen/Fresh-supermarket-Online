@@ -38,30 +38,3 @@ getProductRecommendList(String token, {int quantity: 10}) async {
   }
   return product_list;
 }
-
-getCartProductList(BuildContext context, String token) async {
-  List<CartItem> cart_list = List<CartItem>();
-  try {
-    if (!Provider.of<CartModel>(context, listen: false).is_cart_loaded &&
-        Provider.of<UserModel>(context, listen: false).isLogin) {
-      String url = Config.baseUrl() + "user/cart/query";
-      var body = {"token": token};
-      var res = await http.post(url, body: body);
-      var json = jsonDecode(res.body);
-      for (var item in json) {
-        try {
-          cart_list.add(CartItem.fromJson(item));
-        } catch (e) {
-          print(e.toString());
-        } finally {}
-      }
-      Provider.of<CartModel>(context, listen: false).cart = cart_list;
-      return cart_list;
-    } else if (Provider.of<UserModel>(context, listen: false).isLogin) {
-      cart_list = Provider.of<CartModel>(context, listen: false).cart;
-    }
-  } catch (e) {
-    print(e.toString());
-  }
-  return cart_list;
-}

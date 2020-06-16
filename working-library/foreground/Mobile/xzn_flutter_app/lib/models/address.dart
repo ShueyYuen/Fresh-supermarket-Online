@@ -6,12 +6,12 @@ part 'address.g.dart';
 class Address {
     Address();
 
-    String address_id;
+    int address_id;
     Map<String,dynamic> person;
     String phone;
     Map<String,dynamic> detail;
-    num longitude;
-    num latitude;
+    double longitude;
+    double latitude;
     String tag;
     
     factory Address.fromJson(Map<String,dynamic> json) => _$AddressFromJson(json);

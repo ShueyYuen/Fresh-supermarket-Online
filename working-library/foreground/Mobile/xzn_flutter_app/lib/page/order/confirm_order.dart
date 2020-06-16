@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/models/cartItem.dart';
@@ -9,7 +10,10 @@ import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/page/address/address_select.dart';
 import 'package:xzn/page/order/order_manage.dart';
 import 'package:xzn/services/address_service.dart';
+import 'package:xzn/services/order_service.dart';
 import 'package:xzn/services/picture.dart';
+import 'package:xzn/services/token.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 
 class OrderProductCard extends StatelessWidget {
   OrderProductCard({Key key, @required this.cartItem});
@@ -69,6 +73,14 @@ class _OrderConfirmState extends State<OrderConfirm> {
     return price.toStringAsFixed(2);
   }
 
+  totalPriceDouble() {
+    double price = 10.0;
+    for (CartItem cartItem in widget.order) {
+      price += cartItem.number * cartItem.product.price["num"];
+    }
+    return price;
+  }
+
   String getSex(String sex) {
     switch (sex) {
       case "M":
@@ -84,8 +96,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
   void initState() {
     super.initState();
     _future = getAddressList(context, "");
-//    address = Provider.of<AddressModel>(context, listen: false).address[0];
-//    print(address.toString());
+    address = Provider.of<AddressModel>(context, listen: false).address[0];
+    print(address.toString());
   }
 
   @override
@@ -143,7 +155,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                 "区" +
                                 address_sub.detail["street"] +
                                 "路" +
-                                address_sub.detail["no"].toString() +
+                                address_sub.detail["house_no"] +
                                 "号"),
                             trailing: Icon(Icons.arrow_forward_ios),
                             subtitle: Text(address_sub.person["consignee"] +
@@ -372,7 +384,12 @@ class _OrderConfirmState extends State<OrderConfirm> {
                         "去支付",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        List<String> orders = List<String>();
+//                        for (CartItem cartItem in widget.order) {
+//                          orders.add(cartItem.product.product_id);
+//                        }
+                        String order_id = await submitOrder(context, getToken(context), widget.order, address, protect, "就是这个备注", totalPriceDouble());
                         showModalBottomSheet(
                           context: context,
                           backgroundColor: Colors.white,

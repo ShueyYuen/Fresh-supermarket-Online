@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/page/order/confirm_order.dart';
+import 'package:xzn/services/cart_service.dart';
 import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
@@ -338,7 +339,7 @@ class _CartState extends State<Cart> {
                   ],
                 );
               else
-                widget = widget = ListView(
+                widget = ListView(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   shrinkWrap: true,
                   children: <Widget>[
