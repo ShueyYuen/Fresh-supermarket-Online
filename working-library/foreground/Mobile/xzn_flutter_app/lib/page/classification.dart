@@ -266,50 +266,24 @@ class _ClassificationState extends State<Classification> {
         controller: _controller,
         children: _tabValues.map((f) {
           return Column(
-            children: _tabValuesSecond.map((ff) {
-              return Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.orangeAccent,
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    alignment: Alignment.center,
-                    child:
-                        Text(ff, style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
-                ],
-              );
-            }).toList(),
-          );
-//          return Center(
-//            child: GestureDetector(
-//              onTap: () {
-//                getProductRecommendList("");
-//                setState(() {
-//                  click = !click;
-//                });
-//              },
-//              child: AnimatedContainer(
-//                curve: Curves.bounceIn,
-//                height: click ? 200 : 100,
-//                width: click ? 200 : 100,
-////                color: click?Colors.blue:Colors.red,
-//                duration: Duration(seconds: 1),
-////                child: Text(f),
-//                decoration: BoxDecoration(
-//                    image: DecorationImage(
-//                      image: AssetImage('assets/image/swiper/3.webp'),
-//                      fit: BoxFit.cover,
+//            children: _tabValuesSecond.map((ff) {
+//              return Row(
+//                children: <Widget>[
+//                  Container(
+//                    height: 50,
+//                    width: 100,
+//                    decoration: BoxDecoration(
+//                      color: Colors.orangeAccent,
 //                    ),
-//                    borderRadius: BorderRadius.all(Radius.circular(
-//                      click ? 200 : 0,
-//                    ))),
-//              ),
-//            ),
-//          );
+//                    padding: EdgeInsets.symmetric(horizontal: 5),
+//                    alignment: Alignment.center,
+//                    child:
+//                        Text(ff, style: TextStyle(fontWeight: FontWeight.bold)),
+//                  ),
+//                ],
+//              );
+//            }).toList(),
+          );
         }).toList(),
       ),
     );
