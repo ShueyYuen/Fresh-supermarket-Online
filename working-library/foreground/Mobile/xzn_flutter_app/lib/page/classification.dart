@@ -39,11 +39,8 @@ class _ClassificationState extends State<Classification> {
   ];
 
   TabController _controller;
-  TabController _controllerSecond;
   int _activeIndex = 0;
-  int _activeIndexSecond = 0;
   bool click = false;
-  bool clickSecond = false;
   String type_value;
 
   // 商品卡片所需
@@ -58,36 +55,19 @@ class _ClassificationState extends State<Classification> {
       vsync: ScrollableState(),
     );
     _controller.addListener(() {
+
       setState(() {
         _activeIndex = _controller.index;
-        // 下一句更新_future即重新请求不同类型
-        _future =
-            getSearchResultProduct(_token, type: _tabValues[_controller.index]);
       });
-    });
-    _controllerSecond = TabController(
-      length: _tabValuesSecond.length,
-      vsync: ScrollableState(),
-    );
-    _controllerSecond.addListener(() {
-      setState(() {
-        _activeIndexSecond = _controllerSecond.index;
-      });
+      // 下一句更新_future即重新请求不同类型
+      _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
+
     });
 
     // 商品卡片所需
     _token = Provider.of<UserModel>(context, listen: false).user.token;
     //_future = getSearchResultProduct(token, type: "水果蔬菜");
-    _future =
-        getSearchResultProduct(_token, type: _tabValues[_controller.index]);
-  }
-
-  void _changeType() {
-    // 商品卡片所需
-    //String token = Provider.of<UserModel>(context, listen: false).user.token;
-    //_future = getSearchResultProduct(token, type: "水果蔬菜");
-    _future =
-        getSearchResultProduct(_token, type: _tabValues[_controller.index]);
+    _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
   }
 
   @override

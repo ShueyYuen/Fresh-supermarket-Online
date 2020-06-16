@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
+import 'package:xzn/index.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/product/product_show.dart';
 import 'package:xzn/services/picture.dart';
@@ -123,11 +124,14 @@ class ProductSearchPage extends StatefulWidget {
 class _ProductSearchPageState extends State<ProductSearchPage> {
   var _future;
   String token;
+  TextEditingController _key = TextEditingController();
 
   @override
   void initState() {
-    token = getToken(context);
+    //token = getToken(context);
+    token = Provider.of<UserModel>(context, listen: false).user.token;
     _future = getProductRecommendList(token, quantity: 10);
+    //_future = getSearchResultProduct(token, key: _key.toString());
     super.initState();
   }
 
@@ -135,6 +139,15 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
 
   _displaySnackBar(BuildContext context) {
     Scaffold.of(context).openEndDrawer();
+  }
+
+  void getSearch() {
+    print("asdfasdfasdfasdfsdf");
+    print(_key.text);
+    setState(() {
+      _future = getSearchResultProduct(token, key: _key.text);
+    });
+
   }
 
   @override
@@ -152,11 +165,18 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextField(
+                  controller: _key,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                   ),
                 )),
             actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.keyboard_arrow_right),
+                onPressed: () {
+                  getSearch();
+                },
+              ),
               IconButton(
                   icon: Icon(Icons.shopping_cart),
                   onPressed: () {

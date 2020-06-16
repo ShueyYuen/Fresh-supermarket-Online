@@ -59,7 +59,7 @@ getSearchResultProduct(String token,
   var res = await dio.post(url, data: formData);
   //var res = await http.post(url, body: body);
   var json = jsonDecode(res.data.toString());
-  //print(json);
+  print(json);
   for (var item in json) {
     try {
       product_list.add(Product.fromJson(item));
