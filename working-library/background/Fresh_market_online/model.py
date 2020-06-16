@@ -1,3 +1,10 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
@@ -9,8 +16,8 @@ class Address(models.Model):
     consignee_phone = models.CharField(max_length=255)
     consignee_sex = models.CharField(max_length=10, blank=True, null=True)
     house_no = models.CharField(max_length=255)
-    longitude = models.CharField(max_length=255, blank=True, null=True)
-    latitude = models.CharField(max_length=255, blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
     tag = models.CharField(max_length=10, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     district = models.CharField(max_length=255, blank=True, null=True)
@@ -184,7 +191,7 @@ class Order(models.Model):
     create_order_time = models.DateTimeField(blank=True, null=True)
     receive_order_time = models.DateTimeField(blank=True, null=True)
     finish_order_time = models.DateTimeField(blank=True, null=True)
-    order_status = models.CharField(max_length=10)
+    order_status = models.IntegerField()
     payment_id = models.CharField(max_length=255)
     address_id = models.IntegerField()
     warehouse_id = models.CharField(max_length=10)
@@ -197,7 +204,7 @@ class Order(models.Model):
 
 
 class OrderDetail(models.Model):
-    order_id = models.CharField(max_length=32)
+    order_id = models.IntegerField()
     goods_id = models.CharField(max_length=10, blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)
 
@@ -295,6 +302,7 @@ class User(models.Model):
     head_image_id = models.CharField(max_length=32, blank=True, null=True)
     nickname = models.CharField(max_length=255, blank=True, null=True)
     token = models.CharField(max_length=255, blank=True, null=True)
+    money = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False

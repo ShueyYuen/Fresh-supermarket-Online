@@ -45,7 +45,7 @@ def Login(request):
     nickname=user['nickname']
     sex = user['sex']
     avatarId=user['head_image_id']
-    data = {"phone":phone ,"userId": str(userId), "nickname": str(nickname), "sex": sex ,"token": str(token), "head_image_id": str(avatarId)}
+    data = {"phone":phone ,"user_id": str(userId), "nickname": str(nickname), "sex": sex ,"token": str(token), "head_image_id": str(avatarId)}
     response=json.dumps(data)
     print(response)
     return HttpResponse(response)

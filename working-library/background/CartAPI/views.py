@@ -85,9 +85,9 @@ def CartQuery(request):
                 description = {"subtitle": goods['subtitle'], "distribution": goods['distribution'], "promotion": goods['promotion']}
                 tags = {"type": goods['tags_type'], "content": goods['tags_content']}
 
-                data.append({"product_name": str(product_name), "product_id": str(product_id), "price": price,
+                data.append({"product":{"product_name": str(product_name), "product_id": str(product_id), "price": price,
                         "picture_list": picture_list, "details": details, "stock": stock, "discount": discount,
-                        "description": description, "tags": tags,"number":item['quantity']})
+                        "description": description, "tags": tags},"number":item['quantity']})
             response = json.dumps(data)
             print(response)
             return HttpResponse(response)
