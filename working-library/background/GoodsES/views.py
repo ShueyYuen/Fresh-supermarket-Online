@@ -13,7 +13,7 @@ from Fresh_market_online.model import Goods, User, History
 from GoodsAPI.views import getpicture
 from LoginAPI.token_module import out_token
 
-hosts = '127.0.0.1'
+hosts = '172.16.0.8'
 @csrf_exempt
 def ESdata(hosts):
     # 获取Mysql登录数据
@@ -49,9 +49,9 @@ def GoodsSearch(request):
     type = request.POST.get("type")
     lprice = 0.00
     hprice = 99999999.00
-    if request.POST.get("highprice")!='':
+    if request.POST.get("highprice")!=None:
         hprice = request.POST.get("highprice")
-    if request.POST.get("lowprice") != '':
+    if request.POST.get("lowprice") !=None:
         lprice = request.POST.get("lowprice")
     user = User.objects.filter(token=token)
     ESdata(hosts)
@@ -73,8 +73,8 @@ def GoodsSearch(request):
                 goods_id = item['_source']['goods_id']
                 print(lprice)
                 print(hprice)
-                if type == '':
-                    if Goods.objects.filter(goods_id=goods_id, goods_type=type, price__range=(lprice, hprice)):
+                if type==None:
+                    if Goods.objects.filter(goods_id=goods_id, price__range=(lprice, hprice)):
                         goods = Goods.objects.filter(goods_id=goods_id,price__range=(lprice,hprice)).values()[0]
                     else:
                         continue
