@@ -59,9 +59,9 @@ class _ClassificationState extends State<Classification> {
 
       setState(() {
         _activeIndex = _controller.index;
+        // 下一句更新_future即重新请求不同类型
+        _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
       });
-      // 下一句更新_future即重新请求不同类型
-      _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
 
     });
 
