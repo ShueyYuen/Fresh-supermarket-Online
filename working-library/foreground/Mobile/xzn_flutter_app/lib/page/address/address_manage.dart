@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/services/address_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/utils/platform_utils.dart';
 
 class AddressCard extends StatelessWidget {
@@ -36,7 +37,7 @@ class AddressCard extends StatelessWidget {
                         "区" +
                         address.detail["street"] +
                         "路" +
-                        address.detail["no"].toString() +
+                        address.detail["house_no"] +
                         "号")),
                 Expanded(
                     flex: 0,
@@ -87,7 +88,7 @@ class _AddressManageState extends State<AddressManage> {
 
   @override
   void initState() {
-    _future = getAddressList(context, "");
+    _future = getAddressList(context, getToken(context));
     super.initState();
   }
 

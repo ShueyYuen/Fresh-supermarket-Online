@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/page/search_page.dart';
+import 'package:xzn/services/product_service.dart';
+import 'package:xzn/services/token.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 
 class Classification extends StatefulWidget {
   @override
@@ -36,11 +40,13 @@ class _ClassificationState extends State<Classification> {
   ];
 
   TabController _controller;
-  TabController _controllerSecond;
   int _activeIndex = 0;
-  int _activeIndexSecond = 0;
   bool click = false;
-  bool clickSecond = false;
+  String type_value;
+
+  // 商品卡片所需
+  var _future;
+  String _token;
 
   @override
   void initState() {
@@ -50,19 +56,20 @@ class _ClassificationState extends State<Classification> {
       vsync: ScrollableState(),
     );
     _controller.addListener(() {
+
       setState(() {
         _activeIndex = _controller.index;
+        // 下一句更新_future即重新请求不同类型
+        _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
       });
+
     });
-    _controllerSecond = TabController(
-      length: _tabValuesSecond.length,
-      vsync: ScrollableState(),
-    );
-    _controllerSecond.addListener(() {
-      setState(() {
-        _activeIndexSecond = _controllerSecond.index;
-      });
-    });
+
+    // 商品卡片所需
+//    _token = Provider.of<UserModel>(context, listen: false).user.token;
+    _token = getToken(context);
+    //_future = getSearchResultProduct(token, type: "水果蔬菜");
+    _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
   }
 
   @override
@@ -78,121 +85,72 @@ class _ClassificationState extends State<Classification> {
               Expanded(
                 flex: 7,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.location_on),
-                    DropdownButton(
-                      underline: Text(""),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20
-                      ),
-                      icon: Icon(Icons.expand_more),
-                      iconSize: 24,
-                      iconDisabledColor: Colors.white,
-                      iconEnabledColor: Colors.white,
-                      value: section,
-                      items: secs.map((value) {
-                        return DropdownMenuItem(child: Text(value,), value: value);
-                      }).toList(),
-                      selectedItemBuilder: (context) {
-                        return secs.map((value) {
-                          return Container(alignment: Alignment.center,child: Text(value, style: TextStyle(color: Colors.white),),);
-                        }).toList();
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          section = value;
-                        });
-                      },
-                    )
-                  ]
-                ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.location_on),
+                      DropdownButton(
+                        underline: Text(""),
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        icon: Icon(Icons.expand_more),
+                        iconSize: 24,
+                        iconDisabledColor: Colors.white,
+                        iconEnabledColor: Colors.white,
+                        value: section,
+                        items: secs.map((value) {
+                          return DropdownMenuItem(
+                              child: Text(
+                                value,
+                              ),
+                              value: value);
+                        }).toList(),
+                        selectedItemBuilder: (context) {
+                          return secs.map((value) {
+                            return Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                value,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                          }).toList();
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            section = value;
+                          });
+                        },
+                      )
+                    ]),
               ),
               Expanded(
                 flex: 6,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal:5),
-                  width: 190,
-                  child: FlatButton(
-                    color: Colors.white,
-                    highlightColor: Colors.blue[700],
-                    colorBrightness: Brightness.light,
-                    splashColor: Colors.grey,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.search),
-                        Text("麻辣香锅", style: TextStyle(fontSize: 16))
-                      ],
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ProductSearchPage();
-                      }));
-                    },
-                  )),
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    width: 190,
+                    child: FlatButton(
+                      color: Colors.white,
+                      highlightColor: Colors.blue[700],
+                      colorBrightness: Brightness.light,
+                      splashColor: Colors.grey,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.search),
+                          Text("麻辣香锅", style: TextStyle(fontSize: 16))
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return ProductSearchPage();
+                        }));
+                      },
+                    )),
               )
             ],
           ),
-//          Row(
-//            mainAxisAlignment: MainAxisAlignment.center,
-//            children: <Widget>[
-//              Icon(Icons.location_on),
-//              DropdownButton(
-//                underline: Text(""),
-//                style: TextStyle(
-//                  color: Colors.black,
-//                  fontSize: 20
-//                ),
-//                icon: Icon(Icons.expand_more),
-//                iconSize: 24,
-//                iconDisabledColor: Colors.white,
-//                iconEnabledColor: Colors.white,
-//                value: section,
-//                items: secs.map((value) {
-//                  return DropdownMenuItem(child: Text(value,), value: value);
-//                }).toList(),
-//                selectedItemBuilder: (context) {
-//                  return secs.map((value) {
-//                    return Container(alignment: Alignment.center,child: Text(value, style: TextStyle(color: Colors.white),),);
-//                  }).toList();
-//                },
-//                onChanged: (value) {
-//                  setState(() {
-//                    section = value;
-//                  });
-//                },
-//              ),
-//              Container(
-//                  padding: EdgeInsets.symmetric(horizontal:5),
-//                  width: 190,
-//                  child: FlatButton(
-//                    color: Colors.white,
-//                    highlightColor: Colors.blue[700],
-//                    colorBrightness: Brightness.light,
-//                    splashColor: Colors.grey,
-//                    child: Row(
-//                      mainAxisAlignment: MainAxisAlignment.center,
-//                      children: <Widget>[
-//                        Icon(Icons.search),
-//                        Text("麻辣香锅", style: TextStyle(fontSize: 16))
-//                      ],
-//                    ),
-//                    shape: RoundedRectangleBorder(
-//                        borderRadius: BorderRadius.circular(20.0)),
-//                    onPressed: () {
-//                      Navigator.push(context,
-//                          MaterialPageRoute(builder: (context) {
-//                        return ProductSearchPage();
-//                      }));
-//                    },
-//                  )),
-//            ],
-//          ),
           bottom: TabBar(
             tabs: _tabValues.map((f) {
               return Container(
@@ -200,47 +158,28 @@ class _ClassificationState extends State<Classification> {
                 width: 80,
                 child: Column(
                   children: <Widget>[
-//                    Container(
-//                        padding: EdgeInsets.all(3),
-//                        decoration: BoxDecoration(
-//                            color: Colors.white,
-//                            borderRadius: BorderRadius.circular(10.0)),
-//                        child: Image.asset("assets/image/class/1.png")),
-//                    SizedBox(
-//                      height: 7,
-//                    ),
-
-                    Stack(
-                      children: <Widget>[
-//                        Transform.scale(
-////                          scale: 1.58,
-////                          child: Container(
-////                            color: Color.fromARGB(100, 255, 255, 255),
-////                            height: 18,
-////                          ),
-////                        ),
-                        //Positioned(
-                        Container(
-                            //bottom: 0,
-                            //left: 4,
-                            height: 25,
-                            //width: 100,
-                            child: _tabValues[_controller.index] == f
-                                ? Container(
-                                    //padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: Colors.orangeAccent,
-                                        borderRadius:
-                                            BorderRadius.circular(20.0)),
-                                    child: Text(f),
-                                  )
-                                : Container(
-                                    //padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                                    alignment: Alignment.center,
-                                    child: Text(f),
-                                  ))
-                      ],
+                    //GestureDetector(
+                    Container(
+                      //onTap: _changeType,
+                      //onTap: "",
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                              height: 25,
+                              child: _tabValues[_controller.index] == f
+                                  ? Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Colors.orangeAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(20.0)),
+                                      child: Text(f),
+                                    )
+                                  : Container(
+                                      alignment: Alignment.center,
+                                      child: Text(f)))
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -265,24 +204,41 @@ class _ClassificationState extends State<Classification> {
       body: TabBarView(
         controller: _controller,
         children: _tabValues.map((f) {
-          return Column(
-//            children: _tabValuesSecond.map((ff) {
-//              return Row(
-//                children: <Widget>[
-//                  Container(
-//                    height: 50,
-//                    width: 100,
-//                    decoration: BoxDecoration(
-//                      color: Colors.orangeAccent,
-//                    ),
-//                    padding: EdgeInsets.symmetric(horizontal: 5),
-//                    alignment: Alignment.center,
-//                    child:
-//                        Text(ff, style: TextStyle(fontWeight: FontWeight.bold)),
-//                  ),
-//                ],
-//              );
-//            }).toList(),
+          // 商品推荐卡片
+          return FutureBuilder(
+            future: _future,
+            builder: (context, snapshot) {
+              var widget;
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  widget = Icon(
+                    Icons.error,
+                    color: Colors.red,
+                    size: 48,
+                  );
+                } else {
+                  widget = GridView(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, //横轴三个子widget
+                        childAspectRatio: 1.0 / 1.3 //宽高比为1时，子widget
+                        ),
+                    children: snapshot.data.map<Widget>((product) {
+                      return SearchCard(
+                        product: product,
+                      );
+                    }).toList(),
+                  );
+                }
+              } else {
+                widget = Container(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ));
+              }
+              return widget;
+            },
           );
         }).toList(),
       ),

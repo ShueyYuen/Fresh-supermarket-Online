@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/widget/product/mini_product_card.dart';
 
@@ -15,8 +16,7 @@ class _ProductRecommendGridState extends State<ProductRecommendGrid> {
 
   @override
   void initState() {
-    String token = Provider.of<UserModel>(context, listen: false).user.token;
-    _future = getProductRecommendList(token,quantity: 6);
+    _future = getProductRecommendList(getToken(context),quantity: 6);
     super.initState();
   }
 

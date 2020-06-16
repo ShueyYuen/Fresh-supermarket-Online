@@ -59,6 +59,14 @@ class CartModel extends ProfileChangeNotifier {
     notifyListeners();
   }
 
+  Product getProductById(String product_id) {
+    for (CartItem cartItem in this.cart) {
+      if (cartItem.product.product_id == product_id) {
+        return cartItem.product;
+      }
+    }
+  }
+
   void shut(List<CartItem> s_cart) {}
 
   void update(String product_id, int num) {

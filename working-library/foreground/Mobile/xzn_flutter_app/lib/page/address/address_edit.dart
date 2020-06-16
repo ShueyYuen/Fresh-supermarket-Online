@@ -41,7 +41,7 @@ class _AddressEditState extends State<AddressEdit> {
       if (_addressController.text.length > 15)
         _addressController.text = _addressController.text
             .replaceRange(15, _addressController.text.length, '....');
-      _noController.text = widget.address.detail["no"].toString();
+      _noController.text = widget.address.detail["house_no"].toString();
     } else {
       widget.address = Address.fromJson({
         "address_id": "",

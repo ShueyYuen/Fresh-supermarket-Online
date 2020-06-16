@@ -8,12 +8,12 @@ part of 'address.dart';
 
 Address _$AddressFromJson(Map<String, dynamic> json) {
   return Address()
-    ..address_id = json['address_id'] as String
+    ..address_id = json['address_id'] as int
     ..person = json['person'] as Map<String, dynamic>
     ..phone = json['phone'] as String
     ..detail = json['detail'] as Map<String, dynamic>
-    ..longitude = json['longitude'] as num
-    ..latitude = json['latitude'] as num
+    ..longitude = json['longitude'] as double
+    ..latitude = json['latitude'] as double
     ..tag = json['tag'] as String;
 }
 

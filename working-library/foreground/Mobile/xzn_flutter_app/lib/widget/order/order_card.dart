@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/order.dart';
 import 'package:xzn/page/order/order_detail.dart';
+import 'package:xzn/services/picture.dart';
 
 class OrderCard extends StatelessWidget {
   OrderCard({Key key, @required this.order, this.onTap: null})
@@ -105,19 +106,15 @@ class OrderCard extends StatelessWidget {
               direction: Axis.horizontal,
               children: <Widget>[
                 Expanded(
-                  flex: 0,
-                  child: CachedNetworkImage(
-                    imageUrl: Config.baseUrl() +
-                        "picture/" +
+                    flex: 0,
+                    child: PictureSelf(
                         order.product_list[0].product.picture_list["shuffle"]
                             [0],
-                    fit: BoxFit.cover,
-                    width: width - 245,
-                    height: 90,
-                    placeholder: (context, url) => placeholder,
-                    errorWidget: (context, url, error) => placeholder,
-                  ),
-                ),
+                        product: order.product_list[0].product,
+                        boxFit: BoxFit.cover,
+                        width: width - 245,
+                        height: 90,
+                        placeholder: placeholder)),
                 SizedBox(
                   width: 10,
                 ),

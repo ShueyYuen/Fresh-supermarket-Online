@@ -9,8 +9,8 @@ class ClassCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
+    return Column(
+//      alignment: Alignment.bottomCenter,
       children: <Widget>[
         Image.asset(
           image,
@@ -19,7 +19,7 @@ class ClassCardWidget extends StatelessWidget {
         Text(
           description,
           style: TextStyle(
-            fontSize: 12
+            fontSize: 14
           ),
         )
       ],
