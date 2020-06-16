@@ -25,7 +25,7 @@ Widget CustomAvatar(
     borderRadius: borderRadius ?? BorderRadius.circular(100),
     child: Provider.of<UserModel>(context, listen: false).isLogin
         ? CachedNetworkImage(
-            imageUrl: Config.baseUrl() + "avatar/" + user.head_image_id,
+            imageUrl: Config.baseUrl() + "avatar/load/" + user.head_image_id,
             width: width,
             height: height,
             fit: fit,

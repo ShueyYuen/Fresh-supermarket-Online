@@ -26,7 +26,7 @@ getProductDetails(String token, String product_id) async {
 getProductRecommendList(String token, {int quantity: 10}) async {
   String url = Config.baseUrl() + "user/product/recommend";
   List<Product> product_list = List<Product>();
-  var body = {"token": token, "quantity": quantity.toString()};
+  var body = {"token": token, "gnum": quantity.toString()};
   var res = await http.post(url, body: body);
   var json = jsonDecode(res.body);
   for (var item in json) {

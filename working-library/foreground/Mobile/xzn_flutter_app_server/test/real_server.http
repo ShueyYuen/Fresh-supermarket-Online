@@ -1,21 +1,31 @@
 @protocol = http
-@hostname = 203.195.149.30
+@hostname = xzn.cofal.top
+# @hostname = 203.195.149.30
 
 @port = 8010
 
 @host = {{protocol}}://{{hostname}}:{{port}}
 
+POST {{host}}/api/user/product/recommend HTTP/1.1
+content-type: application/json
+
+{
+    quantity: 10
+}
+
+###
 POST {{host}}/api/user/code HTTP/1.1
 content-type: application/json
 
 {
-    phone: 18297913123  
+    phone: 18297913123
 }
 
 ###
 POST {{host}}/api/user/login HTTP/1.1
-content-type: application/json
+Content-Type: application/x-www-form-urlencoded
 
 {
-    phone: 18297913123
+    phone: "18297913123",
+    password: "18297913123"
 }
