@@ -55,7 +55,8 @@ def AvatarLoad(request):
         user = user.values()[0]
         telephone = user['phone']
         if out_token(telephone, token):
-            path = r'./static/avatar' + '/' + telephone + '.png'
+            head_image_id = user['head_image_id']
+            path = r'./static/avatar' + '/' + head_image_id + '.png'
             avatar = open(path, "rb")
             return HttpResponse(avatar.read(), content_type='image/png')
     data = {"message": "Failed"}
