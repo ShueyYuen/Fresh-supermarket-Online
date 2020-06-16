@@ -7,6 +7,7 @@ import 'package:xzn/models/product.dart';
 import 'package:xzn/page/product/product_show.dart';
 import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
 import '../app.dart';
@@ -121,10 +122,11 @@ class ProductSearchPage extends StatefulWidget {
 
 class _ProductSearchPageState extends State<ProductSearchPage> {
   var _future;
+  String token;
 
   @override
   void initState() {
-    String token = Provider.of<UserModel>(context, listen: false).user.token;
+    token = getToken(context);
     _future = getProductRecommendList(token, quantity: 10);
     super.initState();
   }
