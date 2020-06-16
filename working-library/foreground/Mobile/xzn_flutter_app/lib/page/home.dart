@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 import '../widget/home/swiper.dart';
 import '../widget/home/home_product_card.dart';
 import '../widget/home/home_class_list.dart';
@@ -14,11 +15,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String section = "上海市奉贤区";
+  String token = null;
   List<Product> wordsList = List<Product>();
   ScrollController _scrollController;
 
   @override
   void initState() {
+    token = Provider.of<UserModel>(context, listen: false).user.token;
     loadWords();
     _scrollController = ScrollController();
     super.initState();
@@ -26,7 +29,7 @@ class _HomeState extends State<Home> {
 
   void loadWords() async {
     print(wordsList.length);
-    List<Product> products = await getProductRecommendList("token");
+    List<Product> products = await getProductRecommendList(token, quantity: 10);
     wordsList.insertAll(wordsList.length, products);
     if (wordsList.length > 51) wordsList.removeRange(51, wordsList.length);
     setState(() {});

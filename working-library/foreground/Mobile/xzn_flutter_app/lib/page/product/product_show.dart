@@ -201,7 +201,7 @@ class ProductPage extends StatelessWidget {
               height: 20,
               thickness: 10,
             ),
-            Flex(
+            product.description["promotipn"]==null?SizedBox(height: 0,):Flex(
               direction: Axis.horizontal,
               children: <Widget>[
                 Expanded(
@@ -232,7 +232,7 @@ class ProductPage extends StatelessWidget {
                 ),
               ],
             ),
-            Divider(
+            product.description["promotipn"]==null?SizedBox(height: 0,):Divider(
               height: 20,
               thickness: 10,
             ),

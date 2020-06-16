@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/models/selfNearItem.dart';
 import 'package:xzn/page/address/address_located.dart';
+import 'package:xzn/services/address_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
 class AddressEdit extends StatefulWidget {
@@ -323,10 +324,12 @@ class _AddressEditState extends State<AddressEdit> {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                onPressed: () {
+                onPressed: () async {
                   widget.address.person["consignee"] = _consigneeController.text;
                   widget.address.phone = _telController.text;
-
+                  Map addressMap = new Map();
+                  addressMap = await getAddressDetail(_addressController);
+                  print(addressMap);
                   Navigator.of(context).pop();
                 },
               ),
