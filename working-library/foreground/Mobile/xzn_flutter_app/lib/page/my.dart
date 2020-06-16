@@ -17,12 +17,6 @@ class _MyState extends State<My> {
   Widget build(BuildContext context) {
     bool isLogin = Provider.of<UserModel>(context, listen: true).isLogin;
     User user = Provider.of<UserModel>(context, listen: true).user;
-    if (user != null) {
-      print(user.phone);
-      print(user.nickname);
-      print(user.sex);
-      print(user.toJson());
-    }
     return Scaffold(
         appBar: AppBar(
           title: Text("我的"),
@@ -46,7 +40,7 @@ class _MyState extends State<My> {
                         Container(
                           constraints: BoxConstraints(minWidth: 300),
                           child: Text(
-                            isLogin ? user.nickname==null? user.phone: user.nickname : "请登录",
+                            isLogin ? user.nickname==null? user.phone??"": user.nickname : "请登录",
                             style: TextStyle(
                                 fontSize: 28,
                                 color:

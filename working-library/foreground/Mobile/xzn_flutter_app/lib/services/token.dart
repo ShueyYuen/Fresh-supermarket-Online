@@ -5,7 +5,7 @@ import 'package:xzn/states/profile_change_notifier.dart';
 String getToken(BuildContext context) {
   String token = "";
   try {
-    String token = Provider
+    token = Provider
       .of<UserModel>(context)
       .user
       .token;

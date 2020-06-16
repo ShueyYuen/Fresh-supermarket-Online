@@ -15,6 +15,7 @@ Widget CustomAvatar(
   BorderRadius borderRadius,
 }) {
   User user = Provider.of<UserModel>(context, listen: false).user;
+  if (user != null)print(user.toJson());
   Random random = new Random();
   var placeholder = Image.asset(
       "assets/image/avatar_default_" +

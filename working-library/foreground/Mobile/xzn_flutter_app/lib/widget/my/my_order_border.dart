@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/page/order/order_manage.dart';
 import 'package:xzn/services/order_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/widget/my/icon_text_under.dart';
 
 import '../../states/profile_change_notifier.dart';
@@ -14,14 +15,14 @@ class MyOrderBorder extends StatefulWidget {
 class _MyOrderBorderState extends State<MyOrderBorder> {
   @override
   void initState() {
-    getOrderList(context, "");
+    getOrderList(context, getToken(context));
     super.initState();
   }
 
   @override
   void didUpdateWidget(MyOrderBorder oldWidget) {
     super.didUpdateWidget(oldWidget);
-    getOrderList(context, "");
+    getOrderList(context, getToken(context));
   }
 
   @override

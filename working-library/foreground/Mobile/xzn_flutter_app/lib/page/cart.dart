@@ -7,6 +7,7 @@ import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import '../widget/common/num_contoller.dart';
 import 'product/product_show.dart';
@@ -231,7 +232,7 @@ class _CartState extends State<Cart> {
   @override
   void initState() {
     super.initState();
-    _future = getCartProductList(context, "");
+    _future = getCartProductList(context, getToken(context));
   }
 
   @override
@@ -307,6 +308,29 @@ class _CartState extends State<Cart> {
                               color: Colors.green[100],
                             )),
                         Expanded(flex: 3, child: Text("")),
+                        FlatButton(
+                          color: Theme.of(context).primaryColor,
+                          highlightColor: Colors.blue[700],
+                          colorBrightness: Brightness.dark,
+                          splashColor: Colors.grey,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                            child: Text(
+                              "退出登录",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                          onPressed: () {
+                            Provider.of<UserModel>(context, listen: false).user = null;
+                            Provider.of<CartModel>(context, listen: false).cart = null;
+                            Provider.of<OrderModel>(context, listen: false).order =
+                            null;
+                            Provider.of<AddressModel>(context, listen: false).address =
+                            null;
+                          },
+                        ),
                       ],
                     ),
                     SizedBox(
