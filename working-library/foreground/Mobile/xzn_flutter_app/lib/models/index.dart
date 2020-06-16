@@ -1,4 +1,5 @@
 export 'address.dart' ; 
+export 'ads.dart' ; 
 export 'amapNearItem.dart' ; 
 export 'cartItem.dart' ; 
 export 'customer.dart' ; 

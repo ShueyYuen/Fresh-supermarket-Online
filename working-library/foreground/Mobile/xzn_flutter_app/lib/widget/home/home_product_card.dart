@@ -111,9 +111,7 @@ class HomeProduct extends StatelessWidget {
                           size: 30,
                           onTap: () async {
                             if(!Provider.of<UserModel>(context).isLogin)
-                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                return LoginChoose();
-                              }));
+                              Navigator.pushNamed(context, "login");
                             if(!Provider.of<CartModel>(context).is_cart_loaded)
                               await getCartProductList(context, "");
                             Provider.of<CartModel>(context).add(product, 1);
@@ -142,60 +140,6 @@ class HomeProduct extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class HomeProductList extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _HomeProductListState();
-}
-
-class _HomeProductListState extends State<HomeProductList> {
-  var _future;
-
-  @override
-  void initState() {
-    _future = getProductRecommendList("");
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    return FutureBuilder(
-      future: _future,
-      builder: (context, snapshot) {
-        var widget;
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            widget = Icon(
-              Icons.error,
-              color: Colors.red,
-              size: 48,
-            );
-          } else {
-            widget = Container(
-                child: Wrap(
-              spacing: 0.0,
-              runSpacing: 4.0,
-              direction: Axis.vertical,
-              alignment: WrapAlignment.center,
-              children: snapshot.data.map<Widget>((product) {
-                return HomeProduct(width: width, product: product);
-              }).toList(),
-            ));
-          }
-        } else {
-          widget = Container(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: CircularProgressIndicator(),
-              ));
-        }
-        return widget;
-      },
     );
   }
 }

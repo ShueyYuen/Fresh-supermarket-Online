@@ -15,7 +15,10 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
     ..address = json['address'] == null
         ? null
         : Address.fromJson(json['address'] as Map<String, dynamic>)
-    ..product_list = json['product_list'] as List
+    ..product_list = (json['product_list'] as List)
+        ?.map((e) =>
+            e == null ? null : CartItem.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..deliveryman = json['deliveryman'] == null
         ? null
         : Deliveryman.fromJson(json['deliveryman'] as Map<String, dynamic>)

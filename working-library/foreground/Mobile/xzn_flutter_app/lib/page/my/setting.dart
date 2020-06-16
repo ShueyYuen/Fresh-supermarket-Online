@@ -112,10 +112,7 @@ class _SettingPageState extends State<SettingPage> {
                       return AccountSafe();
                     }));
                   } else {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return LoginChoose();
-                    }));
+                    Navigator.pushNamed(context, "login");
                   }
                 },
               ),

@@ -78,7 +78,7 @@ class OrderDetail extends StatelessWidget {
                       leading: CachedNetworkImage(
                         imageUrl: Config.baseUrl() +
                             "picture/" +
-                            order_item["product"]["picture_list"]["shuffle"][0],
+                            order_item.product.picture_list["shuffle"][0],
                         fit: BoxFit.cover,
                         width: 80,
                         placeholder: (context, url) => placeholder,
@@ -88,7 +88,7 @@ class OrderDetail extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             child: Text(
-                              order_item["product"]["product_name"],
+                              order_item.product.product_name,
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
@@ -97,21 +97,21 @@ class OrderDetail extends StatelessWidget {
                               right: 20,
 //                        alignment: Alignment.centerRight,
                               child: Text(
-                                "x" + order_item["number"].toString(),
+                                "x" + order_item.number.toString(),
                                 style: TextStyle(fontSize: 16),
                               ))
                         ],
                       ),
                       trailing: Text(
                         "￥" +
-                            (order_item["product"]["price"]["num"] *
-                                    order_item["number"])
+                            (order_item.product.price["num"] *
+                                    order_item.number)
                                 .toStringAsFixed(2),
                         style: TextStyle(fontSize: 14),
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                          return ProductPage(product: Product.fromJson(order_item["product"]));
+                          return ProductPage(product: Product.fromJson(order_item.product.toJson()));
                         }));
                       },
                     );

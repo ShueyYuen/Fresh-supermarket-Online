@@ -361,13 +361,7 @@ class ProductPage extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return App(index: 2);
-                        }),
-                        (Route<dynamic> route) => false,
-                      );
+                      Navigator.pushNamedAndRemoveUntil(context, "app", (Route<dynamic> route) => false, arguments: 2);
                     },
                     child: Stack(
                       alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
@@ -426,10 +420,7 @@ class ProductPage extends StatelessWidget {
                             textColor: Color.fromARGB(255, 56, 184, 240),
                             onPressed: () async {
                               if (!Provider.of<UserModel>(context).isLogin)
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return LoginChoose();
-                                }));
+                                Navigator.pushNamed(context, "login");
                               if (!Provider.of<CartModel>(context)
                                   .is_cart_loaded)
                                 await getCartProductList(context, "");
@@ -469,10 +460,7 @@ class ProductPage extends StatelessWidget {
                             textColor: Colors.white,
                             onPressed: () async {
                               if (!Provider.of<UserModel>(context).isLogin)
-                                await Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return LoginChoose();
-                                }));
+                                await Navigator.pushNamed(context, "login");
                               if (!Provider.of<CartModel>(context)
                                   .is_cart_loaded)
                                 await getCartProductList(context, "");

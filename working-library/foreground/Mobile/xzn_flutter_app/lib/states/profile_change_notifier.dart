@@ -79,6 +79,7 @@ class CartModel extends ProfileChangeNotifier {
   }
 
   bool isExist(Product product) {
+    if (cart == null) return true;
     for (CartItem cartItem in cart) {
       if (cartItem.product.product_id == product.product_id) {
         return true;
@@ -111,7 +112,6 @@ class AddressModel extends ProfileChangeNotifier {
 
 class OrderModel extends ProfileChangeNotifier {
   List<Order> get order => _profile.order;
-  // 是否加载过my_order
   bool get is_loaded => _profile.user != null && order != null;
   int get unpaid => countStatus("unpaid");
   int get unreceived => countStatus("unreceived");

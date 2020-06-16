@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/routes/static_route.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/style/base_theme.dart';
 import 'page/login/login_choose.dart';
@@ -62,23 +63,10 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: "鲜着呢",
         theme: base,
-        routes: <String, WidgetBuilder>{
-          "app": (context) => App(),
-          "login": (context) => LoginChoose(),
-          "about": (context) => WebviewScaffold(
-                url: "https://www.bing.com",
-                appBar: AppBar(
-                  title: Text("关于我们"),
-                  leading: IconButton(
-                    icon: Icon(Icons.home),
-                    onPressed: () {},
-                  ),
-                ),
-              )
-        },
-        home: Center(
-          child: first ? LoadingPage() : App(),
-        ),
+        onGenerateRoute: onGenerateRoute,
+        initialRoute: "/",
+        routes: routes,
+        home: first ? LoadingPage() : App(),
       ),
     );
   }

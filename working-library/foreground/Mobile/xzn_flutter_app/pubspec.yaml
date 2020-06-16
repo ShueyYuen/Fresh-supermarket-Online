@@ -33,7 +33,6 @@ dependencies:
   flutter_swiper: ^1.1.5
   share: 0.6.2
   path_provider: ^1.6.9
-#  amap_all_fluttify: ^0.16.2
   intl: ^0.16.0
   image_picker: ^0.6.7+1
   image_crop: ^0.3.2

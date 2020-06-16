@@ -3,7 +3,7 @@ import 'package:xzn/index.dart';
 import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
 import '../widget/home/swiper.dart';
-import '../widget/home/home_product_list.dart';
+import '../widget/home/home_product_card.dart';
 import '../widget/home/home_class_list.dart';
 
 //https://www.jianshu.com/p/cf8e92f76bdb
@@ -116,7 +116,7 @@ class _HomeState extends State<Home> {
               child: SwiperWidget(),
             ),
             SliverToBoxAdapter(
-              child: HomeClassList(),
+              child: HomeClassMain(),
             ),
             SliverList(
                 delegate: SliverChildBuilderDelegate(

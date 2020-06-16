@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import "customer.dart";
 import "address.dart";
+import "cartItem.dart";
 import "deliveryman.dart";
 part 'order.g.dart';
 
@@ -11,7 +12,7 @@ class Order {
     String order_id;
     Customer customer;
     Address address;
-    List product_list;
+    List<CartItem> product_list;
     Deliveryman deliveryman;
     String create_order_time;
     String receive_order_time;

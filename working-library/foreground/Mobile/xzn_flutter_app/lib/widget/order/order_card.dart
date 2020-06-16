@@ -13,9 +13,9 @@ class OrderCard extends StatelessWidget {
   String truncateName(Order order) {
     String result = "";
     for (var product_item in order.product_list) {
-      result += product_item["product"]["product_name"] +
+      result += product_item.product.product_name +
           "*" +
-          product_item["number"].toString() +
+          product_item.number.toString() +
           "  ";
       if (result.length > 25) {
         result = result.substring(0, 25) + "···";
@@ -30,7 +30,7 @@ class OrderCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width - 30;
     Widget placeholder = Image.asset(
       "assets/image/default_picture.webp", //头像占位图，加载过程中显示
-      width: width-245,
+      width: width - 245,
       height: 90,
     );
     Widget subbutton = this.order.order_status == "unpaid"
@@ -109,10 +109,10 @@ class OrderCard extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: Config.baseUrl() +
                         "picture/" +
-                        order.product_list[0]["product"]["picture_list"]
-                            ["shuffle"][0],
+                        order.product_list[0].product.picture_list["shuffle"]
+                            [0],
                     fit: BoxFit.cover,
-                    width: width-245,
+                    width: width - 245,
                     height: 90,
                     placeholder: (context, url) => placeholder,
                     errorWidget: (context, url, error) => placeholder,

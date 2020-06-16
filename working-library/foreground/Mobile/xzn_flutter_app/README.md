@@ -62,3 +62,4 @@ $> keytool -list -v -keystore "\.android\debug.keystore" -alias androiddebugkey 
 # 问题
 #### Flutter应用黑屏一帧
 [解决方法](https://www.jianshu.com/p/50df18098547)
+#### 模型更改后需要重启
