@@ -61,6 +61,7 @@ def CartUpdate(request):
 @csrf_exempt
 def CartQuery(request):
     token = request.POST.get("token")
+    print(token)
     user = User.objects.filter(token=token)
     if user:
         user=user.values()[0]

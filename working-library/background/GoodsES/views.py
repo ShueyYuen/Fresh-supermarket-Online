@@ -47,11 +47,12 @@ def ESmatch(goods_name):
 def GoodsSearch(request):
     token = request.POST.get("token")
     type = request.POST.get("type")
+    print(type)
     lprice = 0.00
     hprice = 99999999.00
-    if request.POST.get("highprice")!=None:
+    if request.POST.get("highprice")!="":
         hprice = request.POST.get("highprice")
-    if request.POST.get("lowprice") !=None:
+    if request.POST.get("lowprice") !="":
         lprice = request.POST.get("lowprice")
     user = User.objects.filter(token=token)
     ESdata(hosts)
@@ -62,7 +63,7 @@ def GoodsSearch(request):
         if out_token(telephone, token):
             data = []
             key = request.POST.get("key")
-
+            print(key)
             time=datetime.datetime.now()
             History.objects.create(user_id=user_id, key=key, time=time)
 

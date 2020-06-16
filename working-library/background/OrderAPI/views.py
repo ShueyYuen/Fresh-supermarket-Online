@@ -111,7 +111,7 @@ def OrderList(request):
             if type == 'all':
                 order = Order.objects.filter(customer_id=uid).values()
             else:
-                order = Order.objects.filter(customer_id=uid,type=type).values()
+                order = Order.objects.filter(customer_id=uid,order_status=type).values()
             for item in order:
                 order_id = item['order_id']
                 create_order_time = str(item['create_order_time'])
