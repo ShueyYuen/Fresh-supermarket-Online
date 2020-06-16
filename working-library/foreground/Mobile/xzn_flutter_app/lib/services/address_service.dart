@@ -30,11 +30,12 @@ getAddressDetail(TextEditingController address) async {
 getAddressList(BuildContext context, String token) async {
   List<Address> address_list = List<Address>();
   try {
-    if (!Provider.of<AddressModel>(context, listen: false).is_loaded && Provider.of<UserModel>(context).isLogin) {
+    if (!Provider.of<AddressModel>(context, listen: false).is_loaded && Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/address/list";
       var body = {
         "token": token
       };
+      print(url);
       var res = await http.post(url, body: body);
       var json = jsonDecode(res.body);
       for (var item in json) {

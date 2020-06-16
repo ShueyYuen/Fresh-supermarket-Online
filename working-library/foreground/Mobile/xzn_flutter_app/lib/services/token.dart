@@ -6,7 +6,7 @@ String getToken(BuildContext context) {
   String token = "";
   try {
     token = Provider
-      .of<UserModel>(context)
+      .of<UserModel>(context, listen: false)
       .user
       .token;
   } catch (e) {

@@ -182,7 +182,7 @@ class OrderDetail extends StatelessWidget {
                           "区" +
                           order.address.detail["street"] +
                           "路" +
-                          order.address.detail["no"].toString() +
+                          order.address.detail["house_no"] +
                           "号"
                               "\n" +
                           order.address.person["consignee"] +

@@ -8,6 +8,7 @@ import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/page/order/confirm_order.dart';
+import 'package:xzn/services/cart_service.dart';
 import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
