@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
@@ -78,8 +79,8 @@ class ProductCartCard extends StatelessWidget {
                         padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
                         child: CachedNetworkImage(
                           imageUrl: Config.baseUrl() +
-                            "picture/" +
-                            cartItem.product.picture_list["shuffle"][0],
+                              "picture/" +
+                              cartItem.product.picture_list["shuffle"][0],
                           fit: BoxFit.fitWidth,
                           width: 100,
                           placeholder: (context, url) => placeholder,
@@ -96,7 +97,7 @@ class ProductCartCard extends StatelessWidget {
                             child: Title(
                                 color: Colors.black,
                                 child: Text(
-                                  cartItem.product.product_name, 
+                                  cartItem.product.product_name,
                                   style: TextStyle(fontSize: 17),
                                 )),
                           ),
@@ -132,33 +133,41 @@ class ProductCartCard extends StatelessWidget {
                                 width: 30,
                                 iconWidth: 20,
                                 numText: cartItem.number.toString(),
-                                addValueChanged: (num) {
-                                },
-                                removeValueChanged: (num) {
-                                },
+                                addValueChanged: (num) {},
+                                removeValueChanged: (num) {},
                                 updateValueChanged: (num) {
                                   if (num != 0) {
-                                    Provider.of<CartModel>(
-                                      context, listen: false).update(
-                                      cartItem.product.product_id, num);
+                                    Provider.of<CartModel>(context,
+                                            listen: false)
+                                        .update(
+                                            cartItem.product.product_id, num);
                                   } else {
                                     showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('提示'),
-                                          content: Text('确认将  '+cartItem.product.product_name+"  移出购物车嘛？"),
-                                          actions: <Widget>[
-                                            FlatButton(child: Text('取消'),onPressed: (){
-                                              Navigator.pop(context);
-                                            },),
-                                            FlatButton(child: Text('确认'),onPressed: (){
-                                              onDelete(cartItem.product.product_id);
-                                              Navigator.pop(context);
-                                            },),
-                                          ],
-                                        );
-                                      });
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: Text('提示'),
+                                            content: Text('确认将  ' +
+                                                cartItem.product.product_name +
+                                                "  移出购物车嘛？"),
+                                            actions: <Widget>[
+                                              FlatButton(
+                                                child: Text('取消'),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              FlatButton(
+                                                child: Text('确认'),
+                                                onPressed: () {
+                                                  onDelete(cartItem
+                                                      .product.product_id);
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        });
                                   }
                                 },
                               ))
@@ -189,7 +198,8 @@ class _CartState extends State<Cart> {
       } else {
         selected.remove(product_id);
       }
-      if (selected.length != Provider.of<CartModel>(context, listen: false).cart_count) {
+      if (selected.length !=
+          Provider.of<CartModel>(context, listen: false).cart_count) {
         this.selectAll = false;
       } else {
         this.selectAll = true;
@@ -212,7 +222,10 @@ class _CartState extends State<Cart> {
       }
     }
     String prices = price.toStringAsFixed(2);
-    return [prices.substring(0, prices.length-2), prices.substring(prices.length -2)];
+    return [
+      prices.substring(0, prices.length - 2),
+      prices.substring(prices.length - 2)
+    ];
   }
 
   @override
@@ -234,7 +247,7 @@ class _CartState extends State<Cart> {
                 color: Colors.white,
               ),
               onPressed: () {
-                for(String product_id in this.selected) {
+                for (String product_id in this.selected) {
                   _handleDelete(product_id);
                 }
                 setState(() {
@@ -257,50 +270,86 @@ class _CartState extends State<Cart> {
               );
             } else {
 //              print(DemoLocalizations.of(context).title);
-              widget = ListView(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                shrinkWrap: true,
-                children: <Widget>[
-                  ...snapshot.data.map((cartItem) {
-                    return ProductCartCard(
-                      cartItem: cartItem,
-                      selected:
-                          this.selected.indexOf(cartItem.product.product_id) !=
-                              -1,
-                      onSelect: _handleSelect,
-                      onDelete: _handleDelete,
-                    );
-                  }),
-                  Flex(
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      Expanded(flex: 3, child: Text("")),
-                      Expanded(
-                          flex: 2,
-                          child: Divider(
-                            thickness: 5,
-                            color: Colors.green[100],
-                          )),
-                      Expanded(
-                          flex: 2,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text("为您推荐"),
-                          )),
-                      Expanded(
-                          flex: 2,
-                          child: Divider(
-                            thickness: 5,
-                            color: Colors.green[100],
-                          )),
-                      Expanded(flex: 3, child: Text("")),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  )
-                ],
-              );
+              if (Provider.of<UserModel>(context).isLogin)
+                widget = ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    ...snapshot.data.map((cartItem) {
+                      return ProductCartCard(
+                        cartItem: cartItem,
+                        selected: this
+                                .selected
+                                .indexOf(cartItem.product.product_id) !=
+                            -1,
+                        onSelect: _handleSelect,
+                        onDelete: _handleDelete,
+                      );
+                    }),
+                    Flex(
+                      direction: Axis.horizontal,
+                      children: <Widget>[
+                        Expanded(flex: 3, child: Text("")),
+                        Expanded(
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text("为您推荐"),
+                        ),
+                        Expanded(
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
+                        Expanded(flex: 3, child: Text("")),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    )
+                  ],
+                );
+              else
+                widget = widget = ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    Image.asset("assets/image/no_login.webp"),
+                    Flex(
+                      direction: Axis.horizontal,
+                      children: <Widget>[
+                        Expanded(flex: 3, child: Text("")),
+                        Expanded(
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
+                        Expanded(
+                            flex: 2,
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text("为您推荐"),
+                            )),
+                        Expanded(
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
+                        Expanded(flex: 3, child: Text("")),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    )
+                  ],
+                );
             }
           } else {
             widget = Container(
@@ -330,9 +379,9 @@ class _CartState extends State<Cart> {
                   setState(() {
                     this.selectAll = value;
                     if (this.selectAll) {
-                      for (CartItem cartItem in Provider
-                        .of<CartModel>(context, listen: false)
-                        .cart) {
+                      for (CartItem cartItem
+                          in Provider.of<CartModel>(context, listen: false)
+                              .cart) {
                         if (selected.indexOf(cartItem.product.product_id) == -1)
                           selected.add(cartItem.product.product_id);
                       }
@@ -391,9 +440,11 @@ class _CartState extends State<Cart> {
                     List<CartItem> cart = Provider.of<CartModel>(context).cart;
                     List<CartItem> order = List<CartItem>();
                     for (CartItem cartItem in cart) {
-                      if (selected.indexOf(cartItem.product.product_id) != -1) order.add(cartItem);
+                      if (selected.indexOf(cartItem.product.product_id) != -1)
+                        order.add(cartItem);
                     }
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return OrderConfirm(
                         order: order,
                       );

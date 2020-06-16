@@ -15,7 +15,10 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
     ..address = json['address'] == null
         ? null
         : Address.fromJson(json['address'] as Map<String, dynamic>)
-    ..product_list = json['product_list'] as List
+    ..product_list = (json['product_list'] as List)
+        ?.map((e) =>
+            e == null ? null : CartItem.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..deliveryman = json['deliveryman'] == null
         ? null
         : Deliveryman.fromJson(json['deliveryman'] as Map<String, dynamic>)
@@ -24,6 +27,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
     ..finish_order_time = json['finish_order_time'] as String
     ..order_status = json['order_status'] as String
     ..payment_id = json['payment_id'] as String
+    ..note = json['note'] as String
     ..total_price = json['total_price'] as num;
 }
 
@@ -38,5 +42,6 @@ Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'finish_order_time': instance.finish_order_time,
       'order_status': instance.order_status,
       'payment_id': instance.payment_id,
+      'note': instance.note,
       'total_price': instance.total_price
     };

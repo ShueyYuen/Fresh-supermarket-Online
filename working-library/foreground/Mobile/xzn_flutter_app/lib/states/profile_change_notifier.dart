@@ -8,10 +8,9 @@ import '../common/global.dart';
 // 导入需要全局使用的模型
 import '../models/profile.dart';
 import '../models/user.dart';
-import '../models/myOrder.dart';
 import '../models/cartItem.dart';
 
-class ProfileChangeNotifier extends ChangeNotifier{
+class ProfileChangeNotifier extends ChangeNotifier {
   Profile get _profile => Global.profile;
 
   @override
@@ -21,38 +20,29 @@ class ProfileChangeNotifier extends ChangeNotifier{
   }
 }
 
-class UserModel extends ProfileChangeNotifier{
+class UserModel extends ProfileChangeNotifier {
   bool get first => _profile.first_load ?? true;
   User get user => _profile.user;
   // 是否登录
   bool get isLogin => user != null;
 
   set first(bool first) {
-    _profile.first_load = false;
+    _profile.first_load = first;
+    notifyListeners();
   }
+
   set user(User user) {
     _profile.user = user;
     notifyListeners();
   }
 }
 
-class MyOrderModel extends ProfileChangeNotifier{
-  MyOrder get my_order => _profile.my_order;
-  // 是否加载过my_order
-  bool get isLoaded => my_order != null;
-
-  set my_order(MyOrder my_order) {
-    _profile.my_order = my_order;
-    notifyListeners();
-  }
-}
-
-class CartModel extends ProfileChangeNotifier{
+class CartModel extends ProfileChangeNotifier {
   List<CartItem> get cart => _profile.cart;
   // 是否加载过my_order
   bool get is_cart_loaded => _profile.user != null && cart != null;
 
-  int get cart_count => is_cart_loaded?cart.length:0;
+  int get cart_count => is_cart_loaded ? cart.length : 0;
 
   set cart(List<CartItem> cart) {
     _profile.cart = cart;
@@ -66,29 +56,30 @@ class CartModel extends ProfileChangeNotifier{
         break;
       }
     }
+    notifyListeners();
   }
 
-  void shut(List<CartItem> s_cart) {
-
-  }
+  void shut(List<CartItem> s_cart) {}
 
   void update(String product_id, int num) {
-    for (int i = 0; i<= cart_count; i++) {
+    for (int i = 0; i <= cart_count; i++) {
       if (cart[i].product.product_id == product_id) {
         cart[i].number = num;
         break;
       }
     }
+    notifyListeners();
   }
 
   void add(Product product, int num) {
-    _profile.cart.add(CartItem.fromJson({
-      "product": product.toJson(),
-      "number": num
-    }));
+    if (!isExist(product))
+      _profile.cart
+          .add(CartItem.fromJson({"product": product.toJson(), "number": num}));
+    notifyListeners();
   }
 
   bool isExist(Product product) {
+    if (cart == null) return true;
     for (CartItem cartItem in cart) {
       if (cartItem.product.product_id == product.product_id) {
         return true;
@@ -98,7 +89,7 @@ class CartModel extends ProfileChangeNotifier{
   }
 }
 
-class AddressModel extends ProfileChangeNotifier{
+class AddressModel extends ProfileChangeNotifier {
   List<Address> get address => _profile.address;
   // 是否加载过my_order
   bool get is_loaded => _profile.user != null && address != null;
@@ -115,12 +106,12 @@ class AddressModel extends ProfileChangeNotifier{
         break;
       }
     }
+    notifyListeners();
   }
 }
 
-class OrderModel extends ProfileChangeNotifier{
+class OrderModel extends ProfileChangeNotifier {
   List<Order> get order => _profile.order;
-  // 是否加载过my_order
   bool get is_loaded => _profile.user != null && order != null;
   int get unpaid => countStatus("unpaid");
   int get unreceived => countStatus("unreceived");
@@ -134,8 +125,9 @@ class OrderModel extends ProfileChangeNotifier{
 
   int countStatus(String type) {
     int count = 0;
+    if (order == null) return count;
     for (Order order_item in order) {
-      if (order_item.order_status == type) count++;
+      if (order_item.order_status.contains(type)) count++;
     }
     return count;
   }

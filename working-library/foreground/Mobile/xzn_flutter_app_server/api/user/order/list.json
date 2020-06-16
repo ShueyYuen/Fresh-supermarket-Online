@@ -74,6 +74,7 @@
         "finish_order_time": "time",
         "order_status": "enum[unpaid,unreceived,uncomment,finished]",
         "payment_id": "upperhash, 64",
+        "note": "sentence",
         "total_price": 0
     }
 ]

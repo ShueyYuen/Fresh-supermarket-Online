@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/product.dart';
 import 'package:xzn/page/product/product_show.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';

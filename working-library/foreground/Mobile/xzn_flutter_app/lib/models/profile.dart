@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import "user.dart";
-import "myOrder.dart";
 import "cartItem.dart";
 import "address.dart";
 import "order.dart";
@@ -12,7 +11,6 @@ class Profile {
 
     bool first_load;
     User user;
-    MyOrder my_order;
     List<CartItem> cart;
     List<Address> address;
     List<Order> order;

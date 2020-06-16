@@ -4,13 +4,13 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:xzn/conf/config.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/models/product.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/widget/common/flat_icon_button.dart';
-import 'package:xzn/widget/product/mini_product_card.dart';
 import 'package:xzn/widget/product/product_recommend_grid.dart';
 
 import '../../app.dart';
@@ -63,8 +63,8 @@ class ProductPage extends StatelessWidget {
                         margin: EdgeInsets.only(top: 0),
                         child: CachedNetworkImage(
                           imageUrl: Config.baseUrl() +
-                            "picture/" +
-                            product.picture_list["shuffle"][index],
+                              "picture/" +
+                              product.picture_list["shuffle"][index],
                           fit: BoxFit.cover,
                           width: width,
                           height: height,
@@ -181,7 +181,6 @@ class ProductPage extends StatelessWidget {
               direction: Axis.horizontal,
               children: <Widget>[
                 Expanded(
-                  flex: 1,
                   child: Container(
                     alignment: Alignment.topCenter,
                     height: 50.0,
@@ -206,7 +205,6 @@ class ProductPage extends StatelessWidget {
               direction: Axis.horizontal,
               children: <Widget>[
                 Expanded(
-                  flex: 1,
                   child: Container(
                     alignment: Alignment.topCenter,
                     height: 50.0,
@@ -214,7 +212,6 @@ class ProductPage extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: Chip(
                     backgroundColor: Colors.white,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -357,117 +354,117 @@ class ProductPage extends StatelessWidget {
           builder: (context) => Container(
             width: double.infinity,
             height: 55,
-            child: Flex(
-              direction: Axis.horizontal,
+            child: Row(
               children: <Widget>[
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    height: 55,
-                    alignment: Alignment.topCenter,
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return App(index:2);
-                            }
+                Container(
+                  height: 55,
+                  alignment: Alignment.topCenter,
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(context, "app", (Route<dynamic> route) => false, arguments: 2);
+                    },
+                    child: Stack(
+                      alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(top: 10),
+                          alignment: Alignment.topCenter,
+                          child: Icon(
+                            Icons.shopping_cart,
+                            size: 40,
+                            color: Colors.grey,
                           ),
-                            (Route<dynamic> route) => false,
-                        );
-                      },
-                      child: Stack(
-                        alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.only(top: 10),
-                            alignment: Alignment.topCenter,
-                            child: Icon(
-                              Icons.shopping_cart,
-                              size: 40,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          Positioned(
-                              top: 10,
-                              right: 20,
-                              child: badge > 0
-                                  ? Container(
-                                      width: 16,
-                                      height: 16,
-                                      child: Center(
-                                        child: Text(badge.toString(),
-                                            style: TextStyle(
-                                                fontSize: fontsize,
-                                                color: Colors.white)),
+                        ),
+                        Positioned(
+                            top: 10,
+                            right: 0,
+                            child: badge > 0
+                                ? Container(
+                                    width: 16,
+                                    height: 16,
+                                    child: Center(
+                                      child: Text(badge.toString(),
+                                          style: TextStyle(
+                                              fontSize: fontsize,
+                                              color: Colors.white)),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: new BorderRadius.all(
+                                        const Radius.circular(16.0),
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: new BorderRadius.all(
-                                          const Radius.circular(16.0),
-                                        ),
-                                      ),
-                                    )
-                                  : Text("")),
-                        ],
-                      ),
+                                    ),
+                                  )
+                                : Text("")),
+                      ],
                     ),
                   ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: Text(""),
                 ),
-                Expanded(
-                  flex: 8,
-                  child: Container(
-                    height: 40,
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    alignment: Alignment.centerRight,
-                    child: Row(
-                      children: <Widget>[
-                        ClipRRect(
-                          borderRadius: BorderRadius.horizontal(
-                              left: Radius.circular(10)),
-                          child: FlatButton(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 20),
+                Container(
+                  height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  alignment: Alignment.centerRight,
+                  child: Row(
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.horizontal(left: Radius.circular(10)),
+                        child: FlatButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 20),
 //                  color: Color.fromARGB(1, 138, 226, 255),
-                              color: Theme.of(context).accentColor,
-                              textColor: Color.fromARGB(255, 56, 184, 240),
-                              onPressed: () {
-                                if (!Provider.of<CartModel>(context).isExist(product))
-                                  Provider.of<CartModel>(context).add(product, 1);
-                                var snackBar = SnackBar(
-                                  duration: Duration(seconds: 1),
-                                  content: Row(
+                            color: Theme.of(context).accentColor,
+                            textColor: Color.fromARGB(255, 56, 184, 240),
+                            onPressed: () async {
+                              if (!Provider.of<UserModel>(context).isLogin)
+                                Navigator.pushNamed(context, "login");
+                              if (!Provider.of<CartModel>(context)
+                                  .is_cart_loaded)
+                                await getCartProductList(context, "");
+                              Provider.of<CartModel>(context).add(product, 1);
+                              var snackBar = SnackBar(
+                                duration: Duration(seconds: 1),
+                                content: Container(
+                                  alignment: Alignment.topCenter,
+                                  height: 50,
+                                  margin: EdgeInsets.only(bottom: 20),
+                                  child: Row(
                                     children: <Widget>[
                                       Icon(
                                         Icons.check,
                                         color: Colors.green,
                                       ),
-                                      Text(
-                                          product.product_name + '已经在购物车躺好等您咯！')
+                                      Text(product.product_name + '已经在购物车躺好等您咯！')
                                     ],
                                   ),
-                                  behavior: SnackBarBehavior.floating,
-                                );
-                                Scaffold.of(context).showSnackBar(snackBar);
-                              },
-                              child: Text(
-                                "加入购物车",
-                                style: TextStyle(fontSize: 16),
-                              )),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.horizontal(
-                              right: Radius.circular(10)),
-                          child: FlatButton(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 28),
-                              color: Theme.of(context).primaryColor,
-                              textColor: Colors.white,
-                              onPressed: () {
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                              );
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            },
+                            child: Text(
+                              "加入购物车",
+                              style: TextStyle(fontSize: 16),
+                            )),
+                      ),
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.horizontal(right: Radius.circular(10)),
+                        child: FlatButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 28),
+                            color: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                            onPressed: () async {
+                              if (!Provider.of<UserModel>(context).isLogin)
+                                await Navigator.pushNamed(context, "login");
+                              if (!Provider.of<CartModel>(context)
+                                  .is_cart_loaded)
+                                await getCartProductList(context, "");
+                              if (Provider.of<UserModel>(context).isLogin)
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return OrderConfirm(
@@ -479,14 +476,13 @@ class ProductPage extends StatelessWidget {
                                     ],
                                   );
                                 }));
-                              },
-                              child: Text(
-                                "立即购买",
-                                style: TextStyle(fontSize: 16),
-                              )),
-                        ),
-                      ],
-                    ),
+                            },
+                            child: Text(
+                              "立即购买",
+                              style: TextStyle(fontSize: 16),
+                            )),
+                      ),
+                    ],
                   ),
                 ),
               ],
