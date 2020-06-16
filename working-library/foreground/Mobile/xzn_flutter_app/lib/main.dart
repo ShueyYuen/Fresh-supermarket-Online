@@ -34,7 +34,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     first = Provider.of<UserModel>(context, listen: false).first;
-    print(first);
     super.initState();
   }
 

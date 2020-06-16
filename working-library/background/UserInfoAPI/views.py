@@ -33,7 +33,7 @@ def InfoSet(request):
     sex = request.POST.get("sex")
     phone = request.POST.get("telephone")
 
-    user = User.objects.filter(phone=phone)
+    user = User.objects.filter(token=token)
     if user:
         if out_token(phone, token):
             '''

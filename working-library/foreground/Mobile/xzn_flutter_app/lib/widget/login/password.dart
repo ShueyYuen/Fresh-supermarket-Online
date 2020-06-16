@@ -20,6 +20,7 @@ class _PasswordState extends State<PasswordWidget> {
   }
 
   void _handleLogin() {
+    print(_passwordController.text+_passwordController.text);
     Login(context, _phoneController.text, password: _passwordController.text);
   }
 

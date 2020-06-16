@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/login/login_choose.dart';
+import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/widget/common/flat_icon_button.dart';
@@ -14,9 +15,6 @@ class HomeProduct extends StatelessWidget {
 
   double width;
   Product product;
-  Widget placeholder = Image.asset(
-    "assets/image/default_picture.webp", //头像占位图，加载过程中显示
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +37,18 @@ class HomeProduct extends StatelessWidget {
                 flex: 2,
                 child: Container(
                   height: 70.0,
-                  child: CachedNetworkImage(
-                    imageUrl: Config.baseUrl() +
-                      'picture/' +
-                      product.picture_list["shuffle"][0],
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => placeholder,
-                    errorWidget: (context, url, error) => placeholder,
+                  child: PictureSelf(
+                    product.picture_list["shuffle"][0],
+                    product: product
                   ),
+//                  CachedNetworkImage(
+//                    imageUrl: Config.baseUrl() +
+//                      'picture/' +product.product_id.toString()+"/"+
+//                      product.picture_list["shuffle"][0],
+//                    fit: BoxFit.cover,
+//                    placeholder: (context, url) => placeholder,
+//                    errorWidget: (context, url, error) => placeholder,
+//                  ),
                 ),
               ),
               Expanded(

@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'AddressAPI',
     'CartAPI',
     'LogoffAPI',
-    'OrderAPI'
+    'OrderAPI',
+    'AdsAPI',
 ]
 
 MIDDLEWARE = [

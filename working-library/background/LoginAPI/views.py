@@ -18,8 +18,8 @@ def Login(request):
     if passwd==None:
         redis_code=get_redis_connection()
         print(redis_code.get(phone),code)
-        if redis_code.get(phone).decode('utf-8') != str(code):
-            response=json.dumps({"message":"验证码错误"})
+        if redis_code.get(phone)==None or redis_code.get(phone).decode('utf-8') != str(code):
+            response=json.dumps({"message":"验证码错误或过期"})
             return HttpResponse(response)
     
     user= User.objects.filter(phone=phone)
@@ -45,7 +45,7 @@ def Login(request):
     nickname=user['nickname']
     sex = user['sex']
     avatarId=user['head_image_id']
-    data = {"phone":phone ,"userId": str(userId), "nickname": str(nickname), "sex": sex ,"token": str(token), "avatarId": str(avatarId)}
+    data = {"phone":phone ,"userId": str(userId), "nickname": str(nickname), "sex": sex ,"token": str(token), "head_image_id": str(avatarId)}
     response=json.dumps(data)
     print(response)
     return HttpResponse(response)

@@ -22,11 +22,11 @@ def ESdata(hosts):
     #清除
     delete_by_all = {"query": {"match_all": {}}}
     result = es.delete_by_query(index="goods",body=delete_by_all)
-    print(result)
+    #print(result)
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     for d in goods_data:
         data = {'goods_name':d['goods_name'],'goods_id':d['goods_id'] }
-        print(d['goods_name'])
+        #print(d['goods_name'])
         es.index(index='goods', doc_type="doc", body=data)
 @csrf_exempt
 def ESmatch(goods_name):
@@ -69,10 +69,10 @@ def GoodsSearch(request):
             result=(ESmatch(key))
             for item in result['hits']['hits']:
                 print(item)
-                print(item['_source']['goods_id'])
+                #print(item['_source']['goods_id'])
                 goods_id = item['_source']['goods_id']
-                print(lprice)
-                print(hprice)
+                #print(lprice)
+                #print(hprice)
                 if type==None:
                     if Goods.objects.filter(goods_id=goods_id, price__range=(lprice, hprice)):
                         goods = Goods.objects.filter(goods_id=goods_id,price__range=(lprice,hprice)).values()[0]
