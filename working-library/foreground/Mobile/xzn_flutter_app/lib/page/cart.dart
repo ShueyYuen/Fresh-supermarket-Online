@@ -205,8 +205,18 @@ class _CartState extends State<Cart> {
     });
   }
 
-  _handleDelete(String product_id) {
-    Provider.of<CartModel>(context, listen: true).delete(product_id);
+  _handleDelete(String product_id) async {
+    var result = await updateCart(
+        context,
+        CartItem.fromJson({
+          "product": Provider.of<CartModel>(context, listen: false)
+              .getProductById(product_id)
+              .toJson(),
+          "number": 0
+        }));
+    print(result);
+    if (result["success"])
+      Provider.of<CartModel>(context, listen: true).delete(product_id);
   }
 
   _totalPrice() {
@@ -244,7 +254,7 @@ class _CartState extends State<Cart> {
                 Icons.delete_outline,
                 color: Colors.white,
               ),
-              onPressed: () {
+              onPressed: () async {
                 for (String product_id in this.selected) {
                   _handleDelete(product_id);
                 }

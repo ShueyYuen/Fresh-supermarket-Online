@@ -48,8 +48,6 @@ updateCart(BuildContext context, CartItem cartItem) async {
   var response = await dio.post(url, data: formData);
   var json = jsonDecode(response.data.toString());
   print(json);
-  try {} catch (e) {
-    print(e.toString());
-  } finally {}
+  return json;
 //  return product;
 }

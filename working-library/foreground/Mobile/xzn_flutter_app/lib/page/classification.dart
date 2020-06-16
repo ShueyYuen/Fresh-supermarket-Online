@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
 class Classification extends StatefulWidget {
@@ -65,7 +66,8 @@ class _ClassificationState extends State<Classification> {
     });
 
     // 商品卡片所需
-    _token = Provider.of<UserModel>(context, listen: false).user.token;
+//    _token = Provider.of<UserModel>(context, listen: false).user.token;
+    _token = getToken(context);
     //_future = getSearchResultProduct(token, type: "水果蔬菜");
     _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
   }
