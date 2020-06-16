@@ -43,7 +43,7 @@ def Goodsdetail(request):
 def getpicture(id):
     import os
     print(os.getcwd())
-    with open('./static/goods_pic/'+id+'.txt',"r",encoding='utf-8') as picture:
+    with open('./static/goods_pic/'+str(id)+'.txt',"r",encoding='utf-8') as picture:
         shuffle = picture.readline().strip('\n').split(' ')
         detail = picture.readline().strip('\n').split(' ')
     return shuffle,detail
@@ -51,12 +51,16 @@ def getpicture(id):
 @csrf_exempt
 def Goodsrecommend(request):
     token = request.POST.get("token")
-    gnum = request.POST.get("gnum")
+    quantity = request.POST.get("quantity")
     user = User.objects.filter(token=token)
     data = []
     gidlist = []
-    for i in range(int(gnum)):
-        gidlist.append('1')
+    rlist=Goods.objects.order_by('?').values()[:int(quantity)]
+    print(rlist)
+    for i in range(int(quantity)):
+        igid = rlist[i]['goods_id']
+        gidlist.append(igid)
+        print(igid)
     if user:
         user=user.values()[0]
         telephone = user['phone']
