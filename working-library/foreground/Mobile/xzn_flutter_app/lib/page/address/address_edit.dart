@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/address/address_manage.dart';
 import 'package:xzn/page/address/address_located.dart';
+import 'package:xzn/services/address_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
+//import 'package:amap_base/amap_base.dart';
 
 class AddressEdit extends StatefulWidget {
   AddressEdit({Key key, this.address: null, this.edit: true}) : super(key: key);
@@ -26,6 +28,7 @@ class _AddressEditState extends State<AddressEdit> {
   @override
   void initState() {
     if (widget.edit) {
+      print(widget.address.detail["city"]);
       _consigneeController.text = widget.address.person["consignee"];
       _telController.text = widget.address.phone;
       _addressController.text = widget.address.detail["city"] +
@@ -305,7 +308,11 @@ class _AddressEditState extends State<AddressEdit> {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                onPressed: () {
+                onPressed: () async {
+                  Map addressDetail = new Map();
+                  // 获得地址详情，包括省、市、区、镇、街、号
+                  addressDetail = await getAddressDetail( _addressController);
+                  print(addressDetail);
                   Navigator.of(context).pop();
                 },
               ),
