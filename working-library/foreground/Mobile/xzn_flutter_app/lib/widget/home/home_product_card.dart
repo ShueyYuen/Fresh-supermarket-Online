@@ -41,14 +41,6 @@ class HomeProduct extends StatelessWidget {
                     product.picture_list["shuffle"][0],
                     product: product
                   ),
-//                  CachedNetworkImage(
-//                    imageUrl: Config.baseUrl() +
-//                      'picture/' +product.product_id.toString()+"/"+
-//                      product.picture_list["shuffle"][0],
-//                    fit: BoxFit.cover,
-//                    placeholder: (context, url) => placeholder,
-//                    errorWidget: (context, url, error) => placeholder,
-//                  ),
                 ),
               ),
               Expanded(

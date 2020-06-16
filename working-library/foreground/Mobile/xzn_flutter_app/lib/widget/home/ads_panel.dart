@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:xzn/conf/config.dart';
 import 'package:xzn/services/ads_service.dart';
 
 class AdsPanel extends StatefulWidget {
@@ -81,27 +79,5 @@ class _AdsPanelState extends State<AdsPanel> {
         return widget;
       },
     );
-//      Column(
-//      children: [
-//        Container(
-//          child: Flex(direction: Axis.horizontal, children: [
-//            Expanded(
-//              child: CachedNetworkImage(
-//                imageUrl: Config.baseUrl() +
-//                  "picture/" +
-//                  order_item.product.picture_list["shuffle"][0],
-//                fit: BoxFit.cover,
-//                width: 80,
-//                placeholder: (context, url) => placeholder,
-//                errorWidget: (context, url, error) => placeholder,
-//              ),
-//            )
-//          ],),
-//        ),
-//        Container(
-//          child: Flex(direction: Axis.horizontal, children: [],),
-//        ),
-//      ],
-//    );
   }
 }

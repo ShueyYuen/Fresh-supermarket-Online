@@ -9,6 +9,7 @@ import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/page/address/address_select.dart';
 import 'package:xzn/page/order/order_manage.dart';
 import 'package:xzn/services/address_service.dart';
+import 'package:xzn/services/picture.dart';
 
 class OrderProductCard extends StatelessWidget {
   OrderProductCard({Key key, @required this.cartItem});
@@ -17,19 +18,9 @@ class OrderProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget placeholder = Image.asset(
-      "assets/image/default_picture.webp", //头像占位图，加载过程中显示
-    );
     return ListTile(
-      leading: CachedNetworkImage(
-        imageUrl: Config.baseUrl() +
-            "picture/" +
-            cartItem.product.picture_list["shuffle"][0],
-        fit: BoxFit.fitWidth,
-        width: 100,
-        placeholder: (context, url) => placeholder,
-        errorWidget: (context, url, error) => placeholder,
-      ),
+      leading: PictureSelf(cartItem.product.picture_list["shuffle"][0],
+          product: cartItem.product, width: 100, boxFit: BoxFit.fitWidth),
       title: Stack(
         children: <Widget>[
           Container(
@@ -128,45 +119,55 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       size: 48,
                     );
                   } else {
-                    Address address_sub = address??(snapshot.data.length == 0?null:snapshot.data[0]);
-                    widget = address_sub == null?ListTile(
-                      title: Text("还没有任何地址，点击添加"),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      onTap: () async {
-                        var result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return AddressEdit(edit: false,);
-                        })) as Address;
-                        setState(() {
-                          address = result??address;
-                        });
-                      },
-                    ):ListTile(
-                      title: Text(address_sub.detail["city"] +
-                        address_sub.detail["district"] +
-                        "区" +
-                        address_sub.detail["street"] +
-                        "路" +
-                        address_sub.detail["no"].toString() +
-                        "号"),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      subtitle: Text(address_sub.person["consignee"]+getSex(address_sub.person["sex"])+" "+address_sub.phone.replaceRange(3, 9, "******")),
-                      onTap: () async {
-                        var result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return AddressSelect();
-                        })) as Address;
-                        setState(() {
-                          address = result??address;
-                        });
-                      },
-                    );
+                    Address address_sub = address ??
+                        (snapshot.data.length == 0 ? null : snapshot.data[0]);
+                    widget = address_sub == null
+                        ? ListTile(
+                            title: Text("还没有任何地址，点击添加"),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                            onTap: () async {
+                              var result = await Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return AddressEdit(
+                                  edit: false,
+                                );
+                              })) as Address;
+                              setState(() {
+                                address = result ?? address;
+                              });
+                            },
+                          )
+                        : ListTile(
+                            title: Text(address_sub.detail["city"] +
+                                address_sub.detail["district"] +
+                                "区" +
+                                address_sub.detail["street"] +
+                                "路" +
+                                address_sub.detail["no"].toString() +
+                                "号"),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                            subtitle: Text(address_sub.person["consignee"] +
+                                getSex(address_sub.person["sex"]) +
+                                " " +
+                                address_sub.phone.replaceRange(3, 9, "******")),
+                            onTap: () async {
+                              var result = await Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return AddressSelect();
+                              })) as Address;
+                              setState(() {
+                                address = result ?? address;
+                              });
+                            },
+                          );
                   }
                 } else {
                   widget = Container(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: CircularProgressIndicator(),
-                    ));
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: CircularProgressIndicator(),
+                      ));
                 }
                 return widget;
               },
@@ -287,28 +288,26 @@ class _OrderConfirmState extends State<OrderConfirm> {
                   GestureDetector(
                     child: Row(
                       children: <Widget>[
-                        Text.rich(TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "可选择无接触配送",
-                              style: TextStyle(fontSize: 14, color: Colors.grey),
-                            ),
-                          ]
-                        )),
+                        Text.rich(TextSpan(children: [
+                          TextSpan(
+                            text: "可选择无接触配送",
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          ),
+                        ])),
                         Text(
                           "\uE5E1",
                           style: TextStyle(
-                            fontFamily: "MaterialIcons",
-                            fontSize: 14,
-                            color: Colors.grey[600]),
+                              fontFamily: "MaterialIcons",
+                              fontSize: 14,
+                              color: Colors.grey[600]),
                         ),
                       ],
                     ),
                     onTap: () {
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                          return OrderManage();
-                        }));
+                          MaterialPageRoute(builder: (context) {
+                        return OrderManage();
+                      }));
                     },
                   ),
                 ],

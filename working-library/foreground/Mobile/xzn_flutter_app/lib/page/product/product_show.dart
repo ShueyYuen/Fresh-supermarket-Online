@@ -8,6 +8,7 @@ import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/page/order/confirm_order.dart';
+import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/widget/common/flat_icon_button.dart';
@@ -41,9 +42,6 @@ class ProductPage extends StatelessWidget {
         ? Provider.of<CartModel>(context, listen: false).cart.length
         : 0;
     double fontsize = badge > 99 ? 8 : badge > 9 ? 10 : 12;
-    Widget placeholder = Image.asset(
-      "assets/image/default_picture.webp", //头像占位图，加载过程中显示
-    );
     return Scaffold(
         appBar:
             PreferredSize(child: AppBar(), preferredSize: Size.fromHeight(0)),
@@ -61,16 +59,11 @@ class ProductPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(top: 0),
-                        child: CachedNetworkImage(
-                          imageUrl: Config.baseUrl() +
-                              "picture/" + product.product_id.toString()+"/"+
-                              product.picture_list["shuffle"][index],
-                          fit: BoxFit.cover,
-                          width: width,
-                          height: height,
-                          placeholder: (context, url) => placeholder,
-                          errorWidget: (context, url, error) => placeholder,
-                        ),
+                        child: PictureSelf(
+                            product.picture_list["shuffle"][index],
+                            width: width,
+                            boxFit: BoxFit.cover,
+                            product: product),
                       );
                     },
                     scrollDirection: Axis.horizontal,
@@ -201,41 +194,50 @@ class ProductPage extends StatelessWidget {
               height: 20,
               thickness: 10,
             ),
-            product.description["promotipn"]==null?SizedBox(height: 0,):Flex(
-              direction: Axis.horizontal,
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.topCenter,
-                    height: 50.0,
-                    child: Text("促销"),
+            product.description["promotipn"] == null
+                ? SizedBox(
+                    height: 0,
+                  )
+                : Flex(
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.topCenter,
+                          height: 50.0,
+                          child: Text("促销"),
+                        ),
+                      ),
+                      Expanded(
+                        child: Chip(
+                          backgroundColor: Colors.white,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          labelStyle: TextStyle(
+                            fontSize: 14,
+                            color: Colors.orange,
+                          ),
+                          label: new Text('8.8折'),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          alignment: Alignment.topLeft,
+                          height: 50.0,
+                          child: Text(product.description["promotipn"]),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Expanded(
-                  child: Chip(
-                    backgroundColor: Colors.white,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    labelStyle: TextStyle(
-                      fontSize: 14,
-                      color: Colors.orange,
-                    ),
-                    label: new Text('8.8折'),
+            product.description["promotipn"] == null
+                ? SizedBox(
+                    height: 0,
+                  )
+                : Divider(
+                    height: 20,
+                    thickness: 10,
                   ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    height: 50.0,
-                    child: Text(product.description["promotipn"]),
-                  ),
-                ),
-              ],
-            ),
-            product.description["promotipn"]==null?SizedBox(height: 0,):Divider(
-              height: 20,
-              thickness: 10,
-            ),
             // 推荐商品
             Container(
               padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -337,13 +339,10 @@ class ProductPage extends StatelessWidget {
                     ),
                   ),
                   ...product.picture_list["detail"].map((image_link) {
-                    return CachedNetworkImage(
-                      imageUrl: Config.baseUrl() + "picture/" +product.product_id.toString()+"/"+ image_link,
-                      fit: BoxFit.fitWidth,
-                      width: width,
-                      placeholder: (context, url) => placeholder,
-                      errorWidget: (context, url, error) => placeholder,
-                    );
+                    return PictureSelf(image_link,
+                        product: product,
+                        width: width,
+                        boxFit: BoxFit.fitWidth);
                   }),
                 ],
               ),
@@ -361,7 +360,9 @@ class ProductPage extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(context, "app", (Route<dynamic> route) => false, arguments: 2);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "app", (Route<dynamic> route) => false,
+                          arguments: 2);
                     },
                     child: Stack(
                       alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
@@ -437,7 +438,8 @@ class ProductPage extends StatelessWidget {
                                         Icons.check,
                                         color: Colors.green,
                                       ),
-                                      Text(product.product_name + '已经在购物车躺好等您咯！')
+                                      Text(
+                                          product.product_name + '已经在购物车躺好等您咯！')
                                     ],
                                   ),
                                 ),

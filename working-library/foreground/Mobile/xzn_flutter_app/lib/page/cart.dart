@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/page/order/confirm_order.dart';
+import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
@@ -78,15 +79,10 @@ class ProductCartCard extends StatelessWidget {
                       flex: 0,
                       child: Container(
                         padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-                        child: CachedNetworkImage(
-                          imageUrl: Config.baseUrl() +
-                              "picture/" +
-                              cartItem.product.picture_list["shuffle"][0],
-                          fit: BoxFit.fitWidth,
-                          width: 100,
-                          placeholder: (context, url) => placeholder,
-                          errorWidget: (context, url, error) => placeholder,
-                        ),
+                        child: PictureSelf(
+                            cartItem.product.picture_list["shuffle"][0],
+                            product: cartItem.product,
+                            width: 100),
                       ),
                     ),
                     Expanded(
@@ -314,21 +310,24 @@ class _CartState extends State<Cart> {
                           colorBrightness: Brightness.dark,
                           splashColor: Colors.grey,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 40),
                             child: Text(
                               "退出登录",
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
+                              borderRadius: BorderRadius.circular(30.0)),
                           onPressed: () {
-                            Provider.of<UserModel>(context, listen: false).user = null;
-                            Provider.of<CartModel>(context, listen: false).cart = null;
-                            Provider.of<OrderModel>(context, listen: false).order =
-                            null;
-                            Provider.of<AddressModel>(context, listen: false).address =
-                            null;
+                            Provider.of<UserModel>(context, listen: false)
+                                .user = null;
+                            Provider.of<CartModel>(context, listen: false)
+                                .cart = null;
+                            Provider.of<OrderModel>(context, listen: false)
+                                .order = null;
+                            Provider.of<AddressModel>(context, listen: false)
+                                .address = null;
                           },
                         ),
                       ],

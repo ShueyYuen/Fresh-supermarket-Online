@@ -5,6 +5,7 @@ import 'package:xzn/models/order.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/my/customer_service.dart';
 import 'package:xzn/page/product/product_show.dart';
+import 'package:xzn/services/picture.dart';
 
 class OrderDetail extends StatelessWidget {
   OrderDetail({Key key, @required this.order}) : super(key: key);
@@ -75,15 +76,9 @@ class OrderDetail extends StatelessWidget {
                 children: <Widget>[
                   ...order.product_list.map<Widget>((order_item) {
                     return ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl: Config.baseUrl() +
-                            "picture/" +
-                            order_item.product.picture_list["shuffle"][0],
-                        fit: BoxFit.cover,
-                        width: 80,
-                        placeholder: (context, url) => placeholder,
-                        errorWidget: (context, url, error) => placeholder,
-                      ),
+                      leading: PictureSelf(
+                          order_item.product.picture_list["shuffle"][0],
+                          product: order_item.product),
                       title: Stack(
                         children: <Widget>[
                           Container(
@@ -110,8 +105,11 @@ class OrderDetail extends StatelessWidget {
                         style: TextStyle(fontSize: 14),
                       ),
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                          return ProductPage(product: Product.fromJson(order_item.product.toJson()));
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return ProductPage(
+                              product: Product.fromJson(
+                                  order_item.product.toJson()));
                         }));
                       },
                     );
@@ -227,13 +225,13 @@ class OrderDetail extends StatelessWidget {
                     ListTile(
                         title: Text("订单号"),
                         trailing: Container(
-                          alignment: Alignment(1, 0),
+                            alignment: Alignment(1, 0),
                             width: 250,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
                                 Text(
-                                  order.order_id+" |",
+                                  order.order_id + " |",
                                 ),
                                 Container(
                                     width: 30,
@@ -274,15 +272,14 @@ class OrderDetail extends StatelessWidget {
                       height: 1,
                     ),
                     ListTile(
-                      title: Text("订单备注"),
-                      trailing: Container(
-                        width: 200,
-                        child: Text(
-                          order.note??"",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      )
-                    ),
+                        title: Text("订单备注"),
+                        trailing: Container(
+                          width: 200,
+                          child: Text(
+                            order.note ?? "",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        )),
                   ],
                 ),
               ),
