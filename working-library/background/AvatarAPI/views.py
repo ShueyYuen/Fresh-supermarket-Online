@@ -49,20 +49,12 @@ def AvatarUpload(request):
 
 @csrf_exempt
 def AvatarLoad(request):
-    token = request.POST.get("token")
-    user = User.objects.filter(token=token)
-    if user:
-        user = user.values()[0]
-        telephone = user['phone']
-        if out_token(telephone, token):
-            head_image_id = user['head_image_id']
-            path = r'./static/avatar' + '/' + head_image_id + '.png'
-            avatar = open(path, "rb")
-            return HttpResponse(avatar.read(), content_type='image/png')
-    data = {"message": "Failed"}
-    response = json.dumps(data)
-    print(response)
-    return HttpResponse(response)
+
+    head_image_id=request.path.rsplit('/', 1)[1]
+    print(head_image_id);
+    path = r'./static/avatar' + '/' + head_image_id + '.png'
+    avatar = open(path, "rb")
+    return HttpResponse(avatar.read(), content_type='image/png')
 
 @csrf_exempt
 def pGetFileExtension(file):
