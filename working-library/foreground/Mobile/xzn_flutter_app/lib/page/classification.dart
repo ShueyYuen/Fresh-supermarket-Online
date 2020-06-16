@@ -6,6 +6,9 @@ import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
 class Classification extends StatefulWidget {
+  Classification(this.idx);
+  int idx;
+
   @override
   _ClassificationState createState() => new _ClassificationState();
 }
@@ -19,14 +22,6 @@ class _ClassificationState extends State<Classification> {
     '水产海鲜',
     '米面粮油',
     '鲜奶乳品',
-  ];
-  final List<String> _tabValuesSecond = [
-    '猪肉',
-    '牛肉',
-    '羊肉',
-    '鸡肉',
-    '嘿嘿嘿',
-    '范先生',
   ];
 
   final List<String> secs = [
@@ -51,6 +46,9 @@ class _ClassificationState extends State<Classification> {
   @override
   void initState() {
     super.initState();
+    print("dfsadfasdfsad");
+    print(widget.idx);
+
     _controller = TabController(
       length: _tabValues.length,
       vsync: ScrollableState(),
@@ -64,11 +62,8 @@ class _ClassificationState extends State<Classification> {
       });
 
     });
-
     // 商品卡片所需
-//    _token = Provider.of<UserModel>(context, listen: false).user.token;
     _token = getToken(context);
-    //_future = getSearchResultProduct(token, type: "水果蔬菜");
     _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
   }
 

@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:xzn/page/classification.dart';
 
 class ClassCardWidget extends StatelessWidget {
   double width;
   String image;
   String description;
+  int idx;
 
-  ClassCardWidget(this.image, this.description, this.width);
+  ClassCardWidget(this.image, this.description, this.width, this.idx);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return new GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Classification(idx);
+          }));
+        },
+        child: new Column(
 //      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        Image.asset(
-          image,
-          width: width,
-        ),
-        Text(
-          description,
-          style: TextStyle(
-            fontSize: 14
-          ),
-        )
-      ],
-    );
+          children: <Widget>[
+            Image.asset(
+              image,
+              width: width,
+            ),
+            Text(
+              description,
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
+        ));
   }
 }
 
@@ -40,11 +46,11 @@ class HomeClassMain extends StatelessWidget {
         runSpacing: 4.0, // 纵轴（垂直）方向间距
         alignment: WrapAlignment.center, //沿主轴方向居中
         children: <Widget>[
-          ClassCardWidget("assets/image/class/1.png","水果蔬菜",width),
-          ClassCardWidget("assets/image/class/2.png","肉禽蛋品",width),
-          ClassCardWidget("assets/image/class/3.png","水产海鲜",width),
-          ClassCardWidget("assets/image/class/4.png","米面粮油",width),
-          ClassCardWidget("assets/image/class/5.png","鲜奶乳品",width),
+          ClassCardWidget("assets/image/class/1.png", "水果蔬菜", width, 0),
+          ClassCardWidget("assets/image/class/2.png", "肉禽蛋品", width, 1),
+          ClassCardWidget("assets/image/class/3.png", "水产海鲜", width, 2),
+          ClassCardWidget("assets/image/class/4.png", "米面粮油", width, 3),
+          ClassCardWidget("assets/image/class/5.png", "鲜奶乳品", width, 4),
         ],
       ),
     );
