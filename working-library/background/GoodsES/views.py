@@ -52,8 +52,10 @@ def GoodsSearch(request):
     type = request.POST.get("type")
     lprice = 0
     hprice = 99999999
-    hprice = request.POST.get("highprice")
-    lprice = request.POST.get("lowprice")
+    if request.POST.get("highprice")!='':
+        hprice = float(request.POST.get("highprice"))
+    if request.POST.get("lowprice") != '':
+        lprice = float(request.POST.get("lowprice"))
     user = User.objects.filter(token=token)
     ESdata(hosts)
     if user:
