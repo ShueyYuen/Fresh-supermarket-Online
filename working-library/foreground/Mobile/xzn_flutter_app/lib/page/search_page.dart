@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/product/product_show.dart';
+import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
 import '../app.dart';
@@ -17,9 +19,6 @@ class SearchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget placeholder = Image.asset(
-      "assets/image/default_picture.webp", //头像占位图，加载过程中显示
-    );
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -38,17 +37,9 @@ class SearchCard extends StatelessWidget {
             Expanded(
                 flex: 1,
                 child: Container(
-                  width: double.infinity,
-                  child: CachedNetworkImage(
-                    imageUrl: Config.baseUrl() +
-                        "picture/" +
-                        product.picture_list["shuffle"][0],
-                    fit: BoxFit.cover,
-                    width: 100,
-                    placeholder: (context, url) => placeholder,
-                    errorWidget: (context, url, error) => placeholder,
-                  ),
-                )),
+                    width: double.infinity,
+                    child: PictureSelf(product.picture_list["shuffle"][0],
+                        product: product))),
             Expanded(
               flex: 1,
               child: Stack(
@@ -131,10 +122,12 @@ class ProductSearchPage extends StatefulWidget {
 
 class _ProductSearchPageState extends State<ProductSearchPage> {
   var _future;
+  String token;
 
   @override
   void initState() {
-    _future = getProductRecommendList("");
+    token = getToken(context);
+    _future = getProductRecommendList(token, quantity: 10);
     super.initState();
   }
 

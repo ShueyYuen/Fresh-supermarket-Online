@@ -37,7 +37,7 @@ class MiniProductCard extends StatelessWidget {
                   child: CachedNetworkImage(
                     width: double.infinity,
                     imageUrl: Config.baseUrl() +
-                      "picture/"+product.picture_list["shuffle"][0],
+                      "picture/"+product.product_id.toString()+"/"+product.picture_list["shuffle"][0],
                     fit: BoxFit.cover,
                     placeholder: (context, url) => Image.asset(
                       "assets/image/default_picture.webp",

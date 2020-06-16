@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
-import 'package:xzn/states/profile_change_notifier.dart';
+import 'package:xzn/services/token.dart';
+//import 'package:xzn/states/profile_change_notifier.dart';
 import '../widget/home/swiper.dart';
 import '../widget/home/home_product_card.dart';
 import '../widget/home/home_class_list.dart';
@@ -15,13 +16,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String section = "上海市奉贤区";
-  String token = null;
+  String token;
   List<Product> wordsList = List<Product>();
   ScrollController _scrollController;
 
   @override
   void initState() {
-    token = Provider.of<UserModel>(context, listen: false).user.token;
+    token = getToken(context);
     loadWords();
     _scrollController = ScrollController();
     super.initState();

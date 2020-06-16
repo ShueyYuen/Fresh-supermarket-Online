@@ -1,2 +1,2 @@
-Spinach1.png
-菠菜1
+Spinach1.png Spinach2.png Spinach3.png
+菠菜1 菠菜2 菠菜3

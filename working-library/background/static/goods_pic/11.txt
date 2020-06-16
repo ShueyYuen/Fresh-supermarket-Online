@@ -1,2 +1,2 @@
-duckblood1.png
-鸭血1
+duckblood1.png duckblood2.png duckblood3.png
+鸭血1 鸭血2 鸭血3

@@ -63,7 +63,7 @@ class ProductPage extends StatelessWidget {
                         margin: EdgeInsets.only(top: 0),
                         child: CachedNetworkImage(
                           imageUrl: Config.baseUrl() +
-                              "picture/" +
+                              "picture/" + product.product_id.toString()+"/"+
                               product.picture_list["shuffle"][index],
                           fit: BoxFit.cover,
                           width: width,
@@ -338,7 +338,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   ...product.picture_list["detail"].map((image_link) {
                     return CachedNetworkImage(
-                      imageUrl: Config.baseUrl() + "picture/" + image_link,
+                      imageUrl: Config.baseUrl() + "picture/" +product.product_id.toString()+"/"+ image_link,
                       fit: BoxFit.fitWidth,
                       width: width,
                       placeholder: (context, url) => placeholder,
