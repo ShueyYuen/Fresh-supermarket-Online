@@ -1,2 +1,2 @@
-beef.png
-牛肉1
+chicken1.png
+鸡肉1

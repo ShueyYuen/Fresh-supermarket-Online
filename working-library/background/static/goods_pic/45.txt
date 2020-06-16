@@ -1,2 +1,2 @@
-beef.png
-牛肉1
+mutton1.png
+羊肉1
