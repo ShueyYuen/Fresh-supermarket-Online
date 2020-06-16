@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'page/cart.dart';
 import 'page/classification.dart';
 import 'page/home.dart';
 import 'page/my.dart';
+import 'states/profile_change_notifier.dart';
 
 class App extends StatefulWidget {
   App({Key key, this.index: 0}) : super(key: key);

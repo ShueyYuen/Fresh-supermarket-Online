@@ -15,7 +15,8 @@ class HomeProduct extends StatelessWidget {
   double width;
   Product product;
   Widget placeholder = Image.asset(
-    "assets/image/default_picture.webp", //头像占位图，加载过程中显示
+    "assets/image/default_picture.webp",
+    fit: BoxFit.cover,//头像占位图，加载过程中显示
   );
 
   @override
@@ -41,7 +42,7 @@ class HomeProduct extends StatelessWidget {
                   height: 70.0,
                   child: CachedNetworkImage(
                     imageUrl: Config.baseUrl() +
-                      'picture/' +
+                      'picture/' +product.product_id.toString()+"/"+
                       product.picture_list["shuffle"][0],
                     fit: BoxFit.cover,
                     placeholder: (context, url) => placeholder,
