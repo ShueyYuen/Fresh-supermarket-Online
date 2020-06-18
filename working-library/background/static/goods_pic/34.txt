@@ -1,2 +1,2 @@
-beef1.png
-牛肉1
+beef1.png beef2.png beef3.png
+beef1.png beef2.png beef3.png
