@@ -46,7 +46,7 @@ def ESmatch(goods_name):
 @csrf_exempt
 def GoodsSearch(request):
     token = request.POST.get("token")
-    print(token);
+    print(token)
     type = request.POST.get("type")
     print(type)
     lprice = 0.00
