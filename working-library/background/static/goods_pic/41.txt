@@ -1,2 +1,2 @@
-rice1.png
-大米1
+rice1.png rice2.png rice3.png
+rice1.png rice2.png rice3.png
