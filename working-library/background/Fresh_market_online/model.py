@@ -20,7 +20,6 @@ class Address(models.Model):
     class Meta:
         managed = False
         db_table = 'address'
-        unique_together = (('address_id', 'customer_id', 'house_no'),)
 
 
 class Ads(models.Model):
@@ -325,3 +324,4 @@ class Warehouse(models.Model):
     class Meta:
         managed = False
         db_table = 'warehouse'
+
