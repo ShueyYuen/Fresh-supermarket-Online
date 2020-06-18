@@ -15,6 +15,7 @@ class Address(models.Model):
     city = models.CharField(max_length=255, blank=True, null=True)
     district = models.CharField(max_length=255, blank=True, null=True)
     street = models.CharField(max_length=255, blank=True, null=True)
+    township = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
