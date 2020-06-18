@@ -361,9 +361,13 @@ class ProductPage extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, "app", (Route<dynamic> route) => false,
-                          arguments: 2);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return App(index: 2);
+                        }),
+                        (Route<dynamic> route) => false,
+                      );
                     },
                     child: Stack(
                       alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
@@ -431,7 +435,7 @@ class ProductPage extends StatelessWidget {
                                 duration: Duration(seconds: 1),
                                 content: Container(
                                   alignment: Alignment.topCenter,
-                                  height: 50,
+                                  height: 60,
                                   margin: EdgeInsets.only(bottom: 20),
                                   child: Row(
                                     children: <Widget>[
@@ -444,7 +448,7 @@ class ProductPage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                behavior: SnackBarBehavior.floating,
+                                behavior: SnackBarBehavior.fixed,
                               );
                               Scaffold.of(context).showSnackBar(snackBar);
                             },

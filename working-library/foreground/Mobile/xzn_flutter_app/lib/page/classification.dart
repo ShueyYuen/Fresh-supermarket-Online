@@ -6,7 +6,10 @@ import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 
 class Classification extends StatefulWidget {
-  Classification(this.idx);
+  Classification({
+    Key key,
+    this.idx: 0,
+  }) : super(key: key);
   int idx;
 
   @override
@@ -46,25 +49,25 @@ class _ClassificationState extends State<Classification> {
   @override
   void initState() {
     super.initState();
-    print("dfsadfasdfsad");
     print(widget.idx);
 
     _controller = TabController(
       length: _tabValues.length,
       vsync: ScrollableState(),
     );
+    _controller.index = widget.idx;
     _controller.addListener(() {
-
       setState(() {
         _activeIndex = _controller.index;
         // 下一句更新_future即重新请求不同类型
-        _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
+        _future =
+            getSearchResultProduct(_token, type: _tabValues[_controller.index]);
       });
-
     });
     // 商品卡片所需
     _token = getToken(context);
-    _future = getSearchResultProduct(_token, type: _tabValues[_controller.index]);
+    _future =
+        getSearchResultProduct(_token, type: _tabValues[_controller.index]);
   }
 
   @override

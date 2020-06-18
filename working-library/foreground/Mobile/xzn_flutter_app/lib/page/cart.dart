@@ -315,32 +315,32 @@ class _CartState extends State<Cart> {
                               color: Colors.green[100],
                             )),
                         Expanded(flex: 3, child: Text("")),
-                        FlatButton(
-                          color: Theme.of(context).primaryColor,
-                          highlightColor: Colors.blue[700],
-                          colorBrightness: Brightness.dark,
-                          splashColor: Colors.grey,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 40),
-                            child: Text(
-                              "退出登录",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          onPressed: () {
-                            Provider.of<UserModel>(context, listen: false)
-                                .user = null;
-                            Provider.of<CartModel>(context, listen: false)
-                                .cart = null;
-                            Provider.of<OrderModel>(context, listen: false)
-                                .order = null;
-                            Provider.of<AddressModel>(context, listen: false)
-                                .address = null;
-                          },
-                        ),
+//                        FlatButton(
+//                          color: Theme.of(context).primaryColor,
+//                          highlightColor: Colors.blue[700],
+//                          colorBrightness: Brightness.dark,
+//                          splashColor: Colors.grey,
+//                          child: Container(
+//                            padding: EdgeInsets.symmetric(
+//                                vertical: 10, horizontal: 40),
+//                            child: Text(
+//                              "退出登录",
+//                              style: TextStyle(fontSize: 18),
+//                            ),
+//                          ),
+//                          shape: RoundedRectangleBorder(
+//                              borderRadius: BorderRadius.circular(30.0)),
+//                          onPressed: () {
+//                            Provider.of<UserModel>(context, listen: false)
+//                                .user = null;
+//                            Provider.of<CartModel>(context, listen: false)
+//                                .cart = null;
+//                            Provider.of<OrderModel>(context, listen: false)
+//                                .order = null;
+//                            Provider.of<AddressModel>(context, listen: false)
+//                                .address = null;
+//                          },
+//                        ),
                       ],
                     ),
                     SizedBox(
@@ -401,6 +401,7 @@ class _CartState extends State<Cart> {
       bottomSheet: Container(
         width: double.infinity,
         height: 40,
+//        color: Colors.black,
         child: Flex(
           direction: Axis.horizontal,
           children: <Widget>[
@@ -477,12 +478,28 @@ class _CartState extends State<Cart> {
                       if (selected.indexOf(cartItem.product.product_id) != -1)
                         order.add(cartItem);
                     }
-                    Navigator.push(context,
+                    if (order.length != 0) Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return OrderConfirm(
                         order: order,
                       );
                     }));
+                    else {
+                      var snackBar = SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ),
+                            Text("还没有选择任何商品")
+                          ],
+                        ),
+                        behavior: SnackBarBehavior.fixed,
+                      );
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    }
                   },
                 ),
               ),

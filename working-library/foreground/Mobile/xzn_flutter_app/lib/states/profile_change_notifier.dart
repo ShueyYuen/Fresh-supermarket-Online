@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:xzn/index.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/models/order.dart';
+
+import 'package:provider/provider.dart';
 
 import '../common/global.dart';
 
 // 导入需要全局使用的模型
+import '../models/product.dart';
 import '../models/profile.dart';
 import '../models/user.dart';
 import '../models/cartItem.dart';
@@ -114,6 +116,19 @@ class AddressModel extends ProfileChangeNotifier {
         break;
       }
     }
+    notifyListeners();
+  }
+
+  void update(Address address) {
+    bool add = true;
+    for (Address item in this.address) {
+      if (item.address_id == address.address_id) {
+        item = address;
+        print(item.toString());
+        break;
+      }
+    }
+    if (add) this.address.add(address);
     notifyListeners();
   }
 }

@@ -10,7 +10,7 @@ Filter _$FilterFromJson(Map<String, dynamic> json) {
   return Filter()
     ..min = json['min'] as num
     ..max = json['max'] as num
-    ..tag = (json['tag'] as List)?.map((e) => e as String)?.toList();
+    ..tag = json['tag'] as String;
 }
 
 Map<String, dynamic> _$FilterToJson(Filter instance) => <String, dynamic>{
