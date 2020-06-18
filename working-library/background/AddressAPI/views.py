@@ -79,24 +79,50 @@ def AddressUpdate(request):
             latitude = detail['latitude']
             tag = request.POST.get("tag")
 
-            if address_id != '':
-                Address.objects.filter(address_id=address_id).update(address_id=address_id, consignee=consignee,
+            if int(address_id) != 0:
+                Address.objects.filter(address_id=address_id).update(consignee=consignee,
                                                                      consignee_sex=sex, consignee_phone=phone,
                                                                      province=province, city=city, district=district,
                                                                      township=township,street=street, house_no=house_no,
                                                                      longitude=longitude, latitude=latitude, tag=tag)
             else:
-                addr=Address.objects.create(consignee=consignee,
+                Address.objects.create(consignee=consignee,
                                         consignee_sex=sex, consignee_phone=phone,
                                         province=province, city=city, district=district,
                                         customer_id=uid,township=township,street=street, house_no=house_no,
-                                        longitude=str(longitude), latitude=str(latitude), tag=tag)
-                address_id=addr.values()[0]['address_id']
+                                        longitude=longitude, latitude=latitude, tag=tag)
+                addr=Address.objects.filter(consignee=consignee,
+                                        consignee_sex=sex, consignee_phone=phone,
+                                        province=province, city=city, district=district,
+                                        customer_id=uid,township=township,street=street, house_no=house_no,
+                                        longitude=longitude, latitude=latitude, tag=tag).values()[0]
+                address_id=addr['address_id']
 
             data={'address_id':str(address_id)}
             response = json.dumps(data)
             print(response)
             return HttpResponse(response)
+    data = {"message": "Failed"}
+    response = json.dumps(data)
+    print(response)
+    return HttpResponse(response)
+
+@csrf_exempt
+def AddressDelete(request):
+    token = request.POST.get("token")
+    address_id = request.POST.get("address_id")
+    user = User.objects.filter(token=token)
+    if user:
+        user=user.values()[0]
+        telephone = user['phone']
+        uid = user['user_id']
+        if out_token(telephone, token):
+            Address.objects.filter(address_id=address_id).delete()
+            data = {"success": True}
+            response = json.dumps(data)
+            print(response)
+            return HttpResponse(response)
+        
     data = {"message": "Failed"}
     response = json.dumps(data)
     print(response)
