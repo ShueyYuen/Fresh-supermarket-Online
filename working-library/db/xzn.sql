@@ -11,7 +11,7 @@
  Target Server Version : 100121
  File Encoding         : 65001
 
- Date: 18/06/2020 16:25:53
+ Date: 18/06/2020 18:06:25
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +36,7 @@ CREATE TABLE `address`  (
   `district` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `township` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`address_id`, `customer_id`, `house_no`) USING BTREE,
+  PRIMARY KEY (`address_id`) USING BTREE,
   INDEX `customer_id`(`customer_id`, `address_id`) USING BTREE,
   INDEX `address_id`(`address_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10005 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
@@ -45,13 +45,7 @@ CREATE TABLE `address`  (
 -- Records of address
 -- ----------------------------
 INSERT INTO `address` VALUES (00000001, 00001, '上海市', 'lzh', '18721522908', 'M', '999', 30.82764, 121.50648, '学校', '上海市', '奉贤区', '海思路', '海湾镇');
-INSERT INTO `address` VALUES (00000002, 00001, '上海市', 'lzh', '18721525908', 'M', '999', 30.82764, 121.50648, '学校', '上海市', '奉贤区', '海思路', '海湾镇');
-INSERT INTO `address` VALUES (00000003, 00001, '上海市', 'shl', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道');
-INSERT INTO `address` VALUES (00000004, 00001, '上海市', 'yx', '18297913123', 'M', '999', 30.82764, 121.50648, '学校', '上海市', '奉贤区', '海思路', '海湾镇');
-INSERT INTO `address` VALUES (00000005, 00001, '上海市', 'pyl', '13122387285', 'M', '999', 30.82764, 121.50648, '学校', '上海市', '奉贤区', '海思路', '海湾镇');
 INSERT INTO `address` VALUES (00000001, 00002, '上海市', 'Johnny', '18721517889', 'M', '999', 30.82764, 121.50648, '学校', '上海市', '奉贤区', '海思路', '海湾镇');
-INSERT INTO `address` VALUES (00000004, 00002, '上海市', 'yx', '18297913123', 'M', '130', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道');
-INSERT INTO `address` VALUES (00000005, 00002, '上海市', 'pyl', '13122387285', 'M', '130', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道');
 INSERT INTO `address` VALUES (00000001, 00003, '上海市', 'shl', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道');
 INSERT INTO `address` VALUES (10000004, 10004, '上海市', '测试', '18888888888', 'M', '111号', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道');
 
@@ -1028,7 +1022,7 @@ CREATE TABLE `user`  (
   `head_image_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '11111111111',
   `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `money` double NULL DEFAULT NULL,
+  `money` double NULL DEFAULT 1000,
   PRIMARY KEY (`user_id`, `phone`) USING BTREE,
   UNIQUE INDEX `login_phone`(`phone`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
