@@ -75,6 +75,7 @@ def GoodsSearch(request):
                     goods_type = goods['goods_type']
                     price = {"num": goods['price'], "unit": str(goods['unit'])}
                     shuffle, detail = getpicture(str(goods_id))
+                    print(shuffle,detail)
                     picture_list = {"shuffle": shuffle, "detail": detail}
                     details = {"origin": goods['origin'], "specification": goods['specification'],
                                "packaging": goods['packaging'], "stockway": goods['stockway'], "weight": goods['weight']}
@@ -95,7 +96,7 @@ def GoodsSearch(request):
             else:
                 result=(ESmatch(key))
                 for item in result['hits']['hits']:
-                    print(item)
+                    #print(item)
                     #print(item['_source']['goods_id'])
                     goods_id = item['_source']['goods_id']
                     #print(lprice)

@@ -36,7 +36,7 @@ def AddressGet(request):
                 mdata['person'] = person
                 mdata['phone'] = phone
                 detail = {'province': province, 'city': city, 'district': district, 'township':township,'street': street,
-                          'house_no': house_no,'longitude':longitude,"latitude":latitude}
+                          'no': house_no,'longitude':longitude,"latitude":latitude}
                 mdata['detail'] = detail
                 mdata['tag'] = tag
                 data.append(mdata)
@@ -60,7 +60,9 @@ def AddressUpdate(request):
         if out_token(telephone, token):
             address_id = request.POST.get("address_id")
 
+            print(address_id,request.POST.get("person"))
             person = eval(request.POST.get("person"))
+            
             consignee = person["consignee"]
             sex = person["sex"]
 
@@ -72,7 +74,7 @@ def AddressUpdate(request):
             district = detail['district']
             township = detail['township']
             street = detail['street']
-            house_no = detail['house_no']
+            house_no = detail['no']
             longitude =detail['longitude']
             latitude = detail['latitude']
             tag = request.POST.get("tag")
@@ -84,13 +86,14 @@ def AddressUpdate(request):
                                                                      township=township,street=street, house_no=house_no,
                                                                      longitude=longitude, latitude=latitude, tag=tag)
             else:
-                Address.objects.create(consignee=consignee,
+                addr=Address.objects.create(consignee=consignee,
                                         consignee_sex=sex, consignee_phone=phone,
                                         province=province, city=city, district=district,
                                         customer_id=uid,township=township,street=street, house_no=house_no,
                                         longitude=str(longitude), latitude=str(latitude), tag=tag)
+                address_id=addr.values()[0]['address_id']
 
-            data={'success':True}
+            data={'address_id':str(address_id)}
             response = json.dumps(data)
             print(response)
             return HttpResponse(response)

@@ -26,7 +26,7 @@ def OrderDetails(request):
                     phone,sex,nickname=user['phone'],user['sex'],user['nickname']
                     customer={'phone':phone,'sex':sex,'nickname':nickname}
                     address={'address_id':addr['address_id'],'person':{'consignee':addr['consignee'],'sex':addr['consignee_sex']},'phone':addr['consignee_phone']}
-                    detail={'province':addr['province'],'city':addr['city'],'district':addr['district'],'street':addr['street'],'house_no':addr['house_no'],'longitude':addr['longitude'],'latitude':addr['latitude'],'tag':addr['tag']}
+                    detail={'province':addr['province'],'city':addr['city'],'district':addr['district'],'street':addr['street'],'no':addr['house_no'],'longitude':addr['longitude'],'latitude':addr['latitude'],'tag':addr['tag']}
 
                     orderdetail=OrderDetail.objects.filter(order_id=item['order_id']).values()
                     product_list=[]
