@@ -1,2 +1,2 @@
 duckleg1.png duckleg2.png duckleg3.png
-鸭腿1 鸭腿2 鸭腿3
+duckleg1.png duckleg2.png duckleg3.png

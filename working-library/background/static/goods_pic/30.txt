@@ -1,2 +1,2 @@
-soybean1.png
-黄豆1
+soybean1.png soybean2.png soybean3.png
+soybean1.png soybean2.png soybean3.png
