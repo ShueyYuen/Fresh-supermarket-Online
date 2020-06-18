@@ -11,7 +11,7 @@ def AddressGet(request):
     user = User.objects.filter(token=token)
     data = []
     if user:
-        user=user.values()[0];
+        user=user.values()[0]
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
@@ -23,6 +23,7 @@ def AddressGet(request):
                 province = address['province']
                 city = address['city']
                 district = address['district']
+                township = address['township']
                 street = address['street']
                 house_no = address['house_no']
                 longitude = address['longitude']
@@ -34,10 +35,9 @@ def AddressGet(request):
                 person = {'consignee': consignee, 'sex': sex}
                 mdata['person'] = person
                 mdata['phone'] = phone
-                detail = {'province': province, 'city': city, 'district': district, 'street': street, 'house_no': house_no}
+                detail = {'province': province, 'city': city, 'district': district, 'township':township,'street': street,
+                          'no': house_no,'longitude':longitude,"latitude":latitude}
                 mdata['detail'] = detail
-                mdata['longitude'] = longitude
-                mdata['latitude'] = latitude
                 mdata['tag'] = tag
                 data.append(mdata)
 
@@ -60,7 +60,9 @@ def AddressUpdate(request):
         if out_token(telephone, token):
             address_id = request.POST.get("address_id")
 
+            print(address_id,request.POST.get("person"))
             person = eval(request.POST.get("person"))
+            
             consignee = person["consignee"]
             sex = person["sex"]
 
@@ -70,27 +72,28 @@ def AddressUpdate(request):
             province = detail['province']
             city = detail['city']
             district = detail['district']
+            township = detail['township']
             street = detail['street']
-            house_no = detail['house_no']
-
-            longitude = request.POST.get("longitude")
-            latitude = request.POST.get("latitude")
+            house_no = detail['no']
+            longitude =detail['longitude']
+            latitude = detail['latitude']
             tag = request.POST.get("tag")
 
             if address_id != '':
                 Address.objects.filter(address_id=address_id).update(address_id=address_id, consignee=consignee,
                                                                      consignee_sex=sex, consignee_phone=phone,
                                                                      province=province, city=city, district=district,
-                                                                     street=street, house_no=house_no,
+                                                                     township=township,street=street, house_no=house_no,
                                                                      longitude=longitude, latitude=latitude, tag=tag)
             else:
-                Address.objects.create(consignee=consignee,
+                addr=Address.objects.create(consignee=consignee,
                                         consignee_sex=sex, consignee_phone=phone,
                                         province=province, city=city, district=district,
-                                        customer_id=uid,street=street, house_no=house_no,
+                                        customer_id=uid,township=township,street=street, house_no=house_no,
                                         longitude=str(longitude), latitude=str(latitude), tag=tag)
+                address_id=addr.values()[0]['address_id']
 
-            data={'success':True}
+            data={'address_id':str(address_id)}
             response = json.dumps(data)
             print(response)
             return HttpResponse(response)

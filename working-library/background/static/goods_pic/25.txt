@@ -1,2 +1,2 @@
-colorpepper1.png
-彩椒1
+colorpepper1.png colorpepper2.png colorpepper3.png
+colorpepper1.png colorpepper2.png colorpepper3.png
