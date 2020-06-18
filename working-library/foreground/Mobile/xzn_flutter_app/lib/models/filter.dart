@@ -8,7 +8,7 @@ class Filter {
 
     num min;
     num max;
-    List<String> tag;
+    String tag;
     
     factory Filter.fromJson(Map<String,dynamic> json) => _$FilterFromJson(json);
     Map<String, dynamic> toJson() => _$FilterToJson(this);

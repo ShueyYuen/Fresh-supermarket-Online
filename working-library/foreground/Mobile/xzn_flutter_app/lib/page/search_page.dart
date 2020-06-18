@@ -124,13 +124,37 @@ class ProductSearchPage extends StatefulWidget {
 class _ProductSearchPageState extends State<ProductSearchPage> {
   var _future;
   String token;
+  Filter filter = Filter();
   TextEditingController _key = TextEditingController();
+  TextEditingController _max = TextEditingController();
+  TextEditingController _min = TextEditingController();
+  FocusNode _maxnode = FocusNode();
+  FocusNode _minnode = FocusNode();
+
+  final List<String> types = ["全部","水果蔬菜","水产海鲜","肉食蛋白","玉米粮油","鲜奶乳品"];
 
   @override
   void initState() {
-    //token = getToken(context);
-    token = Provider.of<UserModel>(context, listen: false).user.token;
+    token = getToken(context);
+//    token = Provider.of<UserModel>(context, listen: false).user.token;
     _future = getProductRecommendList(token, quantity: 10);
+    filter.tag = "全部";
+    _maxnode.addListener(() {
+      if (!_maxnode.hasFocus) {
+        setState(() {
+          if (_max.text != "") filter.max = int.parse(_max.text);
+          else filter.max = null;
+        });
+      }
+    });
+    _minnode.addListener(() {
+      if (!_minnode.hasFocus) {
+        setState(() {
+          if (_min.text != "") filter.min = int.parse(_min.text);
+          else filter.min = null;
+        });
+      }
+    });
     //_future = getSearchResultProduct(token, key: _key.toString());
     super.initState();
   }
@@ -142,12 +166,11 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
   }
 
   void getSearch() {
-    print("asdfasdfasdfasdfsdf");
     print(_key.text);
+    print(filter.toJson());
     setState(() {
       _future = getSearchResultProduct(token, key: _key.text);
     });
-
   }
 
   @override
@@ -172,7 +195,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                 )),
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
+                icon: Icon(Icons.search),
                 onPressed: () {
                   getSearch();
                 },
@@ -259,6 +282,8 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: TextField(
+                              focusNode: _minnode,
+                              controller: _min,
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
@@ -275,6 +300,8 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: TextField(
+                              focusNode: _maxnode,
+                              controller: _max,
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
@@ -286,37 +313,47 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                     SizedBox(
                       height: 30,
                     ),
-                    Text("价格区间"),
+                    Text("分类"),
                     Wrap(
+                      alignment: WrapAlignment.start,
                       spacing: 10,
-                      children: <Widget>[
-                        RawChip(
-                          label: Text("data"),
-                          selected: false,
+                      children: types.map((_tagkey) {
+                        bool _selected = filter.tag == _tagkey;
+                        return RawChip(
+//                                    label: Text(sex[widget.address.person["sex"]]),
+                          label: Text(_tagkey),
+                          selected: _selected,
                           labelStyle: TextStyle(
-//                    color: _selected?Colors.white:Colors.grey[700]
-                              ),
+                            color: _selected
+                              ? Colors.white
+                              : Colors.grey[700]),
                           onSelected: (v) {
                             setState(() {
-//                      widget.address.person["sex"] = _key;
+                              filter.tag = _tagkey;
                             });
                           },
                           selectedColor: Theme.of(context).primaryColor,
-                        ),
-                        ChoiceChip(label: Text("水果蔬菜"), selected: true),
-                        ChoiceChip(label: Text("水产海鲜"), selected: false),
-                        ChoiceChip(label: Text("肉食蛋白"), selected: false),
-                        ChoiceChip(label: Text("玉米粮油"), selected: false),
-                        ChoiceChip(label: Text("鲜奶乳品"), selected: false),
-                      ],
+                        );
+                      }).toList(),
                     )
                   ],
                 ),
               ),
               ButtonBar(
                 children: <Widget>[
-                  FlatButton(onPressed: () {}, child: Text("重置")),
-                  FlatButton(onPressed: () {}, child: Text("确定"))
+                  FlatButton(onPressed: () {
+                    filter.max = null;
+                    filter.min = null;
+                    filter.tag = "全部";
+                    setState(() {});
+                  }, child: Text("重置")),
+                  FlatButton(onPressed: () {
+                    if (_max.text != "") filter.max = int.parse(_max.text);
+                    else filter.max = null;
+                    if (_min.text != "") filter.min = int.parse(_min.text);
+                    else filter.min = null;
+                    print(filter.toJson());
+                  }, child: Text("确定"))
                 ],
               )
             ],

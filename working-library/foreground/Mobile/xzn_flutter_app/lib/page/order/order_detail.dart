@@ -177,14 +177,11 @@ class OrderDetail extends StatelessWidget {
                   ListTile(
                     title: Text("收货地址"),
                     trailing: Text(
-                      order.address.detail["city"] +
-                          order.address.detail["district"] +
-                          "区" +
-                          order.address.detail["street"] +
-                          "路" +
-                          order.address.detail["house_no"] +
-                          "号"
-                              "\n" +
+                      order.address.detail.city +
+                          order.address.detail.district +
+                          order.address.detail.street +
+                          order.address.detail.no +
+                          "\n" +
                           order.address.person["consignee"] +
                           getSex(order.address.person["sex"]) +
                           "   " +

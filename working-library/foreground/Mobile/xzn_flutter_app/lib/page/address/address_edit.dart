@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/index.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/models/selfNearItem.dart';
 import 'package:xzn/page/address/address_located.dart';
@@ -20,6 +21,7 @@ class _AddressEditState extends State<AddressEdit> {
   TextEditingController _noController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   SelfNearItem selfNearItem;
+  Address address;
 
   final Map<String, String> sex = {"M": "先生", "F": "女士", "NULL": "未知"};
   final List<String> tags = ["家", "学校", "公司"];
@@ -28,23 +30,26 @@ class _AddressEditState extends State<AddressEdit> {
   void initState() {
     if (widget.edit) {
       selfNearItem = SelfNearItem();
-      _consigneeController.text = widget.address.person["consignee"];
-      _telController.text = widget.address.phone;
-      _addressController.text = widget.address.detail["city"] +
-          widget.address.detail["district"] +
-          "区" +
-          widget.address.detail["street"] +
-          "路";
-      selfNearItem.city = widget.address.detail["city"];
-      selfNearItem.district = widget.address.detail["district"];
-      selfNearItem.township = widget.address.detail["street"];
+      print(widget.address.toJson());
+      var json = widget.address.toJson();
+      var detail = widget.address.detail.toJson();
+      json["detail"] = detail;
+      address = Address.fromJson(json);
+      _consigneeController.text = address.person["consignee"];
+      _telController.text = address.phone;
+      _addressController.text = address.detail.city +
+          widget.address.detail.district +
+          widget.address.detail.street;
+      selfNearItem.city = address.detail.city;
+      selfNearItem.district = address.detail.district;
+      selfNearItem.township = address.detail.street;
       if (_addressController.text.length > 15)
         _addressController.text = _addressController.text
             .replaceRange(15, _addressController.text.length, '....');
-      _noController.text = widget.address.detail["house_no"].toString();
+      _noController.text = widget.address.detail.no??"";
     } else {
-      widget.address = Address.fromJson({
-        "address_id": "",
+      address = Address.fromJson({
+        "address_id": 0,
         "person": {"consignee": "", "sex": ""},
         "phone": "",
         "detail": {
@@ -52,7 +57,9 @@ class _AddressEditState extends State<AddressEdit> {
           "city": "",
           "district": "",
           "street": "",
-          "no": 0
+          "no": "",
+          "longitude":0,
+          "latitude":0
         },
         "tag": ""
       });
@@ -75,7 +82,7 @@ class _AddressEditState extends State<AddressEdit> {
                     ),
                     onPressed: () {
                       Provider.of<AddressModel>(context)
-                          .delete(widget.address.address_id);
+                          .delete(address.address_id);
                       Navigator.of(context).pop();
                     },
                   )
@@ -114,7 +121,7 @@ class _AddressEditState extends State<AddressEdit> {
                               spacing: 10,
                               children: sex.keys.map((_key) {
                                 bool _selected =
-                                    _key == widget.address.person["sex"];
+                                    _key == address.person["sex"];
                                 return RawChip(
 //                                    label: Text(sex[widget.address.person["sex"]]),
                                   label: Text(sex[_key]),
@@ -125,7 +132,7 @@ class _AddressEditState extends State<AddressEdit> {
                                           : Colors.grey[700]),
                                   onSelected: (v) {
                                     setState(() {
-                                      widget.address.person["sex"] = _key;
+                                      address.person["sex"] = _key;
                                     });
                                   },
                                   selectedColor: Theme.of(context).primaryColor,
@@ -283,7 +290,7 @@ class _AddressEditState extends State<AddressEdit> {
                         child: Wrap(
                           spacing: 10,
                           children: tags.map((_tag) {
-                            bool _selected = _tag == widget.address.tag;
+                            bool _selected = _tag == address.tag;
                             return RawChip(
 //                                    label: Text(sex[widget.address.person["sex"]]),
                               label: Text(_tag.length < 2
@@ -296,7 +303,7 @@ class _AddressEditState extends State<AddressEdit> {
                               selected: _selected,
                               onSelected: (v) {
                                 setState(() {
-                                  widget.address.tag = _tag;
+                                  address.tag = _tag;
                                 });
                               },
                               selectedColor: Theme.of(context).primaryColor,
@@ -325,12 +332,15 @@ class _AddressEditState extends State<AddressEdit> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 onPressed: () async {
-                  widget.address.person["consignee"] = _consigneeController.text;
-                  widget.address.phone = _telController.text;
-                  Map addressMap = new Map();
-                  addressMap = await getAddressDetail(_addressController);
-                  print(addressMap);
-                  Navigator.of(context).pop();
+                  address.person["consignee"] = _consigneeController.text;
+                  address.phone = _telController.text;
+                  Amapgeo addressMap = await getAddressDetail(_addressController);
+                  address.detail = addressMap;
+                  address.detail.no = _noController.text;
+                  String a = await updateAddress(context, address);
+                  print(a);
+                  print(address.toJson());
+                  if (widget.edit) Navigator.of(context).pop(true);
                 },
               ),
             )
