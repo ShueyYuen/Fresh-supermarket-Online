@@ -43,7 +43,7 @@ def Goodsdetail(request):
 @csrf_exempt
 def getpicture(id):
     import os
-    print(os.getcwd())
+    #print(os.getcwd())
     with open('./static/goods_pic/'+str(id)+'.txt',"r",encoding='utf-8') as picture:
         shuffle = picture.readline().strip('\n').split(' ')
         detail = picture.readline().strip('\n').split(' ')

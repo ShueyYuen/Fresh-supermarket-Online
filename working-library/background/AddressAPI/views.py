@@ -15,7 +15,7 @@ def AddressGet(request):
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            for address in Address.objects.filter(customer_id=uid).values():
+            for address in Address.objects.filter(customer_id=uid,deleted=0).values():
                 address_id = address['address_id']
                 consignee =address['consignee']
                 sex = address['consignee_sex']
@@ -117,7 +117,7 @@ def AddressDelete(request):
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            Address.objects.filter(address_id=address_id).delete()
+            Address.objects.filter(address_id=address_id).update(deleted=1)
             data = {"success": True}
             response = json.dumps(data)
             print(response)

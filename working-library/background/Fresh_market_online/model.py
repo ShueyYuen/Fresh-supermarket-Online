@@ -1,3 +1,10 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
@@ -16,6 +23,7 @@ class Address(models.Model):
     district = models.CharField(max_length=255, blank=True, null=True)
     street = models.CharField(max_length=255, blank=True, null=True)
     township = models.CharField(max_length=255, blank=True, null=True)
+    deleted = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -101,9 +109,9 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Deliveryman(models.Model):
-    deliveryman_id = models.IntegerField(primary_key=True, verbose_name='骑手编号')
-    warehouse_id = models.CharField(max_length=20, blank=True, null=True, verbose_name='仓库编号')
-    taking_status = models.CharField(max_length=255, blank=True, null=True, verbose_name='骑手状态')
+    deliveryman_id = models.IntegerField(primary_key=True)
+    warehouse_id = models.CharField(max_length=20, blank=True, null=True)
+    taking_status = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -155,27 +163,26 @@ class DjangoSession(models.Model):
 
 
 class Goods(models.Model):
-    goods_id = models.AutoField(primary_key=True,verbose_name='商品编号')
-    goods_name = models.CharField(max_length=20, blank=True, null=True,verbose_name='商品名称')
-    goods_type = models.CharField(max_length=10, blank=True, null=True,verbose_name='商品类别')
-    unit = models.CharField(max_length=10, blank=True, null=True,verbose_name='单位')
-    price = models.FloatField(blank=True, null=True,verbose_name='商品单价')
-    warehouse_id = models.CharField(max_length=20, blank=True, null=True,verbose_name='所属仓库id')
-    stock = models.FloatField(blank=True, null=True, verbose_name='库存')
-    origin = models.CharField(max_length=255, blank=True, null=True, verbose_name='源')
-    specification = models.CharField(max_length=255,verbose_name='计量单位')
-    packaging = models.CharField(max_length=255, blank=True, null=True,verbose_name='单位名称')
-    stockway = models.CharField(max_length=255, blank=True, null=True,verbose_name='存储方式')
-    weight = models.FloatField(verbose_name='单位重量')
-    discount = models.FloatField(verbose_name='折扣')
-    subtitle = models.CharField(max_length=255, blank=True, null=True,verbose_name='产地')
-    distribution = models.CharField(max_length=255, blank=True, null=True,verbose_name='配送说明')
-    promotion = models.CharField(max_length=255, blank=True, null=True,verbose_name='限制')
-    tags_type = models.CharField(max_length=255, blank=True, null=True,verbose_name='标签名称')
-    tags_content = models.CharField(max_length=255, blank=True, null=True,verbose_name='标签内容')
+    goods_id = models.AutoField(primary_key=True)
+    goods_name = models.CharField(max_length=20, blank=True, null=True)
+    goods_type = models.CharField(max_length=10, blank=True, null=True)
+    unit = models.CharField(max_length=10, blank=True, null=True)
+    price = models.FloatField(blank=True, null=True)
+    warehouse_id = models.CharField(max_length=20, blank=True, null=True)
+    stock = models.FloatField(blank=True, null=True)
+    origin = models.CharField(max_length=255, blank=True, null=True)
+    specification = models.CharField(max_length=255)
+    packaging = models.CharField(max_length=255, blank=True, null=True)
+    stockway = models.CharField(max_length=255, blank=True, null=True)
+    weight = models.FloatField()
+    discount = models.FloatField()
+    subtitle = models.CharField(max_length=255, blank=True, null=True)
+    distribution = models.CharField(max_length=255, blank=True, null=True)
+    promotion = models.CharField(max_length=255, blank=True, null=True)
+    tags_type = models.CharField(max_length=255, blank=True, null=True)
+    tags_content = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = '商品表'
         managed = False
         db_table = 'goods'
 
@@ -317,12 +324,11 @@ class User(models.Model):
 
 
 class Warehouse(models.Model):
-    warehose_id = models.CharField(primary_key=True, max_length=20, verbose_name='仓库编号')
-    address = models.CharField(max_length=255, verbose_name='仓库地址')
-    admin_id = models.IntegerField(verbose_name='管理员id')
-    warehouse_name = models.CharField(max_length=20, blank=True, null=True, verbose_name='仓库名称')
+    warehose_id = models.CharField(primary_key=True, max_length=20)
+    address = models.CharField(max_length=255)
+    admin_id = models.IntegerField()
+    warehouse_name = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'warehouse'
-

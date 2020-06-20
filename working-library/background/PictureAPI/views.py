@@ -15,7 +15,7 @@ def PictureGet(request):
     end_pos = url.rfind('/') - 1  
     start_pos = url.rfind('/', 0, end_pos)  
     filename = url[start_pos + 1:]
-    print(filename)
+    #print(filename)
     path = r'./static/goods_pic/' + filename
     avatar = open(path, "rb")
     return HttpResponse(avatar.read(), content_type='image/png')

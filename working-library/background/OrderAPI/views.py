@@ -80,13 +80,13 @@ def OrderList(request):
             data=[]
             if order:
                 for item in order.values():
+                    oid = item['order_id']
                     user=User.objects.filter(user_id=item['customer_id']).values()[0]
                     addr=Address.objects.filter(customer_id=item['customer_id']).values()[0]
 
                     phone,sex,nickname=user['phone'],user['sex'],user['nickname']
                     customer={'phone':phone,'sex':sex,'nickname':nickname}
-                    address={'address_id':addr['address_id'],'person':{'consignee':addr['consignee'],'sex':addr['consignee_sex']},'phone':addr['consignee_phone']}
-                    detail={'province':addr['province'],'city':addr['city'],'district':addr['district'],'street':addr['street'],'no':addr['house_no'],'longitude':addr['longitude'],'latitude':addr['latitude'],'tag':addr['tag']}
+                    address={'address_id':addr['address_id'],'person':{'consignee':addr['consignee'],'sex':addr['consignee_sex']},'phone':addr['consignee_phone'],'detail':{'province':addr['province'],'city':addr['city'],'district':addr['district'],'street':addr['street'],'no':addr['house_no'],'longitude':addr['longitude'],'latitude':addr['latitude'],'tag':addr['tag']}}
 
                     orderdetail=OrderDetail.objects.filter(order_id=item['order_id']).values()
                     product_list=[]
@@ -116,12 +116,12 @@ def OrderList(request):
 
                     dman=Deliveryman.objects.filter(deliveryman_id=item['deliveryman_id']).values()[0]
                     duser=User.objects.filter(user_id=item['deliveryman_id']).values()[0]
-                    deliveryman={'deliveryman_id':dman['deliveryman_id'],'name':duser['nickname'],'phone':duser['phone'],'sex':duser['sex'],'longitude':'30.915406','latitude':'121.479650','status':dman['taking_status']}
-
-                    data.append({'order_id':oid,'customer':customer,'address':address,'detail':detail,'product_list':product_list,'deliveryman':deliveryman,
+                    deliveryman={'deliveryman_id':dman['deliveryman_id'],'name':duser['nickname'],'phone':duser['phone'],'sex':duser['sex'],'longitude':30.915406,'latitude':121.479650,'status':dman['taking_status']}
+                    #print(deliveryman)
+                    data.append({'order_id':oid,'customer':customer,'address':address,'product_list':product_list,'deliveryman':deliveryman,
                                 'create_order_time':str(item['create_order_time']),'receive_order_time':str(item['receive_order_time']),'finish_order_time':str(item['finish_order_time']),
                                 'order_status':item['order_status'],'payment_id':item['payment_id'],'total_price':total_price})
-            print(data)
+            #print(data)
             return HttpResponse(json.dumps(data))
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
 
@@ -201,7 +201,7 @@ def xznpay(request):
             if user['money']<total_price:
                 return HttpResponse(json.dumps({'message': '余额不足'}))
             user=User.objects.filter(user_id=uid).update(money=user['money']-total_price)
-            order=Order.objects.filter(order_id=oid).update(order_status=2)
+            order=Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
@@ -216,7 +216,7 @@ def OrderConfirm(request):
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            Order.objects.filter(order_id=oid).update(order_status=4)
+            Order.objects.filter(order_id=oid).update(order_status=4,receive_order_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))

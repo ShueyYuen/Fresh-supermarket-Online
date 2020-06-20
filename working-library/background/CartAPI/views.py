@@ -89,7 +89,7 @@ def CartQuery(request):
                         "picture_list": picture_list, "details": details, "stock": stock, "discount": discount,
                         "description": description, "tags": tags},"number":item['quantity']})
             response = json.dumps(data)
-            print(response)
+            #print(response)
             return HttpResponse(response)
     data = {"message": "Failed"}
     response = json.dumps(data)

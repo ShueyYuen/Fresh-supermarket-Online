@@ -15,7 +15,8 @@ def InfoGet(request):
         if out_token(telephone, token):
             nickname = user['nickname']
             sex = user['sex']
-            data = {"nickname": str(nickname), "telephone": str(telephone), "sex": str(sex)}
+            data = {"nickname": str(nickname), "phone": str(telephone), "sex": str(sex),"user_id":user['user_id'],
+                   "token":token,"head_image_id":user["head_image_id"],"money":user["money"]}
             response = json.dumps(data)
             print(response)
             return HttpResponse(response)
@@ -29,25 +30,23 @@ def InfoGet(request):
 def InfoSet(request):
     token = request.POST.get("token")
     nickname = request.POST.get("nickname")
+    original_password=request.POST.get('original_password')
     password = request.POST.get("password")
     sex = request.POST.get("sex")
-    phone = request.POST.get("telephone")
-
+    print(token,nickname,password,sex)
     user = User.objects.filter(token=token)
     if user:
+        user=user.values()[0]
+        phone=user['phone']
         if out_token(phone, token):
-            '''
-            if password == '':
-                user.update(nickname=nickname, sex=sex)
-            else:
-                user.update(password=password)
-            '''
-            if password != '':
-                user.update(password=password)
-            if nickname != '':
-                user.update(nickname=nickname)
-            if sex != '':
-                user.update(sex=sex)
+            if password != None:
+                if original_password!=user['password']:
+                    return HttpResponse(json.dumps({"message":"密码错误"}))
+                User.objects.filter(user_id=user['user_id']).update(password=password)
+            if nickname != None:
+                User.objects.filter(user_id=user['user_id']).update(nickname=nickname)
+            if sex != None:
+                User.objects.filter(user_id=user['user_id']).update(sex=sex)
 
             data = {"success": True}
             response = json.dumps(data)
