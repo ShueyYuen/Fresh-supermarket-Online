@@ -124,14 +124,16 @@ class ProductSearchPage extends StatefulWidget {
 class _ProductSearchPageState extends State<ProductSearchPage> {
   var _future;
   String token;
+  // 未使用filter变量，后续优化代码时再改
   Filter filter = Filter();
   TextEditingController _key = TextEditingController();
+  TextEditingController _type = TextEditingController();
   TextEditingController _max = TextEditingController();
   TextEditingController _min = TextEditingController();
   FocusNode _maxnode = FocusNode();
   FocusNode _minnode = FocusNode();
 
-  final List<String> types = ["全部","水果蔬菜","水产海鲜","肉食蛋白","玉米粮油","鲜奶乳品"];
+  final List<String> types = ["全部","水果蔬菜","水产海鲜","肉禽蛋品","米面粮油","鲜奶乳品"];
 
   @override
   void initState() {
@@ -169,7 +171,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
     print(_key.text);
     print(filter.toJson());
     setState(() {
-      _future = getSearchResultProduct(token, key: _key.text);
+      _future = getSearchResultProduct(token, key: _key.text, type: _type.text, highprice: _max.text, lowprice: _min.text);
     });
   }
 
@@ -331,6 +333,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                           onSelected: (v) {
                             setState(() {
                               filter.tag = _tagkey;
+                              _type.text = _tagkey;
                             });
                           },
                           selectedColor: Theme.of(context).primaryColor,
@@ -354,7 +357,15 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                     if (_min.text != "") filter.min = int.parse(_min.text);
                     else filter.min = null;
                     print(filter.toJson());
-                  }, child: Text("确定"))
+                  }, child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      getSearch();
+                    },
+                    child: Text("确定"),
+                  )
+                  //Text("确定")
+                  )
                 ],
               )
             ],
