@@ -76,7 +76,7 @@ def OrderList(request):
         uid = user['user_id']
         if out_token(telephone, token):
             data = []
-            order=Order.objects.filter(customer_id=uid)
+            order=Order.objects.filter(customer_id=uid)#.exclude(order_status=0)
             data=[]
             if order:
                 for item in order.values():
@@ -152,6 +152,8 @@ def OrderPayState(request):
         if out_token(telephone, token):
             print(request.POST.get("orders"))
             goods_list =eval(request.POST.get("orders"))
+            if len(goods_list)==0:
+                return HttpResponse(json.dumps({'message': '订单已提交，请勿重复提交'}))
             print(goods_list)
             adderss_id = request.POST.get("address_id")
             create_order_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

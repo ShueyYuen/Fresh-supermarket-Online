@@ -37,7 +37,7 @@ def Goodsdetail(request):
             return HttpResponse(response)
     data = {"message": "Failed"}
     response = json.dumps(data)
-    print(response)
+    #print(response)
     return HttpResponse(response)
 
 @csrf_exempt
