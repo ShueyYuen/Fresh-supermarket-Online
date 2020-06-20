@@ -96,6 +96,9 @@ class _OrderManageState extends State<OrderManage> {
                       children: data.map<Widget>((order) {
                         return OrderCard(
                           order: order,
+                          onUpdate: () {setState(() {
+                            _future = getOrderList(context, getToken(context));
+                          });},
                         );
                       }).toList(),
                     );

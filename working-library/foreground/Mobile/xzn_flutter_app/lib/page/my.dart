@@ -62,7 +62,7 @@ class _MyState extends State<My> {
                                   color: Colors.blue,
                                   size: 20,
                                 ),
-                                Text(user.money.toString()),
+                                Text(user==null?"":user.money.toString()),
                               ],
                             ),
                             onTap: () {

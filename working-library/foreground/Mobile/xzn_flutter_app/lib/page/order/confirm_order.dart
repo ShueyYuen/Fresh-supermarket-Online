@@ -98,10 +98,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
     super.initState();
     _future = getAddressList(context, "");
     try {
-      address = Provider
-        .of<AddressModel>(context, listen: false)
-        .address[0];
-    }catch (e) {
+      address = Provider.of<AddressModel>(context, listen: false).address[0];
+    } catch (e) {
       address = null;
     }
     print(address.toString());
@@ -165,7 +163,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             subtitle: Text(address_sub.person["consignee"] +
                                 getSex(address_sub.person["sex"]) +
                                 " " +
-                                address_sub.phone.replaceRange(3, address_sub.phone.length - 3, "******")),
+                                address_sub.phone.replaceRange(
+                                    3, address_sub.phone.length - 3, "******")),
                             onTap: () async {
                               var result = await Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
@@ -301,30 +300,22 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     color: Colors.black,
                   ),
                   Expanded(child: Text("")),
-                  GestureDetector(
-                    child: Row(
-                      children: <Widget>[
-                        Text.rich(TextSpan(children: [
-                          TextSpan(
-                            text: "可选择无接触配送",
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                        ])),
-                        Text(
-                          "\uE5E1",
-                          style: TextStyle(
-                              fontFamily: "MaterialIcons",
-                              fontSize: 14,
-                              color: Colors.grey[600]),
+                  Row(
+                    children: <Widget>[
+                      Text.rich(TextSpan(children: [
+                        TextSpan(
+                          text: "可选择无接触配送",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return OrderManage();
-                      }));
-                    },
+                      ])),
+                      Text(
+                        "\uE5E1",
+                        style: TextStyle(
+                            fontFamily: "MaterialIcons",
+                            fontSize: 14,
+                            color: Colors.grey[600]),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -393,7 +384,14 @@ class _OrderConfirmState extends State<OrderConfirm> {
 //                        for (CartItem cartItem in widget.order) {
 //                          orders.add(cartItem.product.product_id);
 //                        }
-                        String id = await submitOrder(context, getToken(context), widget.order, address, protect, "就是这个备注", totalPriceDouble());
+                        String id = await submitOrder(
+                            context,
+                            getToken(context),
+                            widget.order,
+                            address,
+                            protect,
+                            "就是这个备注",
+                            totalPriceDouble());
                         print(id);
                         setState(() {
                           order_id = id;
@@ -429,13 +427,14 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       padding:
                                           EdgeInsets.symmetric(vertical: 15),
                                       onPressed: () async {
-                                        if(await xznpay(context, int.parse(this.order_id))) {
+                                        if (await xznpay(context,
+                                            int.parse(this.order_id))) {
                                           Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) {
-                                                return OrderManage();
-                                              }),
+                                                builder: (context) {
+                                              return OrderManage();
+                                            }),
                                           );
                                         }
 //                                        Navigator.pushAndRemoveUntil(
@@ -453,9 +452,19 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                           Text(
                                             "鲜着呢支付",
                                             style: TextStyle(
-                                              fontSize: 20, color: Colors.white),
+                                                fontSize: 20,
+                                                color: Colors.white),
                                           ),
-                                          Text("余额："+Provider.of<UserModel>(context).user.money.toString(),style: TextStyle(color: Colors.white, fontSize: 11),)
+                                          Text(
+                                            "余额：" +
+                                                Provider.of<UserModel>(context)
+                                                    .user
+                                                    .money
+                                                    .toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 11),
+                                          )
                                         ],
                                       )),
                                   SizedBox(

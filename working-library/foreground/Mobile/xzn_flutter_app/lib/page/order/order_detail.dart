@@ -28,12 +28,12 @@ class OrderDetail extends StatelessWidget {
     Widget placeholder = Image.asset(
       "assets/image/default_picture.webp", //头像占位图，加载过程中显示
     );
-    final List<String> order_stat = ["已取消","待付款","已付款","已送达","已确认"];
+    final List<String> order_stat = ["已取消","待付款","已付款","已送达","已完成"];
     print(order.note);
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
-          title: Text("订单已完成"),
+          title: Text("订单"+order_stat[order.order_status]),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.headset_mic),
@@ -251,7 +251,7 @@ class OrderDetail extends StatelessWidget {
                     ListTile(
                       title: Text("支付方式"),
                       trailing: Text(
-                        "微信支付",
+                        "鲜着呢支付",
                         style: TextStyle(fontSize: 14),
                       ),
                     ),
@@ -262,7 +262,7 @@ class OrderDetail extends StatelessWidget {
                     ListTile(
                       title: Text("下单时间"),
                       trailing: Text(
-                        order.create_order_time,
+                        order.create_order_time.split("+")[0],
                         style: TextStyle(fontSize: 14),
                       ),
                     ),

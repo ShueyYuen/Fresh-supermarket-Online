@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:xzn/conf/config.dart';
-import 'package:xzn/index.dart';
+import 'package:xzn/models/filter.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/product/product_show.dart';
 import 'package:xzn/services/picture.dart';
@@ -436,12 +434,16 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                   size: 48,
                 );
               } else {
+                List<Product> data = snapshot.data.sublist(0, snapshot.data.length);
+                if (priceOrderIconIndex == 1)
+                  data.sort((left,right)=>(left.price["num"] - right.price["num"]).toInt());
+                else if (priceOrderIconIndex == 2) data.sort((left,right)=>(right.price["num"] - left.price["num"]).toInt());
                 widget = GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, //横轴三个子widget
                       childAspectRatio: 1.0 / 1.3 //宽高比为1时，子widget
                       ),
-                  children: snapshot.data.map<Widget>((product) {
+                  children: data.map<Widget>((product) {
                     return SearchCard(
                       product: product,
                     );

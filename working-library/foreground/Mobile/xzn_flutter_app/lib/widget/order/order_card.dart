@@ -1,16 +1,26 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:xzn/conf/config.dart';
+import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/models/order.dart';
 import 'package:xzn/page/order/order_detail.dart';
 import 'package:xzn/services/order_service.dart';
 import 'package:xzn/services/picture.dart';
 
 class OrderCard extends StatelessWidget {
-  OrderCard({Key key, @required this.order, this.onTap: null})
+  OrderCard({Key key, @required this.order, this.onUpdate: null})
       : super(key: key);
-  Function onTap;
+  Function onUpdate;
   Order order;
+  final List<String> tags = [
+    "", "待付款", "待收货", "待评价", "已完成"
+  ];
+
+  totalPrice() {
+    double price = 10.0;
+    for (CartItem cartItem in order.product_list) {
+      price += cartItem.number * cartItem.product.price["num"];
+    }
+    return price.toStringAsFixed(2);
+  }
 
   String truncateName(Order order) {
     String result = "";
@@ -46,8 +56,9 @@ class OrderCard extends StatelessWidget {
             ),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
-            onPressed: () {
-              xznpay(context, this.order.order_id);
+            onPressed: () async {
+              bool result = await xznpay(context, this.order.order_id);
+              if (result) onUpdate();
             },
           )
         : this.order.order_status == 2
@@ -125,7 +136,7 @@ class OrderCard extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  child: Text("待付款"),
+                  child: Text(tags[order.order_status]),
                 ),
               ],
             ),
@@ -167,8 +178,8 @@ class OrderCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("下单时间：2020-04-26 16：30"),
-                            Text("总价：￥33.33"),
+                            Text("下单时间："+order.create_order_time.split("+")[0]),
+                            Text("总价：￥"+totalPrice()),
                           ],
                         ),
                       ),
