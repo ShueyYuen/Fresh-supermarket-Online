@@ -60,12 +60,12 @@ class AddressCard extends StatelessWidget {
                   bool change = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return AddressEdit(address:address);
                   }));
-                  if (change) this.update();
+                  if (change??false) this.update();
                 }),
             subtitle: Text(address.person["consignee"] +
                 getSex(address.person["sex"]) +
                 " " +
-                address.phone.replaceRange(3, 9, "******")),
+                address.phone.replaceRange(3, address.phone.length-2, "******")),
           ),
           Divider(
             height: 1,

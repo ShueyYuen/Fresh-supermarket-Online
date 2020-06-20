@@ -88,7 +88,7 @@ admin.site.register(Deliveryman, DeliverymanAdmin)
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['user_id', 'user_type', 'password', 'sex', 'phone', 'head_image_id',
-                    'nickname', 'token']
+                    'nickname', 'token', 'money']
     list_filter = ['user_type', 'sex']
 
 

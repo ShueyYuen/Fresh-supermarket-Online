@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/order.dart';
 import 'package:xzn/page/order/order_detail.dart';
+import 'package:xzn/services/order_service.dart';
 import 'package:xzn/services/picture.dart';
 
 class OrderCard extends StatelessWidget {
@@ -23,6 +24,7 @@ class OrderCard extends StatelessWidget {
         break;
       }
     }
+    result = result == "" ? "没有任何商品，给送运费！" : result;
     return result;
   }
 
@@ -34,7 +36,7 @@ class OrderCard extends StatelessWidget {
       width: width - 245,
       height: 90,
     );
-    Widget subbutton = this.order.order_status == "unpaid"
+    Widget subbutton = this.order.order_status == 1
         ? OutlineButton(
             highlightColor: Colors.blue[700],
             splashColor: Colors.grey,
@@ -44,9 +46,11 @@ class OrderCard extends StatelessWidget {
             ),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
-            onPressed: () {},
+            onPressed: () {
+              xznpay(context, this.order.order_id);
+            },
           )
-        : this.order.order_status == "unreceived"
+        : this.order.order_status == 2
             ? OutlineButton(
                 highlightColor: Colors.blue[700],
                 splashColor: Colors.grey,
@@ -56,9 +60,11 @@ class OrderCard extends StatelessWidget {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                onPressed: () {},
+                onPressed: () {
+                  confirmGoods(context, this.order.order_id);
+                },
               )
-            : this.order.order_status == "uncomment"
+            : this.order.order_status == 3
                 ? OutlineButton(
                     highlightColor: Colors.blue[700],
                     splashColor: Colors.grey,
@@ -71,6 +77,32 @@ class OrderCard extends StatelessWidget {
                     onPressed: () {},
                   )
                 : Text("");
+    // TODO: 同步显示
+    Widget rightbutton = this.order.order_status == 1
+        ? OutlineButton(
+            highlightColor: Colors.blue[700],
+            splashColor: Colors.grey,
+            child: Text(
+              "取消订单",
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            onPressed: () {
+              cancelOrder(context, this.order.order_id);
+            },
+          )
+        : OutlineButton(
+            highlightColor: Colors.blue[700],
+            splashColor: Colors.grey,
+            child: Text(
+              "再来一份",
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            onPressed: () {},
+          );
     return Container(
         height: 140,
         width: width,
@@ -107,14 +139,21 @@ class OrderCard extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                     flex: 0,
-                    child: PictureSelf(
-                        order.product_list[0].product.picture_list["shuffle"]
-                            [0],
-                        product: order.product_list[0].product,
-                        boxFit: BoxFit.cover,
-                        width: width - 245,
-                        height: 90,
-                        placeholder: placeholder)),
+                    child: order.product_list.length == 0
+                        ? Image.asset(
+                            "assets/image/default_picture.webp",
+                            height: 90,
+                            width: width - 245,
+                            fit: BoxFit.cover,
+                          )
+                        : PictureSelf(
+                            order.product_list[0].product
+                                .picture_list["shuffle"][0],
+                            product: order.product_list[0].product,
+                            boxFit: BoxFit.cover,
+                            width: width - 245,
+                            height: 90,
+                            placeholder: placeholder)),
                 SizedBox(
                   width: 10,
                 ),
@@ -163,20 +202,7 @@ class OrderCard extends StatelessWidget {
                                       }));
                                     },
                                   ),
-                                  OutlineButton(
-                                    highlightColor: Colors.blue[700],
-                                    splashColor: Colors.grey,
-                                    child: Text(
-                                      "再来一份",
-                                      style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontSize: 14),
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0)),
-                                    onPressed: () {},
-                                  ),
+                                  rightbutton
                                 ],
                               )))
                     ],

@@ -145,8 +145,8 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                           height: height,
                           child: IconTextUnder(
                             icon: Icons.local_activity,
-                            text: "待评价",
-                            badge: order?.uncomment,
+                            text: "待确认",
+                            badge: order?.unconfirm,
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {

@@ -1,5 +1,5 @@
 {
-  "order_id":"",
+  "order_id": 0,
   "customer": "$customer",
   "address": "$address",
   "product_list":"$[]cartItem",
@@ -7,7 +7,7 @@
   "create_order_time":"",
   "receive_order_time":"",
   "finish_order_time":"",
-  "order_status":"",
+  "order_status": 0,
   "payment_id":"",
   "note": "",
   "total_price":0

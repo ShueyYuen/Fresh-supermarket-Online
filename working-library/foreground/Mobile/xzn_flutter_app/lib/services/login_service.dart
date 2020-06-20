@@ -34,7 +34,6 @@ Login(BuildContext context, String phone,
   User user;
   var response = await dio.post(url, data: formData);
   var json = jsonDecode(response.data.toString());
-  print(response.data.toString());
   try {
     user = User.fromJson(json);
     if (null == user.token) throw Exception("");

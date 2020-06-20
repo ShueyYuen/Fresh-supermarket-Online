@@ -4,5 +4,6 @@
   "user_id":"",
   "nickname":"",
   "token":"",
-  "head_image_id":""
+  "head_image_id":"",
+  "money": 0
 }

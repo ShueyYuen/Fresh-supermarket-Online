@@ -47,6 +47,9 @@ getSearchResultProduct(String token,
     String lowprice: ""}) async {
   String url = Config.baseUrl() + "api/product/search";
   List<Product> product_list = List<Product>();
+  if(type == "全部"){
+    type="";
+  }
   var body = {
     "token": token,
     "key": key,

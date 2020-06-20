@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xzn/services/order_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/widget/order/order_card.dart';
 
 class OrderManage extends StatefulWidget {
@@ -19,13 +20,6 @@ class _OrderManageState extends State<OrderManage> {
     '待评价',
     '已完成',
   ];
-  final List<String> _status = [
-    '',
-    'unpaid',
-    'unreceived',
-    'uncomment',
-    'finished'
-  ];
   TabController _controller;
   int _activeIndex;
   bool click = false;
@@ -44,7 +38,7 @@ class _OrderManageState extends State<OrderManage> {
         _activeIndex = _controller.index;
       });
     });
-    _future = getOrderList(context, "");
+    _future = getOrderList(context, getToken(context));
     super.initState();
   }
 
@@ -96,7 +90,8 @@ class _OrderManageState extends State<OrderManage> {
                   } else {
                     List data = snapshot.data.sublist(0, snapshot.data.length);
                     data.removeWhere((element) =>
-                        !element.order_status.contains(_status[_activeIndex]));
+                        _activeIndex != 0 && !(element.order_status == _activeIndex));
+//                    print(data[0].product_list);
                     widget = ListView(
                       children: data.map<Widget>((order) {
                         return OrderCard(

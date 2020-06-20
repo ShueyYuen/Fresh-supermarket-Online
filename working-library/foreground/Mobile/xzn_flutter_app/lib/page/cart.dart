@@ -13,6 +13,7 @@ import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import '../widget/common/num_contoller.dart';
 import 'product/product_show.dart';
+import 'search_page.dart';
 
 class ProductCartCard extends StatelessWidget {
   ProductCartCard(
@@ -83,7 +84,8 @@ class ProductCartCard extends StatelessWidget {
                         child: PictureSelf(
                             cartItem.product.picture_list["shuffle"][0],
                             product: cartItem.product,
-                            width: 100),
+                            width: 100,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -187,6 +189,7 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   bool selectAll = false;
   var _future;
+  var _futureRecomend;
   List<String> selected = List<String>();
 
   _handleSelect(String product_id) {
@@ -240,6 +243,7 @@ class _CartState extends State<Cart> {
   void initState() {
     super.initState();
     _future = getCartProductList(context, getToken(context));
+    _futureRecomend = getProductRecommendList(getToken(context), quantity: 10);
   }
 
   @override
@@ -343,6 +347,42 @@ class _CartState extends State<Cart> {
 //                        ),
                       ],
                     ),
+//                    FutureBuilder(
+//                      future: _futureRecomend,
+//                      builder: (context, snapshot) {
+//                        var widget;
+//                        if (snapshot.connectionState == ConnectionState.done) {
+//                          if (snapshot.hasError) {
+//                            widget = Icon(
+//                              Icons.error,
+//                              color: Colors.red,
+//                              size: 48,
+//                            );
+//                          } else {
+//                            widget = Text("");
+//                            widget = GridView(
+//                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                                crossAxisCount: 2, //横轴三个子widget
+//                                childAspectRatio: 1.0 / 1.3 //宽高比为1时，子widget
+//                              ),
+//                              children: snapshot.data.map<Widget>((product) {
+//                                return SearchCard(
+//                                  product: product,
+//                                );
+//                              }).toList(),
+//                            );
+//                          }
+//                        } else {
+//                          widget = Container(
+//                            alignment: Alignment.center,
+//                            child: Padding(
+//                              padding: EdgeInsets.all(20),
+//                              child: CircularProgressIndicator(),
+//                            ));
+//                        }
+//                        return widget;
+//                      },
+//                    ),
                     SizedBox(
                       height: 30,
                     )

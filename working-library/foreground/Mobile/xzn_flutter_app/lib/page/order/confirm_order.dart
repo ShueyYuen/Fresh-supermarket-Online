@@ -63,6 +63,7 @@ class OrderConfirm extends StatefulWidget {
 class _OrderConfirmState extends State<OrderConfirm> {
   bool protect = false;
   Address address = null;
+  String order_id;
   var _future;
 
   totalPrice() {
@@ -96,7 +97,13 @@ class _OrderConfirmState extends State<OrderConfirm> {
   void initState() {
     super.initState();
     _future = getAddressList(context, "");
-    address = Provider.of<AddressModel>(context, listen: false).address[0];
+    try {
+      address = Provider
+        .of<AddressModel>(context, listen: false)
+        .address[0];
+    }catch (e) {
+      address = null;
+    }
     print(address.toString());
   }
 
@@ -158,7 +165,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             subtitle: Text(address_sub.person["consignee"] +
                                 getSex(address_sub.person["sex"]) +
                                 " " +
-                                address_sub.phone.replaceRange(3, 9, "******")),
+                                address_sub.phone.replaceRange(3, address_sub.phone.length - 3, "******")),
                             onTap: () async {
                               var result = await Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
@@ -386,7 +393,13 @@ class _OrderConfirmState extends State<OrderConfirm> {
 //                        for (CartItem cartItem in widget.order) {
 //                          orders.add(cartItem.product.product_id);
 //                        }
-                        String order_id = await submitOrder(context, getToken(context), widget.order, address, protect, "就是这个备注", totalPriceDouble());
+                        String id = await submitOrder(context, getToken(context), widget.order, address, protect, "就是这个备注", totalPriceDouble());
+                        print(id);
+                        setState(() {
+                          order_id = id;
+                        });
+                        print("这是一个订单");
+                        print(order_id);
                         showModalBottomSheet(
                           context: context,
                           backgroundColor: Colors.white,
@@ -415,13 +428,16 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       color: Colors.redAccent,
                                       padding:
                                           EdgeInsets.symmetric(vertical: 15),
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(builder: (context) {
-                                            return OrderManage();
-                                          }),
-                                        );
+                                      onPressed: () async {
+                                        if(await xznpay(context, int.parse(this.order_id))) {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return OrderManage();
+                                              }),
+                                          );
+                                        }
 //                                        Navigator.pushAndRemoveUntil(
 //                                          context,
 //                                          MaterialPageRoute(
@@ -432,10 +448,15 @@ class _OrderConfirmState extends State<OrderConfirm> {
 //                                          (Route<dynamic> route) => false,
 //                                        );
                                       },
-                                      child: Text(
-                                        "鲜着呢支付",
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.white),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "鲜着呢支付",
+                                            style: TextStyle(
+                                              fontSize: 20, color: Colors.white),
+                                          ),
+                                          Text("余额："+Provider.of<UserModel>(context).user.money.toString(),style: TextStyle(color: Colors.white, fontSize: 11),)
+                                        ],
                                       )),
                                   SizedBox(
                                     height: 20,

@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:xzn/index.dart';
 import 'package:xzn/models/address.dart';
+import 'package:xzn/models/amapgeo.dart';
 import 'package:xzn/services/token.dart';
 import 'package:xzn/utils/stringfy.dart';
 
@@ -14,13 +14,13 @@ import '../states/profile_change_notifier.dart';
 
 //返回地址详情
 getAddressDetail(TextEditingController address) async {
-  print(address);
-  String aMapWebKey = "530a8069770558e6e9e0db21c2cd8bc3";
+//  String aMapWebKey = "530a8069770558e6e9e0db21c2cd8bc3";
+  String aMapWebKey = "647f2f70270b2da46a9a02692ba3065c";
   String url = "https://restapi.amap.com/v3/geocode/geo?address=" + address.text + "&key=" + aMapWebKey;
   dynamic res = await http.get(url);
   var json = jsonDecode(res.body);
-  //print(json);
   Amapgeo addressMap = new Amapgeo();
+  print("COFLCONER");
   addressMap.province = json["geocodes"][0]["province"];
   addressMap.city = json["geocodes"][0]["city"];
   addressMap.district = json["geocodes"][0]["district"];
@@ -103,23 +103,50 @@ getAddressList(BuildContext context, String token) async {
 
 updateAddress(BuildContext context, Address address) async {
   try {
+    // TODO: 修改一个地址之后，会在列表中增加一个新的，和旧的在一起
     if (Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/address/update";
+      print(address.toJson());
       var body = address.toJson();
       var dio = new Dio();
-      print(address.address_id);
       body["token"] = getToken(context);
       body["person"] = stringfy(body["person"]);
       body["detail"] = stringfy(body["detail"].toJson());
-      print(body["detail"]);
       FormData formData = new FormData.fromMap(body);
       var res = await dio.post(url, data: formData);
       var json = jsonDecode(res.data.toString());
-      address.address_id = json["address_id"];
+      address.address_id = int.parse(json["address_id"]);
+      print(address.address_id);
       Provider
         .of<AddressModel>(context, listen: false)
         .update(address);
       return address.address_id;
+    } else if (Provider.of<AddressModel>(context, listen: false).is_loaded) {
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+deleteAddress(BuildContext context, Address address) async {
+  try {
+    if (Provider.of<UserModel>(context, listen: false).isLogin) {
+      String url = Config.baseUrl() + "user/address/delete";
+      var dio = new Dio();
+      var body = {
+        "token": getToken(context),
+        "address_id": address.address_id
+      };
+      FormData formData = new FormData.fromMap(body);
+      var res = await dio.post(url, data: formData);
+      var json = jsonDecode(res.data.toString());
+      print(json);
+      if(json["success"]) {
+        Provider.of<AddressModel>(context)
+          .delete(address.address_id);
+        return json["success"];
+      }
+      return false;
     } else if (Provider.of<AddressModel>(context, listen: false).is_loaded) {
     }
   } catch (e) {

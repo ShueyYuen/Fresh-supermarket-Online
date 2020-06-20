@@ -1,7 +1,10 @@
 import 'dart:io';
-
+import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_crop/image_crop.dart';
+import 'package:xzn/conf/config.dart';
+import 'package:xzn/services/token.dart';
 
 class CropImageRoute extends StatefulWidget {
   CropImageRoute(this.image);
@@ -74,9 +77,8 @@ class _CropImageRouteState extends State<CropImageRoute> {
           file: originalFile,
           area: crop.area,
         ).then((value) {
+          print("开始上传");
           upload(value);
-        }).catchError(() {
-          print('裁剪不成功');
         });
       } else {
         upload(originalFile);
@@ -85,24 +87,23 @@ class _CropImageRouteState extends State<CropImageRoute> {
   }
 
   ///上传头像
-  void upload(File file) {
+  void upload(File file) async {
     print(file.path);
-//    Dio dio = Dio();
-//    dio
-//      .post("http://your ip:port/",
-//      data: FormData.from({'file': file}))
-//      .then((response) {
-//      if (!mounted) {
-//        return;
-//      }
-    //处理上传结果
-//      UploadIconResult bean = UploadIconResult(response.data);
+    var dio = new Dio();
+    String url = Config.baseUrl()+"avatar/upload";
+    FormData formData = new FormData.fromMap({
+      "token": getToken(context),
+      "file": await MultipartFile.fromFile(
+        file.path, filename: "file")
+    });
+    var response = await dio.post(url, data: formData);
+    print(response);
     print('上传头像成功');
-//      if (bean.code == '1') {
-//        Navigator.pop(context, bean.data.url);//这里的url在上一页调用的result可以拿到
-//      } else {
-//        Navigator.pop(context, '');
-//      }
-//    });
+//    var json = jsonDecode(response.data.toString());
+//    if (json["success"]) {
+//      Navigator.of(context).pop();//这里的url在上一页调用的result可以拿到
+//    } else {
+//      Navigator.of(context).pop();
+//    }
   }
 }

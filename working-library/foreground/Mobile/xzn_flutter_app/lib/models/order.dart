@@ -9,7 +9,7 @@ part 'order.g.dart';
 class Order {
     Order();
 
-    String order_id;
+    num order_id;
     Customer customer;
     Address address;
     List<CartItem> product_list;
@@ -17,7 +17,7 @@ class Order {
     String create_order_time;
     String receive_order_time;
     String finish_order_time;
-    String order_status;
+    num order_status;
     String payment_id;
     String note;
     num total_price;

@@ -46,7 +46,7 @@ class _AddressEditState extends State<AddressEdit> {
       if (_addressController.text.length > 15)
         _addressController.text = _addressController.text
             .replaceRange(15, _addressController.text.length, '....');
-      _noController.text = widget.address.detail.no??"";
+      _noController.text = widget.address.detail.no ?? "";
     } else {
       address = Address.fromJson({
         "address_id": 0,
@@ -58,8 +58,8 @@ class _AddressEditState extends State<AddressEdit> {
           "district": "",
           "street": "",
           "no": "",
-          "longitude":0,
-          "latitude":0
+          "longitude": 0,
+          "latitude": 0
         },
         "tag": ""
       });
@@ -80,10 +80,9 @@ class _AddressEditState extends State<AddressEdit> {
                       Icons.delete,
                       color: Colors.white,
                     ),
-                    onPressed: () {
-                      Provider.of<AddressModel>(context)
-                          .delete(address.address_id);
-                      Navigator.of(context).pop();
+                    onPressed: () async {
+                      bool up = await deleteAddress(context, address);
+                      Navigator.of(context).pop(up??false);
                     },
                   )
                 : Text(""),
@@ -120,9 +119,9 @@ class _AddressEditState extends State<AddressEdit> {
                               alignment: WrapAlignment.start,
                               spacing: 10,
                               children: sex.keys.map((_key) {
-                                bool _selected =
-                                    _key == address.person["sex"];
+                                bool _selected = _key == address.person["sex"];
                                 return RawChip(
+                                  checkmarkColor: Colors.white,
 //                                    label: Text(sex[widget.address.person["sex"]]),
                                   label: Text(sex[_key]),
                                   selected: _selected,
@@ -209,27 +208,28 @@ class _AddressEditState extends State<AddressEdit> {
                     Expanded(
                       flex: 1,
                       child: ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 30, maxWidth: 30),
+                        constraints:
+                            BoxConstraints(maxHeight: 30, maxWidth: 30),
                         child: IconButton(
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 25,
-                            color: Colors.grey,
-                          ),
-                          onPressed: () async {
-                            var result = await Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
+                            padding: EdgeInsets.all(0),
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 25,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () async {
+                              var result = await Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
                                 return AddressLocated();
                               })) as SelfNearItem;
-                            setState(() {
-                              selfNearItem = result ?? selfNearItem;
-                            });
-                            _addressController.text = selfNearItem.city +
-                              selfNearItem.district +
-                              selfNearItem.township +
-                              selfNearItem.build;
-                          }),
+                              setState(() {
+                                selfNearItem = result ?? selfNearItem;
+                              });
+                              _addressController.text = selfNearItem.city +
+                                  selfNearItem.district +
+                                  selfNearItem.township +
+                                  selfNearItem.build;
+                            }),
                       ),
                     )
                   ],
@@ -292,6 +292,7 @@ class _AddressEditState extends State<AddressEdit> {
                           children: tags.map((_tag) {
                             bool _selected = _tag == address.tag;
                             return RawChip(
+                              checkmarkColor: Colors.white,
 //                                    label: Text(sex[widget.address.person["sex"]]),
                               label: Text(_tag.length < 2
                                   ? "   " + _tag + "   "
@@ -334,12 +335,11 @@ class _AddressEditState extends State<AddressEdit> {
                 onPressed: () async {
                   address.person["consignee"] = _consigneeController.text;
                   address.phone = _telController.text;
-                  Amapgeo addressMap = await getAddressDetail(_addressController);
+                  Amapgeo addressMap =
+                      await getAddressDetail(_addressController);
                   address.detail = addressMap;
                   address.detail.no = _noController.text;
-                  String a = await updateAddress(context, address);
-                  print(a);
-                  print(address.toJson());
+                  int a = await updateAddress(context, address);
                   if (widget.edit) Navigator.of(context).pop(true);
                 },
               ),

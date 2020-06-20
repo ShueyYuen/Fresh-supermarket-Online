@@ -6,13 +6,13 @@ part 'deliveryman.g.dart';
 class Deliveryman {
     Deliveryman();
 
-    String deliveryman_id;
+    num deliveryman_id;
     String name;
     String phone;
     String sex;
     num longitude;
     num latitude;
-    num status;
+    String status;
     
     factory Deliveryman.fromJson(Map<String,dynamic> json) => _$DeliverymanFromJson(json);
     Map<String, dynamic> toJson() => _$DeliverymanToJson(this);
