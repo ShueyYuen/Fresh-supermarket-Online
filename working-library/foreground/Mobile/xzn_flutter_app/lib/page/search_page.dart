@@ -40,7 +40,7 @@ class SearchCard extends StatelessWidget {
                 child: Container(
                     width: double.infinity,
                     child: PictureSelf(product.picture_list["shuffle"][0],
-                        product: product))),
+                        product: product, boxFit: BoxFit.cover))),
             Expanded(
               flex: 1,
               child: Stack(
