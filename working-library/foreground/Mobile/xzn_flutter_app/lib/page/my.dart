@@ -40,7 +40,11 @@ class _MyState extends State<My> {
                         Container(
                           constraints: BoxConstraints(minWidth: 300),
                           child: Text(
-                            isLogin ? user.nickname==null? user.phone??"": user.nickname : "请登录",
+                            isLogin
+                                ? user.nickname == null
+                                    ? user.phone ?? ""
+                                    : user.nickname
+                                : "请登录",
                             style: TextStyle(
                                 fontSize: 28,
                                 color:
@@ -51,10 +55,15 @@ class _MyState extends State<My> {
                           right: 0.0,
                           bottom: 0.0,
                           child: GestureDetector(
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.blue,
-                              size: 20,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                  size: 20,
+                                ),
+                                Text(user.money.toString()),
+                              ],
                             ),
                             onTap: () {
                               Navigator.pushNamed(context, "login");
@@ -76,7 +85,8 @@ class _MyState extends State<My> {
                     child: CustomAvatar(context),
                     onTap: () {
                       if (Provider.of<UserModel>(context).isLogin) {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
                           return SettingPage();
                         }));
                       } else {

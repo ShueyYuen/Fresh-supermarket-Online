@@ -429,9 +429,6 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       padding:
                                           EdgeInsets.symmetric(vertical: 15),
                                       onPressed: () async {
-                                        print("\n\n\n");
-                                        print(this.order_id);
-                                        print("\n\n\n");
                                         if(await xznpay(context, int.parse(this.order_id))) {
                                           Navigator.pushReplacement(
                                             context,
@@ -451,10 +448,15 @@ class _OrderConfirmState extends State<OrderConfirm> {
 //                                          (Route<dynamic> route) => false,
 //                                        );
                                       },
-                                      child: Text(
-                                        "鲜着呢支付",
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.white),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "鲜着呢支付",
+                                            style: TextStyle(
+                                              fontSize: 20, color: Colors.white),
+                                          ),
+                                          Text("余额："+Provider.of<UserModel>(context).user.money.toString(),style: TextStyle(color: Colors.white, fontSize: 11),)
+                                        ],
                                       )),
                                   SizedBox(
                                     height: 20,
