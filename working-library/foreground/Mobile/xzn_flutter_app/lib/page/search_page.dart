@@ -133,7 +133,14 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
   FocusNode _maxnode = FocusNode();
   FocusNode _minnode = FocusNode();
 
-  final List<String> types = ["全部","水果蔬菜","水产海鲜","肉禽蛋品","米面粮油","鲜奶乳品"];
+  final List<String> types = ["全部", "水果蔬菜", "水产海鲜", "肉禽蛋品", "米面粮油", "鲜奶乳品"];
+  final List<Icon> orderIcons = [
+    Icon(Icons.unfold_more),
+    Icon(Icons.expand_less),
+    Icon(Icons.expand_more)
+  ];
+  int priceOrderIconIndex = 0;
+  int salesOrderIconIndex = 0;
 
   @override
   void initState() {
@@ -144,16 +151,20 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
     _maxnode.addListener(() {
       if (!_maxnode.hasFocus) {
         setState(() {
-          if (_max.text != "") filter.max = int.parse(_max.text);
-          else filter.max = null;
+          if (_max.text != "")
+            filter.max = int.parse(_max.text);
+          else
+            filter.max = null;
         });
       }
     });
     _minnode.addListener(() {
       if (!_minnode.hasFocus) {
         setState(() {
-          if (_min.text != "") filter.min = int.parse(_min.text);
-          else filter.min = null;
+          if (_min.text != "")
+            filter.min = int.parse(_min.text);
+          else
+            filter.min = null;
         });
       }
     });
@@ -171,7 +182,11 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
     print(_key.text);
     print(filter.toJson());
     setState(() {
-      _future = getSearchResultProduct(token, key: _key.text, type: _type.text, highprice: _max.text, lowprice: _min.text);
+      _future = getSearchResultProduct(token,
+          key: _key.text,
+          type: _type.text,
+          highprice: _max.text,
+          lowprice: _min.text);
     });
   }
 
@@ -225,13 +240,44 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                   children: <Widget>[
                     Expanded(
                         child: Container(
-                      alignment: Alignment.center,
-                      child: Text("价格"),
-                    )),
+                          alignment: Alignment.center,
+                            //child: Text("价格"),
+                          child: GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                salesOrderIconIndex = 0;
+                                priceOrderIconIndex = (priceOrderIconIndex + 1) % 3;
+                              });
+                            },
+                            child:Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text("价格"),
+                                orderIcons[priceOrderIconIndex]
+                              ],
+                            ),
+                          )
+                      )
+                    ),
                     Expanded(
                         child: Container(
                       alignment: Alignment.center,
-                      child: Text("销量"),
+                            child: GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  priceOrderIconIndex = 0;
+                                  salesOrderIconIndex = (salesOrderIconIndex + 1) % 3;
+                                });
+                              },
+                              child:Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text("销量"),
+                                  orderIcons[salesOrderIconIndex]
+                                ],
+                              ),
+                            )
+                      //child: Text("销量"),
                     )),
                     Expanded(
                         child: Container(
@@ -327,9 +373,8 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                           label: Text(_tagkey),
                           selected: _selected,
                           labelStyle: TextStyle(
-                            color: _selected
-                              ? Colors.white
-                              : Colors.grey[700]),
+                              color:
+                                  _selected ? Colors.white : Colors.grey[700]),
                           onSelected: (v) {
                             setState(() {
                               filter.tag = _tagkey;
@@ -345,27 +390,35 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
               ),
               ButtonBar(
                 children: <Widget>[
-                  FlatButton(onPressed: () {
-                    filter.max = null;
-                    filter.min = null;
-                    filter.tag = "全部";
-                    setState(() {});
-                  }, child: Text("重置")),
-                  FlatButton(onPressed: () {
-                    if (_max.text != "") filter.max = int.parse(_max.text);
-                    else filter.max = null;
-                    if (_min.text != "") filter.min = int.parse(_min.text);
-                    else filter.min = null;
-                    print(filter.toJson());
-                  }, child: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                      getSearch();
-                    },
-                    child: Text("确定"),
-                  )
-                  //Text("确定")
-                  )
+                  FlatButton(
+                      onPressed: () {
+                        filter.max = null;
+                        filter.min = null;
+                        filter.tag = "全部";
+                        setState(() {});
+                      },
+                      child: Text("重置")),
+                  FlatButton(
+                      onPressed: () {
+                        if (_max.text != "")
+                          filter.max = int.parse(_max.text);
+                        else
+                          filter.max = null;
+                        if (_min.text != "")
+                          filter.min = int.parse(_min.text);
+                        else
+                          filter.min = null;
+                        print(filter.toJson());
+                      },
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          getSearch();
+                        },
+                        child: Text("确定"),
+                      )
+                      //Text("确定")
+                      )
                 ],
               )
             ],
