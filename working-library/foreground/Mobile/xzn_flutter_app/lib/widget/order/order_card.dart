@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/order.dart';
 import 'package:xzn/page/order/order_detail.dart';
+import 'package:xzn/services/order_service.dart';
 import 'package:xzn/services/picture.dart';
 
 class OrderCard extends StatelessWidget {
@@ -13,7 +14,6 @@ class OrderCard extends StatelessWidget {
 
   String truncateName(Order order) {
     String result = "";
-    print(order.product_list);
     for (var product_item in order.product_list) {
       result += product_item.product.product_name +
           "*" +
@@ -24,6 +24,7 @@ class OrderCard extends StatelessWidget {
         break;
       }
     }
+    result = result == "" ? "没有任何商品，给送运费！" : result;
     return result;
   }
 
@@ -35,7 +36,7 @@ class OrderCard extends StatelessWidget {
       width: width - 245,
       height: 90,
     );
-    Widget subbutton = this.order.order_status == "unpaid"
+    Widget subbutton = this.order.order_status == 1
         ? OutlineButton(
             highlightColor: Colors.blue[700],
             splashColor: Colors.grey,
@@ -45,9 +46,11 @@ class OrderCard extends StatelessWidget {
             ),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
-            onPressed: () {},
+            onPressed: () {
+              xznpay(context, this.order.order_id);
+            },
           )
-        : this.order.order_status == "unreceived"
+        : this.order.order_status == 2
             ? OutlineButton(
                 highlightColor: Colors.blue[700],
                 splashColor: Colors.grey,
@@ -57,9 +60,11 @@ class OrderCard extends StatelessWidget {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                onPressed: () {},
+                onPressed: () {
+                  confirmGoods(context, this.order.order_id);
+                },
               )
-            : this.order.order_status == "uncomment"
+            : this.order.order_status == 3
                 ? OutlineButton(
                     highlightColor: Colors.blue[700],
                     splashColor: Colors.grey,
@@ -108,14 +113,21 @@ class OrderCard extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                     flex: 0,
-                    child: PictureSelf(
-                        order.product_list[0].product.picture_list["shuffle"]
-                            [0],
-                        product: order.product_list[0].product,
-                        boxFit: BoxFit.cover,
-                        width: width - 245,
-                        height: 90,
-                        placeholder: placeholder)),
+                    child: order.product_list.length == 0
+                        ? Image.asset(
+                            "assets/image/default_picture.webp",
+                            height: 90,
+                            width: width - 245,
+                            fit: BoxFit.cover,
+                          )
+                        : PictureSelf(
+                            order.product_list[0].product
+                                .picture_list["shuffle"][0],
+                            product: order.product_list[0].product,
+                            boxFit: BoxFit.cover,
+                            width: width - 245,
+                            height: 90,
+                            placeholder: placeholder)),
                 SizedBox(
                   width: 10,
                 ),
@@ -158,7 +170,6 @@ class OrderCard extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(20.0)),
                                     onPressed: () {
-                                      print(order.toJson());
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
                                         return OrderDetail(order: order);

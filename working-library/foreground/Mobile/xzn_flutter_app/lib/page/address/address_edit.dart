@@ -333,11 +333,11 @@ class _AddressEditState extends State<AddressEdit> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 onPressed: () async {
-                  print("COFLCONER");
                   address.person["consignee"] = _consigneeController.text;
                   address.phone = _telController.text;
                   Amapgeo addressMap =
                       await getAddressDetail(_addressController);
+                  print("COFLCONER");
                   print(addressMap.toJson());
                   address.detail = addressMap;
                   address.detail.no = _noController.text;

@@ -20,13 +20,6 @@ class _OrderManageState extends State<OrderManage> {
     '待评价',
     '已完成',
   ];
-  final List<String> _status = [
-    '',
-    'unpaid',
-    'unreceived',
-    'uncomment',
-    'finished'
-  ];
   TabController _controller;
   int _activeIndex;
   bool click = false;
@@ -98,6 +91,7 @@ class _OrderManageState extends State<OrderManage> {
                     List data = snapshot.data.sublist(0, snapshot.data.length);
                     data.removeWhere((element) =>
                         _activeIndex != 0 && !(element.order_status == _activeIndex));
+//                    print(data[0].product_list);
                     widget = ListView(
                       children: data.map<Widget>((order) {
                         return OrderCard(

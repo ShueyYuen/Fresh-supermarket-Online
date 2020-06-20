@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/models/order.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/utils/stringfy.dart';
 
 import '../conf/config.dart';
@@ -22,10 +23,8 @@ getOrderList(BuildContext context, String token) async {
       FormData formData = new FormData.fromMap({"token": token});
       var response = await dio.post(url, data: formData);
       var json = jsonDecode(response.data.toString());
-      print(json);
       for (var item in json) {
         try {
-          print(item);
           order_list.add(Order.fromJson(item));
         } catch (e) {
           print(e.toString());
@@ -81,4 +80,38 @@ submitOrder(BuildContext context, String token, List<CartItem> orders,
   }
 }
 
-xznpay() {}
+xznpay(BuildContext context, int order_id) async {
+  try {
+    // TODO: 更新后前端一起更新数据
+//    if (!Provider.of<OrderModel>(context, listen: false).is_loaded &&
+//        Provider.of<UserModel>(context, listen: false).isLogin) {
+    if (Provider.of<UserModel>(context, listen: false).isLogin) {
+      String url = Config.baseUrl() + "user/order/xznpay";
+      var dio = new Dio();
+      FormData formData = new FormData.fromMap({"token": getToken(context),"order_id":order_id});
+      var response = await dio.post(url, data: formData);
+      var json = jsonDecode(response.data.toString());
+      print(json);
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+confirmGoods(BuildContext context, int order_id) async {
+  try {
+    // TODO: 更新后前端一起更新数据
+//    if (!Provider.of<OrderModel>(context, listen: false).is_loaded &&
+//        Provider.of<UserModel>(context, listen: false).isLogin) {
+    if (Provider.of<UserModel>(context, listen: false).isLogin) {
+      String url = Config.baseUrl() + "user/order/confirm";
+      var dio = new Dio();
+      FormData formData = new FormData.fromMap({"token": getToken(context),"order_id":order_id});
+      var response = await dio.post(url, data: formData);
+      var json = jsonDecode(response.data.toString());
+      print(json);
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+}
