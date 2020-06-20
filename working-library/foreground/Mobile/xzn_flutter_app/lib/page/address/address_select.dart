@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/page/address/address_edit.dart';
 import 'package:xzn/services/address_service.dart';
+import 'package:xzn/services/token.dart';
 
 class AddressCard extends StatelessWidget {
   Address address;
@@ -52,7 +53,7 @@ class AddressCard extends StatelessWidget {
                   )
                 ],
               ),
-              subtitle: Text(address.person["consignee"]+getSex(address.person["sex"])+" "+address.phone.replaceRange(3, 9, "******")),
+              subtitle: Text(address.person["consignee"]+getSex(address.person["sex"])+" "+address.phone.replaceRange(3, address.phone.length - 3, "******")),
             ),
             Divider(
               height: 1,
@@ -78,7 +79,7 @@ class _AddressSelectState extends State<AddressSelect> {
   @override
   void initState() {
     super.initState();
-    _future = getAddressList(context, "");
+    _future = getAddressList(context, getToken(context));
   }
 
   @override
@@ -114,6 +115,7 @@ class _AddressSelectState extends State<AddressSelect> {
               );
             } else {
 //              print(DemoLocalizations.of(context).title);
+            print(snapshot.data);
               widget = ListView(
                 children: <Widget>[
                   Padding(

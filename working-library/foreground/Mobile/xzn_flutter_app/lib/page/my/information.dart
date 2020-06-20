@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/index.dart';
 import 'package:xzn/models/user.dart';
 import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/services/picture.dart';
@@ -15,6 +16,7 @@ class Information extends StatefulWidget {
 }
 
 class _InformationState extends State<Information> {
+  TextEditingController _nameController = TextEditingController();
   void cropImage(File originalImage) async {
     String result = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => CropImageRoute(originalImage)));
@@ -41,8 +43,14 @@ class _InformationState extends State<Information> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     User user = Provider.of<UserModel>(context, listen: false).user;
+    _nameController.text = user.nickname;
     if (Provider.of<UserModel>(context, listen: false).isLogin)
       return Scaffold(
         appBar: AppBar(
@@ -126,9 +134,35 @@ class _InformationState extends State<Information> {
             thickness: 3,
             color: Colors.grey[200],
           ),
-          ListTile(
-            title: Text("用户名"),
-            trailing: Text(user.nickname),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Flex(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        height: 30,
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "用户名",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      )),
+                    Expanded(
+                      flex: 4,
+                      child: Container(
+                        height: 30,
+                        child: TextField(
+                          controller: _nameController,
+                          textAlign: TextAlign.right,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      )),
+                  ],
+                ),
           )
         ]),
       );

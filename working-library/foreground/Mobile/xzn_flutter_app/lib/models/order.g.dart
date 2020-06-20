@@ -8,7 +8,7 @@ part of 'order.dart';
 
 Order _$OrderFromJson(Map<String, dynamic> json) {
   return Order()
-    ..order_id = json['order_id'] as String
+    ..order_id = json['order_id'] as num
     ..customer = json['customer'] == null
         ? null
         : Customer.fromJson(json['customer'] as Map<String, dynamic>)
@@ -25,7 +25,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
     ..create_order_time = json['create_order_time'] as String
     ..receive_order_time = json['receive_order_time'] as String
     ..finish_order_time = json['finish_order_time'] as String
-    ..order_status = json['order_status'] as String
+    ..order_status = json['order_status'] as num
     ..payment_id = json['payment_id'] as String
     ..note = json['note'] as String
     ..total_price = json['total_price'] as num;

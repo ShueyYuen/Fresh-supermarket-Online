@@ -28,6 +28,7 @@ class OrderDetail extends StatelessWidget {
     Widget placeholder = Image.asset(
       "assets/image/default_picture.webp", //头像占位图，加载过程中显示
     );
+    final List<String> order_stat = ["已取消","待付款","已付款","已送达","已确认"];
     print(order.note);
     return Scaffold(
         backgroundColor: Colors.grey[200],
@@ -78,6 +79,7 @@ class OrderDetail extends StatelessWidget {
                     return ListTile(
                       leading: PictureSelf(
                           order_item.product.picture_list["shuffle"][0],
+                          width: 100,
                           product: order_item.product),
                       title: Stack(
                         children: <Widget>[
@@ -228,7 +230,7 @@ class OrderDetail extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
                                 Text(
-                                  order.order_id + " |",
+                                  order.order_id.toString() + " |",
                                 ),
                                 Container(
                                     width: 30,

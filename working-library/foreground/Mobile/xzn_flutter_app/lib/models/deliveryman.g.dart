@@ -8,13 +8,13 @@ part of 'deliveryman.dart';
 
 Deliveryman _$DeliverymanFromJson(Map<String, dynamic> json) {
   return Deliveryman()
-    ..deliveryman_id = json['deliveryman_id'] as String
+    ..deliveryman_id = json['deliveryman_id'] as num
     ..name = json['name'] as String
     ..phone = json['phone'] as String
     ..sex = json['sex'] as String
     ..longitude = json['longitude'] as num
     ..latitude = json['latitude'] as num
-    ..status = json['status'] as num;
+    ..status = json['status'] as String;
 }
 
 Map<String, dynamic> _$DeliverymanToJson(Deliveryman instance) =>
