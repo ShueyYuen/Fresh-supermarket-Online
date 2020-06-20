@@ -1,9 +1,10 @@
 from django.contrib import admin
-from Fresh_market_online.model import Goods, Order, Warehouse
+from Fresh_market_online.model import Goods, Order, Warehouse, Deliveryman, User
 
 # Register your models here.
 admin.site.site_title = '鲜着呢后台管理系统'
 admin.site.site_header = '鲜着呢后台管理系统'
+
 
 # 商品管理
 class GoodsAdmin(admin.ModelAdmin):
@@ -67,3 +68,28 @@ class WarehouseAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Warehouse, WarehouseAdmin)
+
+
+class DeliverymanAdmin(admin.ModelAdmin):
+    list_display = ['deliveryman_id', 'warehouse_id', 'taking_status']
+
+    def get_queryset(self, request):
+        qs = super(DeliverymanAdmin, self).get_queryset(request)
+        if request.user.username == ('1' or '2' or '3' or '4' or '5'):
+            warehouse_id = Warehouse.objects.get(admin_id=request.user.username).warehose_id
+            return qs.filter(warehouse_id=warehouse_id)
+            # return qs.filter(warehouse_id=request.user.username)
+        else:
+            return qs
+
+
+admin.site.register(Deliveryman, DeliverymanAdmin)
+
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['user_id', 'user_type', 'password', 'sex', 'phone', 'head_image_id',
+                    'nickname', 'token']
+    list_filter = ['user_type', 'sex']
+
+
+admin.site.register(User, UserAdmin)

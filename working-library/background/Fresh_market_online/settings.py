@@ -171,17 +171,30 @@ SIMPLEUI_CONFIG = {
                 'name': '仓库管理',
                 'icon': 'fas fa-warehouse',
                 'url': '/admin/Fresh_market_online/warehouse/'
+            }, {
+                'name': '骑手管理',
+                'icon': 'fas fa-horse',
+                'url': '/admin/Fresh_market_online/deliveryman/'
+            }, {
+                'name': '用户管理',
+                'icon': 'fa fa-user',
+                'url': '/admin/Fresh_market_online/user/'
             }]
         },
         {
             'app': 'auth',
-            'name': '权限认证',
+            'name': '权限管理',
             'icon': 'fas fa-user-shield',
             'models': [{
-                'name': '用户',
-                'icon': 'fa fa-user',
+                'name': '管理员',
+                'icon': 'fas fa-user-cog',
                 'url': 'auth/user/'
-            }]
+            },
+                {
+                    'name': '权限分组',
+                    'icon': 'fa fa-users-cog',
+                    'url': 'auth/group/'
+                }]
         },
     ]
 }

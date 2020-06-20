@@ -101,9 +101,9 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Deliveryman(models.Model):
-    deliveryman_id = models.IntegerField(primary_key=True)
-    warehouse_id = models.CharField(max_length=20, blank=True, null=True)
-    taking_status = models.CharField(max_length=255, blank=True, null=True)
+    deliveryman_id = models.IntegerField(primary_key=True, verbose_name='骑手编号')
+    warehouse_id = models.CharField(max_length=20, blank=True, null=True, verbose_name='仓库编号')
+    taking_status = models.CharField(max_length=255, blank=True, null=True, verbose_name='骑手状态')
 
     class Meta:
         managed = False
