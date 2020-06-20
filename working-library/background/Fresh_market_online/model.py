@@ -150,26 +150,27 @@ class DjangoSession(models.Model):
 
 
 class Goods(models.Model):
-    goods_id = models.AutoField(primary_key=True)
-    goods_name = models.CharField(max_length=20, blank=True, null=True)
-    goods_type = models.CharField(max_length=10, blank=True, null=True)
-    unit = models.CharField(max_length=10, blank=True, null=True)
-    price = models.FloatField(blank=True, null=True)
-    warehouse_id = models.CharField(max_length=20, blank=True, null=True)
-    stock = models.FloatField(blank=True, null=True)
-    origin = models.CharField(max_length=255, blank=True, null=True)
-    specification = models.CharField(max_length=255)
-    packaging = models.CharField(max_length=255, blank=True, null=True)
-    stockway = models.CharField(max_length=255, blank=True, null=True)
-    weight = models.FloatField()
-    discount = models.FloatField()
-    subtitle = models.CharField(max_length=255, blank=True, null=True)
-    distribution = models.CharField(max_length=255, blank=True, null=True)
-    promotion = models.CharField(max_length=255, blank=True, null=True)
-    tags_type = models.CharField(max_length=255, blank=True, null=True)
-    tags_content = models.CharField(max_length=255, blank=True, null=True)
+    goods_id = models.AutoField(primary_key=True,verbose_name='商品编号')
+    goods_name = models.CharField(max_length=20, blank=True, null=True,verbose_name='商品名称')
+    goods_type = models.CharField(max_length=10, blank=True, null=True,verbose_name='商品类别')
+    unit = models.CharField(max_length=10, blank=True, null=True,verbose_name='单位')
+    price = models.FloatField(blank=True, null=True,verbose_name='商品单价')
+    warehouse_id = models.CharField(max_length=20, blank=True, null=True,verbose_name='所属仓库id')
+    stock = models.FloatField(blank=True, null=True, verbose_name='库存')
+    origin = models.CharField(max_length=255, blank=True, null=True, verbose_name='源')
+    specification = models.CharField(max_length=255,verbose_name='计量单位')
+    packaging = models.CharField(max_length=255, blank=True, null=True,verbose_name='单位名称')
+    stockway = models.CharField(max_length=255, blank=True, null=True,verbose_name='存储方式')
+    weight = models.FloatField(verbose_name='单位重量')
+    discount = models.FloatField(verbose_name='折扣')
+    subtitle = models.CharField(max_length=255, blank=True, null=True,verbose_name='产地')
+    distribution = models.CharField(max_length=255, blank=True, null=True,verbose_name='配送说明')
+    promotion = models.CharField(max_length=255, blank=True, null=True,verbose_name='限制')
+    tags_type = models.CharField(max_length=255, blank=True, null=True,verbose_name='标签名称')
+    tags_content = models.CharField(max_length=255, blank=True, null=True,verbose_name='标签内容')
 
     class Meta:
+        verbose_name_plural = '商品表'
         managed = False
         db_table = 'goods'
 
@@ -311,10 +312,10 @@ class User(models.Model):
 
 
 class Warehouse(models.Model):
-    warehose_id = models.CharField(primary_key=True, max_length=20)
-    address = models.CharField(max_length=255)
-    admin_id = models.IntegerField()
-    warehouse_name = models.CharField(max_length=20, blank=True, null=True)
+    warehose_id = models.CharField(primary_key=True, max_length=20, verbose_name='仓库编号')
+    address = models.CharField(max_length=255, verbose_name='仓库地址')
+    admin_id = models.IntegerField(verbose_name='管理员id')
+    warehouse_name = models.CharField(max_length=20, blank=True, null=True, verbose_name='仓库名称')
 
     class Meta:
         managed = False

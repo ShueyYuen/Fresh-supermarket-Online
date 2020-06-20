@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -27,10 +26,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +46,7 @@ INSTALLED_APPS = [
     'LogoffAPI',
     'OrderAPI',
     'AdsAPI',
+    'AdminXZN'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Fresh_market_online.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -98,15 +97,13 @@ DATABASES = {
 
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache", 
-        "LOCATION": "redis://127.0.0.1:6379/0", 
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/0",
         "OPTIONS": {
-        "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -126,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -140,8 +136,61 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+'''
+以下为simpleui的相关参数
+用来美化后台
+'''
+SIMPLEUI_DEFAULT_THEME = 'green.css'  # 默认主题
+# SIMPLEUI_ICON = {  # logo
+#     'Goodss': 'far fa-lemon',
+# }
+# 如果SIMPLEUI_CONFIG中存在menus字段，将会覆盖系统默认菜单。并且menus中输出的菜单不会受权限控制。
+SIMPLEUI_CONFIG = {
+    'menus': [
+        {
+            'app': 'AdminXZN',
+            'name': '鲜着呢系统后台',
+            'icon': 'fas fa-calculator',
+            'models': [{
+                'name': '商品管理',
+                'icon': 'far fa-lemon',
+                'url': '/admin/Fresh_market_online/goods/'
+            }, {
+                'name': '订单管理',
+                'icon': 'fas fa-receipt',
+                'url': '/admin/Fresh_market_online/order/'
+            }, {
+                'name': '仓库管理',
+                'icon': 'fas fa-warehouse',
+                'url': '/admin/Fresh_market_online/warehouse/'
+            }]
+        },
+        {
+            'app': 'auth',
+            'name': '权限认证',
+            'icon': 'fas fa-user-shield',
+            'models': [{
+                'name': '用户',
+                'icon': 'fa fa-user',
+                'url': 'auth/user/'
+            }]
+        },
+    ]
+}
+# 侧边栏主页链接
+# SIMPLEUI_HOME_PAGE = 'https://github.com/FredCof/Fresh-supermarket-Online'  # 首页
+# SIMPLEUI_HOME_TITLE = '来GitHub上看看我们'
+# SIMPLEUI_HOME_ICON = 'fab fa-github'
+
+# logo地址
+SIMPLEUI_LOGO = '/static/admin/logo.png'
+# SIMPLEUI_LOGO = 'https://avatars2.githubusercontent.com/u/13655483?s=60&v=4'
+SIMPLEUI_HOME_INFO = False
