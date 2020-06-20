@@ -320,6 +320,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                       children: types.map((_tagkey) {
                         bool _selected = filter.tag == _tagkey;
                         return RawChip(
+                          checkmarkColor: Colors.white,
 //                                    label: Text(sex[widget.address.person["sex"]]),
                           label: Text(_tagkey),
                           selected: _selected,

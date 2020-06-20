@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xzn/services/order_service.dart';
+import 'package:xzn/services/token.dart';
 import 'package:xzn/widget/order/order_card.dart';
 
 class OrderManage extends StatefulWidget {
@@ -44,7 +45,7 @@ class _OrderManageState extends State<OrderManage> {
         _activeIndex = _controller.index;
       });
     });
-    _future = getOrderList(context, "");
+    _future = getOrderList(context, getToken(context));
     super.initState();
   }
 
@@ -96,7 +97,7 @@ class _OrderManageState extends State<OrderManage> {
                   } else {
                     List data = snapshot.data.sublist(0, snapshot.data.length);
                     data.removeWhere((element) =>
-                        !element.order_status.contains(_status[_activeIndex]));
+                        _activeIndex != 0 && !(element.order_status == _activeIndex));
                     widget = ListView(
                       children: data.map<Widget>((order) {
                         return OrderCard(

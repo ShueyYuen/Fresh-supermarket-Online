@@ -124,7 +124,7 @@ class AddressModel extends ProfileChangeNotifier {
     for (Address item in this.address) {
       if (item.address_id == address.address_id) {
         item = address;
-        print(item.toString());
+        print(item.toJson());
         break;
       }
     }
@@ -136,21 +136,21 @@ class AddressModel extends ProfileChangeNotifier {
 class OrderModel extends ProfileChangeNotifier {
   List<Order> get order => _profile.order;
   bool get is_loaded => _profile.user != null && order != null;
-  int get unpaid => countStatus("unpaid");
-  int get unreceived => countStatus("unreceived");
-  int get uncomment => countStatus("uncomment");
-  int get finished => countStatus("finished");
+  int get unpaid => countStatus(1);
+  int get unreceived => countStatus(2);
+  int get unconfirm => countStatus(3);
+  int get finished => countStatus(4);
 
   set order(List<Order> order) {
     _profile.order = order;
     notifyListeners();
   }
 
-  int countStatus(String type) {
+  int countStatus(int type) {
     int count = 0;
     if (order == null) return count;
     for (Order order_item in order) {
-      if (order_item.order_status.contains(type)) count++;
+      if (order_item.order_status == type) count++;
     }
     return count;
   }

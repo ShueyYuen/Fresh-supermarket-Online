@@ -14,7 +14,6 @@ import '../states/profile_change_notifier.dart';
 
 //返回地址详情
 getAddressDetail(TextEditingController address) async {
-  print(address);
   String aMapWebKey = "530a8069770558e6e9e0db21c2cd8bc3";
   String url = "https://restapi.amap.com/v3/geocode/geo?address=" + address.text + "&key=" + aMapWebKey;
   dynamic res = await http.get(url);
@@ -107,19 +106,43 @@ updateAddress(BuildContext context, Address address) async {
       String url = Config.baseUrl() + "user/address/update";
       var body = address.toJson();
       var dio = new Dio();
-      print(address.address_id);
       body["token"] = getToken(context);
       body["person"] = stringfy(body["person"]);
       body["detail"] = stringfy(body["detail"].toJson());
-      print(body["detail"]);
       FormData formData = new FormData.fromMap(body);
       var res = await dio.post(url, data: formData);
       var json = jsonDecode(res.data.toString());
-      address.address_id = json["address_id"];
+      address.address_id = int.parse(json["address_id"]);
+      print(address.address_id);
       Provider
         .of<AddressModel>(context, listen: false)
         .update(address);
       return address.address_id;
+    } else if (Provider.of<AddressModel>(context, listen: false).is_loaded) {
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+deleteAddress(BuildContext context, Address address) async {
+  try {
+    if (Provider.of<UserModel>(context, listen: false).isLogin) {
+      String url = Config.baseUrl() + "user/address/delete";
+      var dio = new Dio();
+      var body = {
+        "address_id": address.address_id
+      };
+      FormData formData = new FormData.fromMap(body);
+      var res = await dio.post(url, data: formData);
+      var json = jsonDecode(res.data.toString());
+      print(json);
+      if(json["success"]) {
+        Provider.of<AddressModel>(context)
+          .delete(address.address_id);
+        return json["success"];
+      }
+      return false;
     } else if (Provider.of<AddressModel>(context, listen: false).is_loaded) {
     }
   } catch (e) {

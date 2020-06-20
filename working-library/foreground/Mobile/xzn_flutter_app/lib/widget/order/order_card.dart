@@ -13,6 +13,7 @@ class OrderCard extends StatelessWidget {
 
   String truncateName(Order order) {
     String result = "";
+    print(order.product_list);
     for (var product_item in order.product_list) {
       result += product_item.product.product_name +
           "*" +
@@ -157,6 +158,7 @@ class OrderCard extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(20.0)),
                                     onPressed: () {
+                                      print(order.toJson());
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
                                         return OrderDetail(order: order);
