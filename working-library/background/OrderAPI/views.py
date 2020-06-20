@@ -8,7 +8,7 @@ import json
 from LoginAPI.token_module import get_token,out_token
 from GoodsAPI.views import getpicture
 @csrf_exempt
-def OrderDetails(request):
+def OrderDetails(request):#deprecated
     token = request.POST.get("token")
     oid = request.POST.get("order_id")
     user = User.objects.filter(token=token)
@@ -26,7 +26,7 @@ def OrderDetails(request):
                     phone,sex,nickname=user['phone'],user['sex'],user['nickname']
                     customer={'phone':phone,'sex':sex,'nickname':nickname}
                     address={'address_id':addr['address_id'],'person':{'consignee':addr['consignee'],'sex':addr['consignee_sex']},'phone':addr['consignee_phone']}
-                    detail={'province':addr['province'],'city':addr['city'],'district':addr['district'],'street':addr['street'],'house_no':addr['house_no'],'longitude':addr['longitude'],'latitude':addr['latitude'],'tag':addr['tag']}
+                    detail={'province':addr['province'],'city':addr['city'],'district':addr['district'],'street':addr['street'],'no':addr['house_no'],'longitude':addr['longitude'],'latitude':addr['latitude'],'tag':addr['tag']}
 
                     orderdetail=OrderDetail.objects.filter(order_id=item['order_id']).values()
                     product_list=[]
@@ -61,7 +61,7 @@ def OrderDetails(request):
                     data.append({'order_id':oid,'customer':customer,'address':address,'detail':detail,'product_list':product_list,'deliveryman':deliveryman,
                                 'create_order_time':str(item['create_order_time']),'receive_order_time':str(item['receive_order_time']),'finish_order_time':str(item['finish_order_time']),
                                 'order_status':item['order_status'],'payment_id':item['payment_id'],'total_price':total_price})
-
+            print(data)
             return HttpResponse(json.dumps(data))
     return HttpResponse(json.dumps({'message':'登录过期或用户名不存在'}))
 
@@ -76,41 +76,53 @@ def OrderList(request):
         uid = user['user_id']
         if out_token(telephone, token):
             data = []
-            type = request.POST.get("type")
-            if type == 'all':
-                order = Order.objects.filter(customer_id=uid).values()
-            else:
-                order = Order.objects.filter(customer_id=uid,order_status=type).values()
-            for item in order:
-                order_id = item['order_id']
-                create_order_time = str(item['create_order_time'])
-                receive_order_time = str(item['receive_order_time'])
-                finish_order_time = str(item['finish_order_time'])
-                order_status = item['order_status']
-                totalprice = 0
-                count = 0
-                description = ''
-                orderdetail=OrderDetail.objects.filter(order_id=order_id).values()
-                for oitem in orderdetail:
-                    goods_id = oitem['goods_id']
-                    goods=Goods.objects.filter(goods_id=goods_id).values()[0]
-                    price = goods['price']
-                    totalprice += oitem['quantity']*price
-                    count += 1
-                    if count>3:
-                        continue
-                    else:
-                        description+=goods["goods_name"]
-                        description += ' '
-                if count>3:
-                    description += ('等'+str(count)+"件商品")
+            order=Order.objects.filter(customer_id=uid)
+            data=[]
+            if order:
+                for item in order.values():
+                    user=User.objects.filter(user_id=item['customer_id']).values()[0]
+                    addr=Address.objects.filter(customer_id=item['customer_id']).values()[0]
 
-                ocontent = {"order_id": order_id,"create_order_time":create_order_time,"receive_order_time":receive_order_time,
-                    "finish_order_time":finish_order_time,"order_status":order_status,"total_price":totalprice,"description":description}
-                data.append(ocontent)
-            response = json.dumps(data)
-            return HttpResponse(response)
+                    phone,sex,nickname=user['phone'],user['sex'],user['nickname']
+                    customer={'phone':phone,'sex':sex,'nickname':nickname}
+                    address={'address_id':addr['address_id'],'person':{'consignee':addr['consignee'],'sex':addr['consignee_sex']},'phone':addr['consignee_phone']}
+                    detail={'province':addr['province'],'city':addr['city'],'district':addr['district'],'street':addr['street'],'no':addr['house_no'],'longitude':addr['longitude'],'latitude':addr['latitude'],'tag':addr['tag']}
 
+                    orderdetail=OrderDetail.objects.filter(order_id=item['order_id']).values()
+                    product_list=[]
+                    total_price=0
+                    for ODitem in orderdetail:
+                        gid=ODitem['goods_id']
+                        goods = Goods.objects.filter(goods_id=gid).values()[0]
+
+                        product_name = goods['goods_name']
+                        product_id = gid
+                        price = {"num": goods['price'], "unit": str(goods['unit'])}
+                        shuffle,detail = getpicture(gid)
+                        picture_list = {"shuffle": shuffle, "detail": detail}
+                        details = {"origin": goods['origin'], "specification": goods['specification'],
+                                "packaging": goods['packaging'], "stockway": goods['stockway'], "weight": goods['weight']}
+                        stock = goods['stock']
+                        discount = goods['discount']
+                        description = {"subtitle": goods['subtitle'], "distribution": goods['distribution'], "promotion": goods['promotion']}
+                        tags = {"type": goods['tags_type'], "content": goods['tags_content']}
+
+                        product={"product_name": str(product_name), "product_id": str(product_id), "price": price,
+                                "picture_list": picture_list, "details": details, "stock": stock, "discount": discount,
+                                "description": description, "tags": tags}
+                        product_list.append({'product':product,'number':ODitem['quantity']})
+                        total_price += (goods['price']*ODitem['quantity'])
+
+
+                    dman=Deliveryman.objects.filter(deliveryman_id=item['deliveryman_id']).values()[0]
+                    duser=User.objects.filter(user_id=item['deliveryman_id']).values()[0]
+                    deliveryman={'deliveryman_id':dman['deliveryman_id'],'name':duser['nickname'],'phone':duser['phone'],'sex':duser['sex'],'longitude':'30.915406','latitude':'121.479650','status':dman['taking_status']}
+
+                    data.append({'order_id':oid,'customer':customer,'address':address,'detail':detail,'product_list':product_list,'deliveryman':deliveryman,
+                                'create_order_time':str(item['create_order_time']),'receive_order_time':str(item['receive_order_time']),'finish_order_time':str(item['finish_order_time']),
+                                'order_status':item['order_status'],'payment_id':item['payment_id'],'total_price':total_price})
+            print(data)
+            return HttpResponse(json.dumps(data))
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
 
 @csrf_exempt
@@ -190,6 +202,21 @@ def xznpay(request):
                 return HttpResponse(json.dumps({'message': '余额不足'}))
             user=User.objects.filter(user_id=uid).update(money=user['money']-total_price)
             order=Order.objects.filter(order_id=oid).update(order_status=2)
+            return HttpResponse(json.dumps({'success': True}))
+            
+    return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
+
+@csrf_exempt
+def OrderConfirm(request):
+    token = request.POST.get("token")
+    oid=request.POST.get("order_id")
+    user = User.objects.filter(token=token)
+    if user:
+        user = user.values()[0]
+        telephone = user['phone']
+        uid = user['user_id']
+        if out_token(telephone, token):
+            Order.objects.filter(order_id=oid).update(order_status=4)
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))

@@ -2,7 +2,7 @@ import time
 import base64
 import hmac
 
-def get_token(key, expire=216000):
+def get_token(key, expire=21600000):
     '''
     :param key: str (用户给定的key，需要用户保存以便之后验证token,每次产生token时的key 都可以是同一个key)
     :param expire: int(最大有效时间，单位为s)

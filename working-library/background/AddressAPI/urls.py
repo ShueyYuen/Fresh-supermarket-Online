@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     url('api/user/address/list', views.AddressGet),
-    url('api/user/address/update', views.AddressUpdate)
+    url('api/user/address/update', views.AddressUpdate),
+    url('api/user/address/delete',views.AddressDelete)
 ]

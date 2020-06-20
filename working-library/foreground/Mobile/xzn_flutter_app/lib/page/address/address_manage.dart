@@ -8,7 +8,8 @@ import 'package:xzn/services/token.dart';
 import 'package:xzn/utils/platform_utils.dart';
 
 class AddressCard extends StatelessWidget {
-  AddressCard({Key key, @required this.address}) : super(key: key);
+  AddressCard({Key key, @required this.address, this.update: null}) : super(key: key);
+  Function update;
   Address address;
   String getSex(String sex) {
     switch (sex) {
@@ -32,13 +33,12 @@ class AddressCard extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                     flex: 1,
-                    child: Text(address.detail["city"] +
-                        address.detail["district"] +
-                        "区" +
-                        address.detail["street"] +
-                        "路" +
-                        address.detail["house_no"] +
-                        "号")),
+                    child: Text(
+                      address.detail.city +
+                      address.detail.district +
+                      address.detail.street
+//                      address.detail.no==null?"":address.detail.no
+                    )),
                 Expanded(
                     flex: 0,
                     child: Container(
@@ -56,10 +56,11 @@ class AddressCard extends StatelessWidget {
             ),
             trailing: IconButton(
                 icon: Icon(Icons.edit),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                onPressed: () async {
+                  bool change = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return AddressEdit(address:address);
                   }));
+                  if (change) this.update();
                 }),
             subtitle: Text(address.person["consignee"] +
                 getSex(address.person["sex"]) +
@@ -92,6 +93,12 @@ class _AddressManageState extends State<AddressManage> {
     super.initState();
   }
 
+  void edited() {
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,10 +129,12 @@ class _AddressManageState extends State<AddressManage> {
                 size: 48,
               );
             } else {
+              print(snapshot.data);
               widget = ListView(
                 children: snapshot.data.map<Widget>((address) {
                   return AddressCard(
                     address: address,
+                    update: edited,
                   );
                 }).toList(),
               );

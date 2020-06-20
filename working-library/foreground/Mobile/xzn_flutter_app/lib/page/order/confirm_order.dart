@@ -150,13 +150,10 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             },
                           )
                         : ListTile(
-                            title: Text(address_sub.detail["city"] +
-                                address_sub.detail["district"] +
-                                "区" +
-                                address_sub.detail["street"] +
-                                "路" +
-                                address_sub.detail["house_no"] +
-                                "号"),
+                            title: Text(address_sub.detail.city +
+                                address_sub.detail.district +
+                                address_sub.detail.street +
+                                address_sub.detail.no),
                             trailing: Icon(Icons.arrow_forward_ios),
                             subtitle: Text(address_sub.person["consignee"] +
                                 getSex(address_sub.person["sex"]) +

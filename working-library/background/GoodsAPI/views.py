@@ -20,6 +20,7 @@ def Goodsdetail(request):
             product_id = gid
             price = {"num": goods['price'], "unit": str(goods['unit'])}
             shuffle,detail = getpicture(gid)
+            print(shuffle,detail)
             picture_list = {"shuffle": shuffle, "detail": detail}
             details = {"origin": goods['origin'], "specification": goods['specification'],
                        "packaging": goods['packaging'], "stockway": goods['stockway'], "weight": goods['weight']}

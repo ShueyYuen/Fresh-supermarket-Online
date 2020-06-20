@@ -34,11 +34,9 @@ class AddressCard extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Text(address.detail["city"] +
-                      address.detail["district"] +
-                      "区" +
-                      address.detail["street"] +
-                      "路")),
+                    child: Text(address.detail.city +
+                      address.detail.district +
+                      address.detail.street)),
                   Expanded(
                     flex: 0,
                     child: Container(

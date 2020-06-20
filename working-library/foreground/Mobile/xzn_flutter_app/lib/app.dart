@@ -7,9 +7,10 @@ import 'page/my.dart';
 import 'states/profile_change_notifier.dart';
 
 class App extends StatefulWidget {
-  App({Key key, this.index: 0}) : super(key: key);
+  App({Key key, this.index: 0, this.subindex: 0}) : super(key: key);
 
   int index;
+  int subindex;
 
   @override
   State<StatefulWidget> createState() => new _AppState();
@@ -49,7 +50,7 @@ class _AppState extends State<App> {
       case 0:
         return home = home ?? Home();
       case 1:
-        return classification = classification ?? Classification(0);
+        return classification = classification ?? Classification(idx:widget.subindex);
       case 2:
         return cart = cart ?? Cart();
       case 3:
@@ -58,9 +59,13 @@ class _AppState extends State<App> {
   }
 
   @override
+  void initState() {
+    _currentIndex = widget.index;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _currentIndex =
-        _currentIndex ?? ModalRoute.of(context).settings.arguments ?? 0;
     return new WillPopScope(
         onWillPop: _onWillPop,
         child: Scaffold(

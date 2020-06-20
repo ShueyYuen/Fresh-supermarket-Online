@@ -125,6 +125,9 @@ class _HomeState extends State<Home> {
             SliverList(
                 delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
+              if(wordsList.length == 0) {
+                return Text("data");
+              }
               if (index >= 50) {
                 return Container(
                   alignment: Alignment.center,

@@ -7,4 +7,5 @@ urlpatterns = [
     url('api/user/order/cancel', views.OrderCancel),
     url('api/user/order/paystate', views.OrderPayState),
     url('api/user/order/xznpay', views.xznpay),
+    url('api/user/order/confirm', views.OrderConfirm),
 ]

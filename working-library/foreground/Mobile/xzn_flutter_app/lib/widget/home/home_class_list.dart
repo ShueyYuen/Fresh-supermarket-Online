@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xzn/app.dart';
 import 'package:xzn/page/classification.dart';
 
 class ClassCardWidget extends StatelessWidget {
@@ -13,9 +14,16 @@ class ClassCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return new GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Classification(idx);
-          }));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return App(index: 1, subindex: idx,);
+            }),
+              (Route<dynamic> route) => false,
+          );
+//          Navigator.push(context, MaterialPageRoute(builder: (context) {
+//            return Classification(idx: 0,);
+//          }));
         },
         child: new Column(
 //      alignment: Alignment.bottomCenter,

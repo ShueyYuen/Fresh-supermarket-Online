@@ -39,21 +39,34 @@ Widget CustomAvatar(
 }
 
 Widget PictureSelf(String url,
-    {Product product, double width, BoxFit boxFit, Widget placeholder, double height}) {
+    {Product product,
+    double width,
+    BoxFit boxFit,
+    Widget placeholder,
+    double height}) {
   placeholder = placeholder ??
       Image.asset(
         "assets/image/default_picture.webp", //头像占位图，加载过程中显示
         fit: BoxFit.cover,
       );
-  return CachedNetworkImage(
-    imageUrl: Config.baseUrl() +
-        "picture/" +
-        (product == null ? "" : product.product_id.toString() + "/") +
-        url,
-    fit: boxFit ?? BoxFit.fitWidth,
-    width: width ?? double.infinity,
-    height: height ?? double.infinity,
-    placeholder: (context, url) => placeholder,
-    errorWidget: (context, url, error) => placeholder,
-  );
+  String imageUrl = Config.baseUrl() +
+      "picture/" +
+      (product == null ? "" : product.product_id.toString() + "/") +
+      url;
+  return height == null
+      ? CachedNetworkImage(
+          imageUrl: imageUrl,
+          fit: boxFit ?? BoxFit.fitWidth,
+          width: width ?? double.infinity,
+          placeholder: (context, url) => placeholder,
+          errorWidget: (context, url, error) => placeholder,
+        )
+      : CachedNetworkImage(
+          imageUrl: imageUrl,
+          fit: boxFit ?? BoxFit.fitWidth,
+          width: width ?? double.infinity,
+          height: height ?? double.infinity,
+          placeholder: (context, url) => placeholder,
+          errorWidget: (context, url, error) => placeholder,
+        );
 }

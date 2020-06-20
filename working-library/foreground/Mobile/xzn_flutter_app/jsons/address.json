@@ -1,18 +1,10 @@
 {
-  "address_id": "",
+  "address_id": 0,
   "person":{
     "consignee":"",
     "sex":""
   },
   "phone":"",
-  "detail":{
-    "province":"",
-    "city":"",
-    "district":"",
-    "street":"",
-    "house_no":""
-  },
-  "longitude":1.1,
-  "latitude":1.1,
+  "detail": "$amapgeo",
   "tag":""
 }
