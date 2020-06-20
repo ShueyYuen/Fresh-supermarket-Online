@@ -394,6 +394,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
 //                          orders.add(cartItem.product.product_id);
 //                        }
                         String id = await submitOrder(context, getToken(context), widget.order, address, protect, "就是这个备注", totalPriceDouble());
+                        print(id);
                         setState(() {
                           order_id = id;
                         });
@@ -427,14 +428,19 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       color: Colors.redAccent,
                                       padding:
                                           EdgeInsets.symmetric(vertical: 15),
-                                      onPressed: () {
-
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(builder: (context) {
-                                            return OrderManage();
-                                          }),
-                                        );
+                                      onPressed: () async {
+                                        print("\n\n\n");
+                                        print(this.order_id);
+                                        print("\n\n\n");
+                                        if(await xznpay(context, int.parse(this.order_id))) {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return OrderManage();
+                                              }),
+                                          );
+                                        }
 //                                        Navigator.pushAndRemoveUntil(
 //                                          context,
 //                                          MaterialPageRoute(

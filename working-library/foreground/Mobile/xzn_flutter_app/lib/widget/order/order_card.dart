@@ -77,6 +77,32 @@ class OrderCard extends StatelessWidget {
                     onPressed: () {},
                   )
                 : Text("");
+    // TODO: 同步显示
+    Widget rightbutton = this.order.order_status == 1
+        ? OutlineButton(
+            highlightColor: Colors.blue[700],
+            splashColor: Colors.grey,
+            child: Text(
+              "取消订单",
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            onPressed: () {
+              cancelOrder(context, this.order.order_id);
+            },
+          )
+        : OutlineButton(
+            highlightColor: Colors.blue[700],
+            splashColor: Colors.grey,
+            child: Text(
+              "再来一份",
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            onPressed: () {},
+          );
     return Container(
         height: 140,
         width: width,
@@ -176,20 +202,7 @@ class OrderCard extends StatelessWidget {
                                       }));
                                     },
                                   ),
-                                  OutlineButton(
-                                    highlightColor: Colors.blue[700],
-                                    splashColor: Colors.grey,
-                                    child: Text(
-                                      "再来一份",
-                                      style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontSize: 14),
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0)),
-                                    onPressed: () {},
-                                  ),
+                                  rightbutton
                                 ],
                               )))
                     ],

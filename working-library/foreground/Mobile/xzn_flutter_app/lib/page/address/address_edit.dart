@@ -337,12 +337,9 @@ class _AddressEditState extends State<AddressEdit> {
                   address.phone = _telController.text;
                   Amapgeo addressMap =
                       await getAddressDetail(_addressController);
-                  print("COFLCONER");
-                  print(addressMap.toJson());
                   address.detail = addressMap;
                   address.detail.no = _noController.text;
                   int a = await updateAddress(context, address);
-                  print(a);
                   if (widget.edit) Navigator.of(context).pop(true);
                 },
               ),

@@ -43,6 +43,25 @@ getOrderList(BuildContext context, String token) async {
   return order_list;
 }
 
+cancelOrder(BuildContext context, int order_id) async {
+  try {
+//    if (!Provider.of<OrderModel>(context, listen: false).is_loaded &&
+//        Provider.of<UserModel>(context, listen: false).isLogin) {
+    if (Provider.of<UserModel>(context, listen: false).isLogin) {
+      String url = Config.baseUrl() + "user/order/cancel";
+      var dio = new Dio();
+      FormData formData = new FormData.fromMap({"token": getToken(context), "order_id": order_id});
+      var response = await dio.post(url, data: formData);
+      var json = jsonDecode(response.data.toString());
+      if(json["success"]) return true;
+    } else if (Provider.of<OrderModel>(context, listen: false).is_loaded) {
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+  return false;
+}
+
 submitOrder(BuildContext context, String token, List<CartItem> orders,
     Address address, bool secret, String remark, double price) async {
   List<String> products = List<String>();
@@ -62,17 +81,18 @@ submitOrder(BuildContext context, String token, List<CartItem> orders,
       });
       var response = await dio.post(url, data: formData);
       var json = jsonDecode(response.data.toString());
-      print(json);
       for (String product_id in products) {
         Provider.of<CartModel>(context, listen: true).delete(product_id);
       }
-      Order.fromJson({
-        "order_id": json["order_id"],
-        "customer": {"phone": "", "sex": "", "nickname": ""},
-        "address": address.toJson(),
-        "note": remark,
-        "total_price": price
-      });
+//      Order.fromJson({
+//        "order_id": json["order_id"],
+//        "customer": {"phone": "", "sex": "", "nickname": ""},
+//        "address": address.toJson(),
+//        "note": remark,
+//        "total_price": price
+//      });
+      print("\n\n\n\n这就是结果：");
+      print(json);
       return json["order_id"].toString();
     }
   } catch (e) {
@@ -87,15 +107,18 @@ xznpay(BuildContext context, int order_id) async {
 //        Provider.of<UserModel>(context, listen: false).isLogin) {
     if (Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/order/xznpay";
+      print("支付了支付了！！！");
       var dio = new Dio();
       FormData formData = new FormData.fromMap({"token": getToken(context),"order_id":order_id});
       var response = await dio.post(url, data: formData);
       var json = jsonDecode(response.data.toString());
-      print(json);
+      if (json["success"]) return true;
+      else return false;
     }
   } catch (e) {
     print(e.toString());
   }
+  return false;
 }
 
 confirmGoods(BuildContext context, int order_id) async {

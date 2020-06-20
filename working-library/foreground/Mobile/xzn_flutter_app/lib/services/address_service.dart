@@ -134,6 +134,7 @@ deleteAddress(BuildContext context, Address address) async {
       String url = Config.baseUrl() + "user/address/delete";
       var dio = new Dio();
       var body = {
+        "token": getToken(context),
         "address_id": address.address_id
       };
       FormData formData = new FormData.fromMap(body);
