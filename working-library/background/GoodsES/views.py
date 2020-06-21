@@ -55,61 +55,7 @@ def GoodsSearch(request):
         hprice = request.POST.get("highprice")
     if request.POST.get("lowprice") != "":
         lprice = request.POST.get("lowprice")
-<<<<<<< HEAD
-    user = User.objects.filter(token=token)
-    ESdata(hosts)
-    if user:
-        user = user.values()[0]
-        telephone = user['phone']
-        user_id = user['user_id']
-        if out_token(telephone, token):
-            data = []
-            key = request.POST.get("key")
-            print('key:',key)
-            time=datetime.now()
-            History.objects.create(user_id=user_id, key=key, time=time)
-            if key=='' or key==None:
-                goodslist=Goods.objects.filter(goods_type=type).values()
-                for goods in goodslist:
-                    goods_id = goods['goods_id']
-                    product_name = goods['goods_name']
-                    goods_type = goods['goods_type']
-                    price = {"num": goods['price'], "unit": str(goods['unit'])}
-                    shuffle, detail = getpicture(str(goods_id))
-                    print(shuffle,detail)
-                    picture_list = {"shuffle": shuffle, "detail": detail}
-                    details = {"origin": goods['origin'], "specification": goods['specification'],
-                               "packaging": goods['packaging'], "stockway": goods['stockway'], "weight": goods['weight']}
-                    stock = goods['stock']
-                    discount = goods['discount']
-                    description = {"subtitle": goods['subtitle'], "distribution": goods['distribution'],
-                                   "promotion": goods['promotion']}
-                    tags = {"type": goods['tags_type'], "content": goods['tags_content']}
-
-                    result = {"product_name": str(product_name), "product_id": str(goods_id), 'goods_type':goods_type,"price": price,
-                            "picture_list": picture_list, "details": details, "stock": stock, "discount": discount,
-                            "description": description, "tags": tags}
-
-                    data.append(result)
-                response = json.dumps(data)
-                print(data)
-                return HttpResponse(response)
-            else:
-                result=(ESmatch(key))
-                for item in result['hits']['hits']:
-                    #print(item)
-                    #print(item['_source']['goods_id'])
-                    goods_id = item['_source']['goods_id']
-                    #print(lprice)
-                    #print(hprice)
-
-                    if type=='' or type==None:
-                        if Goods.objects.filter(goods_id=goods_id, price__range=(lprice, hprice)):
-                            goods = Goods.objects.filter(goods_id=goods_id,price__range=(lprice,hprice)).values()[0]
-                        else:
-                            continue
-=======
-    if token == None or '':
+    if token == None or token == '':
         data = []
         key = request.POST.get("key")
         print('key:', key)
@@ -158,7 +104,6 @@ def GoodsSearch(request):
                     if Goods.objects.filter(goods_id=goods_id, goods_type=type, price__range=(lprice, hprice)):
                         goods = Goods.objects.filter(goods_id=goods_id, goods_type=type,
                                                      price__range=(lprice, hprice)).values()[0]
->>>>>>> dcd52e5d2c868502942714da4ae83017b8d69bc0
                     else:
                         continue
 
