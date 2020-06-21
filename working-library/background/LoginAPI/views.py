@@ -23,9 +23,9 @@ def Login(request):
             return HttpResponse(response)
     
     user= User.objects.filter(phone=phone)
-    if user.exists()==False:
-        response=json.dumps({"message":"当前帐号未注册"})
-        return HttpResponse(response)
+   #if user.exists()==False:
+   #    response=json.dumps({"message":"当前帐号未注册"})
+   #    return HttpResponse(response)
     
     if code==None:
         if user.values()[0]['password'] != passwd:
