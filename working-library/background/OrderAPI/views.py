@@ -167,6 +167,7 @@ def OrderPayState(request):
                                          address_id=int(adderss_id)).values()[0]
             id = order['order_id']
             for item in goods_list:
+                print(item)
                 goods = ShoppingCart.objects.filter(customer_id=uid, goods_id=item).values()[0]
 
                 quantity = goods['quantity']
