@@ -15,7 +15,7 @@ def InfoGet(request):
         if out_token(telephone, token):
             nickname = user['nickname']
             sex = user['sex']
-            data = {"nickname": str(nickname), "phone": str(telephone), "sex": str(sex),"user_id":user['user_id'],
+            data = {"nickname": str(nickname), "phone": str(telephone), "sex": str(sex),"user_id":str(user['user_id']),
                    "token":token,"head_image_id":user["head_image_id"],"money":user["money"]}
             response = json.dumps(data)
             print(response)
