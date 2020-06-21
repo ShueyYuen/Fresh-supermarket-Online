@@ -54,7 +54,8 @@ def OrderDetails(request):#deprecated
                         total_price += (goods['price']*ODitem['quantity'])
 
 
-                    dman=Deliveryman.objects.filter(deliveryman_id=item['deliveryman_id']).values()[0]
+                    #dman=Deliveryman.objects.filter(deliveryman_id=item['deliveryman_id']).values()[0]
+                    dman = Deliveryman.objects.filter(deliveryman_id='00000001').values()[0]
                     duser=User.objects.filter(user_id=item['deliveryman_id']).values()[0]
                     deliveryman={'deliveryman_id':dman['deliveryman_id'],'name':duser['nickname'],'phone':duser['phone'],'sex':duser['sex'],'longitude':'30.915406','latitude':'121.479650','status':dman['taking_status']}
 
