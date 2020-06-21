@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone as datetime
 import json
 
 from django.shortcuts import render
@@ -65,7 +65,7 @@ def GoodsSearch(request):
             data = []
             key = request.POST.get("key")
             print('key:',key)
-            time=datetime.datetime.now()
+            time=datetime.now()
             History.objects.create(user_id=user_id, key=key, time=time)
             if key=='' or key==None:
                 goodslist=Goods.objects.filter(goods_type=type).values()

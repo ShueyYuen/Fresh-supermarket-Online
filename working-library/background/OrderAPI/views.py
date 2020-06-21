@@ -198,7 +198,9 @@ def xznpay(request):
             for ODitem in orderdetail:
                 gid=ODitem['goods_id']
                 goods = Goods.objects.filter(goods_id=gid).values()[0]
-                total_price += (goods['price']*ODitem['quantity'])
+                discount = goods['discount']
+                total_price += (goods['price']*ODitem['quantity']*discount)
+            total_price += 10.0#配送费
             print("total_price:",total_price)
             if user['money']<total_price:
                 return HttpResponse(json.dumps({'message': '余额不足'}))
