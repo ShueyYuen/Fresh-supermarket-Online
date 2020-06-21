@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone as datetime
 
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -156,7 +156,7 @@ def OrderPayState(request):
                 return HttpResponse(json.dumps({'message': '订单已提交，请勿重复提交'}))
             print(goods_list)
             adderss_id = request.POST.get("address_id")
-            create_order_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            create_order_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             order_status = 1
             warehouse_id = '01'
             Order.objects.create(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
