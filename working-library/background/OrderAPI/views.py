@@ -197,13 +197,13 @@ def xznpay(request):
             if order['order_status']!=1:
                 return HttpResponse(json.dumps({'message': '订单状态不是待支付'}))
             orderdetail=OrderDetail.objects.filter(order_id=order['order_id']).values()
-            total_price=0
+            total_price=0.00
             print("od length:",len(orderdetail))
             for ODitem in orderdetail:
                 gid=ODitem['goods_id']
                 goods = Goods.objects.filter(goods_id=gid).values()[0]
                 discount = goods['discount']
-                total_price += (goods['price']*ODitem['quantity']*discount)
+                total_price += (float(goods['price'])*int(ODitem['quantity'])*float(discount))
             total_price = float(total_price)
             total_price += float(10.0)#配送费
             print("total_price:",total_price)
