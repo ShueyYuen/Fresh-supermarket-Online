@@ -9,7 +9,7 @@ import 'dart:math';
 
 Widget CustomAvatar(
   BuildContext context, {
-  double width = 70,
+  double width = 80,
   double height,
   BoxFit fit,
   BorderRadius borderRadius,

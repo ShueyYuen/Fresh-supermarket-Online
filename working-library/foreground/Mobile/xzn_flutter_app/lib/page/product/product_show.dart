@@ -141,7 +141,7 @@ class ProductPage extends StatelessWidget {
                                     fontSize: 22, color: Colors.redAccent[200]),
                               ),
                               TextSpan(
-                                  text: "/" + product.price["unit"] + "   ",
+                                  text: "/" + product.details["weight"].toStringAsFixed(0)+product.price["unit"] + "   ",
                                   style: TextStyle(color: Colors.grey[600])),
                               TextSpan(
                                 text: "  ￥" +

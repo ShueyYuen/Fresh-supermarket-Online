@@ -404,9 +404,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                         setState(() {
                           order_id = id;
                         });
-                        print("这是一个订单");
-                        print(order_id);
-                        showModalBottomSheet(
+                        await showModalBottomSheet(
                           context: context,
                           backgroundColor: Colors.white,
                           elevation: 10,
@@ -516,6 +514,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             );
                           },
                         );
+                        Navigator.of(context).pop();
                       },
                     ),
                   ))

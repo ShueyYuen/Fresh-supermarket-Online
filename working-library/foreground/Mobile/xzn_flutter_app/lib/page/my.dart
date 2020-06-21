@@ -28,7 +28,7 @@ class _MyState extends State<My> {
           Container(
               padding: EdgeInsets.all(15),
               constraints: BoxConstraints(
-                  minWidth: double.infinity, minHeight: 100, maxHeight: 100),
+                  minWidth: double.infinity, minHeight: 100),
               child: Flex(
                 direction: Axis.horizontal,
                 children: [
