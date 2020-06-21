@@ -203,13 +203,12 @@ def xznpay(request):
                 gid=ODitem['goods_id']
                 goods = Goods.objects.filter(goods_id=gid).values()[0]
                 discount = goods['discount']
-                total_price += (float(goods['price'])*int(ODitem['quantity'])*float(discount))
-            total_price = float(total_price)
-            total_price += float(10.0)#配送费
+                total_price += (goods['price']*ODitem['quantity']*discount)
+            total_price += 10.0#配送费
             print("total_price:",total_price)
-            if float(user['money'])<float(total_price):
+            if user['money'] < total_price:
                 return HttpResponse(json.dumps({'message': '余额不足'}))
-            user=User.objects.filter(user_id=uid).update(money=user['money']-total_price)
+            user=User.objects.filter(user_id=uid).update(money=(user['money']-total_price))
             order=Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             return HttpResponse(json.dumps({'success': True}))
             
