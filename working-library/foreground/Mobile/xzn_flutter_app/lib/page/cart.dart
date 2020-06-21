@@ -1,9 +1,7 @@
 import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/services/cart_service.dart';
@@ -13,7 +11,6 @@ import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 import '../widget/common/num_contoller.dart';
 import 'product/product_show.dart';
-import 'search_page.dart';
 
 class ProductCartCard extends StatelessWidget {
   ProductCartCard(
@@ -30,9 +27,6 @@ class ProductCartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget placeholder = Image.asset(
-      "assets/image/default_picture.webp", //头像占位图，加载过程中显示
-    );
     return Dismissible(
         key: ValueKey(Random().nextInt(1000000).toString()),
         confirmDismiss: (DismissDirection direction) async {
@@ -45,7 +39,7 @@ class ProductCartCard extends StatelessWidget {
           onDelete(cartItem.product.product_id);
         },
         child: Container(
-          height: 125,
+          height: 115,
           child: GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -55,7 +49,6 @@ class ProductCartCard extends StatelessWidget {
                 }));
               },
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
                 margin: EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
@@ -80,11 +73,12 @@ class ProductCartCard extends StatelessWidget {
                     Expanded(
                       flex: 0,
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+                        padding: EdgeInsets.only(right: 10),
                         child: PictureSelf(
                             cartItem.product.picture_list["shuffle"][0],
                             product: cartItem.product,
-                            width: 100,
+                            width: 120,
+                            boxFit: BoxFit.cover
                         ),
                       ),
                     ),
@@ -111,15 +105,14 @@ class ProductCartCard extends StatelessWidget {
                                     text: "￥",
                                   ),
                                   TextSpan(
-                                    text: cartItem.product.price["num"]
-                                        .toString(),
+                                    text: (cartItem.product.price["num"] * cartItem.product.discount).toString(),
                                     style: TextStyle(
                                         fontSize: 22,
                                         color: Colors.redAccent[200]),
                                   ),
                                   TextSpan(
                                       text: "/" +
-                                          cartItem.product.price["unit"] +
+                                          cartItem.product.details["weight"].toString()+cartItem.product.price["unit"] +
                                           "   ",
                                       style:
                                           TextStyle(color: Colors.grey[600])),
@@ -228,7 +221,7 @@ class _CartState extends State<Cart> {
     if (cart != null) {
       for (CartItem cartItem in cart) {
         if (selected.indexOf(cartItem.product.product_id) != -1) {
-          price += cartItem.product.price["num"] * cartItem.number;
+          price += cartItem.product.price["num"] * cartItem.number* cartItem.product.discount;
         }
       }
     }
@@ -248,6 +241,29 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    Widget recommend = Flex(
+                      direction: Axis.horizontal,
+                      children: <Widget>[
+                        Expanded(flex: 2, child: Text("")),
+                        Expanded(
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
+                        Container(
+                              alignment: Alignment.center,
+                              child: Text("为您推荐"),
+                            ),
+                        Expanded(
+                            flex: 2,
+                            child: Divider(
+                              thickness: 5,
+                              color: Colors.green[100],
+                            )),
+                        Expanded(flex: 2, child: Text("")),
+                      ],
+                    );
     return Scaffold(
       appBar: AppBar(
         title: Text("购物车"),
@@ -298,55 +314,7 @@ class _CartState extends State<Cart> {
                         onDelete: _handleDelete,
                       );
                     }),
-                    Flex(
-                      direction: Axis.horizontal,
-                      children: <Widget>[
-                        Expanded(flex: 3, child: Text("")),
-                        Expanded(
-                            flex: 2,
-                            child: Divider(
-                              thickness: 5,
-                              color: Colors.green[100],
-                            )),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text("为您推荐"),
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: Divider(
-                              thickness: 5,
-                              color: Colors.green[100],
-                            )),
-                        Expanded(flex: 3, child: Text("")),
-//                        FlatButton(
-//                          color: Theme.of(context).primaryColor,
-//                          highlightColor: Colors.blue[700],
-//                          colorBrightness: Brightness.dark,
-//                          splashColor: Colors.grey,
-//                          child: Container(
-//                            padding: EdgeInsets.symmetric(
-//                                vertical: 10, horizontal: 40),
-//                            child: Text(
-//                              "退出登录",
-//                              style: TextStyle(fontSize: 18),
-//                            ),
-//                          ),
-//                          shape: RoundedRectangleBorder(
-//                              borderRadius: BorderRadius.circular(30.0)),
-//                          onPressed: () {
-//                            Provider.of<UserModel>(context, listen: false)
-//                                .user = null;
-//                            Provider.of<CartModel>(context, listen: false)
-//                                .cart = null;
-//                            Provider.of<OrderModel>(context, listen: false)
-//                                .order = null;
-//                            Provider.of<AddressModel>(context, listen: false)
-//                                .address = null;
-//                          },
-//                        ),
-                      ],
-                    ),
+                    recommend,
 //                    FutureBuilder(
 //                      future: _futureRecomend,
 //                      builder: (context, snapshot) {
@@ -394,31 +362,7 @@ class _CartState extends State<Cart> {
                   shrinkWrap: true,
                   children: <Widget>[
                     Image.asset("assets/image/no_login.webp"),
-                    Flex(
-                      direction: Axis.horizontal,
-                      children: <Widget>[
-                        Expanded(flex: 3, child: Text("")),
-                        Expanded(
-                            flex: 2,
-                            child: Divider(
-                              thickness: 5,
-                              color: Colors.green[100],
-                            )),
-                        Expanded(
-                            flex: 2,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text("为您推荐"),
-                            )),
-                        Expanded(
-                            flex: 2,
-                            child: Divider(
-                              thickness: 5,
-                              color: Colors.green[100],
-                            )),
-                        Expanded(flex: 3, child: Text("")),
-                      ],
-                    ),
+                    recommend,
                     SizedBox(
                       height: 30,
                     )

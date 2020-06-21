@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
+import 'package:xzn/index.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/models/cartItem.dart';
 import 'package:xzn/page/address/address_edit.dart';
@@ -23,31 +24,33 @@ class OrderProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: PictureSelf(cartItem.product.picture_list["shuffle"][0],
-          product: cartItem.product, width: 100, boxFit: BoxFit.fitWidth),
-      title: Stack(
-        children: <Widget>[
-          Container(
-            child: Text(
-              cartItem.product.product_name,
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-          Positioned(
-              top: 5,
-              right: 20,
-//                        alignment: Alignment.centerRight,
+        leading: PictureSelf(cartItem.product.picture_list["shuffle"][0],
+            product: cartItem.product, width: 100, boxFit: BoxFit.cover),
+        title: Flex(
+          direction: Axis.horizontal,
+          children: <Widget>[
+            Expanded(
+              flex: 4,
               child: Text(
-                "x" + cartItem.number.toString(),
+                cartItem.product.product_name,
                 style: TextStyle(fontSize: 16),
-              ))
-        ],
-      ),
-      trailing: Text(
-        "￥" + cartItem.product.price["num"].toString(),
-        style: TextStyle(fontSize: 14),
-      ),
-    );
+              ),
+            ),
+            Expanded(
+                flex: 1,
+                child: Text(
+                  "x" + cartItem.number.toString(),
+                  style: TextStyle(fontSize: 16),
+                )),
+          ],
+        ),
+        trailing: Container(
+          width: 50,
+          child: Text(
+            "￥" + cartItem.product.price["num"].toString(),
+            style: TextStyle(fontSize: 14),
+          ),
+        ));
   }
 }
 
@@ -215,7 +218,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                 style: TextStyle(fontSize: 14),
               ),
               trailing: Text(
-                "微信支付",
+                "鲜着呢支付",
                 style: TextStyle(fontSize: 14, color: Colors.blue[400]),
               ),
             ),
@@ -224,7 +227,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
               thickness: 15,
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+              padding: EdgeInsets.symmetric(vertical: 10),
               child: Wrap(
                 runSpacing: 20,
                 children: <Widget>[
@@ -232,22 +235,27 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     return OrderProductCard(cartItem: order_item);
                   }).toList(),
                   ListTile(
-                    leading: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 9),
-                      child: Container(
-                        color: Colors.indigo[100],
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "配送费",
-                          style: TextStyle(
-                              color: Colors.indigo[900], fontSize: 14),
+                    leading: SizedBox(
+                      width: 100,
+                      child: Center(
+                        child: Container(
+                          color: Colors.indigo[100],
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            "配送费",
+                            style: TextStyle(
+                                color: Colors.indigo[900], fontSize: 14),
+                          ),
                         ),
                       ),
                     ),
                     title: Text("外卖员配送"),
-                    trailing: Text(
-                      "￥10.0",
-                      style: TextStyle(fontSize: 14),
+                    trailing: Container(
+                      width: 50,
+                      child: Text(
+                        "￥10.0",
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ),
                   ),
                   Divider(

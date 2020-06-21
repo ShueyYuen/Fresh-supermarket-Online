@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
-import 'password_login.dart';
 
 class LoginChoose extends StatefulWidget {
   @override
@@ -12,6 +11,7 @@ class LoginChoose extends StatefulWidget {
 class _LoginChooseState extends State<LoginChoose> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -36,31 +36,39 @@ class _LoginChooseState extends State<LoginChoose> {
                 fit: BoxFit.fitWidth,
               ),
             ),
-            FlatButton(
-              padding: EdgeInsets.symmetric(horizontal: 140, vertical: 10),
-              color: Colors.lightGreen[600],
-              highlightColor: Colors.lightGreen[700],
-              colorBrightness: Brightness.dark,
-              splashColor: Colors.grey[100],
-              child: Text(
-                "微信登录",
-                style: TextStyle(fontSize: 20, color: Colors.white),
+            Container(
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: FlatButton(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                color: Colors.lightGreen[600],
+                highlightColor: Colors.lightGreen[700],
+                colorBrightness: Brightness.dark,
+                splashColor: Colors.grey[100],
+                child: Text(
+                  "微信登录",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+                onPressed: () {},
               ),
-              onPressed: () {},
             ),
-            OutlineButton(
-              padding: EdgeInsets.symmetric(horizontal: 130, vertical: 10),
-              splashColor: Colors.lightGreen[100],
-              child: Text(
-                "手机号登录",
-                style: TextStyle(fontSize: 20, color: Colors.grey[800]),
+            Container(
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: OutlineButton(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                splashColor: Colors.lightGreen[100],
+                child: Text(
+                  "手机号登录",
+                  style: TextStyle(fontSize: 20, color: Colors.grey[800]),
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Login();
+                  }));
+                },
               ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Login();
-                }));
-              },
-            ),
+            )
           ]),
     );
   }

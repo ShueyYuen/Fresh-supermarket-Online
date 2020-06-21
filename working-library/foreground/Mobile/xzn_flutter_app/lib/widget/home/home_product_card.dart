@@ -1,14 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:xzn/conf/config.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/models/product.dart';
-import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/services/cart_service.dart';
 import 'package:xzn/services/picture.dart';
-import 'package:xzn/services/product_service.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
+import 'package:xzn/utils/hexcolor.dart';
 import 'package:xzn/widget/common/flat_icon_button.dart';
 import '../../page/product/product_show.dart';
 
@@ -20,6 +17,7 @@ class HomeProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(product.tags);
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -39,7 +37,7 @@ class HomeProduct extends StatelessWidget {
                 child: Container(
                   height: 70.0,
                   child: PictureSelf(product.picture_list["shuffle"][0],
-                      product: product),
+                      product: product, boxFit: BoxFit.cover),
                 ),
               ),
               Expanded(
@@ -68,14 +66,14 @@ class HomeProduct extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   vertical: 0, horizontal: 3),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.redAccent),
+                                border: Border.all(color: HexColor(product.tags["type"])),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8)),
                               ),
                               child: Text(
-                                '热卖',
+                                product.tags["content"]??"没有标签",
                                 style: TextStyle(
-                                    color: Colors.redAccent, fontSize: 12),
+                                    color: HexColor(product.tags["type"]), fontSize: 12),
                               ),
                             ),
                             Text.rich(TextSpan(children: [
@@ -84,12 +82,12 @@ class HomeProduct extends StatelessWidget {
                                   style: TextStyle(
                                       color: Colors.redAccent, fontSize: 12)),
                               TextSpan(
-                                text: product.price["num"].toString(),
+                                text: (product.price["num"] * product.discount).toStringAsFixed(2),
                                 style: TextStyle(
                                     color: Colors.redAccent, fontSize: 18),
                               ),
                               TextSpan(
-                                text: "/" + product.price["unit"],
+                                text: "/" + product.details["weight"].toString()+product.price["unit"],
                                 style:
                                     TextStyle(color: Colors.grey, fontSize: 13),
                               ),

@@ -49,13 +49,13 @@ class SearchCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(product.product_name),
+                        Text(product.product_name, maxLines: 1,),
                         SizedBox(
                           height: 20,
                         ),
                         Row(
                           children: <Widget>[
-                            Text("24小时发货"),
+                            Text("半小时发货"),
                           ],
                         ),
 //                      Text.rich(textSpan)
@@ -180,7 +180,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
     print(_key.text);
     print(filter.toJson());
     setState(() {
-      _future = getSearchResultProduct(token,
+      _future = getSearchResultProduct(token: token,
           key: _key.text,
           type: _type.text,
           highprice: _max.text,

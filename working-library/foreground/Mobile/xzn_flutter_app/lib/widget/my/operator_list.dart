@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/page/address/address_manage.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/page/my/customer_service.dart';
 import 'package:xzn/page/my/information.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/utils/platform_utils.dart';
 
 import '../../page/my/setting.dart';
@@ -50,8 +53,12 @@ class OperatorList extends StatelessWidget {
           text: "个人信息",
           color: Colors.blue[200],
           onTap: () {
+            if (Provider.of<UserModel>(context).isLogin)
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return Information();
+            }));
+            else Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return LoginChoose();
             }));
           },
         ),

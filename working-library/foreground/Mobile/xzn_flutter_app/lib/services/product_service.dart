@@ -40,8 +40,9 @@ getProductRecommendList(String token, {int quantity: 10}) async {
   return product_list;
 }
 
-getSearchResultProduct(String token,
-    {String key: "",
+getSearchResultProduct(
+  { String token: "",
+    String key: "",
     String type: "",
     String highprice: "",
     String lowprice: ""}) async {
@@ -51,12 +52,12 @@ getSearchResultProduct(String token,
     type="";
   }
   var body = {
-    "token": token,
     "key": key,
     "type": type,
     "highprice": highprice,
     "lowprice": lowprice
   };
+  if(token != "") body["token"] = token;
   var dio = new Dio();
   FormData formData = new FormData.fromMap(body);
   var res = await dio.post(url, data: formData);

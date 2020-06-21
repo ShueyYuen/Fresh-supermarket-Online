@@ -12,7 +12,6 @@ updateInformation(BuildContext context, {
   nickname: "", sex: "", password: "", original_password: ""
 }) async {
   try {
-    // TODO: 更新后前端一起更新数据
 //    if (!Provider.of<OrderModel>(context, listen: false).is_loaded &&
 //        Provider.of<UserModel>(context, listen: false).isLogin) {
     if (Provider.of<UserModel>(context, listen: false).isLogin) {
@@ -36,8 +35,27 @@ updateInformation(BuildContext context, {
       }
     }
   } catch (e) {
-    print("Cofalconer");
     print(e.toString());
   }
   return false;
+}
+
+getInformation(BuildContext context) async {
+  try {
+//    if (!Provider.of<OrderModel>(context, listen: false).is_loaded &&
+//        Provider.of<UserModel>(context, listen: false).isLogin) {
+    if (Provider.of<UserModel>(context, listen: false).isLogin) {
+      User user = Provider.of<UserModel>(context, listen: false).user;
+      String url = Config.baseUrl() + "user/info/get";
+      var dio = new Dio();
+      Map<String, dynamic> data = {"token": getToken(context)};
+      FormData formData = new FormData.fromMap(data);
+      var response = await dio.post(url, data: formData);
+      var json = jsonDecode(response.data.toString());
+      Provider.of<UserModel>(context, listen: true).user = User.fromJson(json);
+      Navigator.of(context).pop();
+    }
+  } catch (e) {
+    print(e.toString());
+  }
 }

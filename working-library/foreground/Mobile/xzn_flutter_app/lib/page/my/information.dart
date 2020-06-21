@@ -20,23 +20,24 @@ class _InformationState extends State<Information> {
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _telController = TextEditingController();
-  String sex_choose = "NULL";
+  String sex_choose;
 
   final Map<String, String> sex = {"M": "先生", "F": "女士", "NULL": "未知"};
 
   void cropImage(File originalImage) async {
     String result = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => CropImageRoute(originalImage)));
-    if (result.isEmpty) {
-      print('上传失败');
-    } else {
-      //result是图片上传后拿到的url
-      setState(() {
-//        iconUrl = result;
-//        print('上传成功：$iconUrl');
-//        _upgradeRemoteInfo();//后续数据处理，这里是更新头像信息
-      });
-    }
+//    if (result.isEmpty) {
+//      print('上传失败');
+//    } else {
+//      // TODO: 头像上传后可以立刻更新头像
+//      //result是图片上传后拿到的url
+//      setState(() {
+////        iconUrl = result;
+////        print('上传成功：$iconUrl');
+////        _upgradeRemoteInfo();//后续数据处理，这里是更新头像信息
+//      });
+//    }
   }
 
   Future getImage() async {
@@ -58,7 +59,7 @@ class _InformationState extends State<Information> {
   Widget build(BuildContext context) {
     User user = Provider.of<UserModel>(context, listen: false).user;
     _nameController.text = user.nickname;
-    sex_choose = user.sex;
+    sex_choose = sex_choose??user.sex;
     _telController.text = user.phone;
     if (Provider.of<UserModel>(context, listen: false).isLogin)
       return Scaffold(
@@ -211,6 +212,7 @@ class _InformationState extends State<Information> {
                         onSelected: (v) {
                           setState(() {
                             sex_choose = _key;
+                            print(sex_choose);
                           });
                         },
                         selectedColor: Theme.of(context).primaryColor,
@@ -255,6 +257,27 @@ class _InformationState extends State<Information> {
               ],
             ),
           ),
+          Divider(
+            thickness: 3,
+            color: Colors.grey[200],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              children: <Widget>[
+                Container(
+                    height: 30,
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "账户余额",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                Expanded(child: Text("")),
+                Text("￥"+user.money.toString()+" ", style: TextStyle(fontSize: 16),)
+              ],
+            ),
+          ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
             child: FlatButton(
@@ -271,8 +294,9 @@ class _InformationState extends State<Information> {
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0)),
-              onPressed: () {
-                updateInformation(context, nickname: _nameController.text, sex: sex_choose);
+              onPressed: () async {
+                bool success = await updateInformation(context, nickname: _nameController.text, sex: sex_choose);
+                if (success) getInformation(context);
               },
             ),
           )

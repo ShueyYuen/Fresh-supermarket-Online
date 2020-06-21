@@ -14,6 +14,7 @@ class Product {
     num stock;
     num discount;
     Map<String,dynamic> description;
+    Map<String,dynamic> tags;
     
     factory Product.fromJson(Map<String,dynamic> json) => _$ProductFromJson(json);
     Map<String, dynamic> toJson() => _$ProductToJson(this);

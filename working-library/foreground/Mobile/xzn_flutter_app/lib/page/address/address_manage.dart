@@ -24,6 +24,7 @@ class AddressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(address.detail.toJson());
     return Container(
       child: Column(
         children: <Widget>[
@@ -34,8 +35,10 @@ class AddressCard extends StatelessWidget {
                 Expanded(
                     flex: 1,
                     child: Text(
+                      // TODO:
                       address.detail.city +
                       address.detail.district +
+                      address.detail.township +
                       address.detail.street
 //                      address.detail.no==null?"":address.detail.no
                     )),

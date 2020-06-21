@@ -61,13 +61,13 @@ class _ClassificationState extends State<Classification> {
         _activeIndex = _controller.index;
         // 下一句更新_future即重新请求不同类型
         _future =
-            getSearchResultProduct(_token, type: _tabValues[_controller.index]);
+            getSearchResultProduct(token:getToken(context), type: _tabValues[_controller.index]);
       });
     });
     // 商品卡片所需
     _token = getToken(context);
     _future =
-        getSearchResultProduct(_token, type: _tabValues[_controller.index]);
+        getSearchResultProduct(type: _tabValues[_controller.index]);
   }
 
   @override

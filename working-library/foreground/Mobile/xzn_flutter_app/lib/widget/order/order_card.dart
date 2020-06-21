@@ -29,8 +29,8 @@ class OrderCard extends StatelessWidget {
           "*" +
           product_item.number.toString() +
           "  ";
-      if (result.length > 25) {
-        result = result.substring(0, 25) + "···";
+      if (result.length > 15) {
+        result = result.substring(0, 15) + "···";
         break;
       }
     }
@@ -66,7 +66,7 @@ class OrderCard extends StatelessWidget {
                 highlightColor: Colors.blue[700],
                 splashColor: Colors.grey,
                 child: Text(
-                  "取认收货",
+                  "确认收货",
                   style: TextStyle(color: Colors.grey[600], fontSize: 14),
                 ),
                 shape: RoundedRectangleBorder(
@@ -178,7 +178,7 @@ class OrderCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("下单时间："+order.create_order_time.split("+")[0]),
+                            Text("下单时间："+order.create_order_time.substring(0, 16)),
                             Text("总价：￥"+totalPrice()),
                           ],
                         ),

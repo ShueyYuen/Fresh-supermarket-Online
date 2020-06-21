@@ -3,8 +3,12 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_crop/image_crop.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
+import 'package:xzn/services/information_service.dart';
 import 'package:xzn/services/token.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 
 class CropImageRoute extends StatefulWidget {
   CropImageRoute(this.image);
@@ -55,7 +59,7 @@ class _CropImageRouteState extends State<CropImageRoute> {
                       _crop(widget.image);
                     },
                     child: Text(
-                      "拍照上传",
+                      "确认上传",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     )),
               )
@@ -87,8 +91,7 @@ class _CropImageRouteState extends State<CropImageRoute> {
   }
 
   ///上传头像
-  void upload(File file) async {
-    print(file.path);
+  Future<bool> upload(File file) async {
     var dio = new Dio();
     String url = Config.baseUrl()+"avatar/upload";
     FormData formData = new FormData.fromMap({
@@ -97,13 +100,14 @@ class _CropImageRouteState extends State<CropImageRoute> {
         file.path, filename: "file")
     });
     var response = await dio.post(url, data: formData);
-    print(response);
-    print('上传头像成功');
-//    var json = jsonDecode(response.data.toString());
-//    if (json["success"]) {
-//      Navigator.of(context).pop();//这里的url在上一页调用的result可以拿到
-//    } else {
-//      Navigator.of(context).pop();
-//    }
+    var json = jsonDecode(response.data.toString());
+    if (json["success"]) {
+      DefaultCacheManager().removeFile(Config.baseUrl() + "avatar/load/" + Provider.of<UserModel>(context).user.head_image_id);
+      await getInformation(context);
+      Navigator.of(context).pop();//这里的url在上一页调用的result可以拿到
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pop();
+    }
   }
 }

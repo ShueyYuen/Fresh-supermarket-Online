@@ -19,12 +19,10 @@
   "description":{
     "subtitle":"",
     "distribution":"",
-    "promotion":"",
-    "tags":[
-      {
-        "type":"",
-        "content":""
-      }
-    ]
+    "promotion":""
+  },
+  "tags": {
+    "type":"",
+    "content":""
   }
 }

@@ -173,7 +173,7 @@ class _SettingPageState extends State<SettingPage> {
                   }
                 },
               ),
-              Container(
+              Provider.of<UserModel>(context, listen: false).isLogin?Container(
                 padding: EdgeInsets.only(top: 30),
                 child: FlatButton(
                   color: Theme.of(context).primaryColor,
@@ -198,7 +198,7 @@ class _SettingPageState extends State<SettingPage> {
                         null;
                   },
                 ),
-              )
+              ):Text("")
             ],
           ),
         ));

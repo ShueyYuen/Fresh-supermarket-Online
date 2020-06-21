@@ -136,7 +136,7 @@ class ProductPage extends StatelessWidget {
                                 text: "￥",
                               ),
                               TextSpan(
-                                text: product.price["num"].toString(),
+                                text: (product.price["num"] * product.discount).toStringAsFixed(2),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.redAccent[200]),
                               ),
@@ -145,7 +145,7 @@ class ProductPage extends StatelessWidget {
                                   style: TextStyle(color: Colors.grey[600])),
                               TextSpan(
                                 text: "  ￥" +
-                                    (product.price["num"] / product.discount)
+                                    (product.price["num"])
                                         .toStringAsFixed(2) +
                                     "  ",
                                 style: TextStyle(
@@ -317,7 +317,7 @@ class ProductPage extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(5),
                             child: Text(
-                                product.details["weight"].toString() + 'Kg',
+                                product.details["weight"].toString() + product.price["unit"],
                                 textAlign: TextAlign.left),
                           ),
                         ]),
