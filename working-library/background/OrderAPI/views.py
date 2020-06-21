@@ -221,7 +221,7 @@ def OrderConfirm(request):
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            Order.objects.filter(order_id=oid).update(order_status=4,receive_order_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            Order.objects.filter(order_id=oid).update(order_status=4,receive_order_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
