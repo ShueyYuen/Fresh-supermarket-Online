@@ -84,18 +84,18 @@ def AddressUpdate(request):
                                                                      consignee_sex=sex, consignee_phone=phone,
                                                                      province=province, city=city, district=district,
                                                                      township=township,street=street, house_no=house_no,
-                                                                     longitude=longitude, latitude=latitude, tag=tag)
+                                                                     longitude=longitude, latitude=latitude, tag=tag,deleted=0)
             else:
                 Address.objects.create(consignee=consignee,
                                         consignee_sex=sex, consignee_phone=phone,
                                         province=province, city=city, district=district,
                                         customer_id=uid,township=township,street=street, house_no=house_no,
-                                        longitude=longitude, latitude=latitude, tag=tag)
+                                        longitude=longitude, latitude=latitude, tag=tag,deleted=0)
                 addr=Address.objects.filter(consignee=consignee,
                                         consignee_sex=sex, consignee_phone=phone,
                                         province=province, city=city, district=district,
                                         customer_id=uid,township=township,street=street, house_no=house_no,
-                                        longitude=longitude, latitude=latitude, tag=tag).values()[0]
+                                        longitude=longitude, latitude=latitude, tag=tag,deleted=0).values()[0]
                 address_id=addr['address_id']
 
             data={'address_id':str(address_id)}
