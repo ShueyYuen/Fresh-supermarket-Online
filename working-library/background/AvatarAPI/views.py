@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from filetype import filetype
-
+import time
 from Fresh_market_online.model import User
 from LoginAPI.token_module import get_token, out_token
 import json
@@ -31,15 +31,16 @@ def AvatarUpload(request):
                 response = json.dumps(data)
                 return HttpResponse(response)
             '''
-
-            print('./static/avatar' + '/' + telephone + '.png')
-            with open('./static/avatar' + '/' + telephone + '.png', "wb+") as f:
+            headid=str(hash(telephone + str(time.time())))
+            hash(telephone+time)
+            print('./static/avatar' + '/' + headid + '.png')
+            with open('./static/avatar' + '/' + headid + '.png', "wb+") as f:
                 for chunk in file.chunks():
                     f.write(chunk)
             data = {"success": True}
             response = json.dumps(data)
             user = User.objects.filter(phone=telephone)
-            user.update(head_image_id=telephone)
+            user.update(head_image_id=headid)
             print(response)
             return HttpResponse(response)
     data = {"message": "Failed"}
