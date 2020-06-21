@@ -46,6 +46,7 @@ def ESmatch(goods_name):
 @csrf_exempt
 def GoodsSearch(request):
     token = request.POST.get("token")
+    print(token)
     type = request.POST.get("type")
     print(type)
     lprice = 0.00
@@ -54,7 +55,7 @@ def GoodsSearch(request):
         hprice = request.POST.get("highprice")
     if request.POST.get("lowprice") != "":
         lprice = request.POST.get("lowprice")
-    if token ==None:
+    if token == None or '':
         data = []
         key = request.POST.get("key")
         print('key:', key)
