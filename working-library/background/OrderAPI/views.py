@@ -175,7 +175,7 @@ def OrderPayState(request):
 
                 quantity = goods['quantity']
                 OrderDetail.objects.create(order_id=id,goods_id=item,quantity=quantity)
-
+                ShoppingCart.objects.filter(customer_id=uid, goods_id=item).delete()
             data = {"order_id": id}
             response = json.dumps(data)
             return HttpResponse(response)
