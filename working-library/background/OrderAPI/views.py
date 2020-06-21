@@ -159,7 +159,7 @@ def OrderPayState(request):
                 return HttpResponse(json.dumps({'message': '订单已提交，请勿重复提交'}))
             print(goods_list)
             adderss_id = request.POST.get("address_id")
-            create_order_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            create_order_time = datetime.now()
             order_status = 1
             warehouse_id = '01'
             Order.objects.create(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
@@ -211,7 +211,7 @@ def xznpay(request):
                 return HttpResponse(json.dumps({'message': '余额不足'}))
             else:
                 User.objects.filter(user_id=uid).update(money=(user['money']-total_price))
-                Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.now())
                 return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
@@ -226,7 +226,7 @@ def OrderConfirm(request):
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            Order.objects.filter(order_id=oid).update(order_status=4,receive_order_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            Order.objects.filter(order_id=oid).update(order_status=4,receive_order_time=datetime.now())
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
