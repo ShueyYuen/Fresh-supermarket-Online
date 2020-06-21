@@ -210,7 +210,7 @@ def xznpay(request):
             if float(user['money'])<float(total_price):
                 return HttpResponse(json.dumps({'message': '余额不足'}))
             user=User.objects.filter(user_id=uid).update(money=user['money']-total_price)
-            order=Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            order=Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
