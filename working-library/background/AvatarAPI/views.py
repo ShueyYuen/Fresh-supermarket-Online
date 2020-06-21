@@ -32,7 +32,6 @@ def AvatarUpload(request):
                 return HttpResponse(response)
             '''
             headid=str(hash(telephone + str(time.time())))
-            hash(telephone+time)
             print('./static/avatar' + '/' + headid + '.png')
             with open('./static/avatar' + '/' + headid + '.png', "wb+") as f:
                 for chunk in file.chunks():
