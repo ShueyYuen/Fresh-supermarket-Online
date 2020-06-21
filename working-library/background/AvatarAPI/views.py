@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from filetype import filetype
 import time
+import os
 from Fresh_market_online.model import User
 from LoginAPI.token_module import get_token, out_token
 import json
@@ -39,6 +40,8 @@ def AvatarUpload(request):
             data = {"success": True}
             response = json.dumps(data)
             user = User.objects.filter(phone=telephone)
+            oldid = user['head_image_id']
+            os.remove('./static/avatar' + '/' + oldid + '.png')
             user.update(head_image_id=headid)
             print(response)
             return HttpResponse(response)
