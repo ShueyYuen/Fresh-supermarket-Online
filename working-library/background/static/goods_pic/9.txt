@@ -1,2 +1,2 @@
-duckleg1.png duckleg2.png duckleg3.png
-duckleg1.png duckleg2.png duckleg3.png
+duckleg1.webp duckleg2.webp duckleg3.webp
+duckleg1.webp duckleg2.webp duckleg3.webp

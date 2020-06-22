@@ -1,2 +1,2 @@
-duck1.png duck2.png duck3.png duck4.png
-duck1.png duck2.png duck3.png duck4.png
+duck1.webp duck2.webp duck3.webp duck4.png
+duck1.webp duck2.webp duck3.webp duck4.png

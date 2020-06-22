@@ -20,6 +20,7 @@ class AdsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget placeholder = Image.asset(
       "assets/image/default_picture.webp", //头像占位图，加载过程中显示
+      height: mini ? 60 : 80,
       fit: BoxFit.cover,
     );
     String imageUrl = Config.baseUrl() + "user/adpic/" + ads.picture;

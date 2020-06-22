@@ -1,2 +1,2 @@
-crab1.png crab2.png crab3.png
-crab1.png crab2.png crab3.png
+crab1.webp crab2.webp crab3.webp
+crab1.webp crab2.webp crab3.webp

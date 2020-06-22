@@ -86,6 +86,10 @@ class _OrderConfirmState extends State<OrderConfirm> {
     return price;
   }
 
+  BuildContext getContext(){
+    return context;
+  }
+
   String getSex(String sex) {
     switch (sex) {
       case "M":
@@ -106,7 +110,6 @@ class _OrderConfirmState extends State<OrderConfirm> {
     } catch (e) {
       address = null;
     }
-    print(address.toJson());
   }
 
   @override
@@ -321,33 +324,6 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       ),
                     ),
                   )
-//                  Row(
-//                    children: <Widget>[
-////                      Text.rich(TextSpan(children: [
-////                        TextSpan(
-////                          text: "可选择无接触配送",
-////                          style: TextStyle(fontSize: 14, color: Colors.grey),
-////                        ),
-////                      ])),
-////                      Text(
-////                        "\uE5E1",
-////                        style: TextStyle(
-////                            fontFamily: "MaterialIcons",
-////                            fontSize: 14,
-////                            color: Colors.grey[600]),
-////                      ),
-////                      TextField(
-////                        controller: _remarksController,
-////                        decoration: InputDecoration(
-////                          labelText: '可选择无接触配送',
-////                          labelStyle: TextStyle(
-////                            fontSize: 14,
-////                            color: Colors.grey,
-////                          ),
-////                        ),
-////                      ),
-//                    ],
-//                  ),
                 ],
               ),
             ),
@@ -459,10 +435,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       onPressed: () async {
                                         if (await xznpay(context,
                                             int.parse(this.order_id))) {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
+                                          Navigator.of(getContext()).pushReplacement(
+                                            MaterialPageRoute(builder: (context) {
                                               return OrderManage();
                                             }),
                                           );
@@ -481,7 +455,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                                 Provider.of<UserModel>(context)
                                                     .user
                                                     .money
-                                                    .toString(),
+                                                    .toStringAsFixed(2),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 11),
@@ -529,7 +503,6 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             );
                           },
                         );
-                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                     ),

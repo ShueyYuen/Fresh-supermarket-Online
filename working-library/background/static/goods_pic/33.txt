@@ -1,2 +1,2 @@
-colorpepper1.png colorpepper2.png colorpepper3.png
-colorpepper1.png colorpepper2.png colorpepper3.png
+colorpepper1.webp colorpepper2.webp colorpepper3.webp
+colorpepper1.webp colorpepper2.webp colorpepper3.webp
