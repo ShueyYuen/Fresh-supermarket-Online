@@ -3,6 +3,7 @@ import 'package:xzn/index.dart';
 import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
+import 'package:xzn/widget/home/ads_panel.dart';
 //import 'package:xzn/states/profile_change_notifier.dart';
 import '../widget/home/swiper.dart';
 import '../widget/home/home_product_card.dart';
@@ -121,6 +122,9 @@ class _HomeState extends State<Home> {
             ),
             SliverToBoxAdapter(
               child: HomeClassMain(),
+            ),
+            SliverToBoxAdapter(
+              child: AdsPanel(),
             ),
             SliverList(
                 delegate: SliverChildBuilderDelegate(

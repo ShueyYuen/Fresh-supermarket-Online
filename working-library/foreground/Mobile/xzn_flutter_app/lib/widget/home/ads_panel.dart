@@ -1,5 +1,43 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:xzn/conf/config.dart';
+import 'package:xzn/models/ads.dart';
+import 'package:xzn/page/web_view.dart';
 import 'package:xzn/services/ads_service.dart';
+
+class AdsCard extends StatelessWidget {
+  AdsCard({this.ads, this.mini: false});
+  bool mini;
+  Ads ads;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget placeholder = Image.asset(
+        "assets/image/default_picture.webp", //头像占位图，加载过程中显示
+        fit: BoxFit.cover,
+      );
+    String imageUrl = Config.baseUrl()+"user/adpic/"+ads.picture;
+    return Expanded(
+      child: GestureDetector(
+        child: CachedNetworkImage(
+          height: mini?60:80,
+          imageUrl: imageUrl,
+          fit: BoxFit.cover,
+          placeholder: (context, url) => placeholder,
+          errorWidget: (context, url, error) => placeholder,
+        ),
+        onTap: () {
+          if (ads.type == "url")
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) {
+                return WebView(url: ads.data);
+              }));
+        },
+      )
+//      Image.network(Config.baseUrl()+"user/adpic/"+ads.picture)
+    );
+  }
+}
 
 class AdsPanel extends StatefulWidget {
   @override
@@ -30,39 +68,30 @@ class _AdsPanelState extends State<AdsPanel> {
               size: 48,
             );
           } else {
-              widget = ListView(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                shrinkWrap: true,
+            print(snapshot.data[0].toJson());
+              widget = Column(
                 children: <Widget>[
-                  ...snapshot.data.map((cartItem) {
-                    return ;
-                  }),
+//                  ...snapshot.data.map((cartItem) {
+//                    return Text("C");
+//                  }),
                   Flex(
                     direction: Axis.horizontal,
                     children: <Widget>[
-                      Expanded(flex: 3, child: Text("")),
-                      Expanded(
-                        flex: 2,
-                        child: Divider(
-                          thickness: 5,
-                          color: Colors.green[100],
-                        )),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text("为您推荐"),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Divider(
-                          thickness: 5,
-                          color: Colors.green[100],
-                        )),
-                      Expanded(flex: 3, child: Text("")),
+                      AdsCard(ads: snapshot.data[0],),
+                      AdsCard(ads: snapshot.data[1],)
                     ],
                   ),
-                  SizedBox(
-                    height: 30,
-                  )
+//                  SizedBox(
+//                    height: 30,
+//                  ),
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      AdsCard(ads: snapshot.data[2], mini: true,),
+                      AdsCard(ads: snapshot.data[3], mini: true,),
+                      AdsCard(ads: snapshot.data[4], mini: true,)
+                    ],
+                  ),
                 ],
               );
           }

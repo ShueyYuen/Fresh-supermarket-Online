@@ -74,10 +74,11 @@ class _PasswordChangeState extends State<PasswordChange> {
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0)),
-                      onPressed: () {
-                        updateInformation(context,
+                      onPressed: () async {
+                        bool success = await updateInformation(context,
                             password: _newController.text,
                             original_password: _passController.text);
+                        if (success) Navigator.of(context).pop();
                       },
                       child: Text(
                         "确定",
