@@ -330,7 +330,11 @@ class _CartState extends State<Cart> {
                     }),
                     snapshot.data.length == 0?Image.asset("assets/image/no_login.webp"):SizedBox(height: 0,),
                     recommend,
-                    CartRecommend(),
+                    CartRecommend(onUpdate: () {
+                      setState(() {
+
+                      });
+                    },),
                     SizedBox(
                       height: 30,
                     )

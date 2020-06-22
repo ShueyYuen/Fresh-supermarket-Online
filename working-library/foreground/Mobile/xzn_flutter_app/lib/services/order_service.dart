@@ -123,7 +123,6 @@ xznpay(BuildContext context, int order_id) async {
           {"token": getToken(context), "order_id": order_id});
       var response = await dio.post(url, data: formData);
       json = jsonDecode(response.data.toString());
-      print(json);
       if (json["success"])
         return true;
       else

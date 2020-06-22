@@ -35,10 +35,9 @@ def Login(request):
     token = get_token(phone, 230400).decode('utf-8')
 
     if user.exists()==False:
-        User.objects.create(phone=phone, token=token,money=1000.0)
+        User.objects.create(phone=phone, token=token, user_type='1', money=1000.0, nickname=str(phone), password='888888888', sex='NULL')
         user= User.objects.filter(phone=phone)
-        
-    token = get_token(phone, 230400).decode('utf-8')
+
     user.update(token=token)
     user = user.values()[0]
     userId=user['user_id']

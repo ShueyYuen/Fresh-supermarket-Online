@@ -104,7 +104,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
   @override
   void initState() {
     super.initState();
-    _future = getAddressList(context, getToken(context));
+    _future = getAddressList(context);
     try {
       address = Provider.of<AddressModel>(context, listen: false).address[0];
     } catch (e) {
@@ -143,6 +143,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       size: 48,
                     );
                   } else {
+                    print(snapshot.data);
                     Address address_sub = address ??
                         (snapshot.data.length == 0 ? null : snapshot.data[0]);
                     widget = address_sub == null
@@ -435,11 +436,16 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       onPressed: () async {
                                         if (await xznpay(context,
                                             int.parse(this.order_id))) {
+                                          print("我打算跳转");
+                                          double money = Provider.of<UserModel>(context).user.money;
+                                          Provider.of<UserModel>(context).user.money = money - totalPriceDouble();
+//                                          Navigator.of(context).pop();
                                           Navigator.of(getContext()).pushReplacement(
                                             MaterialPageRoute(builder: (context) {
                                               return OrderManage();
                                             }),
                                           );
+                                          print("跳转结束");
                                         }
                                       },
                                       child: Column(
@@ -504,6 +510,11 @@ class _OrderConfirmState extends State<OrderConfirm> {
                           },
                         );
                         Navigator.of(context).pop();
+                        Navigator.of(getContext()).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                            return OrderManage();
+                          }),
+                        );
                       },
                     ),
                   ))

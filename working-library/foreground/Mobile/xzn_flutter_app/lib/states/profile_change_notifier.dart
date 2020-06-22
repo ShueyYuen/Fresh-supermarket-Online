@@ -1,11 +1,12 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/models/order.dart';
-
-import 'package:provider/provider.dart';
-
+import 'package:xzn/services/address_service.dart';
 import '../common/global.dart';
-
 // 导入需要全局使用的模型
 import '../models/product.dart';
 import '../models/profile.dart';
@@ -52,12 +53,9 @@ class CartModel extends ProfileChangeNotifier {
   }
 
   void delete(String product_id) {
-    for (CartItem cartItem in this.cart) {
-      if (cartItem.product.product_id == product_id) {
-        this.cart.remove(cartItem);
-        break;
-      }
-    }
+    this.cart.removeWhere((element) {
+      return element.product.product_id == product_id;
+    });
     notifyListeners();
   }
 
@@ -104,23 +102,46 @@ class AddressModel extends ProfileChangeNotifier {
   // 是否加载过my_order
   bool get is_loaded => _profile.user != null && address != null;
 
+  void load() async {
+    if (is_loaded) return;
+    try {
+      List<Address> address_list = List<Address>();
+      String url = Config.baseUrl() + "user/address/list";
+      var dio = new Dio();
+      var body = {"token": _profile.user.token};
+      FormData formData = new FormData.fromMap(body);
+      var res = await dio.post(url, data: formData);
+      var json = jsonDecode(res.data.toString());
+      for (var item in json) {
+        try {
+          address_list.add(Address.fromJson(item));
+        } catch (e) {
+          print(e.toString());
+        } finally {}
+      }
+      address = address_list;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   set address(List<Address> address) {
     _profile.address = address;
     notifyListeners();
   }
 
   void delete(address_id) {
-    for (Address address in this.address) {
-      if (address.address_id == address_id) {
-        this.address.remove(address);
-        break;
-      }
-    }
+    if (!is_loaded) ;
+    this.address.removeWhere((element) {
+      return element.address_id == address_id;
+    });
     notifyListeners();
   }
 
   void update(Address address) {
-    this.address.removeWhere((element){ return element.address_id==address.address_id;});
+    this.address.removeWhere((element) {
+      return element.address_id == address.address_id;
+    });
     this.address.add(address);
     notifyListeners();
   }

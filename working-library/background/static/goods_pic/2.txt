@@ -1,2 +1,2 @@
-mutton1.webp mutton2.webp mutton3.webp mutton4.png mutton5.png mutton6.png
-mutton1.webp mutton2.webp mutton3.webp mutton4.png mutton5.png mutton6.png
+mutton1.webp mutton2.webp mutton3.webp mutton4.webp mutton5.webp
+mutton1.webp mutton2.webp mutton3.webp mutton4.webp mutton5.webp

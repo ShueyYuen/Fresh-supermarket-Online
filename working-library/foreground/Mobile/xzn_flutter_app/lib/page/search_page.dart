@@ -332,7 +332,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                 List<Product> data = snapshot.data.sublist(0, snapshot.data.length);
                 if (priceOrderIconIndex == 1)
                   data.sort((left,right)=>(left.price["num"] - right.price["num"]).toInt());
-                else if (priceOrderIconIndex == 2) data.sort((left,right)=>(right.price["num"] - left.price["num"]).toInt());
+                else if (priceOrderIconIndex == 2) data.sort((left,right)=>(right.price["num"]*right.discount - left.price["num"]*left.discount).toInt());
                 widget = GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, //横轴三个子widget

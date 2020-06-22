@@ -79,7 +79,7 @@ class _AddressSelectState extends State<AddressSelect> {
   @override
   void initState() {
     super.initState();
-    _future = getAddressList(context, getToken(context));
+    _future = getAddressList(context);
   }
 
   @override

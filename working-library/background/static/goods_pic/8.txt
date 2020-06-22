@@ -1,2 +1,2 @@
-chicken1.webp chicken2.webp chicken3.webp chicken4.png chicken5.png chicken6.png chicken7.png
-chicken1.webp chicken2.webp chicken3.webp chicken4.png chicken5.png chicken6.png chicken7.png
+chicken1.webp chicken2.webp chicken3.webp chicken4.webp chicken5.webp
+chicken1.webp chicken2.webp chicken3.webp chicken4.webp chicken5.webp chicken6.webp chicken7.webp
