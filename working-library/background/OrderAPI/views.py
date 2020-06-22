@@ -82,6 +82,7 @@ def OrderList(request):
             if order:
                 for item in order.values():
                     oid = item['order_id']
+                    remarks = item['remarks']
                     user=User.objects.filter(user_id=item['customer_id']).values()[0]
                     addr=Address.objects.filter(customer_id=item['customer_id']).values()[0]
 
@@ -123,7 +124,7 @@ def OrderList(request):
                     #print(deliveryman)
                     data.append({'order_id':oid,'customer':customer,'address':address,'product_list':product_list,'deliveryman':deliveryman,
                                 'create_order_time':str(item['create_order_time']),'receive_order_time':str(item['receive_order_time']),'finish_order_time':str(item['finish_order_time']),
-                                'order_status':item['order_status'],'payment_id':item['payment_id'],'total_price':total_price})
+                                'order_status':item['order_status'],'payment_id':item['payment_id'],'total_price':total_price,'remarks':remarks})
             #print(data)
             return HttpResponse(json.dumps(data))
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
