@@ -33,20 +33,21 @@ class AccountSafe extends StatelessWidget {
             },
           ),
           Divider(thickness: 1,),
-          ListTile(
-            title: Title(color: Colors.black, child: Text("注销账号")),
-            trailing: Container(
-              alignment: Alignment.centerRight,
-              width: 160,
-              height: 20,
-              child: Row(
-                children: <Widget>[
-                  Text("注销后账户无法恢复",style: TextStyle(color: Colors.grey),),
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
+          GestureDetector(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Flex(direction: Axis.horizontal,children: [
+                Title(color: Colors.black, child: Text("注销账号", style: TextStyle(fontSize: 17),)),
+                Expanded(child: Text("")),
+                Row(
+                  children: <Widget>[
+                    Text("注销后账户无法恢复",style: TextStyle(color: Colors.grey),),
+                    Icon(Icons.arrow_forward_ios, color: Colors.grey[600],)
+                  ],
+                ),
+              ],),
             ),
-            onTap:() {
+            onTap: () {
               showDialog(
                 context: context,
                 builder: (context) {

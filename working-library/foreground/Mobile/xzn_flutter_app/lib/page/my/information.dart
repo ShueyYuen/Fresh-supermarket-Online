@@ -75,7 +75,7 @@ class _InformationState extends State<Information> {
                 Title(
                     color: Colors.black,
                     child: Text(
-                      "头像",
+                      "头        像",
                       style: TextStyle(fontSize: 18),
                     )),
                 Expanded(
@@ -155,7 +155,7 @@ class _InformationState extends State<Information> {
                         height: 30,
                         alignment: Alignment.topLeft,
                         child: Text(
-                          "用户名",
+                          "用  户  名",
                           style: TextStyle(fontSize: 18),
                         ),
                       )),
@@ -189,7 +189,7 @@ class _InformationState extends State<Information> {
                     height: 30,
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "性别",
+                      "性        别",
                       style: TextStyle(fontSize: 18),
                     ),
                   )),

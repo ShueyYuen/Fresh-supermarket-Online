@@ -23,12 +23,12 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     token = getToken(context);
-    loadWords();
+    loadProducts();
     _scrollController = ScrollController();
     super.initState();
   }
 
-  void loadWords() async {
+  void loadProducts() async {
     print(wordsList.length);
     List<Product> products = await getProductRecommendList(token, quantity: 10);
     wordsList.insertAll(wordsList.length, products);
@@ -138,7 +138,7 @@ class _HomeState extends State<Home> {
                 );
               }
               if (index >= wordsList.length - 1) {
-                loadWords();
+                loadProducts();
                 return Container(
                     padding: EdgeInsets.all(20.0),
                     alignment: Alignment.center,

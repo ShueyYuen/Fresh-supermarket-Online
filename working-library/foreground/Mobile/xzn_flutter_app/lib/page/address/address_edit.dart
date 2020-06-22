@@ -336,11 +336,15 @@ class _AddressEditState extends State<AddressEdit> {
                   address.person["consignee"] = _consigneeController.text;
                   address.phone = _telController.text;
                   Amapgeo addressMap =
-                      await getAddressDetail(_addressController);
+                      await getAddressDetail(_addressController.text);
+                  print("测试在这");
+                  print(address.detail.toJson());
                   address.detail = addressMap;
                   address.detail.no = _noController.text;
+
                   int a = await updateAddress(context, address);
                   if (widget.edit) Navigator.of(context).pop(true);
+                  else Navigator.of(context).pop();
                 },
               ),
             )

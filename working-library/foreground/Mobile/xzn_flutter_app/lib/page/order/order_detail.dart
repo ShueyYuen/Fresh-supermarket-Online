@@ -4,6 +4,7 @@ import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/order.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/my/customer_service.dart';
+import 'package:xzn/page/order/confirm_order.dart';
 import 'package:xzn/page/product/product_show.dart';
 import 'package:xzn/services/picture.dart';
 
@@ -76,45 +77,46 @@ class OrderDetail extends StatelessWidget {
                 runSpacing: 10,
                 children: <Widget>[
                   ...order.product_list.map<Widget>((order_item) {
-                    return ListTile(
-                      leading: PictureSelf(
-                          order_item.product.picture_list["shuffle"][0],
-                          width: 100,
-                          product: order_item.product),
-                      title: Stack(
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              order_item.product.product_name,
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          Positioned(
-                              top: 5,
-                              right: 20,
-//                        alignment: Alignment.centerRight,
-                              child: Text(
-                                "x" + order_item.number.toString(),
-                                style: TextStyle(fontSize: 16),
-                              ))
-                        ],
-                      ),
-                      trailing: Text(
-                        "￥" +
-                            (order_item.product.price["num"] *
-                                    order_item.number)
-                                .toStringAsFixed(2),
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return ProductPage(
-                              product: Product.fromJson(
-                                  order_item.product.toJson()));
-                        }));
-                      },
-                    );
+                    return OrderProductCard(cartItem: order_item,);
+//                    return ListTile(
+//                      leading: PictureSelf(
+//                          order_item.product.picture_list["shuffle"][0],
+//                          width: 100,
+//                          product: order_item.product),
+//                      title: Stack(
+//                        children: <Widget>[
+//                          Container(
+//                            child: Text(
+//                              order_item.product.product_name,
+//                              style: TextStyle(fontSize: 16),
+//                            ),
+//                          ),
+//                          Positioned(
+//                              top: 5,
+//                              right: 20,
+////                        alignment: Alignment.centerRight,
+//                              child: Text(
+//                                "x" + order_item.number.toString(),
+//                                style: TextStyle(fontSize: 16),
+//                              ))
+//                        ],
+//                      ),
+//                      trailing: Text(
+//                        "￥" +
+//                            (order_item.product.price["num"] *
+//                                    order_item.number)
+//                                .toStringAsFixed(2),
+//                        style: TextStyle(fontSize: 14),
+//                      ),
+//                      onTap: () {
+//                        Navigator.of(context)
+//                            .push(MaterialPageRoute(builder: (context) {
+//                          return ProductPage(
+//                              product: Product.fromJson(
+//                                  order_item.product.toJson()));
+//                        }));
+//                      },
+//                    );
                   }),
                   Divider(
                     height: 0,

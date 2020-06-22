@@ -153,15 +153,6 @@ class _AddressManageState extends State<AddressManage> {
           return widget;
         },
       ),
-//      ListView(
-//        children: <Widget>[
-//          AddressCard(),
-//          AddressCard(),
-//          AddressCard(),
-//          AddressCard(),
-//          AddressCard(),
-//        ],
-//      ),
     );
   }
 }

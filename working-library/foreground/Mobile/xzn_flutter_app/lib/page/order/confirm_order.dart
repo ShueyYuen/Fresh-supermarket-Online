@@ -443,15 +443,6 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                             }),
                                           );
                                         }
-//                                        Navigator.pushAndRemoveUntil(
-//                                          context,
-//                                          MaterialPageRoute(
-//                                            builder: (context) {
-//                                              return AddressSelect();
-//                                            }
-//                                          ),
-//                                          (Route<dynamic> route) => false,
-//                                        );
                                       },
                                       child: Column(
                                         children: [

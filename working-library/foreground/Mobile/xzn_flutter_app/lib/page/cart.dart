@@ -9,6 +9,7 @@ import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
+import 'package:xzn/widget/cart/cart_recommend.dart';
 import '../widget/common/num_contoller.dart';
 import 'product/product_show.dart';
 
@@ -39,7 +40,7 @@ class ProductCartCard extends StatelessWidget {
           onDelete(cartItem.product.product_id);
         },
         child: Container(
-          height: 115,
+          height: 130,
           child: GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -59,17 +60,21 @@ class ProductCartCard extends StatelessWidget {
                 child: Flex(
                   direction: Axis.horizontal,
                   children: <Widget>[
-                    Expanded(
-                      flex: 0,
-                      child: Checkbox(
-                        value: this.selected,
-                        onChanged: (value) {
-                          onSelect(cartItem.product.product_id);
-                        },
-                        focusColor: Theme.of(context).primaryColor,
-                        activeColor: Theme.of(context).primaryColor,
-                      ),
+//                    Expanded(
+//                      flex: 0,
+//                      child:
+                  SizedBox(
+                    width: 30,
+                    child: Checkbox(
+                      value: this.selected,
+                      onChanged: (value) {
+                        onSelect(cartItem.product.product_id);
+                      },
+                      focusColor: Theme.of(context).primaryColor,
+                      activeColor: Theme.of(context).primaryColor,
                     ),
+                  ),
+//                    ),
                     Expanded(
                       flex: 0,
                       child: Container(
@@ -77,7 +82,8 @@ class ProductCartCard extends StatelessWidget {
                         child: PictureSelf(
                             cartItem.product.picture_list["shuffle"][0],
                             product: cartItem.product,
-                            width: 120,
+                            width: 110,
+                            height: 90,
                             boxFit: BoxFit.cover
                         ),
                       ),
@@ -105,7 +111,7 @@ class ProductCartCard extends StatelessWidget {
                                     text: "￥",
                                   ),
                                   TextSpan(
-                                    text: (cartItem.product.price["num"] * cartItem.product.discount).toString(),
+                                    text: (cartItem.product.price["num"] * cartItem.product.discount).toStringAsFixed(2),
                                     style: TextStyle(
                                         fontSize: 22,
                                         color: Colors.redAccent[200]),
@@ -315,42 +321,7 @@ class _CartState extends State<Cart> {
                       );
                     }),
                     recommend,
-//                    FutureBuilder(
-//                      future: _futureRecomend,
-//                      builder: (context, snapshot) {
-//                        var widget;
-//                        if (snapshot.connectionState == ConnectionState.done) {
-//                          if (snapshot.hasError) {
-//                            widget = Icon(
-//                              Icons.error,
-//                              color: Colors.red,
-//                              size: 48,
-//                            );
-//                          } else {
-//                            widget = Text("");
-//                            widget = GridView(
-//                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                                crossAxisCount: 2, //横轴三个子widget
-//                                childAspectRatio: 1.0 / 1.3 //宽高比为1时，子widget
-//                              ),
-//                              children: snapshot.data.map<Widget>((product) {
-//                                return SearchCard(
-//                                  product: product,
-//                                );
-//                              }).toList(),
-//                            );
-//                          }
-//                        } else {
-//                          widget = Container(
-//                            alignment: Alignment.center,
-//                            child: Padding(
-//                              padding: EdgeInsets.all(20),
-//                              child: CircularProgressIndicator(),
-//                            ));
-//                        }
-//                        return widget;
-//                      },
-//                    ),
+                    CartRecommend(),
                     SizedBox(
                       height: 30,
                     )
@@ -363,6 +334,7 @@ class _CartState extends State<Cart> {
                   children: <Widget>[
                     Image.asset("assets/image/no_login.webp"),
                     recommend,
+                    CartRecommend(),
                     SizedBox(
                       height: 30,
                     )

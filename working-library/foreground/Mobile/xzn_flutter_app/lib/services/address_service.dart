@@ -13,14 +13,14 @@ import '../conf/config.dart';
 import '../states/profile_change_notifier.dart';
 
 //返回地址详情
-getAddressDetail(TextEditingController address) async {
+getAddressDetail(address) async {
 //  String aMapWebKey = "530a8069770558e6e9e0db21c2cd8bc3";
   String aMapWebKey = "647f2f70270b2da46a9a02692ba3065c";
-  String url = "https://restapi.amap.com/v3/geocode/geo?address=" + address.text + "&key=" + aMapWebKey;
+  String url = "https://restapi.amap.com/v3/geocode/geo?address=" + address + "&key=" + aMapWebKey;
   dynamic res = await http.get(url);
   var json = jsonDecode(res.body);
+  print(json);
   Amapgeo addressMap = new Amapgeo();
-  print("COFLCONER");
   addressMap.province = json["geocodes"][0]["province"];
   addressMap.city = json["geocodes"][0]["city"];
   addressMap.district = json["geocodes"][0]["district"];
@@ -43,6 +43,7 @@ getAddressDetail(TextEditingController address) async {
   var location = json["geocodes"][0]["location"].toString().split(",");
   addressMap.longitude = double.parse(location[0]);
   addressMap.latitude = double.parse(location[1]);
+  print("COFLCONER");
   print(addressMap.toJson());
 
   return addressMap;
