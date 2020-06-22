@@ -59,19 +59,18 @@ class _ClassificationState extends State<Classification> {
     _controller.addListener(() {
       setState(() {
         _activeIndex = _controller.index;
-        // 下一句更新_future即重新请求不同类型
-        _future =
-            getSearchResultProduct(token:getToken(context), type: _tabValues[_controller.index]);
       });
     });
-    // 商品卡片所需
     _token = getToken(context);
-    _future =
-        getSearchResultProduct(type: _tabValues[_controller.index]);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_token != "")
+      _future = getSearchResultProduct(
+          token: _token, type: _tabValues[_controller.index]);
+    else
+      _future = getSearchResultProduct(type: _tabValues[_controller.index]);
     return Scaffold(
       appBar: PreferredSize(
         child: AppBar(
