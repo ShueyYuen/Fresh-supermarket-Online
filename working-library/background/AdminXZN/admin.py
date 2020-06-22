@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Fresh_market_online.model import Goods, Order, Warehouse, Deliveryman, User
+from Fresh_market_online.model import Goods, Order, Warehouse, Deliveryman, User, Ads
 
 # Register your models here.
 admin.site.site_title = '鲜着呢后台管理系统'
@@ -93,3 +93,10 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+
+
+class AdsAdmin(admin.ModelAdmin):
+    list_display = ['product', 'picture', 'url', 'type', 'activate']
+
+
+admin.site.register(Ads, AdsAdmin)

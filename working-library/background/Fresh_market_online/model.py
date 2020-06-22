@@ -31,11 +31,11 @@ class Address(models.Model):
 
 
 class Ads(models.Model):
-    product = models.IntegerField(blank=True, null=True)
-    picture = models.CharField(max_length=255, blank=True, null=True)
-    url = models.CharField(max_length=255, blank=True, null=True)
-    type = models.CharField(max_length=255, blank=True, null=True)
-    activate = models.TextField(blank=True, null=True)  # This field type is a guess.
+    product = models.IntegerField(blank=True, null=True, verbose_name='商品编号')
+    picture = models.CharField(max_length=255, blank=True, null=True, verbose_name='图片')
+    url = models.CharField(max_length=255, blank=True, null=True, verbose_name='链接')
+    type = models.CharField(max_length=255, blank=True, null=True, verbose_name='广告类型')
+    activate = models.TextField(blank=True, null=True, verbose_name='是否激活')  # This field type is a guess.
 
     class Meta:
         managed = False
