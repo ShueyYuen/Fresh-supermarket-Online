@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/models/filter.dart';
 import 'package:xzn/models/product.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/page/product/product_show.dart';
 import 'package:xzn/services/cart_service.dart';
 import 'package:xzn/services/picture.dart';
@@ -99,7 +100,11 @@ class SearchCard extends StatelessWidget {
                               ),
                               behavior: SnackBarBehavior.floating,
                             );
-                            Scaffold.of(context).showSnackBar(snackBar);
+                            if (Provider.of<UserModel>(context).isLogin)
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            else Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return LoginChoose();
+                            }));
                           },
                         )),
                   ),

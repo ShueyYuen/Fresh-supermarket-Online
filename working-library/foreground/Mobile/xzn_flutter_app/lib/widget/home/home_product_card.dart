@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xzn/index.dart';
 import 'package:xzn/models/product.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/services/cart_service.dart';
 import 'package:xzn/services/picture.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
@@ -66,14 +67,16 @@ class HomeProduct extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   vertical: 0, horizontal: 3),
                               decoration: BoxDecoration(
-                                border: Border.all(color: HexColor(product.tags["type"])),
+                                border: Border.all(
+                                    color: HexColor(product.tags["type"])),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8)),
                               ),
                               child: Text(
-                                product.tags["content"]??"没有标签",
+                                product.tags["content"] ?? "没有标签",
                                 style: TextStyle(
-                                    color: HexColor(product.tags["type"]), fontSize: 12),
+                                    color: HexColor(product.tags["type"]),
+                                    fontSize: 12),
                               ),
                             ),
                             Text.rich(TextSpan(children: [
@@ -82,12 +85,15 @@ class HomeProduct extends StatelessWidget {
                                   style: TextStyle(
                                       color: Colors.redAccent, fontSize: 12)),
                               TextSpan(
-                                text: (product.price["num"] * product.discount).toStringAsFixed(2),
+                                text: (product.price["num"] * product.discount)
+                                    .toStringAsFixed(2),
                                 style: TextStyle(
                                     color: Colors.redAccent, fontSize: 18),
                               ),
                               TextSpan(
-                                text: "/" + product.details["weight"].toString()+product.price["unit"],
+                                text: "/" +
+                                    product.details["weight"].toString() +
+                                    product.price["unit"],
                                 style:
                                     TextStyle(color: Colors.grey, fontSize: 13),
                               ),
@@ -103,28 +109,34 @@ class HomeProduct extends StatelessWidget {
                             onTap: () async {
                               if (!Provider.of<UserModel>(context).isLogin)
                                 Navigator.pushNamed(context, "login");
-                              if (!Provider.of<CartModel>(context)
-                                  .is_cart_loaded)
-                                await getCartProductList(context, "");
-                              Provider.of<CartModel>(context).add(product, 1);
-                              updateCart(context, CartItem.fromJson({
-                                "product": product.toJson(),
-                                "number": 1
-                              }));
-                              var snackBar = SnackBar(
-                                duration: Duration(seconds: 1),
-                                content: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.check,
-                                      color: Colors.green,
-                                    ),
-                                    Text(product.product_name + '已经在购物车躺好等您咯！')
-                                  ],
-                                ),
-                                behavior: SnackBarBehavior.floating,
-                              );
-                              Scaffold.of(context).showSnackBar(snackBar);
+                              else {
+                                print("COFLCONER");
+                                if (!Provider.of<CartModel>(context)
+                                    .is_cart_loaded)
+                                  await getCartProductList(context, "");
+                                Provider.of<CartModel>(context).add(product, 1);
+                                updateCart(
+                                    context,
+                                    CartItem.fromJson({
+                                      "product": product.toJson(),
+                                      "number": 1
+                                    }));
+                                var snackBar = SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  content: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.check,
+                                        color: Colors.green,
+                                      ),
+                                      Text(
+                                          product.product_name + '已经在购物车躺好等您咯！')
+                                    ],
+                                  ),
+                                  behavior: SnackBarBehavior.floating,
+                                );
+                                Scaffold.of(context).showSnackBar(snackBar);
+                              }
                             },
                           ),
                         ),

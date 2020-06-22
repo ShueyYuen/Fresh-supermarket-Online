@@ -172,6 +172,7 @@ class OrderCard extends StatelessWidget {
                               )));
                 },
               );
+              onUpdate();
             },
           )
         : this.order.order_status == 2
@@ -184,8 +185,9 @@ class OrderCard extends StatelessWidget {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                onPressed: () {
-                  confirmGoods(context, this.order.order_id);
+                onPressed: () async {
+                  await confirmGoods(context, this.order.order_id);
+                  onUpdate();
                 },
               )
             : this.order.order_status == 3
@@ -212,8 +214,9 @@ class OrderCard extends StatelessWidget {
             ),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
-            onPressed: () {
-              cancelOrder(context, this.order.order_id);
+            onPressed: () async {
+              await cancelOrder(context, this.order.order_id);
+              onUpdate();
             },
           )
         : OutlineButton(
