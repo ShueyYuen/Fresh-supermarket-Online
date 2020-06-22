@@ -55,7 +55,7 @@ class _ClassificationState extends State<Classification> {
       length: _tabValues.length,
       vsync: ScrollableState(),
     );
-    _controller.index = widget.idx;
+    _controller.index = widget.idx??0;
     _controller.addListener(() {
       setState(() {
         _activeIndex = _controller.index;
