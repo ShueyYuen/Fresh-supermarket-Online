@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/models/order.dart';
-
-import 'package:provider/provider.dart';
-
 import '../common/global.dart';
-
 // 导入需要全局使用的模型
 import '../models/product.dart';
 import '../models/profile.dart';
@@ -78,6 +74,8 @@ class CartModel extends ProfileChangeNotifier {
         break;
       }
     }
+//    this.address.removeWhere((element){ return element.address_id==address.address_id;});
+//    this.address.add(address);
     notifyListeners();
   }
 

@@ -435,11 +435,16 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       onPressed: () async {
                                         if (await xznpay(context,
                                             int.parse(this.order_id))) {
+                                          print("我打算跳转");
+                                          double money = Provider.of<UserModel>(context).user.money;
+                                          Provider.of<UserModel>(context).user.money = money - totalPriceDouble();
+//                                          Navigator.of(context).pop();
                                           Navigator.of(getContext()).pushReplacement(
                                             MaterialPageRoute(builder: (context) {
                                               return OrderManage();
                                             }),
                                           );
+                                          print("跳转结束");
                                         }
                                       },
                                       child: Column(
@@ -504,6 +509,11 @@ class _OrderConfirmState extends State<OrderConfirm> {
                           },
                         );
                         Navigator.of(context).pop();
+                        Navigator.of(getContext()).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                            return OrderManage();
+                          }),
+                        );
                       },
                     ),
                   ))

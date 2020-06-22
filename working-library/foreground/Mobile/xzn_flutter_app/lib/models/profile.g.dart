@@ -27,7 +27,10 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
     ..token = json['token'] as String
     ..default_address = json['default_address'] == null
         ? null
-        : Address.fromJson(json['default_address'] as Map<String, dynamic>);
+        : Address.fromJson(json['default_address'] as Map<String, dynamic>)
+    ..ads = (json['ads'] as List)
+        ?.map((e) => e == null ? null : Ads.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
@@ -37,5 +40,6 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'address': instance.address,
       'order': instance.order,
       'token': instance.token,
-      'default_address': instance.default_address
+      'default_address': instance.default_address,
+      'ads': instance.ads
     };
