@@ -27,8 +27,8 @@ class _MyState extends State<My> {
         body: Column(children: <Widget>[
           Container(
               padding: EdgeInsets.all(15),
-              constraints: BoxConstraints(
-                  minWidth: double.infinity, minHeight: 100),
+              constraints:
+                  BoxConstraints(minWidth: double.infinity, minHeight: 100),
               child: Flex(
                 direction: Axis.horizontal,
                 children: [
@@ -54,7 +54,8 @@ class _MyState extends State<My> {
                               if (!Provider.of<UserModel>(context).isLogin) {
                                 Navigator.pushNamed(context, "login");
                               } else {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
                                   return Information();
                                 }));
                               }
@@ -72,7 +73,7 @@ class _MyState extends State<My> {
                       if (Provider.of<UserModel>(context).isLogin) {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return SettingPage();
+                          return Information();
                         }));
                       } else {
                         Navigator.pushNamed(context, "login");
