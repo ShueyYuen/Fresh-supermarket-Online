@@ -40,7 +40,7 @@ def AvatarUpload(request):
             data = {"success": True}
             response = json.dumps(data)
             user = User.objects.filter(phone=telephone)
-            oldid = user.values()[0]['head_image_id']
+            oldid = str(user.values()[0]['head_image_id'])
             os.remove('./static/avatar' + '/' + oldid + '.png')
             user.update(head_image_id=headid)
             print(response)

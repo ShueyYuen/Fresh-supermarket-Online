@@ -115,8 +115,10 @@ def OrderList(request):
                         total_price += (goods['price']*ODitem['quantity'])
 
 
-                    dman=Deliveryman.objects.filter(deliveryman_id=item['deliveryman_id']).values()[0]
-                    duser=User.objects.filter(user_id=item['deliveryman_id']).values()[0]
+                    #dman=Deliveryman.objects.filter(deliveryman_id=item['deliveryman_id']).values()[0]
+                    dman = Deliveryman.objects.filter(deliveryman_id='00000001').values()[0]
+                    #duser=User.objects.filter(user_id=item['deliveryman_id']).values()[0]
+                    duser = User.objects.filter(user_id='00000001').values()[0]
                     deliveryman={'deliveryman_id':dman['deliveryman_id'],'name':duser['nickname'],'phone':duser['phone'],'sex':duser['sex'],'longitude':30.915406,'latitude':121.479650,'status':dman['taking_status']}
                     #print(deliveryman)
                     data.append({'order_id':oid,'customer':customer,'address':address,'product_list':product_list,'deliveryman':deliveryman,
@@ -157,7 +159,7 @@ def OrderPayState(request):
                 return HttpResponse(json.dumps({'message': '订单已提交，请勿重复提交'}))
             print(goods_list)
             adderss_id = request.POST.get("address_id")
-            create_order_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            create_order_time = datetime.now()
             order_status = 1
             warehouse_id = '01'
             Order.objects.create(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
@@ -173,7 +175,7 @@ def OrderPayState(request):
 
                 quantity = goods['quantity']
                 OrderDetail.objects.create(order_id=id,goods_id=item,quantity=quantity)
-
+                ShoppingCart.objects.filter(customer_id=uid, goods_id=item).delete()
             data = {"order_id": id}
             response = json.dumps(data)
             return HttpResponse(response)
@@ -195,20 +197,22 @@ def xznpay(request):
             if order['order_status']!=1:
                 return HttpResponse(json.dumps({'message': '订单状态不是待支付'}))
             orderdetail=OrderDetail.objects.filter(order_id=order['order_id']).values()
-            total_price=0
+            total_price=0.00
             print("od length:",len(orderdetail))
             for ODitem in orderdetail:
                 gid=ODitem['goods_id']
                 goods = Goods.objects.filter(goods_id=gid).values()[0]
                 discount = goods['discount']
-                total_price += (goods['price']*ODitem['quantity']*discount)
+                costi = goods['price']*ODitem['quantity']*discount
+                total_price += costi
             total_price += 10.0#配送费
             print("total_price:",total_price)
-            if user['money']<total_price:
+            if user['money'] < total_price:
                 return HttpResponse(json.dumps({'message': '余额不足'}))
-            user=User.objects.filter(user_id=uid).update(money=user['money']-total_price)
-            order=Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-            return HttpResponse(json.dumps({'success': True}))
+            else:
+                User.objects.filter(user_id=uid).update(money=(user['money']-total_price))
+                Order.objects.filter(order_id=oid).update(order_status=2,finish_order_time=datetime.now())
+                return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
 
@@ -222,7 +226,7 @@ def OrderConfirm(request):
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            Order.objects.filter(order_id=oid).update(order_status=4,receive_order_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            Order.objects.filter(order_id=oid).update(order_status=4,receive_order_time=datetime.now())
             return HttpResponse(json.dumps({'success': True}))
             
     return HttpResponse(json.dumps({'message': '登录过期或用户名不存在'}))
