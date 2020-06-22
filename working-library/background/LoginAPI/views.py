@@ -32,13 +32,13 @@ def Login(request):
             response=json.dumps({"message":"密码错误"})
             return HttpResponse(response)
 
-    token = get_token(phone, 3600).decode('utf-8')
+    token = get_token(phone, 230400).decode('utf-8')
 
     if user.exists()==False:
         User.objects.create(phone=phone, token=token,money=1000.0)
         user= User.objects.filter(phone=phone)
         
-    token = get_token(phone, 3600).decode('utf-8')
+    token = get_token(phone, 230400).decode('utf-8')
     user.update(token=token)
     user = user.values()[0]
     userId=user['user_id']
