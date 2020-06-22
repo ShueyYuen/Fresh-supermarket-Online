@@ -54,7 +54,7 @@ def AvatarUpload(request):
 def AvatarLoad(request):
 
     head_image_id=request.path.rsplit('/', 1)[1]
-    print(head_image_id);
+    print(head_image_id)
     path = r'./static/avatar' + '/' + head_image_id + '.png'
     avatar = open(path, "rb")
     return HttpResponse(avatar.read(), content_type='image/png')

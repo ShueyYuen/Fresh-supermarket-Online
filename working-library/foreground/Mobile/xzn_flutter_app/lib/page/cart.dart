@@ -132,16 +132,22 @@ class ProductCartCard extends StatelessWidget {
                                 width: 30,
                                 iconWidth: 20,
                                 numText: cartItem.number.toString(),
-                                addValueChanged: (num) {},
-                                removeValueChanged: (num) {},
-                                updateValueChanged: (num) {
+                                addValueChanged: (num) {
+                                  print("addvaluechanged:$num");
+                                },
+                                removeValueChanged: (num) {
+                                  print("removevaluechange:$num");
+                                },
+                                updateValueChanged: (num) async {
                                   if (num != 0) {
+                                    cartItem.number = num;
+                                    updateCart(context, cartItem);
                                     Provider.of<CartModel>(context,
                                             listen: false)
                                         .update(
                                             cartItem.product.product_id, num);
                                   } else {
-                                    showDialog(
+                                    bool result = await showDialog(
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
@@ -153,7 +159,7 @@ class ProductCartCard extends StatelessWidget {
                                               FlatButton(
                                                 child: Text('取消'),
                                                 onPressed: () {
-                                                  Navigator.pop(context);
+                                                  Navigator.of(context).pop(false);
                                                 },
                                               ),
                                               FlatButton(
@@ -161,12 +167,15 @@ class ProductCartCard extends StatelessWidget {
                                                 onPressed: () {
                                                   onDelete(cartItem
                                                       .product.product_id);
-                                                  Navigator.pop(context);
+                                                  cartItem.number = num;
+                                                  updateCart(context, cartItem);
+                                                  Navigator.of(context).pop(true);
                                                 },
                                               ),
                                             ],
                                           );
                                         });
+                                    print(num);
                                   }
                                 },
                               ))
@@ -216,8 +225,7 @@ class _CartState extends State<Cart> {
               .toJson(),
           "number": 0
         }));
-    print(result);
-    if (result["success"])
+    if (result)
       Provider.of<CartModel>(context, listen: true).delete(product_id);
   }
 
@@ -320,6 +328,7 @@ class _CartState extends State<Cart> {
                         onDelete: _handleDelete,
                       );
                     }),
+                    snapshot.data.length == 0?Image.asset("assets/image/no_login.webp"):SizedBox(height: 0,),
                     recommend,
                     CartRecommend(),
                     SizedBox(

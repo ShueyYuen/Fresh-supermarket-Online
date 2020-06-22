@@ -5,6 +5,7 @@ export 'amapNearItem.dart' ;
 export 'cartItem.dart' ; 
 export 'customer.dart' ; 
 export 'deliveryman.dart' ; 
+export 'errorMessage.dart' ; 
 export 'filter.dart' ; 
 export 'messageCode.dart' ; 
 export 'order.dart' ; 

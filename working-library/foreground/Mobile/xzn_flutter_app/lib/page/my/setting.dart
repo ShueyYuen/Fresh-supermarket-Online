@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:xzn/page/login/login_choose.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:xzn/page/my/account_safe.dart';
 import 'package:xzn/page/my/customer_service.dart';
 import 'package:xzn/page/my/privacy.dart';
@@ -148,6 +148,7 @@ class _SettingPageState extends State<SettingPage> {
                   try {
                     Directory tempDir = await getTemporaryDirectory();
                     //删除缓存目录
+                    await DefaultCacheManager().emptyCache();
                     await delDir(tempDir);
                     await loadCache();
 //                ToastUtils.show(msg: '清除缓存成功');
@@ -173,32 +174,37 @@ class _SettingPageState extends State<SettingPage> {
                   }
                 },
               ),
-              Provider.of<UserModel>(context, listen: false).isLogin?Container(
-                padding: EdgeInsets.only(top: 30),
-                child: FlatButton(
-                  color: Theme.of(context).primaryColor,
-                  highlightColor: Colors.blue[700],
-                  colorBrightness: Brightness.dark,
-                  splashColor: Colors.grey,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                    child: Text(
-                      "退出登录",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  onPressed: () {
-                    Provider.of<UserModel>(context, listen: false).user = null;
-                    Provider.of<CartModel>(context, listen: false).cart = null;
-                    Provider.of<OrderModel>(context, listen: false).order =
-                        null;
-                    Provider.of<AddressModel>(context, listen: false).address =
-                        null;
-                  },
-                ),
-              ):Text("")
+              Provider.of<UserModel>(context, listen: false).isLogin
+                  ? Container(
+                      padding: EdgeInsets.only(top: 30),
+                      child: FlatButton(
+                        color: Theme.of(context).primaryColor,
+                        highlightColor: Colors.blue[700],
+                        colorBrightness: Brightness.dark,
+                        splashColor: Colors.grey,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 40),
+                          child: Text(
+                            "退出登录",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        onPressed: () {
+                          Provider.of<UserModel>(context, listen: false).user =
+                              null;
+                          Provider.of<CartModel>(context, listen: false).cart =
+                              null;
+                          Provider.of<OrderModel>(context, listen: false)
+                              .order = null;
+                          Provider.of<AddressModel>(context, listen: false)
+                              .address = null;
+                        },
+                      ),
+                    )
+                  : Text("")
             ],
           ),
         ));

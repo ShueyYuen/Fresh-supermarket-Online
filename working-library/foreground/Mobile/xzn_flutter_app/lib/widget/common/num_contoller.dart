@@ -29,9 +29,8 @@ class _NumberControllerWidgetState extends State<NumberControllerWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    textController.text = widget.numText;
     super.initState();
-    this.textController.text = widget.numText;
   }
 
   @override
@@ -59,6 +58,7 @@ class _NumberControllerWidgetState extends State<NumberControllerWidget> {
                   )
                 ),
                 child: TextField(
+                  enabled: false,
                   controller: textController,
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,

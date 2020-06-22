@@ -68,6 +68,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
   Address address = null;
   String order_id;
   var _future;
+  TextEditingController _remarksController = new TextEditingController();
 
   totalPrice() {
     double price = 10.0;
@@ -99,13 +100,13 @@ class _OrderConfirmState extends State<OrderConfirm> {
   @override
   void initState() {
     super.initState();
-    _future = getAddressList(context, "");
+    _future = getAddressList(context, getToken(context));
     try {
       address = Provider.of<AddressModel>(context, listen: false).address[0];
     } catch (e) {
       address = null;
     }
-    print(address.toString());
+    print(address.toJson());
   }
 
   @override
@@ -124,7 +125,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.volume_up),
-                    Text("为减少接触，降低奉献。请修改下方备注"),
+                    Text("为减少接触，降低风险。请修改下方备注"),
                   ],
                 )),
             FutureBuilder(
@@ -308,23 +309,45 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     color: Colors.black,
                   ),
                   Expanded(child: Text("")),
-                  Row(
-                    children: <Widget>[
-                      Text.rich(TextSpan(children: [
-                        TextSpan(
-                          text: "可选择无接触配送",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                  Expanded(
+                    child: TextField(
+                      controller: _remarksController,
+                      decoration: InputDecoration(
+                        labelText: '可选择无接触配送',
+                        labelStyle: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
                         ),
-                      ])),
-                      Text(
-                        "\uE5E1",
-                        style: TextStyle(
-                            fontFamily: "MaterialIcons",
-                            fontSize: 14,
-                            color: Colors.grey[600]),
                       ),
-                    ],
-                  ),
+                    ),
+                  )
+//                  Row(
+//                    children: <Widget>[
+////                      Text.rich(TextSpan(children: [
+////                        TextSpan(
+////                          text: "可选择无接触配送",
+////                          style: TextStyle(fontSize: 14, color: Colors.grey),
+////                        ),
+////                      ])),
+////                      Text(
+////                        "\uE5E1",
+////                        style: TextStyle(
+////                            fontFamily: "MaterialIcons",
+////                            fontSize: 14,
+////                            color: Colors.grey[600]),
+////                      ),
+////                      TextField(
+////                        controller: _remarksController,
+////                        decoration: InputDecoration(
+////                          labelText: '可选择无接触配送',
+////                          labelStyle: TextStyle(
+////                            fontSize: 14,
+////                            color: Colors.grey,
+////                          ),
+////                        ),
+////                      ),
+//                    ],
+//                  ),
                 ],
               ),
             ),
@@ -398,7 +421,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             widget.order,
                             address,
                             protect,
-                            "就是这个备注",
+                            //"就是这个备注",
+                            _remarksController.text,
                             totalPriceDouble());
                         print(id);
                         setState(() {
@@ -505,6 +529,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             );
                           },
                         );
+                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                     ),

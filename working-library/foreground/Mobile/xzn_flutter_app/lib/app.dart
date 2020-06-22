@@ -7,10 +7,9 @@ import 'page/my.dart';
 import 'states/profile_change_notifier.dart';
 
 class App extends StatefulWidget {
-  App({Key key, this.index: 0, this.subindex: 0}) : super(key: key);
+  App({Key key, this.index: 0}) : super(key: key);
 
   int index;
-  int subindex;
 
   @override
   State<StatefulWidget> createState() => new _AppState();
@@ -18,11 +17,19 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   var _currentIndex;
+  var _subIndex;
 
   Home home;
   Classification classification;
   Cart cart;
   My my;
+
+  void setPage(int main, int sub) {
+    setState(() {
+      _currentIndex = main;
+      _subIndex = sub;
+    });
+  }
 
   Future<bool> _onWillPop() {
     return showDialog(
@@ -48,9 +55,10 @@ class _AppState extends State<App> {
   currentPage() {
     switch (_currentIndex) {
       case 0:
-        return home = home ?? Home();
+        return home = home ?? Home(changeIndex: this.setPage,);
       case 1:
-        return classification = classification ?? Classification(idx:widget.subindex);
+//        return classification = classification ?? Classification(idx:_subIndex);
+        return Classification(idx: _subIndex,);
       case 2:
         return cart = cart ?? Cart();
       case 3:

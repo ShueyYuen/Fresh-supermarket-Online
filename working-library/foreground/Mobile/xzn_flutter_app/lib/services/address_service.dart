@@ -62,8 +62,6 @@ getAddressList(BuildContext context, String token) async {
       var json = jsonDecode(res.body);
       for (var item in json) {
         try {
-          print(url);
-          print(item);
           address_list.add(Address.fromJson(item));
         } catch (e) {
           print(e.toString());
@@ -104,20 +102,23 @@ getAddressList(BuildContext context, String token) async {
 
 updateAddress(BuildContext context, Address address) async {
   try {
-    // TODO: 修改一个地址之后，会在列表中增加一个新的，和旧的在一起
     if (Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/address/update";
+      print("开始修改地址为：");
       print(address.toJson());
       var body = address.toJson();
       var dio = new Dio();
       body["token"] = getToken(context);
       body["person"] = stringfy(body["person"]);
       body["detail"] = stringfy(body["detail"].toJson());
+      print("请求体为：");
+      print(body);
+//      print("address_id"+body["address_id"]);
       FormData formData = new FormData.fromMap(body);
       var res = await dio.post(url, data: formData);
       var json = jsonDecode(res.data.toString());
       address.address_id = int.parse(json["address_id"]);
-      print(address.address_id);
+//      print(address.address_id);
       Provider
         .of<AddressModel>(context, listen: false)
         .update(address);
@@ -141,7 +142,6 @@ deleteAddress(BuildContext context, Address address) async {
       FormData formData = new FormData.fromMap(body);
       var res = await dio.post(url, data: formData);
       var json = jsonDecode(res.data.toString());
-      print(json);
       if(json["success"]) {
         Provider.of<AddressModel>(context)
           .delete(address.address_id);

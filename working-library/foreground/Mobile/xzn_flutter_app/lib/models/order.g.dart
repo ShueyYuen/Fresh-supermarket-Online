@@ -27,7 +27,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
     ..finish_order_time = json['finish_order_time'] as String
     ..order_status = json['order_status'] as num
     ..payment_id = json['payment_id'] as String
-    ..note = json['note'] as String
+    ..remarks = json['remarks'] as String
     ..total_price = json['total_price'] as num;
 }
 
@@ -42,6 +42,6 @@ Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'finish_order_time': instance.finish_order_time,
       'order_status': instance.order_status,
       'payment_id': instance.payment_id,
-      'note': instance.note,
+      'remarks': instance.remarks,
       'total_price': instance.total_price
     };

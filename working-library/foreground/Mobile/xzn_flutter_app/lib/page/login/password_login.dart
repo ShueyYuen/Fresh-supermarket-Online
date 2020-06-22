@@ -28,7 +28,7 @@ class _PasswordLoginState extends State<PasswordLogin> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                 child: Text(
-                  "手机号登陆",
+                  "手机号登录",
                   style: TextStyle(color: Colors.blue, fontSize: 18),
                 ),
               ),

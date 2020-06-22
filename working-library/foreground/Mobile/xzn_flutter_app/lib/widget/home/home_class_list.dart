@@ -7,20 +7,15 @@ class ClassCardWidget extends StatelessWidget {
   String image;
   String description;
   int idx;
+  Function changePage;
 
-  ClassCardWidget(this.image, this.description, this.width, this.idx);
+  ClassCardWidget(this.image, this.description, this.width, this.idx, {this.changePage});
 
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
         onTap: () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return App(index: 1, subindex: idx,);
-            }),
-              (Route<dynamic> route) => false,
-          );
+          changePage(1, idx);
 //          Navigator.push(context, MaterialPageRoute(builder: (context) {
 //            return Classification(idx: 0,);
 //          }));
@@ -42,6 +37,8 @@ class ClassCardWidget extends StatelessWidget {
 }
 
 class HomeClassMain extends StatelessWidget {
+  HomeClassMain({this.changePage});
+  Function changePage;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 5.5;
@@ -54,11 +51,11 @@ class HomeClassMain extends StatelessWidget {
         runSpacing: 4.0, // 纵轴（垂直）方向间距
         alignment: WrapAlignment.center, //沿主轴方向居中
         children: <Widget>[
-          ClassCardWidget("assets/image/class/1.png", "水果蔬菜", width, 0),
-          ClassCardWidget("assets/image/class/2.png", "肉禽蛋品", width, 1),
-          ClassCardWidget("assets/image/class/3.png", "水产海鲜", width, 2),
-          ClassCardWidget("assets/image/class/4.png", "米面粮油", width, 3),
-          ClassCardWidget("assets/image/class/5.png", "鲜奶乳品", width, 4),
+          ClassCardWidget("assets/image/class/1.png", "水果蔬菜", width, 0, changePage: changePage,),
+          ClassCardWidget("assets/image/class/2.png", "肉禽蛋品", width, 1, changePage: changePage,),
+          ClassCardWidget("assets/image/class/3.png", "水产海鲜", width, 2, changePage: changePage,),
+          ClassCardWidget("assets/image/class/4.png", "米面粮油", width, 3, changePage: changePage,),
+          ClassCardWidget("assets/image/class/5.png", "鲜奶乳品", width, 4, changePage: changePage,),
         ],
       ),
     );

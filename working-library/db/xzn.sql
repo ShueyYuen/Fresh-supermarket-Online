@@ -11,7 +11,7 @@
  Target Server Version : 100121
  File Encoding         : 65001
 
- Date: 21/06/2020 14:53:23
+ Date: 22/06/2020 16:02:22
 */
 
 SET NAMES utf8mb4;
@@ -40,23 +40,33 @@ CREATE TABLE `address`  (
   PRIMARY KEY (`address_id`) USING BTREE,
   INDEX `customer_id`(`customer_id`, `address_id`) USING BTREE,
   INDEX `address_id`(`address_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10015 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10031 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
 INSERT INTO `address` VALUES (00000001, 00001, '上海市', 'lzh', '18721522908', 'M', '999', 30.82764, 121.50648, '学校', '上海市', '奉贤区', '海思路', '海湾镇', 0);
 INSERT INTO `address` VALUES (00000001, 00002, '上海市', 'Johnny', '18721517889', 'M', '999', 30.82764, 121.50648, '学校', '上海市', '奉贤区', '海思路', '海湾镇', 0);
-INSERT INTO `address` VALUES (00000001, 00003, '上海市', 'shl', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道', 0);
+INSERT INTO `address` VALUES (00000001, 00003, '上海市', 'shl', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道', 1);
 INSERT INTO `address` VALUES (10000004, 10004, '上海市', '测试', '18888888888', 'M', '111号', 31.141382, 121.421251, '学校', '上海市', '徐汇区', '梅陇路', '凌云路街道', 0);
 INSERT INTO `address` VALUES (00000004, 10007, '北京市', '1231', '18246686562', 'F', '48', 116.397499, 39.908722, '家', '北京市', '东城区', '', '', 1);
 INSERT INTO `address` VALUES (00000004, 10008, '北京市', '草', '5225258556', 'M', '48', 116.397499, 39.908722, '学校', '北京市', '东城区', '', '', 0);
-INSERT INTO `address` VALUES (00000001, 10009, '上海市', '111', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区区', '梅陇路', '凌云路街道', 0);
-INSERT INTO `address` VALUES (00000001, 10010, '上海市', 'lzh', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区区', '梅陇路', '凌云路街道', 0);
+INSERT INTO `address` VALUES (00000001, 10009, '上海市', '111', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区区', '梅陇路', '凌云路街道', 1);
+INSERT INTO `address` VALUES (00000001, 10010, '上海市', 'lzh', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区区', '梅陇路', '凌云路街道', 1);
 INSERT INTO `address` VALUES (00000001, 10011, '上海市', 'shl', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区区', '梅陇路', '凌云路街道', 0);
-INSERT INTO `address` VALUES (00000001, 10012, '上海市', 'Johnny', '18817669250', 'M', '130号', 31.141382, 121.421251, '学校', '上海市', '徐汇区区', '梅陇路', '凌云路街道', 0);
+INSERT INTO `address` VALUES (00000001, 10012, '上海市', 'Johnny', '18817669250', 'M', '112', 121.437866, 31.19919, '学校', '上海市', '徐汇区', '', '', 0);
 INSERT INTO `address` VALUES (00000004, 10013, '北京市', '草啊', '48121548', '', '125', 116.416357, 39.928353, '学校', '北京市', '东城区', '', '', 0);
 INSERT INTO `address` VALUES (00000003, 10014, '河北省', '', '', '', '', 115.517862, 40.415343, '', '张家口市', '怀来县', '', '', 0);
+INSERT INTO `address` VALUES (00000007, 10015, '上海市', 'A', '17326712293', 'NULL', '1号401', 121.504628, 30.833288, '学校', '上海市', '奉贤区', '海', '', 0);
+INSERT INTO `address` VALUES (00000001, 10022, '陕西省', 'Johnny', '18721517889', 'M', '11号楼', 110.170889, 36.040934, '公司', '延安市', '宜川县', '', '', 0);
+INSERT INTO `address` VALUES (00000007, 10023, '浙江省', 'σ', '17326712293', 'NULL', '466454', 121.612152, 29.895532, '公司', '宁波市', '鄞州区', '', '', 0);
+INSERT INTO `address` VALUES (00000004, 10024, '安徽省', '原穴', '452637518', 'F', '152', 117.4761, 31.889848, '学校', '合肥市', '肥东县', '', '', 1);
+INSERT INTO `address` VALUES (00000004, 10025, '安徽省', '袁学', '18297913123', 'NULL', '523', 117.558962, 31.843172, '学校', '合肥市', '肥东县', '', '', 1);
+INSERT INTO `address` VALUES (00000004, 10026, '安徽省', '原穴', '18297963452', 'F', '12', 117.4761, 31.889848, '学校', '合肥市', '肥东县', '', '', 0);
+INSERT INTO `address` VALUES (00000004, 10027, '安徽省', '袁学', '18297913123', 'F', '45', 117.558962, 31.843172, '学校', '合肥市', '肥东县', '', '', 1);
+INSERT INTO `address` VALUES (00000004, 10028, '安徽省', '袁学', '18297913123', 'F', '12', 117.558962, 31.843172, '学校', '合肥市', '肥东县', '', '', 0);
+INSERT INTO `address` VALUES (00000004, 10029, '安徽省', '废人', '15246785', 'F', '12', 117.558962, 31.843172, '学校', '合肥市', '肥东县', '', '', 0);
+INSERT INTO `address` VALUES (00000002, 10030, '上海市', 'zhen', '18721522908', 'NULL', '611', 121.437866, 31.19919, '学校', '上海市', '徐汇区', '', '', 0);
 
 -- ----------------------------
 -- Table structure for ads
@@ -75,12 +85,12 @@ CREATE TABLE `ads`  (
 -- ----------------------------
 -- Records of ads
 -- ----------------------------
-INSERT INTO `ads` VALUES (00000001, 1, '00000001', NULL, 'product', b'1');
+INSERT INTO `ads` VALUES (00000001, 58, '00000001', NULL, 'product', b'1');
 INSERT INTO `ads` VALUES (00000002, NULL, '00000002', 'https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.6.76c275b2SrScxd&id=611326515771&skuId=4370850677099&user_id=1777552687&cat_id=2&is_b=1&rn=5f158987a20dcd76e7c4619a7f6c20b6', 'url', b'1');
 INSERT INTO `ads` VALUES (00000003, 2, '00000003', NULL, 'product', b'0');
-INSERT INTO `ads` VALUES (00000004, 3, '00000004', NULL, 'product', b'1');
-INSERT INTO `ads` VALUES (00000005, 4, '00000005', NULL, 'product', b'1');
-INSERT INTO `ads` VALUES (00000006, 5, '00000006', NULL, 'product', b'1');
+INSERT INTO `ads` VALUES (00000004, 4, '00000004', NULL, 'product', b'1');
+INSERT INTO `ads` VALUES (00000005, 28, '00000005', NULL, 'product', b'1');
+INSERT INTO `ads` VALUES (00000006, 16, '00000006', NULL, 'product', b'1');
 
 -- ----------------------------
 -- Table structure for auth_group
@@ -194,7 +204,7 @@ INSERT INTO `auth_user` VALUES (1, 'pbkdf2_sha256$150000$nq2Oak4CQppj$z4HNfoJ2pl
 INSERT INTO `auth_user` VALUES (2, 'pbkdf2_sha256$150000$6q0YVuSMtcws$CRcSBMzMfQnfv5S4sqg7cyInVcByIDJ8WX5sXujXO2c=', '2020-06-20 07:32:48.129428', 1, '1', '', '', '', 1, 1, '2020-06-20 07:32:00.000000');
 INSERT INTO `auth_user` VALUES (3, 'pbkdf2_sha256$150000$VZ6XEf3M7eMa$B5Ms678cKo8iLiO6sDmow79H0jMbYCG4qwdSmknT43I=', NULL, 1, '2', '', '', '', 1, 1, '2020-06-20 07:33:00.000000');
 INSERT INTO `auth_user` VALUES (4, 'pbkdf2_sha256$150000$nO0R3GPAeXlE$4rL0vZcKp2JSFes8iSDGIVynL2rU80fZwNuEg/Zxl8U=', NULL, 1, '3', '', '', '', 1, 1, '2020-06-20 07:33:00.000000');
-INSERT INTO `auth_user` VALUES (5, 'pbkdf2_sha256$150000$VwP88rrshynG$OCkFJMWH/T2cObHFnLtRAu5N/rn/1fqdHAQSYt9y2XA=', NULL, 1, '4', '', '', '', 1, 1, '2020-06-20 07:34:00.000000');
+INSERT INTO `auth_user` VALUES (5, 'pbkdf2_sha256$150000$VwP88rrshynG$OCkFJMWH/T2cObHFnLtRAu5N/rn/1fqdHAQSYt9y2XA=', '2020-06-21 08:38:33.167893', 1, '4', '', '', '', 1, 1, '2020-06-20 07:34:00.000000');
 INSERT INTO `auth_user` VALUES (6, 'pbkdf2_sha256$150000$FWBuUTO9ud1w$+P10X9jQfSS9TMdyuQVb25c7HduXMImTibJD5SDBmls=', NULL, 1, '5', '', '', '', 1, 1, '2020-06-20 07:34:00.000000');
 
 -- ----------------------------
@@ -260,7 +270,7 @@ CREATE TABLE `django_admin_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `django_admin_log_content_type_id_c4bce8eb_fk_django_co`(`content_type_id`) USING BTREE,
   INDEX `django_admin_log_user_id_c564eba6_fk_auth_user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -275,6 +285,15 @@ INSERT INTO `django_admin_log` VALUES (7, '2020-06-20 07:34:16.932395', '5', '4'
 INSERT INTO `django_admin_log` VALUES (8, '2020-06-20 07:34:23.718324', '5', '4', 2, '[{\"changed\": {\"fields\": [\"is_staff\", \"is_superuser\"]}}]', 4, 1);
 INSERT INTO `django_admin_log` VALUES (9, '2020-06-20 07:34:37.284479', '6', '5', 1, '[{\"added\": {}}]', 4, 1);
 INSERT INTO `django_admin_log` VALUES (10, '2020-06-20 07:34:42.037756', '6', '5', 2, '[{\"changed\": {\"fields\": [\"is_staff\", \"is_superuser\"]}}]', 4, 1);
+INSERT INTO `django_admin_log` VALUES (11, '2020-06-21 08:38:48.845854', '40', 'Order object (40)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (12, '2020-06-21 08:38:48.850050', '39', 'Order object (39)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (13, '2020-06-21 08:38:48.853960', '38', 'Order object (38)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (14, '2020-06-21 08:38:48.858327', '37', 'Order object (37)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (15, '2020-06-21 08:38:48.865149', '36', 'Order object (36)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (16, '2020-06-21 08:38:48.868412', '35', 'Order object (35)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (17, '2020-06-21 08:38:48.872435', '34', 'Order object (34)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (18, '2020-06-21 08:39:00.336282', '33', 'Order object (33)', 3, '', 12, 5);
+INSERT INTO `django_admin_log` VALUES (19, '2020-06-21 08:39:00.350131', '32', 'Order object (32)', 3, '', 12, 5);
 
 -- ----------------------------
 -- Table structure for django_content_type
@@ -286,7 +305,7 @@ CREATE TABLE `django_content_type`  (
   `model` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label`, `model`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -298,6 +317,7 @@ INSERT INTO `django_content_type` VALUES (2, 'auth', 'permission');
 INSERT INTO `django_content_type` VALUES (4, 'auth', 'user');
 INSERT INTO `django_content_type` VALUES (11, 'CartAPI', 'shoppingcart');
 INSERT INTO `django_content_type` VALUES (5, 'contenttypes', 'contenttype');
+INSERT INTO `django_content_type` VALUES (12, 'Fresh_market_online', 'order');
 INSERT INTO `django_content_type` VALUES (9, 'GoodsAPI', 'goods');
 INSERT INTO `django_content_type` VALUES (7, 'LoginAPI', 'user');
 INSERT INTO `django_content_type` VALUES (6, 'sessions', 'session');
@@ -359,6 +379,11 @@ CREATE TABLE `django_session`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of django_session
+-- ----------------------------
+INSERT INTO `django_session` VALUES ('en3evo6cwcod97ujxwt8t0qus3ingy7k', 'MzU2ZTNmZGExZWFlNzVlNzA5NDliM2Q2NjZhZjBlYjBlMGU3MjI4Njp7Il9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIwMjhiZWUwYjc5MzFlOTI4MTUzM2I0MGE3NDhmNmQyOTMzNWQyOGIwIn0=', '2020-07-05 08:38:33.173221');
+
+-- ----------------------------
 -- Table structure for goods
 -- ----------------------------
 DROP TABLE IF EXISTS `goods`;
@@ -383,7 +408,7 @@ CREATE TABLE `goods`  (
   `tags_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`goods_id`) USING BTREE,
   UNIQUE INDEX `goods_index`(`goods_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of goods
@@ -408,7 +433,7 @@ INSERT INTO `goods` VALUES (17, '奉贤翠绿可口荷兰豆', '水果蔬菜', '
 INSERT INTO `goods` VALUES (18, '奉贤清新脆嫩芸豆', '水果蔬菜', 'g', 12.80, '01', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 0.50, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#5D2781', '史前最低');
 INSERT INTO `goods` VALUES (19, '奉贤鲜嫩可口鸡毛菜', '水果蔬菜', 'g', 6.40, '01', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1.00, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#BF197D', '热卖');
 INSERT INTO `goods` VALUES (20, '奉贤新鲜清香菠菜', '水果蔬菜', 'g', 10.50, '01', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 0.88, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#BF197D', '热卖');
-INSERT INTO `goods` VALUES (21, '奉贤清新爽口空心菜', '水果蔬菜', 'g', 12.80, '02', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 0.88, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#BF197D', '热卖');
+INSERT INTO `goods` VALUES (21, '奉贤清新爽口空心菜', '水果蔬菜', 'g', 12.80, '01', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 0.88, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#BF197D', '热卖');
 INSERT INTO `goods` VALUES (22, '奉贤清爽脆滑油麦菜', '水果蔬菜', 'g', 7.50, '01', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 1.00, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#FF0000', '爆款');
 INSERT INTO `goods` VALUES (23, '奉贤清新杭白菜', '水果蔬菜', 'g', 5.80, '01', 95, '上海市奉贤区', '一包', '包', '冷藏', 500, 1.00, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#FF0000', '爆款');
 INSERT INTO `goods` VALUES (24, '奉贤新鲜健康上海青', '水果蔬菜', 'g', 3.20, '01', 90, '上海市奉贤区', '一包', '包', '冷藏', 500, 0.88, '产于奉贤某农场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#FF0000', '爆款');
@@ -445,6 +470,7 @@ INSERT INTO `goods` VALUES (54, '青浦营养丰富鹌鹑蛋', '肉禽蛋品', '
 INSERT INTO `goods` VALUES (55, '青浦优质新鲜羊排', '肉禽蛋品', 'g', 56.00, '01', 95, '上海市青浦区', '一包', '包', '冷藏', 500, 0.90, '产于青浦某养羊场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#FF4900', '推荐');
 INSERT INTO `goods` VALUES (56, '宁波精挑鲜活基围虾', '水产海鲜', 'g', 40.00, '01', 40, '上海市奉贤区', '一份', '包', '冷冻', 500, 0.90, '产于宁波某水产养殖场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#FF4900', '推荐');
 INSERT INTO `goods` VALUES (57, '奉贤均衡营养鲜牛奶', '鲜奶乳品', 'g', 10.00, '01', 80, '上海市奉贤区', '一瓶', '瓶', '冷藏', 500, 0.90, '产于奉贤某养牛场', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#FF4900', '推荐');
+INSERT INTO `goods` VALUES (58, '阳澄湖大闸蟹', '水产海鲜', 'g', 80.00, '01', 80, '江苏省苏州市', '一份', NULL, '冷藏', 500, 0.00, '产于阳澄湖', '包邮，全程冷链运输，2.5小时内送达， 因交通情况派送或许有延迟。', '端午节期间专享产品，每人每天购买不超过一件，享受此优惠', '#FF4900', '推荐');
 
 -- ----------------------------
 -- Table structure for history
@@ -456,7 +482,7 @@ CREATE TABLE `history`  (
   `key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 498 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 525 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of history
@@ -958,6 +984,33 @@ INSERT INTO `history` VALUES (0000000494, 4, '', '2020-06-20 16:07:40');
 INSERT INTO `history` VALUES (0000000495, 4, '', '2020-06-20 16:08:15');
 INSERT INTO `history` VALUES (0000000496, 4, '', '2020-06-20 16:08:21');
 INSERT INTO `history` VALUES (0000000497, 4, '', '2020-06-20 16:09:07');
+INSERT INTO `history` VALUES (0000000498, 1, '', '2020-06-21 08:21:41');
+INSERT INTO `history` VALUES (0000000499, 1, '', '2020-06-21 08:24:21');
+INSERT INTO `history` VALUES (0000000500, 1, '', '2020-06-21 08:31:56');
+INSERT INTO `history` VALUES (0000000501, 1, '', '2020-06-21 08:36:34');
+INSERT INTO `history` VALUES (0000000502, 1, '', '2020-06-21 08:37:38');
+INSERT INTO `history` VALUES (0000000503, 1, '', '2020-06-21 08:37:54');
+INSERT INTO `history` VALUES (0000000504, 1, '', '2020-06-21 08:40:42');
+INSERT INTO `history` VALUES (0000000505, 1, '', '2020-06-21 08:43:33');
+INSERT INTO `history` VALUES (0000000506, 1, '', '2020-06-21 08:44:05');
+INSERT INTO `history` VALUES (0000000507, 1, '', '2020-06-21 08:44:29');
+INSERT INTO `history` VALUES (0000000508, 4, '', '2020-06-21 10:22:43');
+INSERT INTO `history` VALUES (0000000509, 4, '', '2020-06-21 10:22:46');
+INSERT INTO `history` VALUES (0000000510, 4, '', '2020-06-21 10:22:49');
+INSERT INTO `history` VALUES (0000000511, 4, '', '2020-06-21 10:22:52');
+INSERT INTO `history` VALUES (0000000512, 4, '', '2020-06-21 10:43:36');
+INSERT INTO `history` VALUES (0000000513, 4, '', '2020-06-21 10:43:37');
+INSERT INTO `history` VALUES (0000000514, 7, '', '2020-06-21 11:09:44');
+INSERT INTO `history` VALUES (0000000515, 7, '', '2020-06-21 11:09:45');
+INSERT INTO `history` VALUES (0000000516, 7, '', '2020-06-21 11:09:48');
+INSERT INTO `history` VALUES (0000000517, 7, '', '2020-06-21 11:09:49');
+INSERT INTO `history` VALUES (0000000518, 7, '', '2020-06-21 11:09:58');
+INSERT INTO `history` VALUES (0000000519, 7, '', '2020-06-21 11:09:59');
+INSERT INTO `history` VALUES (0000000520, 4, '', '2020-06-22 00:47:22');
+INSERT INTO `history` VALUES (0000000521, 4, '', '2020-06-22 00:47:26');
+INSERT INTO `history` VALUES (0000000522, 4, '', '2020-06-22 00:47:28');
+INSERT INTO `history` VALUES (0000000523, 4, '', '2020-06-22 00:47:31');
+INSERT INTO `history` VALUES (0000000524, 4, '', '2020-06-22 00:47:31');
 
 -- ----------------------------
 -- Table structure for order
@@ -980,30 +1033,49 @@ CREATE TABLE `order`  (
   UNIQUE INDEX `order_index`(`order_id`) USING BTREE,
   INDEX `deliveryman_fk`(`deliveryman_id`) USING BTREE,
   INDEX `address_fk`(`customer_id`, `address_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (000000000001, 00000001, 00000001, '2020-06-06 18:12:32', NULL, NULL, 1, '00000001', 00002, '01', b'0', NULL);
+INSERT INTO `order` VALUES (000000000001, 00000001, 00000001, '2020-06-06 18:12:32', '2020-06-21 10:53:38', '2020-06-21 08:57:37', 4, '00000001', 00002, '01', b'0', NULL);
 INSERT INTO `order` VALUES (000000000002, 00000005, 00000002, '2020-06-06 20:52:10', NULL, NULL, 1, '00000002', 00001, '01', b'0', NULL);
 INSERT INTO `order` VALUES (000000000003, 00000005, 00000002, '2020-06-08 21:52:10', NULL, NULL, 1, '00000003', 00002, '01', b'0', NULL);
 INSERT INTO `order` VALUES (000000000004, 00000002, 00000003, '2020-05-06 20:52:10', NULL, NULL, 1, '00000004', 00001, '01', b'0', NULL);
-INSERT INTO `order` VALUES (000000000005, 00000003, 00000005, '2020-05-28 10:22:13', NULL, NULL, 1, '00000005', 00001, '02', b'0', NULL);
+INSERT INTO `order` VALUES (000000000005, 00000003, 00000005, '2020-05-28 10:22:13', NULL, NULL, 0, '00000005', 00001, '02', b'0', NULL);
 INSERT INTO `order` VALUES (000000000006, 00000004, 00000003, '2020-06-06 22:12:04', NULL, NULL, 0, '00000006', 10006, '01', b'0', NULL);
-INSERT INTO `order` VALUES (000000000013, 00000004, 00000001, '2020-06-07 10:29:05', NULL, NULL, 2, '00000013', 10007, '01', b'0', NULL);
+INSERT INTO `order` VALUES (000000000013, 00000004, 00000001, '2020-06-07 10:29:05', '2020-06-22 05:53:08', NULL, 4, '00000013', 10007, '01', b'0', NULL);
 INSERT INTO `order` VALUES (000000000014, 00000004, 00000002, '2020-06-16 16:47:09', NULL, NULL, 3, '', 00002, '01', NULL, 'nice');
-INSERT INTO `order` VALUES (000000000015, 00000002, 00000002, '2020-06-16 16:49:41', NULL, NULL, 1, '', 00002, '01', NULL, 'nice');
+INSERT INTO `order` VALUES (000000000015, 00000002, 00000002, '2020-06-16 16:49:41', '2020-06-22 06:47:58', '2020-06-22 06:47:48', 4, '', 00002, '01', NULL, 'nice');
 INSERT INTO `order` VALUES (000000000016, 00000002, 00000002, '2020-06-16 16:50:28', NULL, NULL, 1, '', 00002, '01', NULL, 'nice');
 INSERT INTO `order` VALUES (000000000017, 00000002, 00000002, '2020-06-16 16:52:53', NULL, NULL, 1, '', 00002, '01', NULL, 'nice');
 INSERT INTO `order` VALUES (000000000018, 00000002, 00000002, '2020-06-16 16:54:37', NULL, NULL, 1, '', 00002, '01', NULL, 'nice');
 INSERT INTO `order` VALUES (000000000019, 00000002, 00000002, '2020-06-16 17:06:45', NULL, NULL, 1, '', 00002, '01', NULL, 'nice');
 INSERT INTO `order` VALUES (000000000020, 00000002, 00000002, '2020-06-16 17:07:43', NULL, NULL, 1, '', 00002, '01', NULL, 'nice');
 INSERT INTO `order` VALUES (000000000021, 00000004, 00000004, '2020-06-18 10:43:33', NULL, NULL, 4, '', 10005, '02', NULL, '就是这个备注');
-INSERT INTO `order` VALUES (000000000022, 00000004, 00000004, '2020-06-20 11:28:06', NULL, NULL, 2, '', 10005, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000022, 00000004, 00000004, '2020-06-20 11:28:06', '2020-06-21 10:45:29', NULL, 4, '', 10005, '01', NULL, '就是这个备注');
 INSERT INTO `order` VALUES (000000000026, 00000004, 00000004, '2020-06-20 15:15:46', NULL, NULL, 1, '', 10013, '01', NULL, '就是这个备注');
 INSERT INTO `order` VALUES (000000000030, 00000004, 00000004, '2020-06-20 15:20:40', NULL, NULL, 0, '', 10008, '01', NULL, '就是这个备注');
-INSERT INTO `order` VALUES (000000000032, 00000004, 00000004, '2020-06-20 15:25:00', '2020-06-20 16:00:39', '2020-06-20 15:25:06', 4, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000041, 00000004, 00000004, '2020-06-21 10:39:06', NULL, NULL, 0, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000042, 00000004, 00000004, '2020-06-21 10:39:46', NULL, NULL, 0, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000043, 00000004, 00000004, '2020-06-21 10:40:16', NULL, '2020-06-22 00:45:23', 2, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000044, 00000007, 00000007, '2020-06-21 03:38:18', '2020-06-21 05:24:37', '2020-06-21 12:49:30', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000045, 00000007, 00000007, '2020-06-21 04:36:13', '2020-06-21 05:21:48', '2020-06-21 12:49:41', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000046, 00000007, 00000007, '2020-06-21 04:39:07', '2020-06-21 05:21:50', '2020-06-21 12:50:28', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000047, 00000007, 00000007, '2020-06-21 04:48:30', '2020-06-21 05:21:51', '2020-06-21 12:51:13', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000048, 00000007, 00000007, '2020-06-21 04:52:15', '2020-06-21 05:21:53', '2020-06-21 12:52:17', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000049, 00000001, 00000001, '2020-06-21 04:53:44', '2020-06-21 07:04:23', '2020-06-21 04:53:46', 4, '', 00001, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000050, 00000007, 00000007, '2020-06-21 04:53:53', '2020-06-21 05:24:55', '2020-06-21 04:53:54', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000051, 00000007, 00000007, '2020-06-21 04:58:49', '2020-06-21 05:25:02', '2020-06-21 05:01:41', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000052, 00000004, 00000004, '2020-06-21 05:05:21', '2020-06-22 07:21:28', '2020-06-22 05:18:28', 4, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000053, 00000004, 00000004, '2020-06-21 05:07:19', NULL, '2020-06-22 05:26:24', 2, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000054, 00000007, 00000007, '2020-06-21 05:26:22', '2020-06-21 05:30:22', '2020-06-21 05:28:04', 4, '', 10015, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000066, 00000001, 00000001, '2020-06-22 04:19:08', NULL, '2020-06-22 04:19:12', 2, '', 00001, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000067, 00000004, 00000001, '2020-06-22 05:17:15', NULL, '2020-06-22 05:25:29', 2, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000068, 00000004, 00000001, '2020-06-22 05:26:54', NULL, '2020-06-22 06:44:00', 2, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000069, 00000001, 00000001, '2020-06-22 06:01:11', NULL, '2020-06-22 06:01:13', 2, '', 00001, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000070, 00000004, 00000001, '2020-06-22 06:16:07', NULL, '2020-06-22 06:16:11', 2, '', 10008, '01', NULL, '就是这个备注');
+INSERT INTO `order` VALUES (000000000071, 00000004, 00000001, '2020-06-22 06:16:49', NULL, '2020-06-22 06:16:51', 2, '', 10008, '01', NULL, '就是这个备注');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -1017,7 +1089,7 @@ CREATE TABLE `order_detail`  (
   PRIMARY KEY (`id`, `order_id`) USING BTREE,
   INDEX `order_details_index`(`order_id`) USING BTREE,
   INDEX `goods_id`(`goods_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of order_detail
@@ -1044,6 +1116,37 @@ INSERT INTO `order_detail` VALUES (19, 29, '5', 1);
 INSERT INTO `order_detail` VALUES (20, 30, '3', 1);
 INSERT INTO `order_detail` VALUES (21, 31, '35', 1);
 INSERT INTO `order_detail` VALUES (22, 32, '51', 1);
+INSERT INTO `order_detail` VALUES (23, 33, '1', 3);
+INSERT INTO `order_detail` VALUES (24, 33, '2', 1);
+INSERT INTO `order_detail` VALUES (25, 41, '51', 1);
+INSERT INTO `order_detail` VALUES (26, 42, '37', 1);
+INSERT INTO `order_detail` VALUES (27, 43, '8', 1);
+INSERT INTO `order_detail` VALUES (28, 44, '15', 1);
+INSERT INTO `order_detail` VALUES (29, 45, '15', 1);
+INSERT INTO `order_detail` VALUES (30, 45, '8', 1);
+INSERT INTO `order_detail` VALUES (31, 46, '38', 1);
+INSERT INTO `order_detail` VALUES (32, 48, '15', 1);
+INSERT INTO `order_detail` VALUES (33, 48, '22', 1);
+INSERT INTO `order_detail` VALUES (34, 48, '26', 1);
+INSERT INTO `order_detail` VALUES (35, 48, '38', 1);
+INSERT INTO `order_detail` VALUES (36, 48, '8', 1);
+INSERT INTO `order_detail` VALUES (37, 49, '2', 1);
+INSERT INTO `order_detail` VALUES (38, 50, '16', 1);
+INSERT INTO `order_detail` VALUES (39, 52, '37', 1);
+INSERT INTO `order_detail` VALUES (40, 53, '35', 1);
+INSERT INTO `order_detail` VALUES (41, 55, '1', 3);
+INSERT INTO `order_detail` VALUES (42, 55, '10', 1);
+INSERT INTO `order_detail` VALUES (43, 57, '50', 1);
+INSERT INTO `order_detail` VALUES (44, 57, '35', 1);
+INSERT INTO `order_detail` VALUES (45, 58, '35', 1);
+INSERT INTO `order_detail` VALUES (46, 58, '50', 1);
+INSERT INTO `order_detail` VALUES (47, 66, '48', 1);
+INSERT INTO `order_detail` VALUES (48, 66, '6', 1);
+INSERT INTO `order_detail` VALUES (49, 67, '14', 39);
+INSERT INTO `order_detail` VALUES (50, 68, '30', 8);
+INSERT INTO `order_detail` VALUES (51, 69, '49', 1);
+INSERT INTO `order_detail` VALUES (52, 70, '37', 1);
+INSERT INTO `order_detail` VALUES (53, 71, '41', 1);
 
 -- ----------------------------
 -- Table structure for purchase
@@ -1164,15 +1267,14 @@ CREATE TABLE `shopping_cart`  (
 -- ----------------------------
 -- Records of shopping_cart
 -- ----------------------------
-INSERT INTO `shopping_cart` VALUES (00000001, '1', 3);
-INSERT INTO `shopping_cart` VALUES (00000001, '2', 1);
-INSERT INTO `shopping_cart` VALUES (00000002, '1', 1);
-INSERT INTO `shopping_cart` VALUES (00000004, '35', 1);
-INSERT INTO `shopping_cart` VALUES (00000004, '37', 1);
-INSERT INTO `shopping_cart` VALUES (00000004, '51', 1);
+INSERT INTO `shopping_cart` VALUES (00000004, '1', 1);
+INSERT INTO `shopping_cart` VALUES (00000004, '43', 1);
+INSERT INTO `shopping_cart` VALUES (00000004, '49', 1);
 INSERT INTO `shopping_cart` VALUES (00000005, '18', 6);
 INSERT INTO `shopping_cart` VALUES (00000005, '3', 3);
 INSERT INTO `shopping_cart` VALUES (00000005, '6', 6);
+INSERT INTO `shopping_cart` VALUES (00000007, '29', 1);
+INSERT INTO `shopping_cart` VALUES (00000007, '4', 1);
 
 -- ----------------------------
 -- Table structure for user
@@ -1191,16 +1293,18 @@ CREATE TABLE `user`  (
   PRIMARY KEY (`user_id`, `phone`) USING BTREE,
   UNIQUE INDEX `login_phone`(`phone`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (00000001, '1', '199941fyq', 'M', '18721517889', '11111111111', 'Johnny', 'MTU5MjY0Mjg5Ni44MTU4MjEyOjI3ZDBjNTg2MjZlNDE5ZjQzOTNiYzM4MGNiNDc5NDZkMThkNTBlNTU=', 1000);
-INSERT INTO `user` VALUES (00000002, '1', '18721522908', 'M', '18721522908', '18721522908', 'lzh', 'MTU5MjY1NTQ4NS4yODc1MTAyOmEzNDI5NzBmMTkxYzhhMWRiM2ExMWI4MDExNzU4YTM5OTdjNjNiNWY=', 940);
-INSERT INTO `user` VALUES (00000003, '1', '18817669250', 'M', '18817669250', '11111111111', 'shl', 'MTU5MjY2OTc3MC43NDMyNDYzOjA5ODdiZTFlMmM5NmUzNDgzOGE3YzQwODBhMzBkMGVlOTcxMDY0MDA=', 1000);
-INSERT INTO `user` VALUES (00000004, '1', '18297913123', 'M', '18297913123', '18297913123', 'Cofalconer', 'MTU5MjY3MTQ4Mi44MDcxMjkxOjg3NTBhOGIxZjJmNTA2MDAxZTQ2ZWY3OTZjNDE1ZmRlMzk4MWNkOTQ=', 975.2);
+INSERT INTO `user` VALUES (00000001, '1', '199941fyq', 'M', '18721517889', '11111111111', '贝拉', 'MTU5MzA0MTQwMC45MjIzOTMzOjBmYTgxNWE2ZmNkMmM3NTZkMWQxODE2NTIzOWRkMTJhZTc0NTE0YmQ=', 1105.75);
+INSERT INTO `user` VALUES (00000002, '1', '18721522908', 'M', '18721522908', '18721522908', 'lzh', 'MTU5MzAzODgxNS44MTM0Mjo3NjliOWMyZDQ3MDg0ODg1ZWYwMzY5OGNhZjEwYzQwYzg0YjIxOTg5', 874);
+INSERT INTO `user` VALUES (00000003, '1', '18817669250', 'M', '18817669250', '11111111111', 'shl', 'MTU5MzAyNTgwOC41NDE3MzE0OjAzOWU2MWQ5YTcxM2FkZjA5Njg1M2RlMjJkNjczODZiYWJmNjEyZjQ=', 1000);
+INSERT INTO `user` VALUES (00000004, '1', '1234567890', 'F', '18297913123', '6369095844405523050', 'Cofalconer', 'MTU5MzA0MDg3OS4zNzQ3NzI1Ojc5YmIyZmUzZWFiMGYzZmRmYWFlYmFmNzM5OWM4ZDk5Y2QxZDBkYWM=', 9818.079999999998);
 INSERT INTO `user` VALUES (00000005, '1', '13122387285', 'M', '13122387285', '11111111111', 'pyl', NULL, 1000);
+INSERT INTO `user` VALUES (00000006, '', '', NULL, '13289638466', NULL, NULL, 'MTU5Mjc0MTI0Mi45OTAxNDQ6MDU4ZjJjYTk1ZjYyN2QxZjI2YTNmZTAyZTYyMTY0OTMxOWZmOGIyMA==', NULL);
+INSERT INTO `user` VALUES (00000007, '', 'fan87902055', NULL, '17326712293', '7114412997715117256', NULL, 'MTU5Mjc0OTcyOC4zNTM1NjE2OmU1MTkwYTVhZjJlOWZjMDc4MzFmNzRlYTIwNTE5OWM3YmYzYzJmZTE=', 789.66);
 
 -- ----------------------------
 -- Table structure for warehouse

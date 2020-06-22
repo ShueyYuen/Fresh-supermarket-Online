@@ -179,6 +179,10 @@ SIMPLEUI_CONFIG = {
                 'name': '用户管理',
                 'icon': 'fa fa-user',
                 'url': '/admin/Fresh_market_online/user/'
+            }, {
+                'name': '广告管理',
+                'icon': 'fas fa-ad',
+                'url': '/admin/Fresh_market_online/ads/'
             }]
         },
         {

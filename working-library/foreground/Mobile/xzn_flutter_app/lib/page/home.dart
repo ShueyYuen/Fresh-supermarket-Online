@@ -11,6 +11,8 @@ import '../widget/home/home_class_list.dart';
 
 //https://www.jianshu.com/p/cf8e92f76bdb
 class Home extends StatefulWidget {
+  Home({Key key, this.changeIndex }): super(key: key);
+  Function changeIndex;
   @override
   _HomeState createState() => new _HomeState();
 }
@@ -121,7 +123,7 @@ class _HomeState extends State<Home> {
               child: SwiperWidget(),
             ),
             SliverToBoxAdapter(
-              child: HomeClassMain(),
+              child: HomeClassMain(changePage: widget.changeIndex,),
             ),
             SliverToBoxAdapter(
               child: AdsPanel(),

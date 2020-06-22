@@ -339,12 +339,13 @@ class _AddressEditState extends State<AddressEdit> {
                       await getAddressDetail(_addressController.text);
                   print("测试在这");
                   print(address.detail.toJson());
+                  print(address.address_id);
                   address.detail = addressMap;
                   address.detail.no = _noController.text;
 
                   int a = await updateAddress(context, address);
                   if (widget.edit) Navigator.of(context).pop(true);
-                  else Navigator.of(context).pop();
+                  else Navigator.of(context).pop(false);
                 },
               ),
             )
