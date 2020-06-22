@@ -274,7 +274,7 @@ class _InformationState extends State<Information> {
                     ),
                   ),
                 Expanded(child: Text("")),
-                Text("￥"+user.money.toString()+" ", style: TextStyle(fontSize: 16),)
+                Text("￥"+user.money.toStringAsFixed(2)+" ", style: TextStyle(fontSize: 16),)
               ],
             ),
           ),

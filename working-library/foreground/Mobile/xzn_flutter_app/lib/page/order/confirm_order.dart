@@ -99,13 +99,13 @@ class _OrderConfirmState extends State<OrderConfirm> {
   @override
   void initState() {
     super.initState();
-    _future = getAddressList(context, "");
+    _future = getAddressList(context, getToken(context));
     try {
       address = Provider.of<AddressModel>(context, listen: false).address[0];
     } catch (e) {
       address = null;
     }
-    print(address.toString());
+    print(address.toJson());
   }
 
   @override
@@ -505,6 +505,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             );
                           },
                         );
+                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                     ),

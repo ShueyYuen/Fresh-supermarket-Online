@@ -62,8 +62,6 @@ getAddressList(BuildContext context, String token) async {
       var json = jsonDecode(res.body);
       for (var item in json) {
         try {
-          print(url);
-          print(item);
           address_list.add(Address.fromJson(item));
         } catch (e) {
           print(e.toString());

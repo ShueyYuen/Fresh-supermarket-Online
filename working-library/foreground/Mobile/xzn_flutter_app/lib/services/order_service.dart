@@ -25,6 +25,15 @@ getOrderList(BuildContext context, String token) async {
       var json = jsonDecode(response.data.toString());
       for (var item in json) {
         try {
+          print(Order.fromJson(item).order_id.toString() +
+              "   " +
+              Order.fromJson(item)
+                  .product_list[0]
+                  .product
+                  .product_name
+                  .toString() +
+              "    " +
+              Order.fromJson(item).order_status.toString());
           order_list.add(Order.fromJson(item));
         } catch (e) {
           print(e.toString());
@@ -50,12 +59,12 @@ cancelOrder(BuildContext context, int order_id) async {
     if (Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/order/cancel";
       var dio = new Dio();
-      FormData formData = new FormData.fromMap({"token": getToken(context), "order_id": order_id});
+      FormData formData = new FormData.fromMap(
+          {"token": getToken(context), "order_id": order_id});
       var response = await dio.post(url, data: formData);
       var json = jsonDecode(response.data.toString());
-      if(json["success"]) return true;
-    } else if (Provider.of<OrderModel>(context, listen: false).is_loaded) {
-    }
+      if (json["success"]) return true;
+    } else if (Provider.of<OrderModel>(context, listen: false).is_loaded) {}
   } catch (e) {
     print(e.toString());
   }
@@ -101,6 +110,7 @@ submitOrder(BuildContext context, String token, List<CartItem> orders,
 }
 
 xznpay(BuildContext context, int order_id) async {
+  var json;
   try {
     // TODO: 更新后前端一起更新数据
 //    if (!Provider.of<OrderModel>(context, listen: false).is_loaded &&
@@ -109,13 +119,28 @@ xznpay(BuildContext context, int order_id) async {
       String url = Config.baseUrl() + "user/order/xznpay";
       print("支付了支付了！！！");
       var dio = new Dio();
-      FormData formData = new FormData.fromMap({"token": getToken(context),"order_id":order_id});
+      FormData formData = new FormData.fromMap(
+          {"token": getToken(context), "order_id": order_id});
       var response = await dio.post(url, data: formData);
-      var json = jsonDecode(response.data.toString());
-      if (json["success"]) return true;
-      else return false;
+      json = jsonDecode(response.data.toString());
+      print(json);
+      if (json["success"])
+        return true;
+      else
+        return false;
     }
   } catch (e) {
+    ErrorMessage errorMessage = ErrorMessage.fromJson(json);
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Row(
+        children: [
+          Icon(
+            Icons.local_offer
+          ),
+          Text(errorMessage.message)],
+      ),
+      behavior: SnackBarBehavior.floating,
+    ));
     print(e.toString());
   }
   return false;
@@ -129,7 +154,8 @@ confirmGoods(BuildContext context, int order_id) async {
     if (Provider.of<UserModel>(context, listen: false).isLogin) {
       String url = Config.baseUrl() + "user/order/confirm";
       var dio = new Dio();
-      FormData formData = new FormData.fromMap({"token": getToken(context),"order_id":order_id});
+      FormData formData = new FormData.fromMap(
+          {"token": getToken(context), "order_id": order_id});
       var response = await dio.post(url, data: formData);
       var json = jsonDecode(response.data.toString());
       print(json);

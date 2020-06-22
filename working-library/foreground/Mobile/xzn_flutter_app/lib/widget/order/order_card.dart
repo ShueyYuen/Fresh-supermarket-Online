@@ -12,14 +12,14 @@ class OrderCard extends StatelessWidget {
       : super(key: key);
   Function onUpdate;
   Order order;
-  final List<String> tags = [
-    "", "待付款", "待收货", "待评价", "已完成"
-  ];
+  final List<String> tags = ["", "待付款", "待收货", "待评价", "已完成"];
 
   totalPrice() {
     double price = 10.0;
     for (CartItem cartItem in order.product_list) {
-      price += cartItem.number * cartItem.product.price["num"];
+      price += cartItem.number *
+          cartItem.product.price["num"] *
+          cartItem.product.discount;
     }
     return price.toStringAsFixed(2);
   }
@@ -64,95 +64,100 @@ class OrderCard extends StatelessWidget {
                 backgroundColor: Colors.white,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20))),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20))),
                 builder: (BuildContext context) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 20, horizontal: 25),
-                    child: ListView(
+                  return Scaffold(
+                      body: Builder(
+                          builder: (context) => Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 25),
+                                child: ListView(
 //                            crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "选择支付方式：",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(10.0)),
-                          color: Colors.redAccent,
-                          padding:
-                          EdgeInsets.symmetric(vertical: 15),
-                          onPressed: () async {
-                            if (await xznpay(context,
-                              order.order_id)) {
-                              onUpdate();
-                              Navigator.of(context).pop();
-                            }
-                          },
-                          child: Column(
-                            children: [
-                              Text(
-                                "鲜着呢支付",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white),
-                              ),
-                              Text(
-                                "余额：" +
-                                  Provider.of<UserModel>(context)
-                                    .user
-                                    .money
-                                    .toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11),
-                              )
-                            ],
-                          )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(10.0)),
-                          color: Colors.lightGreen,
-                          padding:
-                          EdgeInsets.symmetric(vertical: 15),
-                          onPressed: () {},
-                          child: Text(
-                            "微信支付",
-                            style: TextStyle(
-                              fontSize: 20, color: Colors.white),
-                          )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(10.0)),
-                          color: Colors.blue,
-                          padding:
-                          EdgeInsets.symmetric(vertical: 15),
-                          onPressed: () {},
-                          child: Text(
-                            "支付宝支付",
-                            style: TextStyle(
-                              fontSize: 20, color: Colors.white),
-                          )),
-                        Container(
-                          margin: EdgeInsets.only(top: 50),
-                          child: Text("坚定只近不出！"),
-                        )
-                      ],
-                    ),
-                  );
+                                  children: <Widget>[
+                                    Text(
+                                      "选择支付方式：",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        color: Colors.redAccent,
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 15),
+                                        onPressed: () async {
+                                          if (await xznpay(
+                                              context, order.order_id)) {
+                                            onUpdate();
+                                            Navigator.of(context).pop();
+                                          }
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "鲜着呢支付",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white),
+                                            ),
+                                            Text(
+                                              "余额：" +
+                                                  Provider.of<UserModel>(
+                                                          context)
+                                                      .user
+                                                      .money
+                                                      .toStringAsFixed(2),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 11),
+                                            )
+                                          ],
+                                        )),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        color: Colors.lightGreen,
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 15),
+                                        onPressed: () {},
+                                        child: Text(
+                                          "微信支付",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        )),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        color: Colors.blue,
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 15),
+                                        onPressed: () {},
+                                        child: Text(
+                                          "支付宝支付",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        )),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 50),
+                                      child: Text("坚定只近不出！"),
+                                    )
+                                  ],
+                                ),
+                              )));
                 },
               );
             },
@@ -274,8 +279,9 @@ class OrderCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("下单时间："+order.create_order_time.substring(0, 16)),
-                            Text("总价：￥"+totalPrice()),
+                            Text("下单时间：" +
+                                order.create_order_time.substring(0, 16)),
+                            Text("总价：￥" + totalPrice()),
                           ],
                         ),
                       ),
