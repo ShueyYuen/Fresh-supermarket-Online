@@ -24,6 +24,16 @@ class OrderCard extends StatelessWidget {
     return price.toStringAsFixed(2);
   }
 
+  totalPriceDouble() {
+    double price = 10.0;
+    for (CartItem cartItem in order.product_list) {
+      price += cartItem.number *
+        cartItem.product.price["num"] *
+        cartItem.product.discount;
+    }
+    return price;
+  }
+
   String truncateName(Order order) {
     String result = "";
     for (var product_item in order.product_list) {
@@ -92,6 +102,8 @@ class OrderCard extends StatelessWidget {
                                         onPressed: () async {
                                           if (await xznpay(
                                               context, order.order_id)) {
+                                            double money = Provider.of<UserModel>(context).user.money;
+                                            Provider.of<UserModel>(context).user.money = money - totalPriceDouble();
                                             onUpdate();
                                             Navigator.of(context).pop();
                                           }

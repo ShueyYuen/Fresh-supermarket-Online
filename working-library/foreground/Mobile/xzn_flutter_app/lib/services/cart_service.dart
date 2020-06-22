@@ -43,16 +43,19 @@ getCartProductList(BuildContext context, String token) async {
 }
 
 updateCart(BuildContext context, CartItem cartItem) async {
-  var dio = new Dio();
-  String url = Config.baseUrl() + "api/user/cart/update";
-  FormData formData = new FormData.fromMap({
-    "token": getToken(context),
-    "product_id": cartItem.product.product_id,
-    "number": cartItem.number
-  });
-  var response = await dio.post(url, data: formData);
-  var json = jsonDecode(response.data.toString());
-  print(json);
-  return json;
+  try {
+    var dio = new Dio();
+    String url = Config.baseUrl() + "api/user/cart/update";
+    FormData formData = new FormData.fromMap({
+      "token": getToken(context),
+      "product_id": cartItem.product.product_id,
+      "number": cartItem.number
+    });
+    var response = await dio.post(url, data: formData);
+    var json = jsonDecode(response.data.toString());
+    if (json["success"]) return true;
+  } catch (e) {
+  }
+  return false;
 //  return product;
 }

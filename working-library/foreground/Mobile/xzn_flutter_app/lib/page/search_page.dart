@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/index.dart';
 import 'package:xzn/models/filter.dart';
 import 'package:xzn/models/product.dart';
 import 'package:xzn/page/product/product_show.dart';
+import 'package:xzn/services/cart_service.dart';
 import 'package:xzn/services/picture.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
@@ -76,9 +78,13 @@ class SearchCard extends StatelessWidget {
                           iconSize: 20,
                           color: Colors.white,
                           icon: Icon(Icons.shopping_cart),
-                          onPressed: () {
+                          onPressed: () async {
+                            bool result = await updateCart(context, CartItem.fromJson({
+                              "product": product.toJson(),
+                              "number": 1
+                            }));
                             if (!Provider.of<CartModel>(context)
-                                .isExist(product))
+                                .isExist(product) && result)
                               Provider.of<CartModel>(context).add(product, 1);
                             var snackBar = SnackBar(
                               duration: Duration(seconds: 1),
