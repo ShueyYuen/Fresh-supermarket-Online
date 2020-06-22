@@ -1,2 +1,2 @@
-soybean1.png soybean2.png soybean3.png
-soybean1.png soybean2.png soybean3.png
+soybean1.webp soybean2.webp soybean3.webp
+soybean1.webp soybean2.webp soybean3.webp

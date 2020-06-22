@@ -1,2 +1,2 @@
-milk1.png milk2.png milk3.png
-milk1.png milk2.png milk3.png
+milk1.webp milk2.webp milk3.webp
+milk1.webp milk2.webp milk3.webp

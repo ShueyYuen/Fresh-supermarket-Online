@@ -1,2 +1,2 @@
-beef1.png beef2.png beef3.png
-beef1.png beef2.png beef3.png
+beef1.webp beef2.webp beef3.webp
+beef1.webp beef2.webp beef3.webp

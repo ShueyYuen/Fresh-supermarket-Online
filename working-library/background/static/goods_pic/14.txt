@@ -1,2 +1,2 @@
-nativeegg1.png nativeegg2.png nativeegg3.png
-nativeegg1.png nativeegg2.png nativeegg3.png
+nativeegg1.webp nativeegg2.webp nativeegg3.webp
+nativeegg1.webp nativeegg2.webp nativeegg3.webp
