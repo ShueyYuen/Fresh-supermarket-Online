@@ -7,6 +7,7 @@ from Fresh_market_online.model import User, Goods, Order, OrderDetail, Deliverym
 import json
 from LoginAPI.token_module import get_token,out_token
 from GoodsAPI.views import getpicture
+from django.db.models import Max 
 @csrf_exempt
 def OrderDetails(request):#deprecated
     token = request.POST.get("token")
@@ -76,7 +77,6 @@ def OrderList(request):
         telephone = user['phone']
         uid = user['user_id']
         if out_token(telephone, token):
-            data = []
             order=Order.objects.filter(customer_id=uid)#.exclude(order_status=0)
             data=[]
             if order:
@@ -116,9 +116,9 @@ def OrderList(request):
 
 
                     #dman=Deliveryman.objects.filter(deliveryman_id=item['deliveryman_id']).values()[0]
-                    dman = Deliveryman.objects.filter(deliveryman_id='00000001').values()[0]
+                    dman = Deliveryman.objects.filter(deliveryman_id=1).values()[0]
                     #duser=User.objects.filter(user_id=item['deliveryman_id']).values()[0]
-                    duser = User.objects.filter(user_id='00000001').values()[0]
+                    duser = User.objects.filter(user_id=1).values()[0]
                     deliveryman={'deliveryman_id':dman['deliveryman_id'],'name':duser['nickname'],'phone':duser['phone'],'sex':duser['sex'],'longitude':30.915406,'latitude':121.479650,'status':dman['taking_status']}
                     #print(deliveryman)
                     data.append({'order_id':oid,'customer':customer,'address':address,'product_list':product_list,'deliveryman':deliveryman,
@@ -158,17 +158,18 @@ def OrderPayState(request):
             if len(goods_list)==0:
                 return HttpResponse(json.dumps({'message': '订单已提交，请勿重复提交'}))
             print(goods_list)
-            adderss_id = request.POST.get("address_id")
+            address_id = request.POST.get("address_id")
             create_order_time = datetime.now()
             order_status = 1
             warehouse_id = '01'
-            Order.objects.create(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
+            Order.objects.create(customer_id=uid, deliveryman_id=1, create_order_time=create_order_time,
                                          order_status=order_status, warehouse_id=warehouse_id,
-                                         address_id=int(adderss_id),remarks=remark)
-            order=Order.objects.filter(customer_id=uid, deliveryman_id=uid, create_order_time=create_order_time,
-                                         order_status=order_status, warehouse_id=warehouse_id,
-                                         address_id=int(adderss_id)).values()[0]
-            id = order['order_id']
+                                         address_id=int(address_id),remarks=remark)
+            
+            id = Order.objects.all().aggregate(Max('order_id'))
+            id = id['order_id__max']
+            print(id)
+            order=Order.objects.filter(order_id=id).values()[0]
             for item in goods_list:
                 print(item)
                 goods = ShoppingCart.objects.filter(customer_id=uid, goods_id=item).values()[0]
