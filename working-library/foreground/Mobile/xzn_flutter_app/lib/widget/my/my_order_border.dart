@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/page/order/order_manage.dart';
 import 'package:xzn/services/order_service.dart';
 import 'package:xzn/services/token.dart';
@@ -64,29 +65,26 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                         GestureDetector(
                           child: Row(
                             children: <Widget>[
-                              Text.rich(TextSpan(
-                                children: [
-                                  TextSpan(
+                              Text.rich(TextSpan(children: [
+                                TextSpan(
                                     text: "查看所有订单",
-                                    style: TextStyle(
-                                      color: Colors.grey[600]
-                                    )
-                                  ),
-                                ]
-                              )),
+                                    style: TextStyle(color: Colors.grey[600])),
+                              ])),
                               Text(
                                 "\uE5E1",
                                 style: TextStyle(
-                                  fontFamily: "MaterialIcons",
-                                  fontSize: 16,
-                                  color: Colors.grey[600]),
+                                    fontFamily: "MaterialIcons",
+                                    fontSize: 16,
+                                    color: Colors.grey[600]),
                               ),
                             ],
                           ),
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return OrderManage();
+                              return Provider.of<UserModel>(context).isLogin
+                                  ? OrderManage()
+                                  : LoginChoose();
                             }));
                           },
                         ),
@@ -112,9 +110,11 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return OrderManage(
-                                  activeIndex: 1,
-                                );
+                                return Provider.of<UserModel>(context).isLogin
+                                    ? OrderManage(
+                                        activeIndex: 1,
+                                      )
+                                    : LoginChoose();
                               }));
                             },
                           ),
@@ -131,9 +131,11 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return OrderManage(
-                                  activeIndex: 2,
-                                );
+                                return Provider.of<UserModel>(context).isLogin
+                                    ? OrderManage(
+                                        activeIndex: 2,
+                                      )
+                                    : LoginChoose();
                               }));
                             },
                           ),
@@ -150,9 +152,11 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return OrderManage(
-                                  activeIndex: 3,
-                                );
+                                return Provider.of<UserModel>(context).isLogin
+                                    ? OrderManage(
+                                        activeIndex: 3,
+                                      )
+                                    : LoginChoose();
                               }));
                             },
                           ),
@@ -169,9 +173,11 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return OrderManage(
-                                  activeIndex: 4,
-                                );
+                                return Provider.of<UserModel>(context).isLogin
+                                    ? OrderManage(
+                                        activeIndex: 4,
+                                      )
+                                    : LoginChoose();
                               }));
                             },
                           ),

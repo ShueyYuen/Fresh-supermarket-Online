@@ -108,13 +108,9 @@ class HomeProduct extends StatelessWidget {
                             size: 30,
                             onTap: () async {
                               if (!Provider.of<UserModel>(context).isLogin)
-                                Navigator.pushNamed(context, "login");
+                                await Navigator.pushNamed(context, "login");
                               else {
-                                print("COFLCONER");
-                                if (!Provider.of<CartModel>(context)
-                                    .is_cart_loaded)
-                                  await getCartProductList(context, "");
-                                Provider.of<CartModel>(context).add(product, 1);
+                                await getCartProductList(context);
                                 updateCart(
                                     context,
                                     CartItem.fromJson({

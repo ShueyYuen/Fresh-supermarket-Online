@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/models/address.dart';
 import 'package:xzn/page/address/address_edit.dart';
+import 'package:xzn/page/login/login_choose.dart';
 import 'package:xzn/services/address_service.dart';
 import 'package:xzn/services/token.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 import 'package:xzn/utils/platform_utils.dart';
 
 class AddressCard extends StatelessWidget {
@@ -35,7 +38,7 @@ class AddressCard extends StatelessWidget {
                 Expanded(
                     flex: 1,
                     child: Text(
-                      // TODO:
+                      // TODO: 修改地址信息
                       address.detail.city +
                       address.detail.district +
                       address.detail.township +
@@ -112,9 +115,9 @@ class _AddressManageState extends State<AddressManage> {
           FlatButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return AddressEdit(
+                  return Provider.of<UserModel>(context).isLogin?AddressEdit(
                     edit: false,
-                  );
+                  ):LoginChoose();
                 }));
               },
               child: Text("新增地址", style: TextStyle(color: Colors.white)))
@@ -133,14 +136,19 @@ class _AddressManageState extends State<AddressManage> {
               );
             } else {
               print(snapshot.data);
-              widget = ListView(
-                children: snapshot.data.map<Widget>((address) {
-                  return AddressCard(
-                    address: address,
-                    update: edited,
-                  );
-                }).toList(),
-              );
+              try {
+                widget = ListView(
+                  children: snapshot.data?.map<Widget>((address) {
+                    return AddressCard(
+                      address: address,
+                      update: edited,
+                    );
+                  })?.toList(),
+                );
+              }catch(e) {
+                widget = Image.asset("assets/image/no_login.webp");
+              }
+              if (snapshot.data?.length == 0) widget = Image.asset("assets/image/no_login.webp");
             }
           } else {
             widget = Container(

@@ -51,9 +51,7 @@ getAddressDetail(address) async {
 }
 
 getAddressList(BuildContext context) async {
-  List<Address> address_list = List<Address>();
   await Provider.of<AddressModel>(context, listen: false).load();
-  print(Provider.of<AddressModel>(context, listen: false).address);
   return Provider.of<AddressModel>(context, listen: false).address;
 }
 

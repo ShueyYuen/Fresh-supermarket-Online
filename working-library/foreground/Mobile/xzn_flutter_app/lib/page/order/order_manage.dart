@@ -88,7 +88,7 @@ class _OrderManageState extends State<OrderManage> {
                       size: 48,
                     );
                   } else {
-                    List data = snapshot.data.sublist(0, snapshot.data.length);
+                    List data = snapshot.data?.sublist(0, snapshot.data?.length??0)??[];
                     data.removeWhere((element) =>
                         _activeIndex != 0 && !(element.order_status == _activeIndex));
 //                    print(data[0].product_list);

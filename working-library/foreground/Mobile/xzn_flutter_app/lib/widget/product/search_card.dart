@@ -78,11 +78,8 @@ class SearchCard extends StatelessWidget {
                             "product": product.toJson(),
                             "number": 1
                           }));
-                          if (!Provider.of<CartModel>(context)
-                            .isExist(product) && result) {
-                            Provider.of<CartModel>(context).add(product, 1);
+                          if (result)
                             if (this.onUpdate != null) this.onUpdate();
-                          }
                           var snackBar = SnackBar(
                             duration: Duration(seconds: 1),
                             content: Row(

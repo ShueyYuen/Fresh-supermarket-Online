@@ -52,6 +52,30 @@ class CartModel extends ProfileChangeNotifier {
     notifyListeners();
   }
 
+  void load() async {
+    if (is_cart_loaded) return;
+    try {
+      List<CartItem> cart_list = List<CartItem>();
+      String url = Config.baseUrl() + "user/cart/query";
+      var dio = new Dio();
+      var body = {"token": _profile.user.token};
+      FormData formData = new FormData.fromMap(body);
+      var res = await dio.post(url, data: formData);
+      var json = jsonDecode(res.data.toString());
+      for (var item in json) {
+        try {
+          print(item);
+          cart_list.add(CartItem.fromJson(item));
+        } catch (e) {
+          print(e.toString());
+        } finally {}
+      }
+      cart = cart_list;
+    }catch (e) {
+
+    }
+  }
+
   void delete(String product_id) {
     this.cart.removeWhere((element) {
       return element.product.product_id == product_id;
@@ -66,8 +90,6 @@ class CartModel extends ProfileChangeNotifier {
       }
     }
   }
-
-  void shut(List<CartItem> s_cart) {}
 
   void update(String product_id, int num) {
     for (int i = 0; i <= cart_count; i++) {
@@ -157,6 +179,45 @@ class OrderModel extends ProfileChangeNotifier {
 
   set order(List<Order> order) {
     _profile.order = order;
+    notifyListeners();
+  }
+
+  void load({bool force: false}) async {
+    if (is_loaded && !force) return;
+    print("强制加载Order");
+    List<Order> order_list = List<Order>();
+    try {
+      String url = Config.baseUrl() + "user/order/list";
+      var dio = new Dio();
+      FormData formData = new FormData.fromMap({"token": _profile.user.token});
+      var response = await dio.post(url, data: formData);
+      var json = jsonDecode(response.data.toString());
+      for (var item in json) {
+        try {
+          order_list.add(Order.fromJson(item));
+        } catch (e) {
+          print(e.toString());
+        } finally {}
+      }
+      order = order_list;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void setOrderState(int order_id, int state) {
+    if (!is_loaded) load();
+    for (Order item in order) {
+      if (item.order_id == order_id) {
+        item.order_status = state;
+        break;
+      }
+    }
+    notifyListeners();
+  }
+
+  void add(Order order_item) {
+    order.add(order_item);
     notifyListeners();
   }
 

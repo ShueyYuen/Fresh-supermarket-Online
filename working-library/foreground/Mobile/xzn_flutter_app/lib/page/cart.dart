@@ -142,10 +142,6 @@ class ProductCartCard extends StatelessWidget {
                                   if (num != 0) {
                                     cartItem.number = num;
                                     updateCart(context, cartItem);
-                                    Provider.of<CartModel>(context,
-                                            listen: false)
-                                        .update(
-                                            cartItem.product.product_id, num);
                                   } else {
                                     bool result = await showDialog(
                                         context: context,
@@ -217,7 +213,7 @@ class _CartState extends State<Cart> {
   }
 
   _handleDelete(String product_id) async {
-    var result = await updateCart(
+    await updateCart(
         context,
         CartItem.fromJson({
           "product": Provider.of<CartModel>(context, listen: false)
@@ -225,8 +221,6 @@ class _CartState extends State<Cart> {
               .toJson(),
           "number": 0
         }));
-    if (result)
-      Provider.of<CartModel>(context, listen: true).delete(product_id);
   }
 
   _totalPrice() {
@@ -249,7 +243,7 @@ class _CartState extends State<Cart> {
   @override
   void initState() {
     super.initState();
-    _future = getCartProductList(context, getToken(context));
+    _future = getCartProductList(context);
     _futureRecomend = getProductRecommendList(getToken(context), quantity: 10);
   }
 

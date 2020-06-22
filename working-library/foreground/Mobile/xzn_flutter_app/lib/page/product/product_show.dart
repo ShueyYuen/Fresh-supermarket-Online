@@ -426,10 +426,8 @@ class ProductPage extends StatelessWidget {
                             textColor: Color.fromARGB(255, 56, 184, 240),
                             onPressed: () async {
                               if (!Provider.of<UserModel>(context).isLogin)
-                                Navigator.pushNamed(context, "login");
-                              if (!Provider.of<CartModel>(context)
-                                  .is_cart_loaded)
-                                await getCartProductList(context, "");
+                                await Navigator.pushNamed(context, "login");
+                              await getCartProductList(context);
                               Provider.of<CartModel>(context).add(product, 1);
                               var snackBar = SnackBar(
                                 duration: Duration(seconds: 1),
@@ -468,9 +466,7 @@ class ProductPage extends StatelessWidget {
                             onPressed: () async {
                               if (!Provider.of<UserModel>(context).isLogin)
                                 await Navigator.pushNamed(context, "login");
-                              if (!Provider.of<CartModel>(context)
-                                  .is_cart_loaded)
-                                await getCartProductList(context, "");
+                              await getCartProductList(context);
                               if (Provider.of<UserModel>(context).isLogin)
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
