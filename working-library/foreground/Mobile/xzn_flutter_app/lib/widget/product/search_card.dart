@@ -8,9 +8,10 @@ import 'package:xzn/services/cart_service.dart';
 import 'package:xzn/services/picture.dart';
 import 'package:xzn/states/profile_change_notifier.dart';
 class SearchCard extends StatelessWidget {
-  SearchCard({Key key, this.product}) : super(key: key);
+  SearchCard({Key key, this.product, this.onUpdate}) : super(key: key);
 
   Product product;
+  Function onUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class SearchCard extends StatelessWidget {
       },
       child: Card(
         margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
-        color: Colors.grey[200],
+        color: Colors.grey[100],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.circular(15)),
         clipBehavior: Clip.antiAlias,
@@ -78,8 +79,10 @@ class SearchCard extends StatelessWidget {
                             "number": 1
                           }));
                           if (!Provider.of<CartModel>(context)
-                            .isExist(product) && result)
+                            .isExist(product) && result) {
                             Provider.of<CartModel>(context).add(product, 1);
+                            if (this.onUpdate != null) this.onUpdate();
+                          }
                           var snackBar = SnackBar(
                             duration: Duration(seconds: 1),
                             content: Row(
@@ -105,7 +108,7 @@ class SearchCard extends StatelessWidget {
                     bottom: 10,
                     left: 10,
                     child: Text(
-                      "￥" + product.price["num"].toString(),
+                      "￥" + (product.price["num"]*product.discount).toStringAsFixed(2),
                       style: TextStyle(fontSize: 18, color: Colors.redAccent),
                     ))
                 ],

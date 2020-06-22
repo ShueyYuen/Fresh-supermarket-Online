@@ -145,7 +145,7 @@ class _MyOrderBorderState extends State<MyOrderBorder> {
                           height: height,
                           child: IconTextUnder(
                             icon: Icons.local_activity,
-                            text: "待确认",
+                            text: "待评价",
                             badge: order?.unconfirm,
                             onTap: () {
                               Navigator.push(context,

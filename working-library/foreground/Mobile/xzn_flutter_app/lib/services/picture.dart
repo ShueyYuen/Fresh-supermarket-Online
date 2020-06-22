@@ -23,6 +23,7 @@ Widget CustomAvatar(
           ".webp", //头像占位图，加载过程中显示
       width: width,
       height: height);
+  if (user.head_image_id == null) return placeholder;
   return ClipRRect(
     borderRadius: borderRadius ?? BorderRadius.circular(100),
     child: Provider.of<UserModel>(context, listen: false).isLogin
