@@ -225,8 +225,7 @@ class _CartState extends State<Cart> {
               .toJson(),
           "number": 0
         }));
-    print(result);
-    if (result["success"])
+    if (result)
       Provider.of<CartModel>(context, listen: true).delete(product_id);
   }
 

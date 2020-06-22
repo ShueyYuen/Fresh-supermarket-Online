@@ -120,15 +120,8 @@ class AddressModel extends ProfileChangeNotifier {
   }
 
   void update(Address address) {
-    bool add = true;
-    for (Address item in this.address) {
-      if (item.address_id == address.address_id) {
-        item = address;
-        print(item.toJson());
-        break;
-      }
-    }
-    if (add) this.address.add(address);
+    this.address.removeWhere((element){ return element.address_id==address.address_id;});
+    this.address.add(address);
     notifyListeners();
   }
 }

@@ -29,6 +29,7 @@ class _NumberControllerWidgetState extends State<NumberControllerWidget> {
 
   @override
   void initState() {
+    textController.text = widget.numText;
     super.initState();
   }
 
@@ -56,29 +57,26 @@ class _NumberControllerWidgetState extends State<NumberControllerWidget> {
                     right: BorderSide(width: 1,color: Colors.black12)
                   )
                 ),
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(widget.numText, style: TextStyle(fontSize: 12),),
-                )
-//                TextField(
-//                  controller: textController,
-//                  keyboardType: TextInputType.number,
-//                  textAlign: TextAlign.center,
-//                  style: TextStyle(
-//                    fontSize: 12
-//                  ),
-//                  enableInteractiveSelection: false,
-//                  decoration: InputDecoration(
-//                    contentPadding: EdgeInsets.only(left: 0,top: 2,bottom: 2,right: 0),
-//                    border: const OutlineInputBorder(
-//                      gapPadding: 0,
-//                      borderSide: BorderSide(
-//                        width: 0,
-//                        style: BorderStyle.none,
-//                      ),
-//                    ),
-//                  ),
-//                ),
+                child: TextField(
+                  enabled: false,
+                  controller: textController,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12
+                  ),
+                  enableInteractiveSelection: false,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 0,top: 2,bottom: 2,right: 0),
+                    border: const OutlineInputBorder(
+                      gapPadding: 0,
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               //加号
               CoustomIconButton(icon: Icons.add,isAdd: true),
