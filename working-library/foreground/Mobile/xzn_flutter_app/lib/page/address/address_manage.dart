@@ -92,7 +92,7 @@ class _AddressManageState extends State<AddressManage> {
 
   @override
   void initState() {
-    _future = getAddressList(context, getToken(context));
+    _future = getAddressList(context);
     super.initState();
   }
 

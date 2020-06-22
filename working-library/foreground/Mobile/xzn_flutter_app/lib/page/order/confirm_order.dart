@@ -104,7 +104,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
   @override
   void initState() {
     super.initState();
-    _future = getAddressList(context, getToken(context));
+    _future = getAddressList(context);
     try {
       address = Provider.of<AddressModel>(context, listen: false).address[0];
     } catch (e) {
@@ -143,6 +143,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       size: 48,
                     );
                   } else {
+                    print(snapshot.data);
                     Address address_sub = address ??
                         (snapshot.data.length == 0 ? null : snapshot.data[0]);
                     widget = address_sub == null

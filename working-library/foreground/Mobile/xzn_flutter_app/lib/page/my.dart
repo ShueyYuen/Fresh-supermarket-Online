@@ -19,7 +19,6 @@ class _MyState extends State<My> {
   Widget build(BuildContext context) {
     bool isLogin = Provider.of<UserModel>(context, listen: true).isLogin;
     User user = Provider.of<UserModel>(context, listen: true).user;
-    print(Provider.of<UserModel>(context, listen: true).user.toJson());
     return Scaffold(
         appBar: AppBar(
           title: Text("我的"),

@@ -69,7 +69,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 90),
+                    padding: EdgeInsets.symmetric(horizontal: 40),
                     child: FlatButton(
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(

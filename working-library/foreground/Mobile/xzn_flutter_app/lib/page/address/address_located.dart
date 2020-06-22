@@ -157,21 +157,6 @@ class _AddressLocatedState extends State<AddressLocated> {
               },
             );
           }),
-//          ListTile(
-//            leading: Container(
-//              height: 40,
-//              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-//              child: Text(
-//                "●",
-//                style: TextStyle(fontSize: 10, color: Colors.orangeAccent),
-//              ),
-//            ),
-//            title: Text(
-//              "华东理工大学奉贤校区信息大楼",
-//              style: TextStyle(color: Colors.orangeAccent),
-//            ),
-//            subtitle: Text("海思路999号华东理工大学奉贤校区信息大楼"),
-//          ),
         ],
       ),
     );
