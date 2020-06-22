@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
@@ -29,12 +31,12 @@ class OrderDetail extends StatelessWidget {
     Widget placeholder = Image.asset(
       "assets/image/default_picture.webp", //头像占位图，加载过程中显示
     );
-    final List<String> order_stat = ["已取消","待付款","已付款","已送达","已完成"];
-    print(order.note);
+    final List<String> order_stat = ["已取消", "待付款", "已付款", "已送达", "已完成"];
+    print(order.remarks.toString());
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
-          title: Text("订单"+order_stat[order.order_status]),
+          title: Text("订单" + order_stat[order.order_status]),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.headset_mic),
@@ -77,7 +79,9 @@ class OrderDetail extends StatelessWidget {
                 runSpacing: 10,
                 children: <Widget>[
                   ...order.product_list.map<Widget>((order_item) {
-                    return OrderProductCard(cartItem: order_item,);
+                    return OrderProductCard(
+                      cartItem: order_item,
+                    );
 //                    return ListTile(
 //                      leading: PictureSelf(
 //                          order_item.product.picture_list["shuffle"][0],
@@ -276,8 +280,9 @@ class OrderDetail extends StatelessWidget {
                         title: Text("订单备注"),
                         trailing: Container(
                           width: 200,
+                          alignment: Alignment.centerRight,
                           child: Text(
-                            order.note ?? "",
+                            order.remarks.toString(),
                             style: TextStyle(fontSize: 14),
                           ),
                         )),

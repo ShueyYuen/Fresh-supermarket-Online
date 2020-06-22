@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
+import 'package:xzn/widget/product/search_card.dart';
 
 class CartRecommend extends StatefulWidget {
   @override

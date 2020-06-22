@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:xzn/page/search_page.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
-import 'package:xzn/states/profile_change_notifier.dart';
+import 'package:xzn/widget/product/search_card.dart';
 
 class Classification extends StatefulWidget {
   Classification({
@@ -55,23 +54,22 @@ class _ClassificationState extends State<Classification> {
       length: _tabValues.length,
       vsync: ScrollableState(),
     );
-    _controller.index = widget.idx;
+    _controller.index = widget.idx??0;
     _controller.addListener(() {
       setState(() {
         _activeIndex = _controller.index;
-        // 下一句更新_future即重新请求不同类型
-        _future =
-            getSearchResultProduct(token:getToken(context), type: _tabValues[_controller.index]);
       });
     });
-    // 商品卡片所需
     _token = getToken(context);
-    _future =
-        getSearchResultProduct(type: _tabValues[_controller.index]);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_token != "")
+      _future = getSearchResultProduct(
+          token: _token, type: _tabValues[_controller.index]);
+    else
+      _future = getSearchResultProduct(type: _tabValues[_controller.index]);
     return Scaffold(
       appBar: PreferredSize(
         child: AppBar(

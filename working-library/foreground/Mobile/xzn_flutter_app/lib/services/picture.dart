@@ -48,6 +48,7 @@ Widget PictureSelf(String url,
       Image.asset(
         "assets/image/default_picture.webp", //头像占位图，加载过程中显示
         fit: BoxFit.cover,
+        width: width,
       );
   String imageUrl = Config.baseUrl() +
       "picture/" +
