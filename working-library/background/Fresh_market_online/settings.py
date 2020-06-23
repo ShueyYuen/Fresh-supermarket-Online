@@ -87,7 +87,8 @@ DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'xzn',
-        'USER':'root',
+        # 'USER':'xzn_root',
+        'USER':'xzn_root',
         #'PASSWORD':'123456',
         'PASSWORD':'XZN_123456',
         'HOST':'127.0.0.1',
