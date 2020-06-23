@@ -193,7 +193,6 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   bool selectAll = false;
   var _future;
-  var _futureRecomend;
   List<String> selected = List<String>();
 
   _handleSelect(String product_id) {
@@ -244,7 +243,6 @@ class _CartState extends State<Cart> {
   void initState() {
     super.initState();
     _future = getCartProductList(context);
-    _futureRecomend = getProductRecommendList(getToken(context), quantity: 10);
   }
 
   @override
@@ -306,6 +304,7 @@ class _CartState extends State<Cart> {
               );
             } else {
 //              print(DemoLocalizations.of(context).title);
+            print("我来做Widget");
               if (Provider.of<UserModel>(context).isLogin)
                 widget = ListView(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

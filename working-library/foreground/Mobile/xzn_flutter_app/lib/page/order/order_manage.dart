@@ -93,7 +93,7 @@ class _OrderManageState extends State<OrderManage> {
                         _activeIndex != 0 && !(element.order_status == _activeIndex));
 //                    print(data[0].product_list);
                     widget = ListView(
-                      children: data.map<Widget>((order) {
+                      children: data.reversed.map<Widget>((order) {
                         return OrderCard(
                           order: order,
                           onUpdate: () {setState(() {

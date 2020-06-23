@@ -3,7 +3,6 @@ import "user.dart";
 import "cartItem.dart";
 import "address.dart";
 import "order.dart";
-import "ads.dart";
 part 'profile.g.dart';
 
 @JsonSerializable()
@@ -15,9 +14,7 @@ class Profile {
     List<CartItem> cart;
     List<Address> address;
     List<Order> order;
-    String token;
     Address default_address;
-    List<Ads> ads;
     
     factory Profile.fromJson(Map<String,dynamic> json) => _$ProfileFromJson(json);
     Map<String, dynamic> toJson() => _$ProfileToJson(this);

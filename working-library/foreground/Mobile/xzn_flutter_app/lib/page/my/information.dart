@@ -212,7 +212,6 @@ class _InformationState extends State<Information> {
                         onSelected: (v) {
                           setState(() {
                             sex_choose = _key;
-                            print(sex_choose);
                           });
                         },
                         selectedColor: Theme.of(context).primaryColor,

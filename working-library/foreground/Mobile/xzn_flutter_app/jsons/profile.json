@@ -4,7 +4,5 @@
   "cart": "$[]cartItem",
   "address": "$[]address",
   "order": "$[]order",
-  "token": "",
-  "default_address": "$address",
-  "ads": "$[]ads"
+  "default_address": "$address"
 }

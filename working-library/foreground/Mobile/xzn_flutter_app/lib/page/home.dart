@@ -32,7 +32,6 @@ class _HomeState extends State<Home> {
   }
 
   void loadProducts() async {
-    print(wordsList.length);
     List<Product> products = await getProductRecommendList(token, quantity: 10);
     wordsList.insertAll(wordsList.length, products);
     if (wordsList.length > 51) wordsList.removeRange(51, wordsList.length);

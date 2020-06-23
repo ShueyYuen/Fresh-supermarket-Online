@@ -4,6 +4,69 @@ import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
 import 'package:xzn/widget/product/search_card.dart';
 
+class ClassificationTab extends StatefulWidget {
+  ClassificationTab({Key key, this.type}):super(key: key);
+  String type;
+
+  @override
+  _ClassficationTabState createState() => _ClassficationTabState();
+}
+
+class _ClassficationTabState extends State<ClassificationTab> {
+
+  var _future;
+
+  @override
+  void initState() {
+    String _token = getToken(context);
+    if (_token != "")
+      _future = getSearchResultProduct(
+        token: _token, type: widget.type);
+    else
+      _future = getSearchResultProduct(type: widget.type);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+          return FutureBuilder(
+            future: _future,
+            builder: (context, snapshot) {
+              var widget;
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  widget = Icon(
+                    Icons.error,
+                    color: Colors.red,
+                    size: 48,
+                  );
+                } else {
+                  widget = GridView(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, //横轴三个子widget
+                        childAspectRatio: 1.0 / 1.3 //宽高比为1时，子widget
+                        ),
+                    children: snapshot.data.map<Widget>((product) {
+                      return SearchCard(
+                        product: product,
+                      );
+                    }).toList(),
+                  );
+                }
+              } else {
+                widget = Container(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ));
+              }
+              return widget;
+            },
+          );
+  }
+}
+
 class Classification extends StatefulWidget {
   Classification({
     Key key,
@@ -36,40 +99,35 @@ class _ClassificationState extends State<Classification> {
     '上海市崇明区'
   ];
 
+  final List<Widget> _tabs = [null, null, null, null, null];
+
   TabController _controller;
   int _activeIndex = 0;
   bool click = false;
   String type_value;
 
-  // 商品卡片所需
-  var _future;
-  String _token;
-
   @override
   void initState() {
     super.initState();
-    print(widget.idx);
-
     _controller = TabController(
       length: _tabValues.length,
       vsync: ScrollableState(),
     );
-    _controller.index = widget.idx??0;
+    _controller.index = widget.idx ?? 0;
     _controller.addListener(() {
       setState(() {
         _activeIndex = _controller.index;
-      });
+       });
     });
-    _token = getToken(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_token != "")
-      _future = getSearchResultProduct(
-          token: _token, type: _tabValues[_controller.index]);
-    else
-      _future = getSearchResultProduct(type: _tabValues[_controller.index]);
+//    if (_token != "")
+//      _future = getSearchResultProduct(
+//          token: _token, type: _tabValues[_controller.index]);
+//    else
+//      _future = getSearchResultProduct(type: _tabValues[_controller.index]);
     return Scaffold(
       appBar: PreferredSize(
         child: AppBar(
@@ -200,42 +258,13 @@ class _ClassificationState extends State<Classification> {
       body: TabBarView(
         controller: _controller,
         children: _tabValues.map((f) {
-          // 商品推荐卡片
-          return FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-              var widget;
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasError) {
-                  widget = Icon(
-                    Icons.error,
-                    color: Colors.red,
-                    size: 48,
-                  );
-                } else {
-                  widget = GridView(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, //横轴三个子widget
-                        childAspectRatio: 1.0 / 1.3 //宽高比为1时，子widget
-                        ),
-                    children: snapshot.data.map<Widget>((product) {
-                      return SearchCard(
-                        product: product,
-                      );
-                    }).toList(),
-                  );
-                }
-              } else {
-                widget = Container(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: CircularProgressIndicator(),
-                    ));
-              }
-              return widget;
-            },
-          );
+          int idx = _tabValues.indexOf(f);
+          if (_tabs[idx] == null) {
+            setState(() {
+              _tabs[idx] == ClassificationTab(type: f,);
+            });
+          }
+          return _tabs[idx];
         }).toList(),
       ),
     );

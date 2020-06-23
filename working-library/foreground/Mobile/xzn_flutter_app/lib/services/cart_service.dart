@@ -40,6 +40,9 @@ getCartProductList(BuildContext context) async {
 //  }
 //  return cart_list;
   await Provider.of<CartModel>(context, listen: false).load();
+  print("我来这啦");
+  print(Provider.of<CartModel>(context, listen: false).cart);
+  print("加载结束了");
   return Provider.of<CartModel>(context, listen: false).cart;
 }
 

@@ -72,8 +72,6 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
   }
 
   void getSearch() {
-    print(_key.text);
-    print(filter.toJson());
     setState(() {
       _future = getSearchResultProduct(token: token,
           key: _key.text,
@@ -301,7 +299,6 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                           filter.min = int.parse(_min.text);
                         else
                           filter.min = null;
-                        print(filter.toJson());
                       },
                       child: GestureDetector(
                         onTap: () {

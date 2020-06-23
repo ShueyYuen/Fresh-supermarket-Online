@@ -27,7 +27,6 @@ class AddressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(address.detail.toJson());
     return Container(
       child: Column(
         children: <Widget>[
@@ -113,12 +112,15 @@ class _AddressManageState extends State<AddressManage> {
         centerTitle: true,
         actions: PlatformUtils.isWeb?null:<Widget>[
           FlatButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+              onPressed: () async {
+                bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Provider.of<UserModel>(context).isLogin?AddressEdit(
                     edit: false,
                   ):LoginChoose();
                 }));
+                setState(() {
+                  print("增加");
+                });
               },
               child: Text("新增地址", style: TextStyle(color: Colors.white)))
         ],
@@ -135,7 +137,6 @@ class _AddressManageState extends State<AddressManage> {
                 size: 48,
               );
             } else {
-              print(snapshot.data);
               try {
                 widget = ListView(
                   children: snapshot.data?.map<Widget>((address) {

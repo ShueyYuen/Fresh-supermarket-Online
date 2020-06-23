@@ -18,13 +18,10 @@ class _AddressLocatedState extends State<AddressLocated> {
   List<SelfNearItem> candidate = List<SelfNearItem>();
 
   void positionChange(value) {
-    print("回调");
     setState(() {
       this.position = value;
     });
-    print("请求前");
     getNearAddress();
-    print("请求后");
   }
 
   Future<List<Widget>> getNearAddress() async {
@@ -35,7 +32,6 @@ class _AddressLocatedState extends State<AddressLocated> {
             "," +
             position.latitude.toString() +
             "&poitype=&radius=500&extensions=all&batch=true&roadlevel=0";
-    print(amap_api);
     var res = await http.get(amap_api);
     var json = jsonDecode(res.body);
     for (var item in json["regeocodes"]) {
@@ -50,7 +46,6 @@ class _AddressLocatedState extends State<AddressLocated> {
             "township": amapNearItem.addressComponent["township"],
             "build": poi["name"]
           }));
-          print(amapNearItem.addressComponent["city"]);
         }
       } catch (e) {
         print(e.toString());
@@ -131,7 +126,6 @@ class _AddressLocatedState extends State<AddressLocated> {
                               color: Colors.black,
                             ),
                             onPressed: () {
-                              print(search_key.text);
                             },
                           ),
                         )

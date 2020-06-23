@@ -427,28 +427,33 @@ class ProductPage extends StatelessWidget {
                             onPressed: () async {
                               if (!Provider.of<UserModel>(context).isLogin)
                                 await Navigator.pushNamed(context, "login");
-                              await getCartProductList(context);
-                              Provider.of<CartModel>(context).add(product, 1);
-                              var snackBar = SnackBar(
-                                duration: Duration(seconds: 1),
-                                content: Container(
-                                  alignment: Alignment.topCenter,
-                                  height: 60,
-                                  margin: EdgeInsets.only(bottom: 20),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.check,
-                                        color: Colors.green,
-                                      ),
-                                      Text(
+                              if (Provider.of<UserModel>(context).isLogin) {
+                                await getCartProductList(context);
+                                await updateCart(context, CartItem.fromJson({
+                                  "product": product.toJson(),
+                                  "number": 1
+                                }));
+                                var snackBar = SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  content: Container(
+                                    alignment: Alignment.topCenter,
+                                    height: 60,
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.check,
+                                          color: Colors.green,
+                                        ),
+                                        Text(
                                           product.product_name + '已经在购物车躺好等您咯！')
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                behavior: SnackBarBehavior.fixed,
-                              );
-                              Scaffold.of(context).showSnackBar(snackBar);
+                                  behavior: SnackBarBehavior.fixed,
+                                );
+                                Scaffold.of(context).showSnackBar(snackBar);
+                              }
                             },
                             child: Text(
                               "加入购物车",

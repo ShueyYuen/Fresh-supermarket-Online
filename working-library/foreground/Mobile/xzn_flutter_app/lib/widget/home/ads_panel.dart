@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/ads.dart';
 import 'package:xzn/models/product.dart';
@@ -8,6 +9,7 @@ import 'package:xzn/page/web_view.dart';
 import 'package:xzn/services/ads_service.dart';
 import 'package:xzn/services/product_service.dart';
 import 'package:xzn/services/token.dart';
+import 'package:xzn/states/profile_change_notifier.dart';
 
 class AdsCard extends StatelessWidget {
   AdsCard({this.ads, this.mini: false});
@@ -62,7 +64,7 @@ class _AdsPanelState extends State<AdsPanel> {
 
   @override
   void initState() {
-    _future = getAdsList("");
+    _future = getAdsList(context);
     super.initState();
   }
 
@@ -81,12 +83,8 @@ class _AdsPanelState extends State<AdsPanel> {
               size: 48,
             );
           } else {
-            print(snapshot.data[0].toJson());
             widget = Column(
               children: <Widget>[
-//                  ...snapshot.data.map((cartItem) {
-//                    return Text("C");
-//                  }),
                 Flex(
                   direction: Axis.horizontal,
                   children: <Widget>[
@@ -98,9 +96,6 @@ class _AdsPanelState extends State<AdsPanel> {
                     )
                   ],
                 ),
-//                  SizedBox(
-//                    height: 30,
-//                  ),
                 Flex(
                   direction: Axis.horizontal,
                   children: <Widget>[

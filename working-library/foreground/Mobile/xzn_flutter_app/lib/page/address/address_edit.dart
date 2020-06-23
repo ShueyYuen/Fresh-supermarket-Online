@@ -30,7 +30,6 @@ class _AddressEditState extends State<AddressEdit> {
   void initState() {
     if (widget.edit) {
       selfNearItem = SelfNearItem();
-      print(widget.address.toJson());
       var json = widget.address.toJson();
       var detail = widget.address.detail.toJson();
       json["detail"] = detail;

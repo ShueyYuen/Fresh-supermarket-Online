@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:xzn/conf/config.dart';
 import 'package:xzn/models/address.dart';
+import 'package:xzn/models/ads.dart';
 import 'package:xzn/models/order.dart';
 import 'package:xzn/services/address_service.dart';
 import '../common/global.dart';
@@ -53,6 +54,7 @@ class CartModel extends ProfileChangeNotifier {
   }
 
   void load() async {
+    print("加载了呢$is_cart_loaded,load");
     if (is_cart_loaded) return;
     try {
       List<CartItem> cart_list = List<CartItem>();
@@ -60,7 +62,9 @@ class CartModel extends ProfileChangeNotifier {
       var dio = new Dio();
       var body = {"token": _profile.user.token};
       FormData formData = new FormData.fromMap(body);
+      print("请求开始,load");
       var res = await dio.post(url, data: formData);
+      print("请求结束,load");
       var json = jsonDecode(res.data.toString());
       for (var item in json) {
         try {
@@ -70,10 +74,9 @@ class CartModel extends ProfileChangeNotifier {
           print(e.toString());
         } finally {}
       }
+      print("加载完购物车");
       cart = cart_list;
-    }catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   void delete(String product_id) {

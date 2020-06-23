@@ -59,6 +59,18 @@ $> keytool -list -v -keystore "\.android\debug.keystore" -alias androiddebugkey 
 # 地图接口
 [Amap说明](https://lbs.amap.com/api/webservice/guide/api/georegeo/)
 
+# 网页版编译
+编译网页端注释json_model
+```bash
+flutter packages pub global activate webdev
+flutter pub global run webdev build
+```
+直接允行：
+```bash
+flutter packages pub global activate webdev
+flutter packages upgrade
+```
+
 # 问题
 #### Flutter应用黑屏一帧
 [解决方法](https://www.jianshu.com/p/50df18098547)
