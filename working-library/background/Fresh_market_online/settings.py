@@ -90,7 +90,7 @@ DATABASES = {
         'USER':'root',
         #'PASSWORD':'123456',
         'PASSWORD':'XZN_123456',
-        'HOST':'',
+        'HOST':'127.0.0.1',
         'PORT':'',
     }
 }
