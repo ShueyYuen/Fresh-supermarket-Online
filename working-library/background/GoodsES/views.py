@@ -20,6 +20,8 @@ def ESdata(hosts):
     # 获取Mysql登录数据
     goods_data = Goods.objects.filter().values()
     es = Elasticsearch(hosts=hosts, port=9200)
+    data = {'goods_name':d['goods_name'],'goods_id':d['goods_id'] }
+    es.index(index='goods', doc_type="doc", body=data)
     #清除
     delete_by_all = {"query": {"match_all": {}}}
     result = es.delete_by_query(index="goods",body=delete_by_all)
