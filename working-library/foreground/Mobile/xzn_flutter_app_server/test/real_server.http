@@ -2,9 +2,10 @@
 @hostname = xzn.cofal.top
 # @hostname = 203.195.149.30
 
-@port = 8010
+# @port = 8010
 
-@host = {{protocol}}://{{hostname}}:{{port}}
+@host = {{protocol}}://{{hostname}}
+# :{{port}}
 
 POST {{host}}/api/user/product/recommend HTTP/1.1
 content-type: application/json

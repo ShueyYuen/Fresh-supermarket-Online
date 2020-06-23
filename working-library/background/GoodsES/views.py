@@ -13,7 +13,8 @@ from Fresh_market_online.model import Goods, User, History
 from GoodsAPI.views import getpicture
 from LoginAPI.token_module import out_token
 
-hosts = '172.16.0.8'
+#hosts = '172.16.0.8'
+hosts = 'localhost'
 @csrf_exempt
 def ESdata(hosts):
     # 获取Mysql登录数据
