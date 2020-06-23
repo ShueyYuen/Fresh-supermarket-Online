@@ -35,18 +35,16 @@ getAddressDetail(address) async {
   if (json["geocodes"][0]["street"].length == 0) {
     addressMap.street = "";
   } else {
-    addressMap.street = json["geocodes"][0]["street"][0];
+    addressMap.street = json["geocodes"][0]["street"];
   }
   if (json["geocodes"][0]["number"].length == 0) {
     addressMap.no = "";
   } else {
-    addressMap.no = json["geocodes"][0]["number"][0];
+    addressMap.no = json["geocodes"][0]["number"];
   }
-
   var location = json["geocodes"][0]["location"].toString().split(",");
   addressMap.longitude = double.parse(location[0]);
   addressMap.latitude = double.parse(location[1]);
-
   return addressMap;
 }
 
