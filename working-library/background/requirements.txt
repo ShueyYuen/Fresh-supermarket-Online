@@ -15,6 +15,6 @@ redis==3.5.3
 requests==2.23.0
 six==1.15.0
 sqlparse==0.3.1
-urllib3==1.25.9
+urllib3==1.26.5
 wincertstore==0.2
 yunpian-python-sdk==1.0.0
